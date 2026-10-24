@@ -1,6 +1,6 @@
 // Raw -> data/clean/<source>.jsonl (see docs/data/<source>.md). One record per line, sorted by ts, where
 // ts is when the fact became public. Records that cannot be timestamped are dropped.
-// Usage: node doomclock/pipeline/fetch/clean.ts [hn|aiid|epoch|metr|doomsday_clock ...]
+// Usage: node doomclock/pipeline/fetch/clean.ts [aiid|epoch|metr|doomsday_clock ...]
 import { readdirSync, readFileSync, existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { RAW } from "../lib/raw.ts";
@@ -40,31 +40,6 @@ function csv(text: string): Record<string, string>[] {
 }
 
 const jobs: Record<string, () => void> = {
-  // HN: all fetched stories, points >= 20 (the backtest only uses stories >= 48 h old), ambiguous-only matches dropped.
-  hn() {
-    // Algolia prefix-matches ("AI" hits "AirPods"), so every story must also look AI-related in its title,
-    // unless a distinctive query (not "AI") matched it.
-    const SURE = new Set(["OpenAI", "Anthropic", "DeepMind", "superintelligence"]);
-    const AIISH = /\b(ai|a\.i\.|llms?|gpt\S*|chatgpt|anthropic|openai|deepmind|neural|machine learning|language models?|superintelligen\w*|agi|claude( code| opus| sonnet| haiku| \d)?|gemini (pro|flash|ultra|nano|cli|\d\S*|ai)|copilot|alignment)\b/i;
-    const byId = new Map<string, Record<string, any>>();
-    for (const q of readdirSync(join(RAW, "hn"))) {
-      for (const f of readdirSync(join(RAW, "hn", q))) {
-        if (!f.endsWith(".json")) continue;
-        for (const h of JSON.parse(read("hn", q, f)).hits as any[]) {
-          if ((h.points ?? 0) < 20 || !h.title || !h.created_at_i || h.created_at_i * 1000 < Date.parse(START)) continue;
-          const r = byId.get(h.objectID) ?? {
-            ts: iso(h.created_at_i * 1000), source: "hn", kind: "story", id: h.objectID,
-            url: `https://news.ycombinator.com/item?id=${h.objectID}`, title: h.title, link: h.url ?? null,
-            points: h.points, num_comments: h.num_comments ?? 0, queries: [] as string[],
-          };
-          if (!r.queries.includes(q)) r.queries.push(q);
-          byId.set(h.objectID, r);
-        }
-      }
-    }
-    write("hn", [...byId.values()].filter((r) => r.queries.some((q: string) => SURE.has(q)) || AIISH.test(r.title)));
-  },
-
   // AIID: incidents; ts = max(earliest report publication, event_date 00:00Z): an incident can't be public
   // before it happened (31 incidents have a linked report dated before event_date). The window is on first_report_ts.
   aiid() {

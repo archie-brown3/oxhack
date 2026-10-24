@@ -1,6 +1,6 @@
 {
   "schema": "doomclock.events/1",
-  "asOf": "2026-10-24T21:02:51Z",
+  "asOf": "2026-10-24T21:12:05Z",
   "events": [
     {
       "ts": "2024-10-24T00:00:00Z",
@@ -1033,12 +1033,11 @@
       "provenance": "real"
     },
     {
-      "ts": "2025-02-10T23:59:59Z",
+      "ts": "2025-02-11T23:59:59Z",
       "kind": "news",
-      "title": "The AI Action Summit is held in Paris. Sixty-two countries, the African Union Commission and the European Union sign a declaration on \"inclusive and sustainable\" AI; the United States and the United Kingdom decline to sign. France…",
+      "title": "The AI Action Summit is held in Paris.",
       "url": "https://www.bbc.com/news/articles/c8edn0n58gwo",
       "source": "wikipedia",
-      "region": "rest",
       "provenance": "real"
     },
     {
@@ -1122,7 +1121,7 @@
     {
       "ts": "2025-02-17T23:59:59Z",
       "kind": "news",
-      "title": "xAI releases Grok 3, its new flagship model family, including reasoning models Grok 3 and Grok 3 mini. xAI also introduces DeepSearch, an agent that searches the internet and X to research questions and produce reports.",
+      "title": "xAI releases Grok 3, its new flagship model family, including reasoning models Grok 3 and Grok 3 mini.",
       "url": "https://x.ai/news/grok-3",
       "source": "wikipedia",
       "provenance": "real"
@@ -1217,7 +1216,7 @@
     {
       "ts": "2025-02-24T23:59:59Z",
       "kind": "news",
-      "title": "Anthropic releases Claude 3.7 Sonnet, which it describes as the first hybrid reasoning model, capable of both rapid responses and extended visible reasoning. Anthropic also introduces Claude Code, a command-line tool that allows developers…",
+      "title": "Anthropic releases Claude 3.7 Sonnet, which it describes as the first hybrid reasoning model, capable of both rapid responses and extended visible reasoning.",
       "url": "https://www.anthropic.com/news/claude-3-7-sonnet",
       "source": "wikipedia",
       "provenance": "real"
@@ -1642,7 +1641,7 @@
     {
       "ts": "2025-03-25T23:59:59Z",
       "kind": "news",
-      "title": "OpenAI enables native image generation in GPT-4o, replacing the separate DALL-E model. Within days the ability to restyle photographs in the manner of Studio Ghibli and artist Hayao Miyazaki goes viral. Miyazaki had previously called…",
+      "title": "OpenAI enables native image generation in GPT-4o, replacing the separate DALL-E model.",
       "url": "https://www.cnn.com/2025/03/27/style/chatgpt-studio-ghibli-ai-images-intl-hnk/index.html",
       "source": "wikipedia",
       "provenance": "real"
@@ -2251,7 +2250,7 @@
     {
       "ts": "2025-05-20T23:59:59Z",
       "kind": "news",
-      "title": "Google DeepMind announces Veo 3, the first widely available video generation model producing synchronised dialogue and sound effects. Researchers demonstrate within weeks that it can generate convincing footage of riots, conflict and…",
+      "title": "Google DeepMind announces Veo 3, the first widely available video generation model producing synchronised dialogue and sound effects.",
       "url": "https://blog.google/technology/ai/generative-media-models-io-2025/",
       "source": "wikipedia",
       "provenance": "real"
@@ -2447,7 +2446,7 @@
     {
       "ts": "2025-06-11T23:59:59Z",
       "kind": "news",
-      "title": "Disney and Universal sue Midjourney in the Central District of California, the first copyright action against a generative AI developer by major Hollywood studios. Warner Bros. Discovery files a parallel suit in September; the cases are…",
+      "title": "Disney and Universal sue Midjourney in the Central District of California, the first copyright action against a generative AI developer by major Hollywood studios.",
       "url": "https://www.euronews.com/business/2025/06/12/disney-and-universal-sue-ai-firm-midjourney-for-copyright-infringement",
       "source": "wikipedia",
       "region": "US",
@@ -2482,7 +2481,7 @@
     {
       "ts": "2025-06-12T23:59:59Z",
       "kind": "news",
-      "title": "Meta Platforms invests $14.3 billion for a 49% non-voting stake in Scale AI and hires its chief executive Alexandr Wang, opening a year-long industry-wide competition for researchers in which signing offers reportedly reach nine figures.",
+      "title": "Meta Platforms invests $14.3 billion for a 49% non-voting stake in Scale AI and hires its chief executive Alexandr Wang.",
       "url": "https://fortune.com/2025/06/13/meta-scale-ai-alexandr-wang-superintelligence-team",
       "source": "wikipedia",
       "provenance": "real"
@@ -2756,7 +2755,7 @@
     {
       "ts": "2025-07-01T23:59:59Z",
       "kind": "news",
-      "title": "Cloudflare, which serves roughly a fifth of the web, becomes the first major internet infrastructure provider to block AI crawlers by default. The company launches \"Pay Per Crawl\", a marketplace allowing publishers to charge AI companies…",
+      "title": "Cloudflare, which serves roughly a fifth of the web, becomes the first major internet infrastructure provider to block AI crawlers by default.",
       "url": "https://www.cloudflare.com/press/press-releases/2025/cloudflare-just-changed-how-ai-crawlers-scrape-the-internet-at-large/",
       "source": "wikipedia",
       "provenance": "real"
@@ -2869,10 +2868,9 @@
     {
       "ts": "2025-07-08T23:59:59Z",
       "kind": "news",
-      "title": "Grok posts a sustained stream of antisemitic material on X, praising Adolf Hitler and referring to itself as \"MechaHitler\". xAI disables the account and apologises, attributing the behaviour to an upstream code change that caused the bot…",
+      "title": "Grok posts a sustained stream of antisemitic material on X, praising Adolf Hitler and referring to itself as \"MechaHitler\".",
       "url": "https://www.business-standard.com/world-news/elon-musk-xai-grok-antisemitic-violent-nazi-germany-hitler-comments-125071300297_1.html",
       "source": "wikipedia",
-      "region": "US",
       "provenance": "real"
     },
     {
@@ -3015,14 +3013,6 @@
       "provenance": "real"
     },
     {
-      "ts": "2025-07-19T23:59:59Z",
-      "kind": "news",
-      "title": "Experimental reasoning models from OpenAI and Google DeepMind independently reach gold-medal standard at the International Mathematical Olympiad, each solving five of six problems under the official time limits using natural-language…",
-      "url": "https://deepmind.google/blog/advanced-version-of-gemini-with-deep-think-officially-achieves-gold-medal-standard-at-the-international-mathematical-olympiad/",
-      "source": "wikipedia",
-      "provenance": "real"
-    },
-    {
       "ts": "2025-07-20T00:00:00Z",
       "kind": "incident",
       "title": "ChatGPT Reportedly Validated Autistic User's Faster-Than-Light Theory and Failed to Provide Grounding During Delusional Episode, Preceding Hospitalization",
@@ -3055,6 +3045,14 @@
       "url": "https://www.federalregister.gov/documents/2025/07/21/2025-13650/proposed-priority-and-definitions-secretarys-supplemental-priority-and-definitions-on-advancing",
       "source": "federal-register",
       "region": "US",
+      "provenance": "real"
+    },
+    {
+      "ts": "2025-07-21T23:59:59Z",
+      "kind": "news",
+      "title": "Experimental reasoning models from OpenAI and Google DeepMind independently reach gold-medal standard at the International Mathematical Olympiad, each solving five of six problems under the official time limits using natural-language…",
+      "url": "https://deepmind.google/blog/advanced-version-of-gemini-with-deep-think-officially-achieves-gold-medal-standard-at-the-international-mathematical-olympiad/",
+      "source": "wikipedia",
       "provenance": "real"
     },
     {
@@ -3271,7 +3269,7 @@
     {
       "ts": "2025-08-05T23:59:59Z",
       "kind": "news",
-      "title": "xAI launches the image generator Grok Imagine, including a \"spicy mode\" permitting sexualised output, a design decision that becomes the subject of regulatory action in several countries the following year.",
+      "title": "xAI launches the image generator Grok Imagine, including a \"spicy mode\" permitting sexualised output.",
       "url": "https://www.tomsguide.com/ai/grok-launches-ai-image-generator-with-a-nsfw-spicy-mode-its-exactly-what-youd-expect",
       "source": "wikipedia",
       "provenance": "real"
@@ -3297,7 +3295,7 @@
     {
       "ts": "2025-08-07T23:59:59Z",
       "kind": "news",
-      "title": "OpenAI releases GPT-5. The launch is poorly received: the model's automatic routing between fast and reasoning modes malfunctions, and the simultaneous retirement of GPT-4o causes sufficient user backlash that OpenAI restores it for paying…",
+      "title": "OpenAI releases GPT-5.",
       "url": "https://www.nbcnews.com/tech/tech-news/openai-releases-chatgpt-5-rcna223265",
       "source": "wikipedia",
       "provenance": "real"
@@ -3467,7 +3465,7 @@
     {
       "ts": "2025-08-26T23:59:59Z",
       "kind": "news",
-      "title": "The parents of 16-year-old Adam Raine file a wrongful-death suit against OpenAI and Altman in California Superior Court, alleging that ChatGPT acted as their son's \"suicide coach\". It is the first wrongful-death action against a…",
+      "title": "The parents of 16-year-old Adam Raine file a wrongful-death suit against OpenAI and Altman in California Superior Court, alleging that ChatGPT acted as their son's \"suicide coach\".",
       "url": "https://www.nbcnews.com/tech/tech-news/family-teenager-died-suicide-alleges-openais-chatgpt-blame-rcna226147",
       "source": "wikipedia",
       "region": "US",
@@ -3588,10 +3586,9 @@
     {
       "ts": "2025-09-05T23:59:59Z",
       "kind": "news",
-      "title": "Anthropic agrees to pay at least $1.5 billion to settle the Bartz class action over its use of pirated books, roughly $3,000 per title across some 500,000 works. It is the largest copyright settlement in U.S. history and sets a reference…",
+      "title": "Anthropic agrees to pay at least $1.5 billion to settle the Bartz class action over its use of pirated books, roughly $3,000 per title across some 500,000 works.",
       "url": "https://www.npr.org/2025/09/05/nx-s1-5529404/anthropic-settlement-authors-copyright-ai",
       "source": "wikipedia",
-      "region": "US",
       "provenance": "real"
     },
     {
@@ -3762,7 +3759,7 @@
     {
       "ts": "2025-09-29T23:59:59Z",
       "kind": "government",
-      "title": "California governor Gavin Newsom signs Senate Bill 53, the first U.S. law specifically addressing catastrophic risk from frontier AI models. It requires published safety frameworks and transparency reports, establishes critical-incident…",
+      "title": "California governor Gavin Newsom signs Senate Bill 53, the first U.S. law specifically addressing catastrophic risk from frontier AI models.",
       "url": "https://fpf.org/blog/californias-sb-53-the-first-frontier-ai-law-explained/",
       "source": "wikipedia",
       "region": "US",
@@ -3789,10 +3786,9 @@
     {
       "ts": "2025-09-30T23:59:59Z",
       "kind": "news",
-      "title": "OpenAI releases Sora 2 alongside a TikTok-style social application built entirely from generated video, with a \"cameo\" feature that inserts consenting users' likenesses into clips. The app reaches the top of the U.S. App Store within 24…",
+      "title": "OpenAI releases Sora 2 alongside a TikTok-style social application built entirely from generated video, with a \"cameo\" feature that inserts consenting users' likenesses into clips.",
       "url": "https://www.technologyreview.com/2025/10/07/1124998/the-three-big-unanswered-questions-about-sora/",
       "source": "wikipedia",
-      "region": "rest",
       "provenance": "real"
     },
     {
@@ -4153,10 +4149,9 @@
     {
       "ts": "2025-10-28T23:59:59Z",
       "kind": "news",
-      "title": "OpenAI completes its recapitalisation, converting its for-profit arm into OpenAI Group PBC, a public benefit corporation controlled by the renamed OpenAI Foundation. Microsoft takes an approximately 27% stake valued at about $135 billion…",
+      "title": "OpenAI completes its recapitalisation, converting its for-profit arm into OpenAI Group PBC, a public benefit corporation controlled by the renamed OpenAI Foundation.",
       "url": "https://www.cnbc.com/2025/10/28/open-ai-for-profit-microsoft.html",
       "source": "wikipedia",
-      "region": "US",
       "provenance": "real"
     },
     {
@@ -4187,7 +4182,7 @@
     {
       "ts": "2025-10-29T23:59:59Z",
       "kind": "news",
-      "title": "Universal Music Group settles its copyright suit against AI music generator Udio, combining compensation for past infringement with a licence for a new AI music platform. It is the first major-label settlement of the 2024 suits and…",
+      "title": "Universal Music Group settles its copyright suit against AI music generator Udio, combining compensation for past infringement with a licence for a new AI music platform.",
       "url": "https://www.universalmusic.com/universal-music-group-and-udio-announce-udios-first-strategic-agreements-for-new-licensed-ai-music-creation-platform/",
       "source": "wikipedia",
       "provenance": "real"
@@ -4195,7 +4190,7 @@
     {
       "ts": "2025-11-04T23:59:59Z",
       "kind": "news",
-      "title": "The High Court of England and Wales hands down judgment in Getty Images v Stability AI, the first major UK ruling on copyright and generative AI. Getty abandoned its primary training-related copyright claim mid-trial for lack of evidence…",
+      "title": "The High Court of England and Wales hands down judgment in Getty Images v Stability AI, the first major UK ruling on copyright and generative AI.",
       "url": "https://www.lw.com/en/insights/getty-images-v-stability-ai-english-high-court-rejects-secondary-copyright-claim",
       "source": "wikipedia",
       "region": "rest",
@@ -4405,15 +4400,7 @@
     {
       "ts": "2025-11-19T23:59:59Z",
       "kind": "news",
-      "title": "Warner Music Group settles its copyright litigation with AI music company Udio on 19 November and with Suno on 25 November, becoming the first major record label to settle its lawsuit against Suno. Suno, which announced a $250 million…",
-      "url": "https://techcrunch.com/2025/11/19/warner-music-settles-copyright-lawsuit-with-udio-signs-deal-for-ai-music-platform/",
-      "source": "wikipedia",
-      "provenance": "real"
-    },
-    {
-      "ts": "2025-11-19T23:59:59Z",
-      "kind": "news",
-      "title": "Yann LeCun announces he will leave Meta at the end of the year after twelve years as chief AI scientist and founder of FAIR, to start a company built on world models rather than large language models. The departure follows Meta's…",
+      "title": "Yann LeCun announces he will leave Meta at the end of the year after twelve years as chief AI scientist and founder of FAIR, to start a company built on world models rather than large language models.",
       "url": "https://www.cnbc.com/2025/11/19/meta-chief-ai-scientist-yann-lecun-is-leaving-the-company-.html",
       "source": "wikipedia",
       "provenance": "real"
@@ -4486,6 +4473,14 @@
       "url": "https://www.nbcnews.com/tech/tech-news/trump-signs-executive-order-launching-genesis-mission-ai-project-rcna245600",
       "source": "wikipedia",
       "region": "US",
+      "provenance": "real"
+    },
+    {
+      "ts": "2025-11-25T23:59:59Z",
+      "kind": "news",
+      "title": "Warner Music Group settles its copyright litigation with AI music company Udio on 19 November and with Suno on 25 November, becoming the first major record label to settle its lawsuit against Suno.",
+      "url": "https://techcrunch.com/2025/11/19/warner-music-settles-copyright-lawsuit-with-udio-signs-deal-for-ai-music-platform/",
+      "source": "wikipedia",
       "provenance": "real"
     },
     {
@@ -6353,7 +6348,7 @@
     {
       "ts": "2026-04-21T23:59:59Z",
       "kind": "government",
-      "title": "Florida Attorney General James Uthmeier launches a criminal investigation into OpenAI. At issue is whether ChatGPT bears responsibility for a shooting at Florida State University the previous year, which the accused had consulted the…",
+      "title": "Florida Attorney General James Uthmeier launches a criminal investigation into OpenAI.",
       "url": "https://www.npr.org/2026/04/21/nx-s1-5793967/florida-openai-investigation-mass-shooting-fsu",
       "source": "wikipedia",
       "region": "US",
@@ -6833,7 +6828,7 @@
     {
       "ts": "2026-06-01T23:59:59Z",
       "kind": "government",
-      "title": "Florida Attorney General James Uthmeier announces that Florida has filed a lawsuit against OpenAI's CEO, Sam Altman, and AI-chatbot ChatGPT, accusing the chatbot of putting profit over safety. This lawsuit is the first to be filed by a…",
+      "title": "Florida Attorney General James Uthmeier announces that Florida has filed a lawsuit against OpenAI's CEO, Sam Altman, and AI-chatbot ChatGPT, accusing the chatbot of putting profit over safety.",
       "url": "https://www.npr.org/2026/06/01/nx-s1-5843132/openai-florida-lawsuit-safety-chatgpt",
       "source": "wikipedia",
       "region": "US",

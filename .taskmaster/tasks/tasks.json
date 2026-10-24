@@ -29,19 +29,19 @@
         "id": 2,
         "title": "[P1 \u00b7 data] Anchors at T + real world events",
         "description": "priceAt(id,T) over data/clean manifold/kalshi -> data/state.json {asOf, anchors[], lagMeanYears}. Also data/events.json: real WorldEvents (AIID incidents with ts = max(first report, event_date), region where known) for Oct 2024 -> now.",
-        "details": "Scope: doomclock/pipeline/state/**, data/state.json, data/events.json, docs/data/state.md. Plain TS, no deps.",
+        "details": "Scope: doomclock/pipeline/state/**, data/state.json, data/events.json, docs/data/state.md. Plain TS, no deps.\nDONE 22:50 (data workflow wf_c8cad685, 30 agents, reviewed): data/state.json (4 anchors + quarterly history), data/market-inputs.json (KXAGICO capability 2024Q4-2035Q4, 0 before 2026Q3), data/events.json (966: aiid 821, wikipedia 80, gov.uk 43, federal-register 18, eur-lex 2, bulletin 2), data/clean/government.jsonl (63), data/clean/wikipedia_ai.jsonl (82), data/signal-inputs.json (regions US .589/China .326/rest .086, AIID \u03bb\u2248109/quarter), lib/price-at.ts (+5 tests). Caveats: no China government events; AIID region by keyword (322 events no region); cat2100 thin (19 traders, 7 closes).",
         "testStrategy": "Fixture test: priceAt reads nothing after T. Anchors match the markets.json pins. events.json validates against WorldEvent.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [],
         "priority": "high",
         "subtasks": [],
-        "updatedAt": "2026-10-24T20:05:00Z"
+        "updatedAt": "2026-10-24T21:50:00Z"
       },
       {
         "id": 14,
         "title": "[P1 \u00b7 data] asOf(T): one point-in-time module",
         "description": "A single module that answers 'what was known at time T': it loads data/clean, normalises ts to Date and market ids, and exposes priceAt(market), anchors(), events() and government(), never returning anything with ts >= T. It replaces the scattered copies (seed.ts latestMarkets, clean-manifold as-of price, markets.json snapshot p, the prototype's own filter). Architecture review candidate 1.",
-        "details": "Scope: doomclock/pipeline/asof/** (or where the data workflow put priceAt: fold it in, not a fifth copy). Feeds the state builder, the timeline, the Inputs view, the backtest and the MiroFish seed.\nSCOPE CUT 24 Oct 22:20: Merged with task 2: the data workflow's priceAt becomes asOf(T). One module, not two tasks. Checkpoint 00:00.\nSPECIFICITY (Archie, 22:30): asOf(T) must also yield anchorHistory (dated price points per anchor) for the per-frame clock. Events carry who/where/detail/major. Enrichment pass after the data workflow: AIID (deployer/developer as who, location as where, severity -> major), government events (agency, document number, jurisdiction, major for executive orders/laws/rules).",
+        "details": "Scope: doomclock/pipeline/asof/** (or where the data workflow put priceAt: fold it in, not a fifth copy). Feeds the state builder, the timeline, the Inputs view, the backtest and the MiroFish seed.\nSCOPE CUT 24 Oct 22:20: Merged with task 2: the data workflow's priceAt becomes asOf(T). One module, not two tasks. Checkpoint 00:00.\nSPECIFICITY (Archie, 22:30): asOf(T) must also yield anchorHistory (dated price points per anchor) for the per-frame clock. Events carry who/where/detail/major. Enrichment pass after the data workflow: AIID (deployer/developer as who, location as where, severity -> major), government events (agency, document number, jurisdiction, major for executive orders/laws/rules).\nPartial: lib/price-at.ts exists (priceAt, strict ts < T, numeric compare). Remaining: wrap it with events/anchors/government into asOf(T) for the Inputs view and per-frame clock.",
         "testStrategy": "A fixture test proves nothing with ts >= T is ever returned, across all sources and both ts formats. seed.ts and state.json both use it.",
         "dependencies": [
           2
@@ -49,13 +49,13 @@
         "priority": "high",
         "status": "pending",
         "subtasks": [],
-        "updatedAt": "2026-10-24T21:35:00Z"
+        "updatedAt": "2026-10-24T21:50:00Z"
       },
       {
         "id": 3,
         "title": "[P1 \u00b7 engine] Timeline builder (the simulation)",
         "description": "Pure engine/timeline.ts: (state, events, seed) -> Timeline (contracts.ts). Quarterly frames Oct 2024 -> 2035: real frames up to asOf, projected after. capability from the Kalshi curve (cummax), regions from the derive/regions metric, pCat per quarter from sim.ts, projected incidents sampled at the AIID base rate (seeded, provenance 'projected'). ClockReading: continuous date10, a range across lag 1..10 y, minutesToMidnight = years to date10. MONTE CARLO (owner, 24 Oct): the engine samples 10,000 futures; buildTimeline(seed|percentile) returns ONE sampled future as a Timeline (futureId + percentile), and the clock reads the distribution across all futures. Built as the deep Timeline module (architecture candidate 2): buildTimeline(world, {seed|percentile}) -> Timeline and readClock(world) -> ClockReading; sim.ts becomes internal; the prototype and the app import it.",
-        "details": "Scope: doomclock/web/src/engine/**. Write engine/fixtures/timeline.fixture.json FIRST so ui and clock can start. Extension point: buildTimeline(..., actions?) \u2014 phase 2 passes game actions to get the 'yours' line.\nSCOPE CUT 24 Oct 22:20: Fold in architecture candidate 3 (one source of types; npm test runs the engine tests). Checkpoint 00:00.\nSPECIFICITY (Archie, 22:30): Per-frame clock from the anchors as of each quarter (world.anchorHistory), plus drivers by leave-one-out attribution (anchor, from->to, ts, traders, url, effectDays, residualDays). Events are context, never causes. Contract fields: WorldFrame.clock, WorldFrame.drivers, WorldEvent.{who, where, major, detail}.",
+        "details": "Scope: doomclock/web/src/engine/**. Write engine/fixtures/timeline.fixture.json FIRST so ui and clock can start. Extension point: buildTimeline(..., actions?) \u2014 phase 2 passes game actions to get the 'yours' line.\nSCOPE CUT 24 Oct 22:20: Fold in architecture candidate 3 (one source of types; npm test runs the engine tests). Checkpoint 00:00.\nSPECIFICITY (Archie, 22:30): Per-frame clock from the anchors as of each quarter (world.anchorHistory), plus drivers by leave-one-out attribution (anchor, from->to, ts, traders, url, effectDays, residualDays). Events are context, never causes. Contract fields: WorldFrame.clock, WorldFrame.drivers, WorldEvent.{who, where, major, detail}.\nData sign-off asks: add StateNode extras (traders, nPrices, lastTradeTs, pRange12m, history[{q,T,p}]), ManifoldPin node/horizonYear, an EventsFile type {schema:'doomclock.events/1', asOf, events} to contracts.ts, and fix the fixture \u03bb (4.2 -> ~109/quarter). Show the 12-month price ranges as the clock's market uncertainty.",
         "testStrategy": "node --test: deterministic per seed; frames contiguous; real/projected split at asOf; date10 monotone in the anchors; under 100 ms.",
         "status": "pending",
         "dependencies": [
@@ -65,7 +65,7 @@
         ],
         "priority": "high",
         "subtasks": [],
-        "updatedAt": "2026-10-24T21:35:00Z"
+        "updatedAt": "2026-10-24T21:50:00Z"
       },
       {
         "id": 4,
@@ -86,7 +86,7 @@
         "id": 11,
         "title": "[P1 \u00b7 world] Recorded runs library (MiroFish ensemble for representative futures)",
         "description": "Pre-run and store, as a replayable library, a small Twitter-only MiroFish ensemble: ~5 representative futures (early -> late by date10), each a few quarters, different seeds. Each quarter's run is seeded with that future's events (government events, news, AIID-style incidents) and the previous quarter's top posts, because every run starts empty. Store per future and quarter: posts, government events, news, alarm (engagement share on the event post, with interview as secondary). The Engine view shows the society for the future being watched. Each stored run carries its seed, run id, timings and cost and is labelled RECORDED. It's the replay mode in the demo and the fallback for the live run.",
-        "details": "Scope: doomclock/pipeline/world/**, data/world/**. Uses the patched backend (English, Twitter-only restart). Budget about $1.50 (about $0.03 per quarter-run), guard capped at $3. Hand-written cast (government, media, labs, a few public archetypes), no Reddit. Warm-up run first.\nSCOPE CUT 24 Oct 22:20: Smaller: 3 representative futures x 4 quarters (~$0.40, ~15 min). Checkpoint 06:00.\nSPECIFICITY (Archie, 22:30): Injected events must be specific (agency, document number, date) or agents treat them as rumours (spike S2). The read-back keeps who/where/detail and flags major. Avatars from doomclock/web/public/avatars (append new accounts to scripts/avatars.accounts.json).",
+        "details": "Scope: doomclock/pipeline/world/**, data/world/**. Uses the patched backend (English, Twitter-only restart). Budget about $1.50 (about $0.03 per quarter-run), guard capped at $3. Hand-written cast (government, media, labs, a few public archetypes), no Reddit. Warm-up run first.\nSCOPE CUT 24 Oct 22:20: Smaller: 3 representative futures x 4 quarters (~$0.40, ~15 min). Checkpoint 06:00.\nSPECIFICITY (Archie, 22:30): Injected events must be specific (agency, document number, date) or agents treat them as rumours (spike S2). The read-back keeps who/where/detail and flags major. Avatars from doomclock/web/public/avatars (append new accounts to scripts/avatars.accounts.json).\nseed.ts still builds its news digest from HN (dropped). Rework it to use data/events.json (government + news + AIID, specific detail) when building the recorded runs.",
         "testStrategy": "5 futures x N quarters on disk, each with at least 10 non-seed posts per quarter. Alarm is computed. Cost is logged. The UI fixture validates.",
         "status": "pending",
         "dependencies": [
@@ -95,7 +95,7 @@
         ],
         "priority": "high",
         "subtasks": [],
-        "updatedAt": "2026-10-24T21:35:00Z"
+        "updatedAt": "2026-10-24T21:50:00Z"
       },
       {
         "id": 12,
@@ -160,7 +160,7 @@
         "id": 6,
         "title": "[P1 \u00b7 backtest] Track record: are the inputs calibrated?",
         "description": "On resolved AI binary questions in data/clean (Manifold, Polymarket), score the market price at T (resolution - 30 d, outcome-blind) against a 50% coin and the base rate: Brier with a bootstrap CI and a 10-bin reliability curve. Writes data/backtest.json.",
-        "details": "Lane backtest. Scope: doomclock/pipeline/backtest/**, data/backtest.json, docs/data/backtest.md. No LLM in phase 1. Disclose survivorship and the \u226520-trader filter.\nSCOPE CUT 24 Oct 22:20: Reduced: market Brier vs coin vs base rate + reliability, out of sample. Checkpoint 06:00.",
+        "details": "Lane backtest. Scope: doomclock/pipeline/backtest/**, data/backtest.json, docs/data/backtest.md. No LLM in phase 1. Disclose survivorship and the \u226520-trader filter.\nSCOPE CUT 24 Oct 22:20: Reduced: market Brier vs coin vs base rate + reliability, out of sample. Checkpoint 06:00.\nBLOCKER from the data sign-off: clean-kalshi.ts skips unsuffixed candle fields, so 1,265 of 3,271 resolved Kalshi markets have no prices. Fix it before the backtest (or score Manifold + Polymarket only, disclosed).",
         "testStrategy": "A fixture test of the Brier maths and priceAt. backtest.json has n, brier per method with CI, and reliability bins.",
         "status": "pending",
         "dependencies": [
@@ -168,7 +168,7 @@
         ],
         "priority": "high",
         "subtasks": [],
-        "updatedAt": "2026-10-24T21:20:00Z"
+        "updatedAt": "2026-10-24T21:50:00Z"
       },
       {
         "id": 7,
