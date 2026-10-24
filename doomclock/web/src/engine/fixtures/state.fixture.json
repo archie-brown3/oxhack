@@ -1,0 +1,13 @@
+{
+  "schema": "doomclock.sim-input/1",
+  "source": "Engine spec §1/§4 market numbers, read 24 Oct 2026 (Manifold). Knot years follow the spec literally (2026: 0, 2030: 0.36, ...).",
+  "asOf": "2026-10-24T00:00:00Z",
+  "startYear": 2026,
+  "asi": [
+    { "year": 2030, "p": 0.36 },
+    { "year": 2040, "p": 0.75 },
+    { "year": 2100, "p": 0.86 }
+  ],
+  "pCat2100": 0.3,
+  "lagMeanYears": 3
+}
