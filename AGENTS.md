@@ -12,6 +12,8 @@ the task board.
 
 Keep task status and relevant implementation or verification notes current, and commit and
 push task-board updates with the related work so the whole team has the same context.
+All files under `.taskmaster/tasks/` must be tracked by Git and pushed; never ignore task
+files or leave task updates local-only. Only machine-local CLI state and claims are ignored.
 Use the tasks CLI against this repo's `.taskmaster/tasks/tasks.json`; do not keep a separate
 local task list. Specs still define correctness, and the rules below still apply; the task
 board determines what to code next. `CLAUDE.md` links to this file, so these instructions

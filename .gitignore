@@ -1,9 +1,8 @@
 .firecrawl/
 .DS_Store
-.taskmaster/*
-!.taskmaster/tasks/
-.taskmaster/tasks/*
-!.taskmaster/tasks/tasks.json
+# Machine-local task CLI state only; task files must always be tracked.
+.taskmaster/state.json
+.taskmaster/claims.json
 *.pdf
 swarm/
 .claude/scheduled_tasks.lock
