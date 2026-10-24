@@ -1,5 +1,22 @@
 # OxHack 2026: Doom Clock
 
+## Coding priority: shared task board
+
+**`.taskmaster/tasks/tasks.json` is the main priority and shared source of truth for
+agent coding work. Every coding change must follow a task in this file.** Read it before
+starting, identify the task ID, and follow its scope, priority, dependencies, acceptance
+checks and review gates. Work on active, unblocked tasks; do not implement deferred or
+cancelled work. If requested coding work has no matching task, add or update a task before
+implementing it. Explicit owner instructions take precedence; reflect any changed scope in
+the task board.
+
+Keep task status and relevant implementation or verification notes current, and commit and
+push task-board updates with the related work so the whole team has the same context.
+Use the tasks CLI against this repo's `.taskmaster/tasks/tasks.json`; do not keep a separate
+local task list. Specs still define correctness, and the rules below still apply; the task
+board determines what to code next. `CLAUDE.md` links to this file, so these instructions
+apply to both entry points.
+
 We are building the **Doom Clock**: a Plague Inc for AI, run on real data. The Guardian (the
 player) plays against an AI agent playing the Rogue AI. The world starts from today's real
 prediction-market odds and AI news, and a Monte Carlo of 10,000 futures turns them into a

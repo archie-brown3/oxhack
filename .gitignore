@@ -1,6 +1,9 @@
 .firecrawl/
 .DS_Store
-.taskmaster/
+.taskmaster/*
+!.taskmaster/tasks/
+.taskmaster/tasks/*
+!.taskmaster/tasks/tasks.json
 *.pdf
 swarm/
 .claude/scheduled_tasks.lock
