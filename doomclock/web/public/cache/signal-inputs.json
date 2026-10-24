@@ -1,0 +1,20 @@
+{
+  "schema": "doomclock.signal-inputs/1",
+  "regions": {
+    "US": 0.5885311871227363,
+    "China": 0.3255086071987481,
+    "rest": 0.08596020567851555,
+    "metric": "share of notable AI models published in the last 24 months (a count, not compute)",
+    "source": "Epoch AI, notable AI models (epoch.ai/data/notable_ai_models.csv)"
+  },
+  "warningRate": {
+    "perQuarter": 108.85714285714286,
+    "window": {
+      "from": "2025-01",
+      "to": "2026-09"
+    },
+    "source": "AIID"
+  },
+  "datacentres": [],
+  "ticker": []
+}

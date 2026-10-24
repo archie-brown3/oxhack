@@ -67,6 +67,10 @@ export interface ManifoldPin {
   deadline: IsoTime
   /** ASSUMPTION: S3/S5 record rules in `criteriaNote` (plan §6 S3). It's optional here. */
   criteriaNote?: string
+  /** Anchors only: the engine node this market feeds. */
+  node?: NodeId
+  /** Anchors only: the year the question resolves by. */
+  horizonYear?: number
 }
 
 /** Owner: data-markets. */
@@ -156,6 +160,24 @@ export interface StateNode {
   dlogit: Dlogit
   /** logit⁻¹(logit(pMarket) + w · dlogit). The only value `sim.ts` reads. */
   p: Prob
+  /** Unique traders at the latest fetch, not at asOf (Manifold gives no trader history). */
+  traders: number
+  /** Daily closes before asOf. */
+  nPrices: number
+  lastTradeTs: IsoTime
+  /** [lo, hi] of the daily closes in the 12 months before asOf: the market-uncertainty input. */
+  pRange12m: [Prob, Prob]
+  /** One reading per quarter, 2024Q4 to asOf's quarter. */
+  history: AnchorQuarter[]
+}
+
+/** priceAt(T) for one quarter. T is the quarter's start, or the window start (2024-10-24) for 2024Q4. */
+export interface AnchorQuarter {
+  q: QuarterLabel
+  T: IsoTime
+  p: Prob
+  /** The daily close that set p (priceAt's ts), when the pipeline supplies it. */
+  ts?: IsoTime
 }
 
 export interface StateWarning {
@@ -171,43 +193,19 @@ export interface StateWarning {
 // ---------- SimResult ----------
 
 /**
- * `sim.ts` output, schema `doomclock.sim/1`. Owner: engine (`src/engine/sim.ts`).
- * Plan §5: `pCat2100`, nullable `medianCatDate`, `p10Year`, `fan[]` with optional p10/p50/p90,
- * `scenarioMix`, `ms`. The shape is not a file; the provider runs it on the real line and on yours.
- * ASSUMPTION: types below, including `fan[].p` as cumulative P(catastrophe by `year`) (engine spec §4, §6),
- * `p10Year` nullable like `medianCatDate`, and `scenarioMix` keys from engine spec §4.
- * `p10Year` is the year cumulative P crosses 10% (engine spec open question 2).
+ * `sim.ts` output, schema `doomclock.sim/1`. Owner: engine. `src/engine/sim.ts` holds the types; this
+ * re-exports them so there is one source. The sim is internal to the engine: screens read a Timeline.
  */
-export interface SimResult {
-  schema: 'doomclock.sim/1'
-  /** P(catastrophe by 2100). */
-  pCat2100: Prob
-  /** Median catastrophe date among doomed paths. Null when no path is doomed. */
-  medianCatDate: IsoTime | null
-  /** Year cumulative P first reaches 10%. Null if it never does. */
-  p10Year: number | null
-  fan: FanPoint[]
-  scenarioMix: ScenarioMix
-  /** Run time in ms. */
-  ms: number
-}
+export type { FanPoint, Scenario, SimResult } from './engine/sim.ts'
 
-export interface FanPoint {
-  year: number
-  /** Cumulative P(catastrophe by year). */
-  p: Prob
-  /** Fan band (model assumption; real line only, E7). */
-  p10?: Prob
-  p50?: Prob
-  p90?: Prob
-}
+// ---------- data/events.json ----------
 
-/** Share of paths per scenario. Sums to 1. */
-export interface ScenarioMix {
-  noAsiBy2100: Prob
-  asiFine: Prob
-  fastCatastrophe: Prob
-  slowCatastrophe: Prob
+/** `data/events.json`. Owner: data (build-events.ts). Real events only, sorted by ts. */
+export interface EventsFile {
+  schema: 'doomclock.events/1'
+  asOf: IsoTime
+  /** 2024-10-24 ≤ ts < asOf; provenance 'real'; kind never 'post'. */
+  events: WorldEvent[]
 }
 
 // ---------- data/market-inputs.json ----------
@@ -513,49 +511,161 @@ export interface ReliabilityBin {
 /** Where a frame's content comes from. Shown as a label in the UI. */
 export type Provenance = 'real' | 'projected' | 'simulated' | 'player'
 
-/** One dated thing that happened in a quarter (incident, government event, news, X post). */
+/**
+ * One dated thing that happened in a quarter (incident, government event, news, X post).
+ * Events are CONTEXT for a frame, never the cause of a clock move: only market moves (ClockDriver)
+ * move the clock, so the UI says "around the same time".
+ */
 export interface WorldEvent {
   ts: IsoTime
   kind: 'incident' | 'government' | 'news' | 'post'
   title: string
   url?: string
-  source: string // e.g. 'aiid', 'guardian', 'mirofish', 'game'
+  /** 'aiid', 'federal-register', 'gov.uk', 'eur-lex', 'wikipedia', 'bulletin', 'mirofish', 'game', or
+   *  'engine' for a projected incident the engine resampled from a real AIID one. */
+  source: string
   region?: Region
   provenance: Provenance
+  /** The actor: an agency, a lab or a person's role ("US President", "OpenAI"). Shown verbatim. */
+  who?: string
+  /** Country, ISO 3166-1 alpha-3 ("USA"). */
+  where?: string
+  /** A turning point: worth a newsflash. */
+  major?: boolean
+  /** One specific sentence: who did what, where, when. Shown verbatim. */
+  detail?: string
 }
 
 /** The world at the start of one quarter. */
 export interface WorldFrame {
   quarter: QuarterLabel
   start: IsoTime
-  provenance: Provenance // 'real' up to asOf, 'projected' after
-  /** Cumulative P(a company announces AGI) by this quarter (Kalshi curve, monotonised). */
+  provenance: Provenance // 'real' if the quarter started before asOf, 'projected' after
+  /** Cumulative P(a company announces AGI) by the end of this quarter (Kalshi curve, monotonised). */
   capability: Prob
   /** Share of frontier activity by region; drives the map tint. */
   regions: Record<Region, number>
-  /** P(AI catastrophe) by the end of this quarter, from the Monte Carlo. */
+  /** P(AI catastrophe) by the end of this quarter: today's model, read exactly as the clock reads it (the
+   *  10,000 futures agree within 0.01). 0 for quarters already over. */
   pCat: Prob
   /** Events that land in this quarter (map pings + ticker). */
   events: WorldEvent[]
+  /**
+   * The clock as the markets stood at this frame. Real frames: each anchor's reading for this quarter
+   * (AnchorQuarter), read at its T; the market range is the readings in the 12 months to T. Projected
+   * frames: today's clock, so only `minutesToMidnight` moves. Null when an anchor has no reading.
+   */
+  clock: ClockReading | null
+  /**
+   * Why date10 moved since the previous frame, in days (negative = toward midnight):
+   * change = timeDays + sum of drivers' effectDays + residualDays (to rounding).
+   * Market moves since the previous frame, largest |effectDays| first. Empty for the first frame.
+   */
+  drivers: ClockDriver[]
+  /** The shift from reading the forecast later at the old prices: the ASI curve restarts at 0 at each
+   *  reading, so standing still pushes date10 later. 0 between projected frames. */
+  timeDays: number
+  /** What the drivers taken one at a time don't explain: their interaction. */
+  residualDays: number
 }
 
-/** What the clock shows: a real predicted date, and the hand from 1 minute = 1 year. */
+/** One market move behind a change in the clock (leave-one-out: only this anchor moved). */
+export interface ClockDriver {
+  anchorId: NodeId
+  /** The market question, verbatim. */
+  label: string
+  url: string
+  /** Unique traders at the latest fetch (Manifold gives no history). */
+  traders: number
+  /** Price at the previous frame. */
+  from: Prob
+  /** Price at this frame. */
+  to: Prob
+  /** When the price moved: the daily close that set `to` (AnchorQuarter.ts), else when it was read. */
+  ts: IsoTime
+  /** Shift in date10 from this move alone, after time has passed, the other anchors held at the
+   *  previous frame. Negative = toward midnight. */
+  effectDays: number
+}
+
+/**
+ * What the clock shows: a real predicted date, and the hand from 1 minute = 1 year. Every field is
+ * read exactly from the model's continuous catastrophe curve (the distribution the 10,000 futures are
+ * drawn from), not by counting futures: no sampling jitter, and fast enough for a clock per quarter.
+ */
 export interface ClockReading {
-  /** Date the chance of AI catastrophe passes 1 in 10 (continuous, to the day). */
-  date10: IsoTime
-  /** Range of date10 across the lag assumption (min..max), shown as an arc. */
-  date10Range: [IsoTime, IsoTime]
-  /** Minutes to midnight on the face: years from asOf to date10. */
-  minutesToMidnight: number
+  /** UTC midnight of the day the chance of AI catastrophe passes 1 in 10 (root of the continuous
+   *  CDF). Null: it stays under 1 in 10 through 2100. */
+  date10: IsoTime | null
+  /** [earliest, latest] date10 over both uncertainties in `date10RangeBy`, shown as an arc.
+   *  A null end is past 2100. */
+  date10Range: [IsoTime | null, IsoTime | null]
+  /** The arc's two inputs, each varied alone. `lag`: the mean lag at 1 y and 10 y. `market`: every
+   *  anchor across its 12-month price range (pRange12m). */
+  date10RangeBy: { lag: [IsoTime | null, IsoTime | null]; market: [IsoTime | null, IsoTime | null] }
+  /** Minutes to midnight on the face: years from the reading's time to date10, floored at 0. */
+  minutesToMidnight: number | null
   pCat2100: Prob
+}
+
+/** The one Monte Carlo path a timeline plays. */
+export interface SampledFuture {
+  /** Path number among the 10,000, from 1 ("Future #4,821"). */
+  id: number
+  /** Its rank by catastrophe date over ALL futures, in [0, 1): 0 is the earliest; futures with no
+   *  catastrophe by 2100 rank last, ordered by superintelligence date. */
+  percentile: number
+  /** When superintelligence arrives in this future; null if not by 2100. */
+  asiDate: IsoTime | null
+  /** When catastrophe strikes in this future; null if not by 2100. Projected incidents stop here. */
+  catDate: IsoTime | null
 }
 
 export interface Timeline {
   schema: 'doomclock.timeline/1'
   asOf: IsoTime
-  /** From Oct 2024 (real) to the end of the projection horizon. */
+  /** Quarterly, 2024Q4 (real) to 2035Q4. */
   frames: WorldFrame[]
+  /** Today's clock (anchors at asOf). The same for every future. */
   clock: ClockReading
   /** Which side produced it: 'real' now; the game adds 'yours'. */
   line: 'real' | 'yours'
+  future: SampledFuture
+}
+
+/**
+ * The engine's single input: everything known at `asOf`. `worldFrom()` (src/engine/world.ts) builds it
+ * from the data files; the pipeline's asOf(T) can produce it for a past T.
+ * `buildTimeline(world, pick)` and `readClock(world)` read nothing else.
+ */
+export interface World {
+  schema: 'doomclock.world-input/1'
+  asOf: IsoTime
+  /** The p each anchor feeds the Monte Carlo at asOf (StateNode.p). ASI anchors are conditional on
+   *  no catastrophe; their knots sit at the market deadlines, 1 Jan 2030 / 2040 / 2100. */
+  anchors: Record<NodeId, Prob>
+  /** Each anchor's market and its dated prices, for the per-frame clocks and their drivers. */
+  anchorHistory: Record<NodeId, AnchorHistory>
+  capabilityCurve: CapabilityCurve
+  regions: RegionWeights
+  /** AIID incident rate; projected frames sample incidents at `perQuarter`. */
+  warningRate: WarningRate
+  /** Real events, ts < asOf, sorted by ts (data/events.json). */
+  events: WorldEvent[]
+  /** Mean ASI → catastrophe lag in years. A default (3), not market-backed. */
+  lagMeanYears: number
+}
+
+export interface AnchorHistory {
+  /** The market question, verbatim (the node label if markets.json isn't given). */
+  question: string
+  url: string
+  /** Unique traders at the latest fetch. */
+  traders: number
+  /** [lo, hi] of the daily closes in the 12 months before asOf. */
+  pRange12m: [Prob, Prob]
+  /** The last daily close before asOf: when today's price was set. */
+  lastTradeTs: IsoTime
+  /** One reading per real quarter (StateNode.history). Real frames' clocks read these. */
+  history: AnchorQuarter[]
 }

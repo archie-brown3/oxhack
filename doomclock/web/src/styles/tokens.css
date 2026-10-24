@@ -1,0 +1,85 @@
+/* Doom Clock — generated from tokens.json by gen-tokens.mjs. Don't edit by hand. */
+
+:root, [data-theme="stage"] {
+  color-scheme: dark;
+  --ground: #0b0b0b;
+  --raised: #161616;
+  --scrim: rgba(11, 11, 11, 0.64);
+  --rule: rgba(241, 241, 241, 0.14);
+  --rule-strong: rgba(241, 241, 241, 0.42);
+  --ink: #f1f1f1;
+  --ink-2: #a8a8a8;
+  --ink-3: #808080;
+  --oxblood: #851618;
+  --on-oxblood: #ffffff;
+  --action: #f1f1f1;
+  --alarm: #e5484d;
+  --ward: #6ea8f5;
+  --sim: #b392f0;
+  --lift: 0 12px 32px rgba(0, 0, 0, 0.45);
+}
+
+[data-theme="paper"] {
+  color-scheme: light;
+  --ground: #f1f1f1;
+  --raised: #ffffff;
+  --scrim: rgba(255, 255, 255, 0.88);
+  --rule: #d6d6d6;
+  --rule-strong: #8a8a8a;
+  --ink: #1f1f1f;
+  --ink-2: #454545;
+  --ink-3: #6b6b6b;
+  --oxblood: #851618;
+  --on-oxblood: #ffffff;
+  --action: #851618;
+  --alarm: #a71d1f;
+  --ward: #1f5fa8;
+  --sim: #6a4fc8;
+  --lift: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+:root {
+  --font-serif: "PT Serif", Georgia, "Times New Roman", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-24: 96px;
+  --radius-0: 0px;
+  --radius-1: 3px;
+  --radius-round: 999px;
+  --type-display-1: normal 400 56px/60px var(--font-serif);
+  --tracking-display-1: normal;
+  --type-display-2: normal 400 32px/38px var(--font-serif);
+  --tracking-display-2: normal;
+  --type-display-3: normal 400 22px/28px var(--font-serif);
+  --tracking-display-3: normal;
+  --type-reading: normal 700 28px/32px var(--font-sans);
+  --tracking-reading: -0.01em;
+  --type-body-l: normal 400 18px/28px var(--font-sans);
+  --tracking-body-l: normal;
+  --type-body: normal 400 13px/19px var(--font-sans);
+  --tracking-body: normal;
+  --type-caption: normal 700 12px/16px var(--font-sans);
+  --tracking-caption: normal;
+  --type-eyebrow: normal 700 12px/12px var(--font-sans);
+  --tracking-eyebrow: 0.08em;
+  --type-label: normal 600 12px/12px var(--font-sans);
+  --tracking-label: 0.04em;
+  --type-numeral-xl: italic 700 72px/68px var(--font-sans);
+  --tracking-numeral-xl: -0.02em;
+  --type-numeral-l: normal 700 32px/32px var(--font-sans);
+  --tracking-numeral-l: normal;
+  --type-numeral-s: normal 400 14px/14px var(--font-sans);
+  --tracking-numeral-s: normal;
+  --type-countdown: normal 600 24px/28px var(--font-sans);
+  --tracking-countdown: normal;
+  --type-data: normal 400 12px/16px var(--font-mono);
+  --tracking-data: normal;
+}

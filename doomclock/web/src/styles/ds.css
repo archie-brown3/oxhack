@@ -1,0 +1,188 @@
+@import url("https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap");
+/* Doom Clock component styles. Every colour, size and radius comes from tokens.css. */
+
+html, body { margin: 0; }
+body { background: var(--ground); color: var(--ink); font: 400 13px/19px var(--font-sans); -webkit-font-smoothing: antialiased; font-variant-numeric: tabular-nums; }
+*, *::before, *::after { box-sizing: border-box; }
+.dc-row { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; padding: var(--space-4); }
+.dc-stack { display: grid; gap: var(--space-3); padding: var(--space-4); justify-items: start; }
+.dc-dim { color: var(--ink-2); }
+.dc-faint { color: var(--ink-3); }
+.dc-data { font: 400 12px/16px var(--font-mono); color: var(--ink-3); }
+.dc-eyebrow { font: 700 12px/12px var(--font-sans); letter-spacing: .08em; text-transform: uppercase; }
+.dc-paper { background: var(--ground); color: var(--ink); }
+
+/* ---------- provenance labels ---------- */
+.dc-label { display: inline-flex; align-items: center; gap: var(--space-1); font: 600 12px/12px var(--font-sans); letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; }
+.dc-label::before { content: ""; width: 7px; height: 7px; border-radius: var(--radius-round); flex: none; }
+.dc-label--real { color: var(--ink); }
+.dc-label--real::before { background: currentColor; }
+.dc-label--sim { color: var(--sim); font-style: italic; }
+.dc-label--sim::before { border: 1.5px solid currentColor; }
+.dc-label--rule { color: var(--ink-3); }
+.dc-label--rule::before { border: 1.5px solid currentColor; border-radius: var(--radius-0); }
+.dc-mock { font: italic 400 12px/12px var(--font-sans); color: var(--ink-3); white-space: nowrap; }
+.dc-mock::before { content: "· "; font-style: normal; }
+
+/* ---------- buttons, tabs ---------- */
+.dc-btn { display: inline-flex; align-items: center; gap: var(--space-2); min-height: 32px; padding: 0 var(--space-4); font: 600 13px/1 var(--font-sans); color: var(--action); background: transparent; border: 1px solid var(--rule-strong); border-radius: var(--radius-0); cursor: pointer; transition: border-color .12s, background-color .12s; }
+.dc-btn:hover { border-color: var(--action); }
+.dc-btn:active { transform: translateY(1px); }
+.dc-btn:focus-visible, .dc-tabs button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.dc-btn--primary { background: var(--oxblood); border-color: var(--oxblood); color: var(--on-oxblood); }
+.dc-btn--primary:hover { border-color: var(--on-oxblood); }
+.dc-btn--outline { border-color: var(--action); }
+.dc-btn--quiet { border-color: transparent; padding: 0 var(--space-2); }
+.dc-btn kbd { font: 400 12px/1 var(--font-mono); color: var(--ink-3); }
+.dc-btn--primary kbd { color: var(--on-oxblood); }
+.dc-tabs { display: inline-flex; gap: var(--space-6); }
+.dc-tabs button { font: 700 12px/12px var(--font-sans); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); background: none; border: 0; padding: var(--space-2) 0; border-bottom: 2px solid transparent; cursor: pointer; }
+.dc-tabs button:hover { color: var(--ink-2); }
+.dc-tabs button[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--action); }
+.dc-tabs kbd { font: 400 12px/1 var(--font-mono); color: var(--ink-3); margin-left: var(--space-1); letter-spacing: 0; }
+
+/* ---------- HUD panel: the one material for everything floating over the globe ---------- */
+.dc-panel { background: var(--scrim); -webkit-backdrop-filter: blur(16px) saturate(140%); backdrop-filter: blur(16px) saturate(140%); border: 1px solid var(--rule); border-radius: var(--radius-1); padding: var(--space-4); box-shadow: var(--lift); }
+@media (prefers-reduced-transparency: reduce) { .dc-panel { background: var(--raised); -webkit-backdrop-filter: none; backdrop-filter: none; } }
+
+/* ---------- the quarter clock ---------- */
+.dc-face { display: block; width: 100%; height: auto; overflow: visible; }
+.dc-face .sector { fill: var(--raised); stroke: var(--rule); stroke-width: .6; }
+.dc-face .rim { fill: none; stroke: var(--ink); stroke-width: 2.4; }
+.dc-face .tick { stroke: var(--ink-3); stroke-width: .8; }
+.dc-face .tick.major { stroke: var(--ink); stroke-width: 2; }
+.dc-face .num { fill: var(--ink-3); font: 600 6px var(--font-sans); }
+.dc-face .ghost-t { font-size: 4.8px; }
+.dc-face .band { fill: none; stroke: var(--ink); stroke-opacity: .16; stroke-width: 6; }
+.dc-face .ghost { stroke: var(--ink-3); stroke-width: 1; stroke-dasharray: 1.6 1.2; }
+.dc-face .midnight { fill: var(--alarm); }
+.dc-face .yours { stroke: var(--alarm); stroke-width: 1.4; stroke-dasharray: 2.5 2; stroke-linecap: round; }
+.dc-face .hand { fill: var(--ink); }
+.dc-face .hub { fill: var(--ink); }
+.dc-clock { width: 260px; display: grid; gap: var(--space-2); }
+.dc-clock .cap { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-2); }
+.dc-clock .face { width: 200px; margin: var(--space-1) 0 0 var(--space-6); }
+.dc-clock .reading { font: 700 28px/32px var(--font-sans); letter-spacing: -.01em; margin: 0; }
+.dc-clock .cd { font: 600 24px/28px var(--font-sans); }
+.dc-clock .to { color: var(--ink-2); }
+.dc-clock .to b { color: var(--ink); font-weight: 600; }
+.dc-clock .why { color: var(--action); font-weight: 600; text-decoration: none; display: inline-flex; gap: var(--space-1); }
+.dc-clock .why::after { content: "→"; transition: transform .15s cubic-bezier(.2, .8, .2, 1); }
+.dc-clock .why:hover::after { transform: translateX(3px); }
+.dc-thumb { display: grid; gap: var(--space-1); justify-items: start; }
+.dc-thumb .box { width: 120px; padding: var(--space-3); background: var(--raised); }
+.dc-thumb .cap { font: 700 12px/16px var(--font-sans); }
+
+/* ---------- time spine (horizontal, World time bar) ---------- */
+.dc-timebar { display: flex; align-items: flex-end; gap: var(--space-4); padding: var(--space-3) var(--space-4); }
+.dc-spine { position: relative; flex: 1; height: 112px; min-width: 0; }
+.dc-spine .axis { position: absolute; left: 0; top: 80px; height: 1px; background: var(--ink); }
+.dc-spine .proj { position: absolute; right: 0; top: 80px; height: 1px; background: repeating-linear-gradient(90deg, var(--sim) 0 5px, transparent 5px 9px); }
+.dc-spine .node { position: absolute; top: 80px; width: 5px; height: 5px; margin: -2px 0 0 -2.5px; border-radius: var(--radius-round); background: var(--ink-3); }
+.dc-spine .node.key { width: 7px; height: 7px; margin: -3px 0 0 -3.5px; background: var(--ink-2); }
+.dc-spine .node.on { width: 13px; height: 13px; margin: -6px 0 0 -6.5px; background: var(--ink); }
+.dc-spine .node.today { width: 11px; height: 11px; margin: -5px 0 0 -5.5px; background: var(--ground); border: 2px solid var(--ink); }
+.dc-spine .yr { position: absolute; top: 92px; transform: translateX(-50%); font: 400 14px/14px var(--font-sans); color: var(--ink-3); white-space: nowrap; }
+.dc-spine .yr.key { font: 700 14px/14px var(--font-sans); color: var(--ink-2); }
+.dc-spine .big { position: absolute; bottom: 40px; transform: translateX(-50%); font: italic 700 72px/68px var(--font-sans); letter-spacing: -.02em; color: var(--ink); white-space: nowrap; }
+.dc-spine .big small { font: 700 14px/14px var(--font-sans); letter-spacing: 0; margin-right: var(--space-2); font-style: normal; color: var(--ink-2); vertical-align: 40px; }
+.dc-spine .tag { position: absolute; top: 58px; transform: translateX(-50%); font: 600 12px/12px var(--font-sans); white-space: nowrap; }
+.dc-spine .tag.today { color: var(--ink); }
+.dc-spine .tag.cat { color: var(--alarm); transform: translateX(-4px); }
+.dc-play { width: 40px; height: 40px; border-radius: var(--radius-round); background: var(--ink); color: var(--ground); border: 0; display: grid; place-items: center; cursor: pointer; flex: none; }
+.dc-play svg { width: 14px; height: 14px; fill: currentColor; }
+
+/* ---------- replay spine (vertical, End / Replay) ---------- */
+.dc-replay { display: grid; grid-template-columns: 300px minmax(0, 1fr); min-height: 520px; background: var(--ground); position: relative; }
+.dc-replay .col { position: relative; border-right: 1px solid var(--ink); }
+.dc-replay .q { position: absolute; right: 0; display: flex; align-items: center; gap: var(--space-4); transform: translateY(-50%); }
+.dc-replay .q .n { font: 400 14px/14px var(--font-sans); color: var(--ink-3); white-space: nowrap; }
+.dc-replay .q i { width: 9px; height: 9px; border-radius: var(--radius-round); background: var(--ink-3); margin-right: -5px; }
+.dc-replay .q.key .n { font: 700 32px/32px var(--font-sans); color: var(--ink-2); }
+.dc-replay .q.on .n { font: italic 700 72px/68px var(--font-sans); letter-spacing: -.02em; color: var(--ink); }
+.dc-replay .q.on i { width: 17px; height: 17px; background: var(--ink); margin-right: -9px; }
+.dc-replay .q .side { font: 600 12px/12px var(--font-sans); letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; }
+.dc-replay .story { padding: var(--space-12) var(--space-8) var(--space-8) var(--space-12); display: grid; gap: var(--space-4); align-content: start; max-width: 640px; }
+.dc-replay .story h3 { font: 700 28px/32px var(--font-sans); letter-spacing: -.01em; margin: 0; }
+.dc-replay .story p { font: 400 18px/28px var(--font-sans); margin: 0; }
+.dc-replay .story a { color: var(--action); font-weight: 600; }
+
+/* ---------- versus strip ---------- */
+.dc-versus { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: var(--space-3); align-items: center; padding: var(--space-2) var(--space-4); width: 480px; }
+.dc-versus .side { display: grid; gap: var(--space-1); }
+.dc-versus .side.r { text-align: right; }
+.dc-versus .who { display: flex; justify-content: space-between; gap: var(--space-2); font-weight: 600; }
+.dc-versus .who b { font-weight: 600; }
+.dc-versus .bar { height: 4px; background: var(--rule); display: flex; }
+.dc-versus .side.r .bar { justify-content: flex-start; }
+.dc-versus .side.l .bar { justify-content: flex-end; }
+.dc-versus .g .bar i { background: var(--ward); }
+.dc-versus .r .bar i { background: var(--alarm); }
+.dc-versus .g .who b { color: var(--ward); }
+.dc-versus .r .who b { color: var(--alarm); }
+.dc-versus .vs { font: italic 400 13px/1 var(--font-serif); color: var(--ink-3); }
+
+/* ---------- newsflash: rare turning-point card ---------- */
+.dc-flash { width: 380px; background: var(--raised); border: 1px solid var(--rule); border-radius: var(--radius-0); overflow: hidden; box-shadow: var(--lift); }
+.dc-flash .band { display: flex; justify-content: space-between; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-4); background: var(--oxblood); color: var(--on-oxblood); font: 700 12px/16px var(--font-sans); letter-spacing: .08em; text-transform: uppercase; }
+.dc-flash .band span:last-child { letter-spacing: 0; text-transform: none; font-weight: 400; }
+.dc-flash .body { padding: var(--space-4); display: grid; gap: var(--space-2); }
+.dc-flash h3 { font: 400 22px/28px var(--font-serif); margin: 0; text-wrap: balance; }
+.dc-flash p { margin: 0; color: var(--ink-2); }
+.dc-flash .shift { display: flex; gap: var(--space-3); align-items: baseline; }
+.dc-flash .shift b { font: 600 13px/1 var(--font-sans); }
+.dc-flash .shift .toward { color: var(--alarm); }
+.dc-flash .shift .away { color: var(--ward); }
+.dc-flash .timer { height: 2px; background: var(--rule); }
+.dc-flash .timer i { display: block; height: 100%; width: 62%; background: var(--ink); }
+
+/* ---------- ticker ---------- */
+.dc-ticker { display: flex; align-items: center; gap: var(--space-4); height: 38px; padding: 0 var(--space-4); border-bottom: 1px solid var(--rule); overflow: hidden; }
+.dc-ticker .lab { flex: none; width: 112px; }
+.dc-ticker .run { display: flex; gap: var(--space-8); white-space: nowrap; min-width: 0; flex: 1 1 0; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, #000 80%, transparent); mask-image: linear-gradient(90deg, #000 80%, transparent); }
+.dc-ticker .it { display: inline-flex; gap: var(--space-2); align-items: baseline; }
+.dc-ticker .it.sim { font-style: italic; color: var(--ink-2); }
+.dc-ticker .cut { flex: none; width: 1px; height: 18px; background: var(--ink); }
+
+/* ---------- sheet: the Paper statement over the globe ---------- */
+.dc-sheet { background: var(--ground); color: var(--ink); padding: var(--space-12) var(--space-8); }
+.dc-sheet .title { font: 400 56px/60px var(--font-serif); text-align: center; margin: 0 0 var(--space-12); display: grid; gap: var(--space-6); text-wrap: balance; }
+.dc-sheet .title::before, .dc-sheet .title::after { content: ""; display: block; width: 360px; max-width: 100%; height: 1px; margin: 0 auto; background: var(--oxblood); }
+.dc-sheet .split { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: var(--space-12); max-width: 920px; margin: 0 auto; }
+.dc-sheet .lead { display: grid; gap: var(--space-6); align-content: start; }
+.dc-sheet .story { display: grid; gap: var(--space-4); align-content: start; }
+.dc-sheet .story h3 { font: 700 28px/32px var(--font-sans); letter-spacing: -.01em; margin: 0; }
+.dc-sheet .story p { font: 400 18px/28px var(--font-sans); margin: 0; max-width: 64ch; }
+.dc-sheet .story a { color: var(--action); font-weight: 600; text-underline-offset: 3px; }
+.dc-sheet .story .verdict { font: italic 400 32px/38px var(--font-serif); margin: var(--space-6) 0 0; }
+
+/* ---------- statement card: Track record grid ---------- */
+.dc-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-8); padding: var(--space-8); background: var(--ground); }
+.dc-card { background: var(--raised); box-shadow: var(--lift); border-radius: var(--radius-0); padding: var(--space-8) var(--space-6) var(--space-6); display: grid; gap: var(--space-3); justify-items: center; text-align: center; }
+.dc-card .glyph { width: 132px; }
+.dc-card .yr { font: 700 32px/32px var(--font-sans); color: var(--ink-2); }
+.dc-card .read { font: 700 16px/22px var(--font-sans); letter-spacing: .02em; text-transform: uppercase; color: var(--ink-2); text-wrap: balance; }
+.dc-card .score { color: var(--ink-3); }
+
+/* ---------- globe marks legend ---------- */
+.dc-marks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3) var(--space-8); padding: var(--space-4); }
+.dc-mark { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: var(--space-3); align-items: center; }
+.dc-mark svg { width: 40px; height: 28px; overflow: visible; }
+.dc-mark b { font-weight: 600; }
+.dc-mark .k-land0 { fill: var(--raised); } .dc-mark .k-land1 { fill: var(--ink-3); } .dc-mark .k-land2 { fill: var(--ink-2); } .dc-mark .k-land3 { fill: var(--ink); }
+.dc-mark .k-rogue { fill: var(--alarm); } .dc-mark .k-ward { fill: var(--ward); }
+.dc-mark .k-real { fill: none; stroke: var(--ink); stroke-width: 2; }
+.dc-mark .k-sim { fill: none; stroke: var(--sim); stroke-width: 2; stroke-dasharray: 3 2.4; }
+.dc-mark .k-cat { fill: var(--alarm); }
+.dc-mark .k-arc { fill: none; stroke: var(--alarm); stroke-width: 2; stroke-linecap: round; }
+.dc-mark .k-route { fill: none; stroke: var(--alarm); stroke-opacity: .35; stroke-width: 1; }
+.dc-mark .k-house { fill: var(--ink-2); }
+.dc-mark .k-dot0 { fill: var(--ink-3); }
+
+/* ---------- World screen composition ---------- */
+.dc-world { position: relative; width: 1440px; height: 900px; background: var(--ground); overflow: hidden; }
+.dc-world .globe { position: absolute; left: 50%; top: 52px; width: 700px; height: 700px; margin-left: -350px; border-radius: var(--radius-round); background: var(--raised); border: 1px solid var(--rule); }
+.dc-world .slot { position: absolute; border: 1px dashed var(--rule-strong); color: var(--ink-3); display: grid; place-items: center; text-align: center; padding: var(--space-3); font: 600 12px/16px var(--font-sans); letter-spacing: .04em; text-transform: uppercase; border-radius: var(--radius-1); }
+.dc-world .corner { position: absolute; }
+.dc-world .note { position: absolute; font: 400 12px/16px var(--font-mono); color: var(--ink-3); }
+.dc-replay .q .qq { font: 700 14px/14px var(--font-sans); font-style: normal; letter-spacing: 0; color: var(--ink-2); margin-right: var(--space-2); vertical-align: 40px; }

@@ -1,0 +1,193 @@
+{
+  "schema": "doomclock.market-inputs/1",
+  "asOf": "2026-10-24T20:51:00Z",
+  "capabilityCurve": {
+    "ticker": "KXAGICO",
+    "rule": "P(any company officially announces it has achieved AGI) by the end of each quarter: an announcement, not ASI. Kalshi KXAGICO-COMP ladder (real money), each 'Before <date>' market priced at asOf (last daily close before asOf) and placed at its close_time, with 0 at asOf. Linear in time between dates, flat after the last date (Jan 2031, i.e. after 2030), then cummax. Quarters that ended by asOf are 0: no qualifying announcement (26Q2 and 26Q3 resolved NO).",
+    "monotonised": true,
+    "quarters": [
+      {
+        "q": "2024Q4",
+        "p": 0
+      },
+      {
+        "q": "2025Q1",
+        "p": 0
+      },
+      {
+        "q": "2025Q2",
+        "p": 0
+      },
+      {
+        "q": "2025Q3",
+        "p": 0
+      },
+      {
+        "q": "2025Q4",
+        "p": 0
+      },
+      {
+        "q": "2026Q1",
+        "p": 0
+      },
+      {
+        "q": "2026Q2",
+        "p": 0
+      },
+      {
+        "q": "2026Q3",
+        "p": 0
+      },
+      {
+        "q": "2026Q4",
+        "p": 0.0598
+      },
+      {
+        "q": "2027Q1",
+        "p": 0.1798
+      },
+      {
+        "q": "2027Q2",
+        "p": 0.2798
+      },
+      {
+        "q": "2027Q3",
+        "p": 0.3299
+      },
+      {
+        "q": "2027Q4",
+        "p": 0.3899
+      },
+      {
+        "q": "2028Q1",
+        "p": 0.5797
+      },
+      {
+        "q": "2028Q2",
+        "p": 0.7297
+      },
+      {
+        "q": "2028Q3",
+        "p": 0.74
+      },
+      {
+        "q": "2028Q4",
+        "p": 0.7699
+      },
+      {
+        "q": "2029Q1",
+        "p": 0.7798
+      },
+      {
+        "q": "2029Q2",
+        "p": 0.7898
+      },
+      {
+        "q": "2029Q3",
+        "p": 0.7999
+      },
+      {
+        "q": "2029Q4",
+        "p": 0.81
+      },
+      {
+        "q": "2030Q1",
+        "p": 0.81
+      },
+      {
+        "q": "2030Q2",
+        "p": 0.81
+      },
+      {
+        "q": "2030Q3",
+        "p": 0.81
+      },
+      {
+        "q": "2030Q4",
+        "p": 0.81
+      },
+      {
+        "q": "2031Q1",
+        "p": 0.81
+      },
+      {
+        "q": "2031Q2",
+        "p": 0.81
+      },
+      {
+        "q": "2031Q3",
+        "p": 0.81
+      },
+      {
+        "q": "2031Q4",
+        "p": 0.81
+      },
+      {
+        "q": "2032Q1",
+        "p": 0.81
+      },
+      {
+        "q": "2032Q2",
+        "p": 0.81
+      },
+      {
+        "q": "2032Q3",
+        "p": 0.81
+      },
+      {
+        "q": "2032Q4",
+        "p": 0.81
+      },
+      {
+        "q": "2033Q1",
+        "p": 0.81
+      },
+      {
+        "q": "2033Q2",
+        "p": 0.81
+      },
+      {
+        "q": "2033Q3",
+        "p": 0.81
+      },
+      {
+        "q": "2033Q4",
+        "p": 0.81
+      },
+      {
+        "q": "2034Q1",
+        "p": 0.81
+      },
+      {
+        "q": "2034Q2",
+        "p": 0.81
+      },
+      {
+        "q": "2034Q3",
+        "p": 0.81
+      },
+      {
+        "q": "2034Q4",
+        "p": 0.81
+      },
+      {
+        "q": "2035Q1",
+        "p": 0.81
+      },
+      {
+        "q": "2035Q2",
+        "p": 0.81
+      },
+      {
+        "q": "2035Q3",
+        "p": 0.81
+      },
+      {
+        "q": "2035Q4",
+        "p": 0.81
+      }
+    ]
+  },
+  "cardPrices": [],
+  "originLab": []
+}

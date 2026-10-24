@@ -19,10 +19,10 @@ export const state: StateFile = {
     ],
   },
   nodes: [
-    { id: 'asi2030', marketId: 'fx-asi-2030', label: 'ASI by 2030', url: 'https://manifold.markets/fixture/asi-2030', horizonYear: 2030, pMarket: 0.36, dlogit: 0, p: 0.36 },
-    { id: 'asi2040', marketId: 'fx-asi-2040', label: 'ASI by 2040', url: 'https://manifold.markets/fixture/asi-2040', horizonYear: 2040, pMarket: 0.75, dlogit: 0, p: 0.75 },
-    { id: 'asi2100', marketId: 'fx-asi-2100', label: 'ASI by 2100', url: 'https://manifold.markets/fixture/asi-2100', horizonYear: 2100, pMarket: 0.86, dlogit: 0, p: 0.86 },
-    { id: 'cat2100', marketId: 'fx-cat-2100', label: 'AI kills ≥10% by 2100', url: 'https://manifold.markets/fixture/cat-2100', horizonYear: 2100, pMarket: 0.3, dlogit: 0, p: 0.3 },
+    { id: 'asi2030', marketId: 'fx-asi-2030', label: 'ASI by 2030', url: 'https://manifold.markets/fixture/asi-2030', horizonYear: 2030, pMarket: 0.36, dlogit: 0, p: 0.36, traders: 100, nPrices: 50, lastTradeTs: '2026-10-20T23:59:59Z', pRange12m: [0.31, 0.36], history: [{ q: '2026Q4', T: '2026-10-01T00:00:00Z', p: 0.36 }] },
+    { id: 'asi2040', marketId: 'fx-asi-2040', label: 'ASI by 2040', url: 'https://manifold.markets/fixture/asi-2040', horizonYear: 2040, pMarket: 0.75, dlogit: 0, p: 0.75, traders: 100, nPrices: 50, lastTradeTs: '2026-10-20T23:59:59Z', pRange12m: [0.70, 0.75], history: [{ q: '2026Q4', T: '2026-10-01T00:00:00Z', p: 0.75 }] },
+    { id: 'asi2100', marketId: 'fx-asi-2100', label: 'ASI by 2100', url: 'https://manifold.markets/fixture/asi-2100', horizonYear: 2100, pMarket: 0.86, dlogit: 0, p: 0.86, traders: 100, nPrices: 50, lastTradeTs: '2026-10-20T23:59:59Z', pRange12m: [0.81, 0.86], history: [{ q: '2026Q4', T: '2026-10-01T00:00:00Z', p: 0.86 }] },
+    { id: 'cat2100', marketId: 'fx-cat-2100', label: 'AI kills ≥10% by 2100', url: 'https://manifold.markets/fixture/cat-2100', horizonYear: 2100, pMarket: 0.3, dlogit: 0, p: 0.3, traders: 100, nPrices: 50, lastTradeTs: '2026-10-20T23:59:59Z', pRange12m: [0.25, 0.3], history: [{ q: '2026Q4', T: '2026-10-01T00:00:00Z', p: 0.3 }] },
   ],
   warnings: [
     { marketId: 'fx-warn-1', label: '$100M loss-of-control incident', url: 'https://manifold.markets/fixture/warn-1', horizonYear: 2035, pMarket: 0.27, p: 0.27 },

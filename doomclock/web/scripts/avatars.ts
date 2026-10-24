@@ -63,7 +63,7 @@ function svg(a: Account) {
 const accounts: Account[] = JSON.parse(readFileSync(here('./avatars.accounts.json'), 'utf8')).accounts
 mkdirSync(out, { recursive: true })
 const seen = new Set<string>()
-const manifest = []
+const manifest: { id: string; name: string; role: string; provenance: string; file: string }[] = []
 let low = 0
 for (const a of accounts) {
   if (seen.has(a.id)) throw new Error(`duplicate id ${a.id}`)

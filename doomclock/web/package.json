@@ -8,9 +8,11 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "publish:cache": "node scripts/publish-cache.ts",
-    "test": "tsc --noEmit -p tsconfig.app.json && node --test src/fixtures/contract.test.ts"
+    "test": "tsc --noEmit -p tsconfig.app.json && node --test src/engine/ src/fixtures/contract.test.ts",
+    "tokens": "node ../../.lavish/prototype/gen-tokens.mjs src/styles/tokens.css && cp ../../context/design-system/components/bundle.css src/styles/ds.css"
   },
   "dependencies": {
+    "globe.gl": "^2.46.2",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
   },

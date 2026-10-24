@@ -117,24 +117,42 @@ export function pBadOf(input: SimInput, knots = asiKnots(input)): number {
   return pAsi > 0 ? Math.min(1, input.pCat2100 / pAsi) : 0;
 }
 
-// Exact P(catastrophe by 2100) for the model, for tests and sanity checks. On a CDF segment
-// [a, b] with density d: d * integral of (1 - exp(-(H - t) / L)) dt.
-export function analyticPCat2100(input: SimInput): number {
-  const knots = asiKnots(input);
+// Exact P(catastrophe by `year`) for the model: the continuous CDF the paths sample. On a CDF
+// segment [a, b] cut at the year, with density d: d * integral of (1 - exp(-(year - t) / L)) dt.
+export function analyticCdf(input: SimInput, year: number, knots = asiKnots(input)): number {
   const { xs, ps } = knots;
   const L = input.lagMeanYears;
   let mass = 0;
-  for (let i = 1; i < xs.length && xs[i - 1] < HORIZON; i++) {
+  for (let i = 1; i < xs.length && xs[i - 1] < year; i++) {
     const a = xs[i - 1];
-    const b = Math.min(xs[i], HORIZON);
+    const b = Math.min(xs[i], year);
     const d = (ps[i] - ps[i - 1]) / (xs[i] - xs[i - 1]);
-    const tail = L === 0 ? 0 : L * (Math.exp(-(HORIZON - b) / L) - Math.exp(-(HORIZON - a) / L));
+    const tail = L === 0 ? 0 : L * (Math.exp(-(year - b) / L) - Math.exp(-(year - a) / L));
     mass += d * (b - a - tail);
   }
   return pBadOf(input, knots) * mass;
 }
 
-export function sim(input: SimInput, { seed = 1, paths = 10_000 }: SimOptions = {}): SimResult {
+// Exact P(catastrophe by 2100), for tests and sanity checks.
+export function analyticPCat2100(input: SimInput): number {
+  return analyticCdf(input, HORIZON);
+}
+
+// Each path's dates, for picking one future. Infinity means "not by 2100".
+export interface Paths {
+  asi: Float64Array;
+  cat: Float64Array;
+}
+
+export function sim(input: SimInput, opts: SimOptions = {}): SimResult {
+  return simPaths(input, opts).result;
+}
+
+// The Monte Carlo, returning the summary and every path's dates from the same draws.
+export function simPaths(
+  input: SimInput,
+  { seed = 1, paths = 10_000 }: SimOptions = {},
+): { result: SimResult; paths: Paths } {
   const t0 = performance.now();
   const knots = asiKnots(input);
   const pBad = pBadOf(input, knots);
@@ -142,6 +160,8 @@ export function sim(input: SimInput, { seed = 1, paths = 10_000 }: SimOptions = 
   const y0 = Math.ceil(input.startYear);
   const byYear = new Float64Array(Math.max(0, HORIZON - y0 + 1));
   const cats = new Float64Array(paths);
+  const asi = new Float64Array(paths).fill(Infinity);
+  const cat = new Float64Array(paths).fill(Infinity);
   const mix: Record<Scenario, number> = { noAsi: 0, asiFine: 0, fastCat: 0, slowCat: 0 };
   let nCat = 0;
   const rand = mulberry32(seed);
@@ -157,6 +177,7 @@ export function sim(input: SimInput, { seed = 1, paths = 10_000 }: SimOptions = 
       mix.noAsi++;
       continue;
     }
+    asi[i] = t;
     const lag = -L * Math.log(1 - u3);
     const c = t + lag;
     if (u2 >= pBad || c > HORIZON) {
@@ -166,6 +187,7 @@ export function sim(input: SimInput, { seed = 1, paths = 10_000 }: SimOptions = 
     if (lag < 1) mix.fastCat++;
     else mix.slowCat++;
     cats[nCat++] = c;
+    cat[i] = c;
     byYear[Math.ceil(c) - y0]++;
   }
 
@@ -187,7 +209,7 @@ export function sim(input: SimInput, { seed = 1, paths = 10_000 }: SimOptions = 
   }
 
   for (const k of Object.keys(mix) as Scenario[]) mix[k] /= paths;
-  return {
+  const result: SimResult = {
     schema: "doomclock.sim/1",
     pCat2100: nCat / paths,
     medianCatDate,
@@ -196,6 +218,7 @@ export function sim(input: SimInput, { seed = 1, paths = 10_000 }: SimOptions = 
     scenarioMix: mix,
     ms: performance.now() - t0,
   };
+  return { result, paths: { asi, cat } };
 }
 
 // Decimal year (2031.5) -> ISO timestamp, UTC.

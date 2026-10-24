@@ -10,6 +10,6 @@ export const simResult: SimResult = {
     { year: 2050, p: 0.12 },
     { year: 2100, p: 0.3, p10: 0.28, p50: 0.3, p90: 0.32 },
   ],
-  scenarioMix: { noAsiBy2100: 0.14, asiFine: 0.56, fastCatastrophe: 0.06, slowCatastrophe: 0.24 },
+  scenarioMix: { noAsi: 0.14, asiFine: 0.56, fastCat: 0.06, slowCat: 0.24 },
   ms: 12,
 }
