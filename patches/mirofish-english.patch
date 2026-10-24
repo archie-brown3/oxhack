@@ -1,0 +1,131 @@
+diff --git a/backend/app/services/oasis_profile_generator.py b/backend/app/services/oasis_profile_generator.py
+index de6ce6e..8436766 100644
+--- a/backend/app/services/oasis_profile_generator.py
++++ b/backend/app/services/oasis_profile_generator.py
+@@ -755,7 +755,7 @@ class OasisProfileGenerator:
+ 3. age: 年龄数字（必须是整数）
+ 4. gender: 性别，必须是英文: "male" 或 "female"
+ 5. mbti: MBTI类型（如INTJ、ENFP等）
+-6. country: 国家（使用中文，如"中国"）
++6. country: 国家，英文国家名（如"United States"、"China"、"United Kingdom"），按实体真实所在地填写
+ 7. profession: 职业
+ 8. interested_topics: 感兴趣话题数组
+ 
+@@ -804,7 +804,7 @@ class OasisProfileGenerator:
+ 3. age: 固定填30（机构账号的虚拟年龄）
+ 4. gender: 固定填"other"（机构账号使用other表示非个人）
+ 5. mbti: MBTI类型，用于描述账号风格，如ISTJ代表严谨保守
+-6. country: 国家（使用中文，如"中国"）
++6. country: 国家，英文国家名（如"United States"、"China"、"United Kingdom"），按实体真实所在地填写
+ 7. profession: 机构职能描述
+ 8. interested_topics: 关注领域数组
+ 
+@@ -858,7 +858,7 @@ class OasisProfileGenerator:
+                 "age": 30,  # 机构虚拟年龄
+                 "gender": "other",  # 机构使用other
+                 "mbti": "ISTJ",  # 机构风格：严谨保守
+-                "country": "中国",
++                "country": None,
+                 "profession": "Media",
+                 "interested_topics": ["General News", "Current Events", "Public Affairs"],
+             }
+@@ -870,7 +870,7 @@ class OasisProfileGenerator:
+                 "age": 30,  # 机构虚拟年龄
+                 "gender": "other",  # 机构使用other
+                 "mbti": "ISTJ",  # 机构风格：严谨保守
+-                "country": "中国",
++                "country": None,
+                 "profession": entity_type,
+                 "interested_topics": ["Public Policy", "Community", "Official Announcements"],
+             }
+@@ -1220,7 +1220,7 @@ class OasisProfileGenerator:
+                 "age": profile.age if profile.age else 30,
+                 "gender": self._normalize_gender(profile.gender),
+                 "mbti": profile.mbti if profile.mbti else "ISTJ",
+-                "country": profile.country if profile.country else "中国",
++                "country": profile.country if profile.country else "Unknown",
+             }
+             
+             # 可选字段
+diff --git a/backend/app/utils/locale.py b/backend/app/utils/locale.py
+index 23d04aa..773c086 100644
+--- a/backend/app/utils/locale.py
++++ b/backend/app/utils/locale.py
+@@ -5,6 +5,9 @@ from flask import request, has_request_context
+ 
+ _thread_local = threading.local()
+ 
++# Doom Clock patch: default language is English unless MIROFISH_LOCALE says otherwise
++DEFAULT_LOCALE = os.environ.get('MIROFISH_LOCALE', 'en')
++
+ _locales_dir = os.path.join(os.path.dirname(__file__), '..', '..', '..', 'locales')
+ 
+ # Load language registry
+@@ -27,14 +30,14 @@ def set_locale(locale: str):
+ 
+ def get_locale() -> str:
+     if has_request_context():
+-        raw = request.headers.get('Accept-Language', 'zh')
+-        return raw if raw in _translations else 'zh'
+-    return getattr(_thread_local, 'locale', 'zh')
++        raw = request.headers.get('Accept-Language', DEFAULT_LOCALE)
++        return raw if raw in _translations else DEFAULT_LOCALE
++    return getattr(_thread_local, 'locale', DEFAULT_LOCALE)
+ 
+ 
+ def t(key: str, **kwargs) -> str:
+     locale = get_locale()
+-    messages = _translations.get(locale, _translations.get('zh', {}))
++    messages = _translations.get(locale, _translations.get(DEFAULT_LOCALE, {}))
+ 
+     value = messages
+     for part in key.split('.'):
+@@ -45,7 +48,7 @@ def t(key: str, **kwargs) -> str:
+             break
+ 
+     if value is None:
+-        value = _translations.get('zh', {})
++        value = _translations.get(DEFAULT_LOCALE, {})
+         for part in key.split('.'):
+             if isinstance(value, dict):
+                 value = value.get(part)
+@@ -65,5 +68,5 @@ def t(key: str, **kwargs) -> str:
+ 
+ def get_language_instruction() -> str:
+     locale = get_locale()
+-    lang_config = _languages.get(locale, _languages.get('zh', {}))
+-    return lang_config.get('llmInstruction', '请使用中文回答。')
++    lang_config = _languages.get(locale, _languages.get(DEFAULT_LOCALE, {}))
++    return lang_config.get('llmInstruction', 'Please respond in English.')
+diff --git a/frontend/src/i18n/index.js b/frontend/src/i18n/index.js
+index aa26553..2f9f099 100644
+--- a/frontend/src/i18n/index.js
++++ b/frontend/src/i18n/index.js
+@@ -14,12 +14,12 @@ for (const path in localeFiles) {
+   }
+ }
+ 
+-const savedLocale = localStorage.getItem('locale') || 'zh'
++const savedLocale = localStorage.getItem('locale') || 'en'
+ 
+ const i18n = createI18n({
+   legacy: false,
+   locale: savedLocale,
+-  fallbackLocale: 'zh',
++  fallbackLocale: 'en',
+   messages
+ })
+ 
+diff --git a/locales/languages.json b/locales/languages.json
+index 81732ce..11b5764 100644
+--- a/locales/languages.json
++++ b/locales/languages.json
+@@ -5,7 +5,7 @@
+   },
+   "en": {
+     "label": "English",
+-    "llmInstruction": "Please respond in English."
++    "llmInstruction": "Respond only in English. Every free-text and named field (bios, personas, posts, countries, professions, topics, places) must be written in English, even though these instructions are in Chinese. Write country names in English, e.g. \"United States\", \"China\", \"United Kingdom\"."
+   },
+   "es": {
+     "label": "Español",
