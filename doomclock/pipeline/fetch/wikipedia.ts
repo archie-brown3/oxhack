@@ -3,7 +3,7 @@ import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { RAW, saveRaw } from "../lib/raw.ts";
 
-const UA = { "user-agent": "oxhack-doomclock/0.1 (hackathon; archie1203brown@gmail.com)" };
+const UA = { "user-agent": "oxhack-doomclock/0.1 (hackathon project; contact via GitHub)" };
 const day = new Date().toISOString().slice(0, 10);
 const wt = `doomsday-clock.${day}.wikitext`;
 if (!existsSync(join(RAW, "wikipedia", wt))) {
