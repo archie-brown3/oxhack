@@ -884,13 +884,13 @@
         "id": 13,
         "title": "[P1 \u00b7 ship] Set up Vercel and deploy doomclock/web",
         "description": "Set up Vercel for the Doom Clock web app, following https://vercel.com/get-started.md: CLI, login (owner, interactive), link a project rooted at doomclock/web (Vite static build), and a preview deploy. Later deploys ship each P1 milestone.",
-        "details": "Lane ship (Sonnet agent 'deploy'). No secrets in the build: the app is static, with cached data in public/cache. No git remote or push. Preview deploys only until the owner OKs production.",
+        "details": "Lane ship (Sonnet agent 'deploy'). No secrets in the build: the app is static, with cached data in public/cache. No git remote or push. Preview deploys only until the owner OKs production.\nDONE ~22:30 BST: production https://doomclock-web.vercel.app (public alias), project doomclock-web, scope archie-browns-projects. Previews and immutable URLs are behind Vercel Deployment Protection (302 to SSO). Redeploy from doomclock/web: npm run publish:cache && vercel deploy --prod (uploads the working tree). See docs/deploy.md.",
         "testStrategy": "The preview URL serves the built app. The deploy command is documented in doomclock/README or docs/deploy.md.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [],
         "priority": "medium",
         "subtasks": [],
-        "updatedAt": "2026-10-24T20:45:00Z"
+        "updatedAt": "2026-10-24T21:35:00Z"
       },
       {
         "id": 17,
