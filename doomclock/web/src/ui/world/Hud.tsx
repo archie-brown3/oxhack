@@ -134,6 +134,10 @@ export function MapKey() {
   return (
     <div id="keypop" className="pop dc-panel on" role="dialog" aria-label="Map key">
       <div className="dc-marks">
+        <div className="dc-mark"><span className="event-key kind-incident">!</span><span><b>Incident</b>: a reported AI harm</span></div>
+        <div className="dc-mark"><span className="event-key kind-government">§</span><span><b>Government</b>: a public decision or action</span></div>
+        <div className="dc-mark"><span className="event-key kind-news">≋</span><span><b>News</b>: a dated report or clock statement</span></div>
+        <div className="dc-mark"><span className="event-key kind-post">@</span><span><b>X post</b>: a simulated society post</span></div>
         <div className="dc-mark"><svg viewBox="0 0 40 28"><circle className="k-land1" cx="5" cy="14" r="3.4" /><circle className="k-land2" cx="20" cy="14" r="3.4" /><circle className="k-land3" cx="35" cy="14" r="3.4" style={{ fill: 'var(--ink-2)' }} /></svg><span><b>Land dots</b>, brighter where this future has more frontier AI activity <span className="dc-mock">mock split</span></span></div>
         <div className="dc-mark"><svg viewBox="0 0 40 28"><circle className="k-real" cx="20" cy="14" r="9" /></svg><span><b>Solid ring</b>: a real event before today</span></div>
         <div className="dc-mark"><svg viewBox="0 0 40 28"><circle className="k-sim" cx="20" cy="14" r="9" /></svg><span><b>Dashed ring</b>: simulated or projected after today. Click to read it</span></div>

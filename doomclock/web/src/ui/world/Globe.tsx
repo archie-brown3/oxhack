@@ -161,12 +161,14 @@ export function GlobeView({ hidden, countries, dcs, frame, ended, events, spanMs
     const timers: number[] = []
     const add = (e: Located) => {
       const real = e.provenance === 'real'
+      const kind = ['incident', 'government', 'news', 'post'].includes(e.kind) ? e.kind : 'news'
       const r = { lat: e.lat, lng: e.lng, c: real ? ringRgb.real : ringRgb.sim, max: e.major ? 14 : 5 }
       rings = [...rings, r]; globe.ringsData(rings)
       timers.push(window.setTimeout(() => { rings = rings.filter((x) => x !== r); globe.ringsData(rings) }, 2000))
       const el = document.createElement('div')
-      el.className = `bub ${real ? 'real' : 'sim'}${e.major ? ' major' : ''}`
-      el.innerHTML = `<button class="b" aria-label="${e.title.replace(/"/g, '&quot;').slice(0, 90)}"></button>`
+      el.className = `bub kind-${kind} ${real ? 'real' : 'sim'}${e.major ? ' major' : ''}`
+      const label = `${kind}: ${e.title}`.replace(/"/g, '&quot;').slice(0, 110)
+      el.innerHTML = `<button class="b" aria-label="${label}"><span aria-hidden="true"></span></button>`
       el.onclick = (ev) => { ev.stopPropagation(); pick.current(e, el) }
       bubs = [...bubs, { lat: e.lat, lng: e.lng, el }].slice(-10); globe.htmlElementsData(bubs)
     }

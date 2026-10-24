@@ -103,6 +103,15 @@ body.engine #future { display: none; }
 .bub { position: relative; pointer-events: auto; cursor: pointer; transform: translate(-50%, -50%); animation: pop .35s cubic-bezier(.2, .8, .2, 1) both; }
 .bub .b { display: grid; place-items: center; width: 26px; height: 26px; border-radius: var(--radius-round); font: 600 11px/1 var(--font-sans); color: var(--ink);
   background: var(--scrim); border: 1.5px dashed var(--sim); transition: transform .12s; }
+.bub .b span { font-size: 14px; font-weight: 700; line-height: 1; }
+.bub.kind-incident .b span::before, .event-key.kind-incident::before { content: '!'; }
+.bub.kind-government .b { border-radius: var(--radius-0); }
+.bub.kind-government .b span::before, .event-key.kind-government::before { content: '§'; }
+.bub.kind-news .b { border-radius: var(--radius-0); transform: rotate(45deg) scale(.78); }
+.bub.kind-news .b span { transform: rotate(-45deg); }
+.bub.kind-news .b span::before, .event-key.kind-news::before { content: '≋'; }
+.bub.kind-post .b span::before, .event-key.kind-post::before { content: '@'; }
+.bub.real .b { border-style: solid; }
 .bub.real .b { width: 16px; height: 16px; background: transparent; border: 2px solid var(--ink); }
 .bub.cat .b { width: 16px; height: 16px; border: 0; border-radius: 0; background: var(--alarm); transform: rotate(45deg); }
 .bub:hover .b { transform: scale(1.15); } .bub.cat:hover .b { transform: rotate(45deg) scale(1.15); }
@@ -315,6 +324,10 @@ img.av { object-fit: cover; padding: 0; }
 .maxpanel #kglegend { left: var(--space-5); bottom: var(--space-5); }
 #kglegend .k-gov { background: var(--ink); } #kglegend .k-media { background: var(--ink-2); } #kglegend .k-lab { background: var(--ink-3); } #kglegend .k-other { background: var(--rule-strong); }
 #kglegend .k-cast { border: 1.5px solid var(--sim); }
+.event-key { width: 40px; height: 28px; display: grid; place-items: center; border: 1.5px dashed var(--sim); border-radius: var(--radius-round); color: var(--sim); font: 700 14px/1 var(--font-sans); }
+.event-key.kind-government { border-radius: var(--radius-0); }
+.event-key.kind-news { border-radius: var(--radius-0); transform: rotate(45deg) scale(.78); }
+.event-key.kind-post { border-style: solid; }
 .kgzoom { position: absolute; z-index: 2; top: var(--space-3); left: var(--space-3); display: flex; align-items: center; gap: var(--space-2); background: var(--ground); }
 .kgzoom output { color: var(--ink-2); }
 #kg { touch-action: none; }

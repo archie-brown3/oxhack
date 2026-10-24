@@ -39,6 +39,7 @@ This is a snapshot. Check the board and ask the Lead for changes before you star
 - The Engine page is built (task **19**): feed, government/news, cast, graph, run stats and full-screen views. It uses recorded test data until task **11** supplies the run library. It does not run MiroFish live.
 - Globe zoom is built (task **145**). The graph also has zoom in, zoom out and reset controls, including full screen.
 - Replay now takes eight seconds per quarter at normal speed. News stays still. Use the arrows to read other events; this pauses replay (task **146**).
+- The World map uses `!` for incidents, `§` for government actions, `≋` for news and `@` for simulated X posts. Open **Map key** for these icons, real/simulated rings, datacentre dots and catastrophe marks.
 - Some engine work is still in files that are not yet committed. Do not replace it or start a second copy.
 - Tasks **14 and 3** cover data at a chosen date and the engine timeline.
 - Tasks **4, 5 and 15** cover the globe, clock, explanations and Inputs view.
