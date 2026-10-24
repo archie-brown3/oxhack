@@ -84,6 +84,30 @@ body.engine #future { display: none; }
 #flash:hover .timer i { animation-play-state: paused; }
 @keyframes drain { to { transform: scaleX(0); } }
 
+/* why the hand moved */
+.movedline { display: block; text-align: left; margin-top: var(--space-1); font-size: 12px; line-height: 16px; color: var(--ink-2); }
+.movedline b { color: var(--alarm); font-weight: 600; }
+.movedline:hover { color: var(--ink); }
+#moved { position: fixed; left: 292px; top: var(--space-5); width: 340px; z-index: 59; display: none; gap: var(--space-2); font-size: 12px; line-height: 16px; }
+#moved.on { display: grid; animation: rise .2s cubic-bezier(.2, .8, .2, 1); }
+#moved .mh { display: flex; justify-content: space-between; align-items: center; }
+#moved .mh button { color: var(--ink-3); font-size: 16px; line-height: 1; }
+#moved .mt { margin: 0; font-size: 13px; line-height: 19px; }
+#moved .toward { color: var(--alarm); font-weight: 600; }
+#moved .away { color: var(--ward); font-weight: 600; }
+#moved .drv { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0 var(--space-3); padding-top: var(--space-2); border-top: 1px solid var(--rule); }
+#moved .drv a { color: var(--ink); text-decoration: none; } #moved .drv a:hover { text-decoration: underline; }
+#moved .drv .dc-data { grid-column: 1 / -1; }
+#moved .ctx { display: grid; gap: var(--space-1); padding-top: var(--space-2); border-top: 1px solid var(--rule); color: var(--ink-2); }
+#moved .ctx a { color: var(--ink-2); }
+.dc-face .hand { transform-box: view-box; transform-origin: 96px 96px; }
+.dc-face.sweep .hand { transition: transform .6s cubic-bezier(.2, .8, .2, 1); }
+/* newsflash: simulated turning points use the sim style (hollow, dashed), real ones the oxblood band */
+.dc-flash .fsrc a { color: var(--ink-2); }
+.dc-flash.sim { border: 1px dashed var(--sim); }
+.dc-flash.sim .band { background: transparent; color: var(--sim); border-bottom: 1px dashed var(--sim); }
+.dc-flash.sim .timer i { background: var(--sim); }
+
 /* globe marks: rings for events, a diamond for catastrophe */
 .bub { position: relative; pointer-events: auto; cursor: pointer; transform: translate(-50%, -50%); animation: pop .35s cubic-bezier(.2, .8, .2, 1) both; }
 .bub .b { display: grid; place-items: center; width: 26px; height: 26px; border-radius: var(--radius-round); font: 600 11px/1 var(--font-sans); color: var(--ink);
@@ -195,6 +219,9 @@ body.ov #engine .pane > h3 { display: none; }
 .track-intro p { font: var(--type-body-l); margin: 0; max-width: 64ch; }
 
 /* engine: pane counts, LIVE vs RECORDED, full screen */
+#pop dl { margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 2px var(--space-3); font-size: 12px; line-height: 16px; }
+#pop dt { color: var(--ink-3); } #pop dd { margin: 0; }
+#pop dd a { color: var(--ink); }
 .pane h3 .dc-data, #society h3 .dc-data { text-transform: none; letter-spacing: 0; white-space: nowrap; }
 .state { margin-left: auto; display: inline-flex; align-items: center; gap: var(--space-2); padding: var(--space-1) var(--space-3); border: 1px solid var(--rule-strong); border-radius: var(--radius-1);
   font: var(--type-eyebrow); letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; color: var(--ink-2); white-space: nowrap; }
@@ -265,9 +292,13 @@ body.ov #engine .pane > h3 { display: none; }
   <div class="face" id="face"></div>
   <p class="reading" id="reading"></p>
   <div class="cd" id="cd">–</div>
+  <button class="movedline" id="movedline" aria-controls="moved"></button>
   <div class="to">until <b>Dec 2032</b><span class="dc-mock">mock</span>, when the chance of AI catastrophe passes 1 in 10</div>
   <span class="why">Why this time?</span>
 </section>
+
+<!-- why the hand moved: real market moves, attributed by rerunning the sampler; events are context only -->
+<section id="moved" class="dc-panel" aria-label="Why the hand moved"></section>
 
 <nav id="viewseg" class="dc-panel" aria-label="View">
   <div class="dc-tabs"><button data-view="inputs" aria-pressed="false">Inputs<kbd>I</kbd></button><button data-view="world" aria-pressed="true">World<kbd>W</kbd></button><button data-view="engine" aria-pressed="false">Engine<kbd>E</kbd></button></div>
@@ -318,7 +349,7 @@ body.ov #engine .pane > h3 { display: none; }
 <div id="coach" class="dc-panel hide"></div>
 <section id="flash" class="dc-flash" role="status" aria-live="polite">
   <div class="band"><span id="fband">Turning point</span><span id="fq"></span></div>
-  <div class="body"><h3 id="fh"></h3><p id="fp"></p><div class="shift" id="fshift"></div></div>
+  <div class="body"><h3 id="fh"></h3><p id="fp"></p><div class="shift" id="fshift"></div><div class="fsrc dc-data" id="fsrc"></div></div>
   <div class="timer"><i></i></div>
 </section>
 

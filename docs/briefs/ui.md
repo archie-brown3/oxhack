@@ -68,6 +68,11 @@ The experience fails if events happen, or the clock moves, without a specific re
 
 Inputs (with the as-of slider) → **Run live** (the Monte Carlo in the browser, plus one live MiroFish quarter streaming into Engine, with a recorded fallback) → **Replay** recorded futures on the globe → Why this time? + Track record.
 
+## Mockup approved (23:10): Lead rulings on the design-system conflicts
+
+- **Track record:** market vs coin vs base rate, as the brief says. There's no panel at w=0.
+- **Accepted:** land capped at `ink-2`, the 12 px floor, the 48 px dock numeral, Inputs as a third top tab, the why callout to the right of the clock, and monochrome monogram avatars.
+
 ## Open decisions (Lead defaults, pending Archie)
 
 | Decision | Default |

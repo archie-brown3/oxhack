@@ -17,13 +17,13 @@
         "id": 10,
         "title": "[P1 \u00b7 ui] Clickable mockup: World <-> Engine (owner review gate)",
         "description": "Prototype mockup to confirm direction before any build: the Plague Inc-style World view with the clock in the corner, plus a one-click switch to the Engine view (the MiroFish backend made visible: simulated X feed, government events, news, the cast, the knowledge graph, run stats). Then 'Why this time?'. Built from real repo data where cheap; anything mocked is marked. Follow-up for review: an Inputs screen ('what the engine knows', with the as-of slider), after the design-system pass.",
-        "details": "Scope: .lavish/prototype/** only. Owner reviews in Lavish. No build tasks start until this is approved.\n\nREIMAGINED SPEC (owner, 24 Oct ~22:30, replaces the dashboard-style prototype):\n- World view: the globe is the centrepiece, about 75-80% of the screen height. The HUD floats over it as four small corners (Plague board lesson 01), about 10% chrome. Hex-dot globe (style B), monochrome region tint, Epoch datacentre houses by date ('publicly mapped sites, not compute share'), event pings, clickable news bubbles on the globe (real AIID before today, simulated MiroFish posts after).\n- Top-left: large analog quarter-face clock (~220 px), always visible. White hand = real forecast, 1 min = 1 yr to date10 ('Dec 2032', labelled mock), lag 1-10 y range arc, Bulletin 85 s faint ghost tick, a 'your timeline (phase 2)' slot in the legend, live y d hh:mm:ss countdown. Click opens 'Why this time?'.\n- Top-centre: World | Engine toggle (one click, key E). Top-right: future chip ('Future #N \u00b7 earlier than X% of futures'), Roll another (R), Early / Typical / Late.\n- 'Typical' ranks over ALL 10,000 futures (owner): the median future has no catastrophe by 2100 and the chip says so.\n- Bottom: news ticker (REAL amber before today, SIMULATED violet after) over a time bar (play/pause, speed, quarter scrubber Oct 2024-2035, today marker, real solid vs projected dashed, this future's milestones marked). Turning points get a self-closing card (~4 s, no OK).\n- Engine: a SEPARATE SCREEN (owner): society for the watched future (ensemble member k of 5, others hinted), X feed, government and news, cast, knowledge graph, per-turn run stats; clock and time bar stay. Variant B: the same Engine as an overlay sheet on the globe (owner asked to wireframe an overlay).\n- 'Why this time?': anchors -> Monte Carlo fan -> date -> hand, 'a prediction, not a prophecy', Track record stub one click away.\n- Labels: only REAL, SIMULATED, GAME RULE, plus a 'mock' mark on invented numbers. Left edge and bottom tray stay empty for phase 2.\n- Out of scope here: a reactive globe where regions respond to events (owner: separate feature, Lead to plan; see task 12).\n\nSTATUS (ui, 2026-10-24T20:42:50Z): built and headless-checked at 1440x900 (world today, opening replay, superintelligence and catastrophe cards, engine screen, engine overlay, Why, Track, bubble popover). In Lavish for owner review: .lavish/prototype/index.html. Still open for the owner: (1) Engine as a screen vs an overlay sheet; (2) opening as an auto-replay vs at today; (3) when scrubbing back, the clock stays fixed vs replays historic forecasts. Reported to the Lead.\nSCOPE CUT 24 Oct 22:20: Time-box: finish the design-system pass, get Archie's OK, stop. No Inputs mockup.",
+        "details": "Scope: .lavish/prototype/** only. Owner reviews in Lavish. No build tasks start until this is approved.\n\nREIMAGINED SPEC (owner, 24 Oct ~22:30, replaces the dashboard-style prototype):\n- World view: the globe is the centrepiece, about 75-80% of the screen height. The HUD floats over it as four small corners (Plague board lesson 01), about 10% chrome. Hex-dot globe (style B), monochrome region tint, Epoch datacentre houses by date ('publicly mapped sites, not compute share'), event pings, clickable news bubbles on the globe (real AIID before today, simulated MiroFish posts after).\n- Top-left: large analog quarter-face clock (~220 px), always visible. White hand = real forecast, 1 min = 1 yr to date10 ('Dec 2032', labelled mock), lag 1-10 y range arc, Bulletin 85 s faint ghost tick, a 'your timeline (phase 2)' slot in the legend, live y d hh:mm:ss countdown. Click opens 'Why this time?'.\n- Top-centre: World | Engine toggle (one click, key E). Top-right: future chip ('Future #N \u00b7 earlier than X% of futures'), Roll another (R), Early / Typical / Late.\n- 'Typical' ranks over ALL 10,000 futures (owner): the median future has no catastrophe by 2100 and the chip says so.\n- Bottom: news ticker (REAL amber before today, SIMULATED violet after) over a time bar (play/pause, speed, quarter scrubber Oct 2024-2035, today marker, real solid vs projected dashed, this future's milestones marked). Turning points get a self-closing card (~4 s, no OK).\n- Engine: a SEPARATE SCREEN (owner): society for the watched future (ensemble member k of 5, others hinted), X feed, government and news, cast, knowledge graph, per-turn run stats; clock and time bar stay. Variant B: the same Engine as an overlay sheet on the globe (owner asked to wireframe an overlay).\n- 'Why this time?': anchors -> Monte Carlo fan -> date -> hand, 'a prediction, not a prophecy', Track record stub one click away.\n- Labels: only REAL, SIMULATED, GAME RULE, plus a 'mock' mark on invented numbers. Left edge and bottom tray stay empty for phase 2.\n- Out of scope here: a reactive globe where regions respond to events (owner: separate feature, Lead to plan; see task 12).\n\nSTATUS (ui, 2026-10-24T21:14:12Z): owner said \"looks great\" on the direction. Brief now docs/briefs/ui.md (Lead). Applied the Doom Clock design system (ds/tokens.css generated from docs/design-system/tokens.json by gen-tokens.mjs; ds/bundle.css + DoomClock.face() copied from the artifact). Added: Inputs Paper sheet 'What the engine knows' with an as-of slider (real data/state.json anchors with price history and traders, data/events.json incidents/government/news, Epoch datacentres; gen-inputs.mjs) as demo step 1 with Run live; Engine LIVE vs RECORDED states; full-screen knowledge graph and cast roster (F / Esc); Track record per brief (market vs coin vs base rate, CIs, reliability, n, caveats; fixture); 'Why the hand moved' callout (real Manifold moves since 1 Jul 2026, months per driver from rerunning the sampler; events shown as context only); major events as newsflash + country flare (real oxblood, simulated dashed sim); who/what/where/when + source on every event. MiroFish posts/run stats are the test-spike FIXTURE until new runs land (owner, 24 Oct). Open: Inputs as a third top tab; callout placement right of the clock.\nDONE 23:10: Archie: 'looks great'. Prototype in .lavish/prototype (design system applied, Inputs/World/Engine/Why/Track, live + recorded states, full-screen graph and roster, why-the-hand-moved drivers, majors in the newsflash). Lead rulings on ui's 7 conflicts: follow the brief for the Track record (market vs coin vs base rate; no panel at w=0); accept land capped at ink-2, the 12 px floor, the 48 px dock numeral, Inputs as a third top tab, the why callout right of the clock, and monochrome monogram avatars. Design-system text to update in the artifact later: Track record wording, Inputs tab, Bulletin label size.",
         "testStrategy": "Headless screenshots of every state at 1440x900 (world today, projected, catastrophe, engine screen, engine overlay, why, track). Then owner approves the direction (or annotates changes) in Lavish.",
-        "status": "in-progress",
+        "status": "done",
         "dependencies": [],
         "priority": "high",
         "subtasks": [],
-        "updatedAt": "2026-10-24T21:20:00Z"
+        "updatedAt": "2026-10-24T22:10:00Z"
       },
       {
         "id": 2,
@@ -71,7 +71,7 @@
         "id": 4,
         "title": "[P1 \u00b7 ui] Plague Inc world view",
         "description": "A full-bleed globe (hex-dot style B + the 77 datacentre markers from data/clean/datacentres.jsonl), region tint = frame.regions x capability, event pings on the map, a bottom news ticker, time controls (play/pause, 1x/4x, a quarter scrubber Oct 2024 -> 2035, a 'today' marker, real vs projected styling). Leave room in the corner HUD for the clock.",
-        "details": "Scope: doomclock/web/src/ui/world/**; may add globe deps (react-globe.gl/three) to doomclock/web/package.json. Renders a Timeline only, never game state. Inspired by the plague board (.lavish/plague-board.html).\nSCOPE CUT 24 Oct 22:20: Simpler: flat datacentre markers (no 3D houses), region tint, event pings + flare, ticker, scrubber. Checkpoint 03:00.",
+        "details": "Scope: doomclock/web/src/ui/world/**; may add globe deps (react-globe.gl/three) to doomclock/web/package.json. Renders a Timeline only, never game state. Inspired by the plague board (.lavish/plague-board.html).\nSCOPE CUT 24 Oct 22:20: Simpler: flat datacentre markers (no 3D houses), region tint, event pings + flare, ticker, scrubber. Checkpoint 03:00.\nUnblocked 23:10 (mockup approved). Build from .lavish/prototype + docs/briefs/ui.md against engine fixtures until engine/timeline.ts lands.",
         "testStrategy": "Headless screenshots at 1440x900 and 390x844. Works offline. 30 fps while rotating. Scrubbing changes tint, pings and ticker.",
         "status": "pending",
         "dependencies": [
@@ -80,7 +80,7 @@
         ],
         "priority": "high",
         "subtasks": [],
-        "updatedAt": "2026-10-24T21:20:00Z"
+        "updatedAt": "2026-10-24T22:10:00Z"
       },
       {
         "id": 11,
@@ -115,7 +115,7 @@
         "id": 5,
         "title": "[P1 \u00b7 clock] Analog clock in the corner + 'Why this time?'",
         "description": "A Bulletin-style quarter face in the corner HUD: white hand = the real line, 1 minute = 1 year to date10, a ghost tick at 85 s (Bulletin 2026), the lag range as an arc, a red-hand slot for phase 2. A live countdown (y d hh:mm:ss) to date10. Click opens 'Why this time?': anchors (market, p, traders, link) -> Monte Carlo fan -> date10 -> hand. 'A prediction, not a prophecy'.",
-        "details": "Scope: doomclock/web/src/ui/clock/**, ui/why/**. SVG + CSS, no new deps. Reads ClockReading + Timeline.\nSCOPE CUT 24 Oct 22:20: Centrepiece. Checkpoint 03:00.\nSPECIFICITY (Archie, 22:30): A 'why the hand moved' callout from frame.drivers under the clock. The newsflash for major events on World.",
+        "details": "Scope: doomclock/web/src/ui/clock/**, ui/why/**. SVG + CSS, no new deps. Reads ClockReading + Timeline.\nSCOPE CUT 24 Oct 22:20: Centrepiece. Checkpoint 03:00.\nSPECIFICITY (Archie, 22:30): A 'why the hand moved' callout from frame.drivers under the clock. The newsflash for major events on World.\nUnblocked 23:10 (mockup approved). Build from .lavish/prototype + docs/briefs/ui.md against engine fixtures until engine/timeline.ts lands.",
         "testStrategy": "Headless screenshot. The countdown ticks. The hand is correct for 3 fixture dates. Every number traces to the data.",
         "status": "pending",
         "dependencies": [
@@ -124,13 +124,13 @@
         ],
         "priority": "high",
         "subtasks": [],
-        "updatedAt": "2026-10-24T21:35:00Z"
+        "updatedAt": "2026-10-24T22:10:00Z"
       },
       {
         "id": 15,
         "title": "[P1 \u00b7 ui] Inputs view: everything the engine knows, before it predicts",
         "description": "A screen that shows all seed data, dated and sourced: market anchors (price history, traders, links), AIID incidents, government events and datacentres, with an 'as of' slider. Moving it back hides everything after that date, which proves there's no leakage. Demo step 1: data -> run -> prediction.",
-        "details": "Scope: doomclock/web/src/ui/inputs/**. Reads asOf(T) output, via the same contract the engine uses. Design system: Paper sheet or Stage panel per docs/design-system.\nSCOPE CUT 24 Oct 22:20: Minimal: a table per source + the as-of slider, no price charts. No separate mockup; build from docs/briefs/ui.md. Checkpoint 06:00.",
+        "details": "Scope: doomclock/web/src/ui/inputs/**. Reads asOf(T) output, via the same contract the engine uses. Design system: Paper sheet or Stage panel per docs/design-system.\nSCOPE CUT 24 Oct 22:20: Minimal: a table per source + the as-of slider, no price charts. No separate mockup; build from docs/briefs/ui.md. Checkpoint 06:00.\nUnblocked 23:10 (mockup approved). Build from .lavish/prototype + docs/briefs/ui.md against engine fixtures until engine/timeline.ts lands.",
         "testStrategy": "Headless screenshot at two 'as of' dates. Counts match asOf(T). No item with ts >= T is shown.",
         "dependencies": [
           10,
@@ -139,7 +139,7 @@
         "priority": "high",
         "status": "pending",
         "subtasks": [],
-        "updatedAt": "2026-10-24T21:20:00Z"
+        "updatedAt": "2026-10-24T22:10:00Z"
       },
       {
         "id": 16,

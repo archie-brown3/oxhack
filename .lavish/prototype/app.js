@@ -41,14 +41,20 @@ const sharesAt = i => { const k = Math.max(0, i - TODAY) * .004; return { US: .5
 // ---------- 10,000 futures: a line-for-line port of sim.ts (same seed, same three draws per path) ----------
 function mulberry32(seed) { let a = seed >>> 0; return () => { a = (a + 0x6d2b79f5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
 const KX = [DC.fan.inputs.startYear, ...DC.fan.inputs.asi.map(a => a.year)], KP = [0, ...DC.fan.inputs.asi.map(a => a.p)];
-const cdfAt = y => { if (y <= KX[0]) return 0; for (let i = 1; i < KX.length; i++) if (y <= KX[i]) return KP[i - 1] + (KP[i] - KP[i - 1]) * (y - KX[i - 1]) / (KX[i] - KX[i - 1]); return KP.at(-1); };
-const arrival = u => { for (let i = 1; i < KX.length; i++) if (u < KP[i]) return KX[i - 1] + (u - KP[i - 1]) * (KX[i] - KX[i - 1]) / (KP[i] - KP[i - 1]); return Infinity; };
+const cdfAt = (y, kp = KP) => { if (y <= KX[0]) return 0; for (let i = 1; i < KX.length; i++) if (y <= KX[i]) return kp[i - 1] + (kp[i] - kp[i - 1]) * (y - KX[i - 1]) / (KX[i] - KX[i - 1]); return kp.at(-1); };
+const arrival = (u, kp = KP) => { for (let i = 1; i < KX.length; i++) if (u < kp[i]) return KX[i - 1] + (u - kp[i - 1]) * (KX[i] - KX[i - 1]) / (kp[i] - kp[i - 1]); return Infinity; };
 const N = 10000, LAG = 3, P_BAD = Math.min(1, DC.fan.inputs.pCat2100 / cdfAt(2100));
 function sample() { const r = mulberry32(1), out = [];
   for (let i = 0; i < N; i++) { const u1 = r(), u2 = r(), u3 = r(), asi = arrival(u1), lag = -LAG * Math.log(1 - u3), c = asi + lag;
     out.push({ id: i + 1, asi: asi > 2100 ? Infinity : asi, cat: (asi <= 2100 && u2 < P_BAD && c <= 2100) ? c : Infinity }); }
   return out; }
 const PATHS = sample();
+// date10 for other anchor prices: the same seed and draws, so differences are the prices' doing, not noise.
+function date10For(asi, pCat) {
+  const kp = [0, ...asi], pb = Math.min(1, pCat / cdfAt(2100, kp)), r = mulberry32(1), c = [];
+  for (let i = 0; i < N; i++) { const u1 = r(), u2 = r(), u3 = r(), a = arrival(u1, kp), x = a - LAG * Math.log(1 - u3); if (a <= 2100 && u2 < pb && x <= 2100) c.push(x); }
+  return c.sort((a, b) => a - b)[N / 10 - 1];
+}
 // Ranked over ALL futures (owner, 24 Oct): no catastrophe by 2100 ranks last, then by superintelligence year.
 const ORDER = PATHS.map((_, i) => i).sort((a, b) => (PATHS[a].cat - PATHS[b].cat) || (PATHS[a].asi - PATHS[b].asi) || a - b);
 ORDER.forEach((pi, r) => PATHS[pi].rank = r);
@@ -93,7 +99,7 @@ function eventsFor(i) {
   if (FUT.cat < start) return out; // this future has already ended
   for (let k = 0; k < 5; k++) {
     const p = SIMPOOL[(i * 5 + k + m.k * 7) % SIMPOOL.length], c = castById[p.uid], [lat, lng] = placeOf(c.name);
-    out.push({ kind: 'sim', d: qName(i), who: c, t: postText(p).replace(/\s+/g, ' '), lat: lat + (k % 2 ? 1.5 : -1.5), lng: lng + (k - 2) * 1.2 });
+    out.push({ kind: 'sim', d: qName(i), who: c, round: p.round, t: postText(p).replace(/\s+/g, ' '), lat: lat + (k % 2 ? 1.5 : -1.5), lng: lng + (k - 2) * 1.2 });
   }
   if (inQ(FUT.asi, i)) out.splice(1, 0, { kind: 'sim', milestone: 'asi', d: ym(FUT.asi), t: `In this future a lab builds superintelligence (${ym(FUT.asi)})`, lat: 37.8, lng: -122.4 });
   if (inQ(FUT.cat, i)) out.push({ kind: 'cat', milestone: 'cat', d: ym(FUT.cat), t: `In this future, AI catastrophe (${ym(FUT.cat)})`, lat: 33, lng: -112 });
@@ -111,7 +117,14 @@ function countdown() {
   const p = n => String(n).padStart(2, '0');
   return `${y}y ${String(days).padStart(3, '0')}d ${p(Math.floor(s / 3600))}:${p(Math.floor(s / 60) % 60)}:${p(s % 60)}`;
 }
-const renderClock = () => { $('#face').innerHTML = clockFace(); $('#reading').textContent = `${MINUTES} Minutes to Midnight`; };
+const renderClock = () => { $('#face').innerHTML = clockFace(); $('#reading').textContent = `${MINUTES} Minutes to Midnight`;
+  $('#movedline').innerHTML = `Moved <b>${(MOVED.total / 12).toFixed(1)} min toward midnight</b> since ${dmy(SINCE)} ›`; };
+// The hand sweeps once per change, 600 ms, from where it was to where it is (it jumps with reduced motion).
+function sweepHand(fromMin) {
+  renderClock(); const svg = $('#face svg'), hand = svg.querySelector('.hand');
+  hand.style.transform = `rotate(${-(fromMin - MIN_TO_MIDNIGHT) * 6}deg)`; void hand.getBoundingClientRect();
+  if (!REDUCED) svg.classList.add('sweep'); hand.style.transform = '';
+}
 const tickClock = () => { $('#cd').textContent = countdown(); };
 setInterval(tickClock, 1000);
 
@@ -139,6 +152,7 @@ const LAND = [rgb(tok('ink-3')), rgb(tok('ink-2'))], ALARM = rgb(tok('alarm'));
 const land = t => `rgb(${LAND[0].map((a, k) => Math.round(a + (LAND[1][k] - a) * Math.min(1, t))).join(',')})`;
 function paintGlobe(i) {
   const sh = sharesAt(i), cap = FUT.asi <= decYear(qEnd(i)) ? 1 : capAt(decYear(qEnd(i)));
+  if (FLARE) return g.hexPolygonColor(f => FLARE.set.has(f.properties.ADM0_A3) ? FLARE.color : ended(i) ? `rgba(${ALARM},.5)` : land(sh[regionOf(f)] * 1.6 * (.3 + .7 * cap)));
   if (ended(i)) return g.hexPolygonColor(f => `rgba(${ALARM},${(.35 + sh[regionOf(f)] * .9).toFixed(2)})`);
   g.hexPolygonColor(f => land(sh[regionOf(f)] * 1.6 * (.3 + .7 * cap)));
 }
@@ -191,37 +205,58 @@ const SIM = '<span class="dc-label dc-label--sim">Simulated</span>', REALL = '<s
 function openPop(e, anchor) {
   const p = $('#pop'), c = e.who, r = anchor.getBoundingClientRect();
   p.innerHTML = e.kind === 'real'
-    ? `<div class="h">${REALL}<span class="dc-data">${esc(e.d)}</span></div><p>${esc(e.t)}</p>
-       <div class="f"><span class="dc-data">aiid #${esc(e.id)}</span><a class="dc-btn dc-btn--sm" href="${esc(e.url)}" target="_blank" rel="noopener">Read the incident ↗</a></div>`
+    ? `<div class="h">${REALL}<span class="dc-data">aiid #${esc(e.id)}</span></div><p>${esc(e.t)}</p>
+       <dl><dt>When</dt><dd>${esc(e.d)}</dd><dt>Where</dt><dd>${esc(countryAt(e.lat, e.lng))}, from the report</dd><dt>Source</dt><dd><a href="${esc(e.url)}" target="_blank" rel="noopener">AI Incident Database #${esc(e.id)} ↗</a></dd></dl>`
     : e.milestone
       ? `<div class="h">${SIM}<span class="dc-data">${esc(e.d)}</span></div><p>${esc(e.t)}</p><div class="f"><span class="dc-faint">One of 10,000 futures, not the forecast</span></div>`
       : `<div class="h">${av(c)}<div><b>${esc(c.name)}</b><span class="dc-faint">${ROLENAME[ROLE(c.type)]} · @${esc(c.handle)}</span></div></div><p>${esc(e.t.length > 320 ? e.t.slice(0, 320) + '…' : e.t)}</p>
-         <div class="f">${SIM}<span class="dc-data">${esc(e.d)}</span><button class="dc-btn dc-btn--sm" data-goengine>Open in Engine</button></div>`;
+         <dl><dt>Who</dt><dd>${esc(c.name)}, ${ROLENAME[ROLE(c.type)].toLowerCase()} account</dd><dt>Where</dt><dd>${countryOf(c.name)}</dd><dt>When</dt><dd>${esc(e.d)}, round ${e.round} of 3</dd><dt>Source</dt><dd>MiroFish run sim_908b44137fec</dd></dl>
+         <div class="f">${SIM}<button class="dc-btn dc-btn--sm" data-goengine>Open in Engine</button></div>`;
   p.classList.add('on');
   const x = Math.min(innerWidth - 316, Math.max(16, r.right + 10)), y = Math.min(innerHeight - p.offsetHeight - 200, Math.max(16, r.top - 20));
   p.style.left = x + 'px'; p.style.top = y + 'px';
   p.querySelector('[data-goengine]')?.addEventListener('click', () => { closePop(); setView('engine'); });
 }
 const closePop = () => $('#pop').classList.remove('on');
+const inRing = (x, y, ring) => { let c = false; for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) { const [xi, yi] = ring[i], [xj, yj] = ring[j]; if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) c = !c; } return c; };
+const countryAt = (lat, lng) => feats.find(f => (f.geometry.type === 'Polygon' ? [f.geometry.coordinates] : f.geometry.coordinates).some(p => inRing(lng, lat, p[0])))?.properties.NAME ?? 'location not stated';
 
 // ---------- newsflash: turning points only; closes itself after 4 s, never needs an OK ----------
-function flash({ band = 'Turning point', title, body, label = '', at }) {
+// Real turning points take the oxblood band; simulated ones the sim style. Majors also flare their country.
+let flashQ = [];
+function flash({ kind = 'real', band = 'Turning point', title, body, label = '', src = '', at, flareIn }) {
   const f = $('#flash');
   $('#fband').textContent = band; $('#fq').textContent = qName(cur);
-  $('#fh').textContent = title; $('#fp').textContent = body; $('#fshift').innerHTML = label;
-  f.classList.remove('on', 'run'); void f.offsetWidth; f.classList.add('on');
+  $('#fh').textContent = title; $('#fp').textContent = body; $('#fshift').innerHTML = label; $('#fsrc').innerHTML = src;
+  f.className = 'dc-flash' + (kind === 'sim' ? ' sim' : ''); void f.offsetWidth; f.classList.add('on');
   if (!REDUCED) f.classList.add('run'); // with reduced motion it stays until dismissed
   if (at && !REDUCED) g.pointOfView({ lat: at[0], lng: at[1] }, 1200);
+  if (flareIn) flare(flareIn, kind);
 }
-const closeFlash = () => $('#flash').classList.remove('on', 'run');
-$('#flash .timer i').addEventListener('animationend', closeFlash);
-$('#flash').onclick = closeFlash;
+const flashAll = list => { flashQ = list.slice(1); if (list[0]) flash(list[0]); };
+const closeFlash = () => { flashQ = []; $('#flash').classList.remove('on', 'run'); };
+const endFlash = () => { $('#flash').classList.remove('on', 'run'); if (flashQ.length) setTimeout(() => flash(flashQ.shift()), 250); };
+$('#flash .timer i').addEventListener('animationend', endFlash);
+$('#flash').onclick = e => { if (!e.target.closest('a')) endFlash(); };
+// Major events: a short, named list, so the cards stay rare.
+const MAJOR = /AI Action Plan"|AI Action Plan,|America's AI Action Plan|AI Act: obligations for general-purpose|general intelligence|Era of Super Intelligence/i;
+const EU = 'AUT BEL BGR HRV CYP CZE DNK EST FIN FRA DEU GRC HUN IRL ITA LVA LTU LUX MLT NLD POL PRT ROU SVK SVN ESP SWE'.split(' ');
+const flareSet = e => e[4] === 'eur-lex' || e[4] === 'eu' ? EU : e[4] === 'gov.uk' ? ['GBR'] : e[5] === 'China' ? ['CHN'] : ['USA'];
+let FLARE = null;
+function flare(iso3, kind) { FLARE = { set: new Set(iso3), color: tok(kind === 'sim' ? 'sim' : 'ink') }; paintGlobe(cur); setTimeout(() => { FLARE = null; paintGlobe(cur); }, 2600); }
 function milestoneFlashes(i) {
-  const b = DC.bulletin.find(x => +x.year === Q[i].y && Q[i].q === 1 && i <= TODAY);
-  if (b) flash({ band: 'On the record', title: `The Doomsday Clock moves to ${b.s} seconds`, body: `The Bulletin of the Atomic Scientists, January ${b.year}. It covers every risk and is set once a year by experts. Our clock covers AI alone and is set by markets daily.`, label: REALL, at: [41.9, -87.6] });
-  if (i === TODAY) flash({ band: 'Today', title: 'The real record ends here', body: 'From here on you are watching one of 10,000 simulated futures. The clock in the corner is the real forecast, and no future moves it.' });
-  if (i > TODAY && inQ(FUT.asi, i)) flash({ title: `A lab builds superintelligence in ${ym(FUT.asi)}`, body: `In this future. The date is drawn from the market curve: ${Math.round(KP[1] * 100)}% by the end of 2030 and ${Math.round(KP[2] * 100)}% by the end of 2040.`, label: SIM, at: [37.8, -122.4] });
-  if (i > TODAY && inQ(FUT.cat, i)) flash({ band: 'Catastrophe · this future', title: `AI catastrophe, ${ym(FUT.cat)}`, body: `${(FUT.cat - FUT.asi).toFixed(1)} years after superintelligence. One sampled future, not the forecast: by this date ${Math.round(pCatAt(FUT.cat) * 100)}% of all futures have gone wrong.`, label: SIM, at: [33, -112] });
+  const out = [], a = Q[i].start.toISOString().slice(0, 10), b = qEnd(i).toISOString().slice(0, 10);
+  const bl = DC.bulletin.find(x => +x.year === Q[i].y && Q[i].q === 1 && i <= TODAY);
+  if (bl) out.push({ band: 'On the record', title: `The Doomsday Clock moves to ${bl.s} seconds`, body: `The Bulletin of the Atomic Scientists' Science and Security Board, Chicago, January ${bl.year}. It covers every risk and is set once a year. Our clock covers AI alone and is set by markets daily.`, label: REALL, src: '<a href="https://thebulletin.org/doomsday-clock/" target="_blank" rel="noopener">thebulletin.org ↗</a>', at: [41.9, -87.6] });
+  const mj = i <= TODAY && IN.events.find(e => e[0] >= a && e[0] < b && e[1] !== 'incident' && MAJOR.test(e[2]));
+  if (mj) out.push({ band: 'Major event', title: mj[2], body: `${mj[6] || (mj[1] === 'news' ? 'Reported' : 'Government')}${mj[7] ? ', ' + mj[7].toLowerCase() : ''} · ${{ USA: 'United States', CHN: 'China', GBR: 'United Kingdom' }[flareSet(mj)[0]] ?? 'European Union'} · ${dmy(mj[0])}`, label: REALL,
+    src: `<a href="${esc(mj[3])}" target="_blank" rel="noopener">${esc(SRC[mj[4]] ?? mj[4])} ↗</a>`, flareIn: flareSet(mj) });
+  if (i === TODAY) out.push({ band: 'Today', title: 'The real record ends here', body: 'From here on you are watching one of 10,000 simulated futures. The clock in the corner is the real forecast, and no future moves it.' });
+  if (i === TODAY + 1 && FUT.cat > decYear(Q[i].start)) { const ev = DC.injected.find(x => x.kind === 'GovernmentAgency'), who = castById[ev.uid];
+    out.push({ kind: 'sim', band: 'Major event · this future', title: 'The US caps AI training compute', body: `${who.name} (@${who.handle}) · a federal licence for any run above 10^26 FLOP, effective at once · United States · ${qName(i)}`, label: SIM, src: 'MiroFish run sim_908b44137fec · seeded government event', flareIn: ['USA'] }); }
+  if (i > TODAY && inQ(FUT.asi, i)) out.push({ kind: 'sim', title: `A lab builds superintelligence in ${ym(FUT.asi)}`, body: `In this future. The date is drawn from the market curve: ${Math.round(KP[1] * 100)}% by the end of 2030 and ${Math.round(KP[2] * 100)}% by the end of 2040.`, label: SIM, src: `sim.ts · seed 1 · path ${FUT.id}`, at: [37.8, -122.4] });
+  if (i > TODAY && inQ(FUT.cat, i)) out.push({ kind: 'sim', band: 'Catastrophe · this future', title: `AI catastrophe, ${ym(FUT.cat)}`, body: `${(FUT.cat - FUT.asi).toFixed(1)} years after superintelligence. One sampled future, not the forecast: by this date ${Math.round(pCatAt(FUT.cat) * 100)}% of all futures have gone wrong.`, label: SIM, src: `sim.ts · seed 1 · path ${FUT.id}`, at: [33, -112] });
+  if (out.length) flashAll(out);
 }
 
 // ---------- quarter state, ticker, time spine ----------
@@ -231,7 +266,7 @@ const ended = i => i > TODAY && FUT.cat <= decYear(qEnd(i));
 function renderTicker(i) {
   const evs = eventsFor(i), real = i <= TODAY, run = $('#trun'), lab = $('#tlab');
   lab.className = 'lab dc-label dc-label--' + (real ? 'real' : 'sim'); lab.textContent = real ? 'Real news' : 'Simulated';
-  const item = e => `<span class="it${real ? '' : ' sim'}"><span class="dc-data">${esc(e.d)}</span>${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.t)}</a>` : `${e.who ? `<span>@${esc(e.who.handle)}:</span>` : ''}<span>${esc(e.t.length > 150 ? e.t.slice(0, 150) + '…' : e.t)}</span>`}</span>`;
+  const item = e => `<span class="it${real ? '' : ' sim'}"><span class="dc-data">${esc(e.d)}</span>${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.t)}</a><span class="dc-data">AIID #${esc(e.id)}</span>` : `${e.who ? `<span>${esc(e.who.name)} (@${esc(e.who.handle)}):</span>` : ''}<span>${esc(e.t.length > 150 ? e.t.slice(0, 150) + '…' : e.t)}</span>`}</span>`;
   const after = i > TODAY && FUT.cat < decYear(Q[i].start);
   const list = after ? `<span class="it dc-dim">This future ended in ${ym(FUT.cat)}. Roll another to watch a different one.</span>`
     : evs.length ? evs.slice(0, 14).map(item).join('') : '<span class="it dc-dim">No events this quarter</span>';
@@ -260,7 +295,7 @@ function placeHead() {
   const big = s.querySelector('.big');
   big.style.left = pct + '%'; big.style.transform = `translateX(-${pct}%)`; // stays inside the spine at both ends
   big.innerHTML = `<small>Q${Q[cur].q}${cur === TODAY ? ' · today' : ''}</small>${Q[cur].y}`;
-  s.querySelectorAll('.tag').forEach(t => t.style.visibility = Math.abs(+t.dataset.i - cur) < 4 ? 'hidden' : '');
+  s.querySelectorAll('.tag').forEach(t => t.style.visibility = Math.abs(+t.dataset.i - cur) < 7 ? 'hidden' : '');
   s.setAttribute('aria-valuetext', qName(cur));
 }
 function setQuarter(i, { live = false } = {}) {
@@ -325,7 +360,7 @@ function renderSociety() {
     <h3 class="eyebrow">Run stats <span class="dc-data">${qName(q)}${isLive() ? ' · live' : ''}</span></h3>
     <div class="run"><div class="nums"><div><b>${rounds}</b>rounds</div><div><b>${acts}</b>${isLive() ? 'posts' : 'actions'}</div><div><b>${secs} s</b>time</div><div><b>$${cost}</b>cost</div></div>
       <div class="rounds" title="Actions per round">${bars.map(a => `<i style="height:${a / mx * 100}%"></i>`).join('')}</div></div>
-    <div class="dc-faint">${isLive() ? 'A recorded run stands by as the fallback. ' : ''}Mockup: two real spike runs stand in for every quarter and future${isLive() ? ', and the live stream replays one' : ''}.</div>`;
+    <div class="dc-faint">${isLive() ? 'A recorded run stands by as the fallback. ' : ''}Fixture: the two test spike runs stand in for every quarter and future${isLive() ? ', and the live stream replays one' : ''}, until the new MiroFish runs land.</div>`;
   $('#society .members').onclick = e => { const b = e.target.closest('button'); if (b) watch(ENSEMBLE[+b.dataset.k - 1].path); };
 }
 const placeSociety = () => document.body.style.setProperty('--soc-top', ($('#clock').getBoundingClientRect().bottom + 12) + 'px');
@@ -334,7 +369,7 @@ function renderEngineHead() {
   const st = $('#estate'), mmss = s => `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`;
   if (isLive()) { const shown = STREAM.slice(0, live.shown), secs = Math.round((Date.now() - live.t0) / 1000);
     st.className = 'state live'; st.innerHTML = `Live <span class="dc-data">${live.done ? 'complete' : `round ${shown.at(-1)?.round ?? 1} of 3`} · ${mmss(secs)} · ${shown.length}/${STREAM.length} posts</span>`; }
-  else { st.className = 'state'; st.innerHTML = `Recorded <span class="dc-data">run sim_908b44137fec · seed 1 · path ${FUT.id}</span>`; }
+  else { st.className = 'state'; st.innerHTML = `Recorded <span class="dc-data">run sim_908b44137fec (test fixture) · seed 1 · path ${FUT.id}</span>`; }
 }
 // LIVE: one MiroFish quarter streaming in (task 16). RECORDED: from the replay library (task 11).
 // Mockup: the live stream replays the spike run's posts at about one per second.
@@ -388,9 +423,9 @@ function renderRoster() {
 }
 // Full screen for the graph or the cast: a fixed panel at inset 0, F to toggle the panel in focus, Esc to close.
 let maxed = null, focusPanel = 'graph';
-function maximise(which) { unmax(); maxed = which;
-  if (which === 'graph') { $('#kgwrap').classList.add('max'); requestAnimationFrame(drawKG); } else { renderRoster(); $('#roster').classList.add('on'); } }
-function unmax() { if (!maxed) return false; $('#kgwrap').classList.remove('max'); $('#roster').classList.remove('on'); maxed = null; requestAnimationFrame(drawKG); return true; }
+function maximise(which) { unmax(); maxed = which; // the graph moves to <body>: the pane's backdrop-filter would trap position: fixed
+  if (which === 'graph') { document.body.append($('#kgwrap')); $('#kgwrap').classList.add('max'); requestAnimationFrame(drawKG); } else { renderRoster(); $('#roster').classList.add('on'); } }
+function unmax() { if (!maxed) return false; $('#kgwrap').classList.remove('max'); $('#casthead').before($('#kgwrap')); $('#roster').classList.remove('on'); maxed = null; requestAnimationFrame(drawKG); return true; }
 document.addEventListener('click', e => { const m = e.target.closest('[data-max]'); if (m) maximise(m.dataset.max); else if (e.target.closest('[data-unmax]')) unmax(); });
 $('#kgwrap').addEventListener('pointerenter', () => focusPanel = 'graph');
 ['#cast', '#casthead'].forEach(s => $(s).addEventListener('pointerenter', () => focusPanel = 'cast'));
@@ -451,7 +486,7 @@ const IN = window.INPUTS, D0 = Date.UTC(2024, 9, 24), DAY = 864e5, NDAYS = Math.
 let asOfDay = NDAYS, inTab = 'markets';
 const dayISO = d => new Date(D0 + d * DAY).toISOString().slice(0, 10);
 const dmy = iso => new Date(iso + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
-const SRC = { 'federal-register': 'Federal Register', 'gov.uk': 'GOV.UK', eu: 'European Union', wikipedia: 'Wikipedia', aiid: 'AI Incident Database' }, WHERE = { US: 'United States', China: 'China' };
+const SRC = { 'federal-register': 'Federal Register', 'gov.uk': 'GOV.UK', 'eur-lex': 'EUR-Lex', eu: 'European Union', wikipedia: 'Wikipedia', aiid: 'AI Incident Database' }, WHERE = { US: 'United States', China: 'China' };
 const SOURCES = [['markets', 'Markets'], ['incident', 'Incidents'], ['government', 'Government'], ['news', 'News'], ['datacentres', 'Datacentres']];
 function known(T) {
   const ev = k => IN.events.filter(e => e[1] === k && e[0] < T).reverse();
@@ -491,11 +526,38 @@ function renderInputs() {
 $('#asof').min = 0; $('#asof').max = NDAYS; $('#asof').value = NDAYS;
 $('#asof').addEventListener('input', e => { asOfDay = +e.target.value; renderInputs(); });
 $('#intabs').onclick = e => { const b = e.target.closest('button'); if (b) { inTab = b.dataset.k; renderInputs(); } };
+// ---------- why the hand moved: real market moves since last quarter, each scored by rerunning the sampler ----------
+// Only market moves are causes. Events in the same window are shown as context, never as causes.
+const SINCE = '2026-07-01', IDS = ['asi2030', 'asi2040', 'asi2100'];
+const MOVED = (() => {
+  const A = IN.anchors, then = Object.fromEntries(A.map(a => [a.id, a.history.find(h => h[0] === SINCE)[1]])), now = Object.fromEntries(A.map(a => [a.id, a.p]));
+  const d10 = o => date10For(IDS.map(i => o[i]), o.cat2100), d0 = d10(then), d1 = d10(now);
+  const drivers = A.filter(a => then[a.id] !== now[a.id]).map(a => ({ a, from: then[a.id], to: now[a.id], months: (d0 - d10({ ...then, [a.id]: now[a.id] })) * 12 }))
+    .sort((x, y) => Math.abs(y.months) - Math.abs(x.months)).slice(0, 3);
+  const total = (d0 - d1) * 12;
+  return { total, drivers, other: total - drivers.reduce((n, d) => n + d.months, 0), fromMin: d0 - NOW_Y,
+    context: IN.events.filter(e => e[0] >= SINCE && e[1] !== 'incident' && /general intelligence|super ?intelligence/i.test(e[2])).slice(0, 2) };
+})();
+const mo = m => `${m >= 0 ? '+' : '−'}${Math.abs(m).toFixed(0)} mo`;
+function renderMoved() {
+  const M = MOVED, dir = M.total >= 0 ? 'toward' : 'away';
+  $('#moved').innerHTML = `<div class="mh"><span class="eyebrow">Why the hand moved</span><button aria-label="Hide" data-hide>×</button></div>
+    <p class="mt"><span class="${dir}">${(Math.abs(M.total) / 12).toFixed(1)} minutes ${dir} midnight</span> since ${dmy(SINCE)}: the 1-in-10 date came ${Math.abs(M.total).toFixed(0)} months ${M.total >= 0 ? 'closer' : 'later'}.</p>
+    ${M.drivers.map(d => `<div class="drv"><a href="${esc(d.a.url)}" target="_blank" rel="noopener">Manifold ‘${esc(d.a.label)}’ ${Math.round(d.from * 100)}% → ${Math.round(d.to * 100)}%</a><span class="${d.months >= 0 ? 'toward' : 'away'}">${mo(d.months)}</span>
+      <span class="dc-data">last trade ${dmy(d.a.lastTrade.slice(0, 10))} · ${d.a.traders} traders</span></div>`).join('')}
+    <div class="drv"><span class="dc-faint">Other: overlap between the moves</span><span class="dc-faint">${mo(M.other)}</span></div>
+    <div class="ctx"><span class="eyebrow dc-faint">Around the same time</span>${M.context.map(e => `<div><span class="dc-data">${dmy(e[0])}</span> ${esc(e[2].length > 90 ? e[2].slice(0, 90) + '…' : e[2])} · <a href="${esc(e[3])}" target="_blank" rel="noopener">${esc(SRC[e[4]] ?? e[4])} ↗</a></div>`).join('')}
+      <span class="dc-faint">Context, not causes. Only market prices move the hand. Months are model output with the 3-year gap <span class="dc-label dc-label--rule">Game rule</span></span></div>`;
+}
+const showMoved = on => { $('#moved').classList.toggle('on', on); };
+$('#moved').addEventListener('click', e => { if (e.target.closest('[data-hide]')) showMoved(false); });
+$('#movedline').onclick = e => { e.stopPropagation(); showMoved(!$('#moved').classList.contains('on')); };
+
 // Run live: sample the 10,000 futures in the browser now, start one live MiroFish quarter, replay the real record to today.
 function runLive() {
   closeAll(); setView('world');
   const t0 = performance.now(); sample(); const ms = Math.max(1, Math.round(performance.now() - t0));
-  startLive(); intro = true; setQuarter(0); setSpeed(2); play();
+  startLive(); sweepHand(MOVED.fromMin); showMoved(true); intro = true; setQuarter(0); setSpeed(2); play();
   coach(`Sampled 10,000 futures in ${ms} ms, in your browser. Replaying the real record to today. <button class="dc-btn dc-btn--sm coach-skip" id="skip">Skip</button>`);
   $('#skip').onclick = e => { e.stopPropagation(); skipToToday(); };
 }
@@ -654,7 +716,7 @@ addEventListener('resize', () => document.body.classList.contains('engine') && d
 $('#play').innerHTML = PLAY;
 $('#thumb').innerHTML = DoomClock.face({ minutes: MIN_TO_MIDNIGHT, labels: false });
 $('#thumbcap').textContent = `It is ${MINUTES} minutes to midnight`;
-fit(); renderFuture(); renderClock(); tickClock(); renderTrack(); renderSociety(); renderEngine(); buildSpine(); wireSpine();
+fit(); renderFuture(); renderMoved(); renderClock(); tickClock(); renderTrack(); renderSociety(); renderEngine(); buildSpine(); wireSpine();
 setQuarter(0);
 if (params.has('q')) setQuarter(+params.get('q'));
 else if (!params.has('autoplay')) { if (params.get('asof')) asOfDay = Math.max(0, Math.min(NDAYS, Math.round((Date.parse(params.get('asof')) - D0) / DAY))), $('#asof').value = asOfDay;
@@ -662,6 +724,7 @@ else if (!params.has('autoplay')) { if (params.get('asof')) asOfDay = Math.max(0
 else { setSpeed(2); play(); }
 if (params.has('live')) { startLive(); if (+params.get('live') > 0) live.shown = +params.get('live'); }
 if (params.has('max')) setTimeout(() => maximise(params.get('max')), 300);
+if (params.has('moved')) { sweepHand(MOVED.fromMin); showMoved(true); }
 if (params.get('layout') === 'overlay') setVariant('ov');
 if (params.get('view') === 'engine') setView('engine');
 if (params.get('tab')) $(`#etabs [data-t="${params.get('tab')}"]`)?.click();
