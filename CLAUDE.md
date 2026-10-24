@@ -44,6 +44,10 @@ the two separate, because the HRT pitch rests on the backtest scoring the real f
   `google/gemini-2.5-flash` (cutoff 2025-01-31), so the backtest's earliest T is about 2025-03-01.
 - **News:** Hacker News is dropped. The replacement (Guardian/NYT archives, GDELT, or both) is
   undecided. The AI Incident Database is the primary event source.
+- **MiroFish:** Twitter (X) only, no Reddit (owner, 24 Oct). Only three kinds of thing are
+  simulated: government events, the X feed and news. One game turn is one MiroFish run, and
+  each run starts from an empty world, so continuity goes in through `initial_posts`. Patches
+  live in `patches/`.
 - **Plan:** owners, write scopes, tasks and gates are in
   `docs/superpowers/plans/2026-10-24-doom-clock-build-plan.md`. Specs override the plan.
 
