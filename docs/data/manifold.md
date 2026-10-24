@@ -10,6 +10,7 @@
 
 ## Clean schema: `data/clean/manifold.jsonl`
 Common: `ts, source:"manifold", kind, id:"manifold:<id>", url, question`.
+All times are ISO UTC to the second (no ms); sub-second source times are rounded up.
 - `kind=market`: `ts` = `createdTime`. `core` (true for the 8 pinned markets), `close_time, traders, volume` (mana), `description` (plain-text resolution criteria). `traders`/`volume` are as of fetch time (24 Oct 2026), not as of `ts`.
 - `kind=price`: `ts` = end of the UTC day (23:59:59Z, or fetch time for today), `p` = `probAfter` of the day's last non-cancelled bet. Only days with trades; carry the last value forward when looking up as of T. Each market also has one anchor row for its last close before 24 Oct 2024 when it traded earlier.
 - `kind=resolution`: `ts` = `resolutionTime`, `result` YES|NO|MKT|CANCEL, `resolution_probability`, `backtest_pool` (true = YES/NO result and >= 1 price row). Never treat a market as resolved before this record's `ts`.
@@ -23,7 +24,7 @@ Common: `ts, source:"manifold", kind, id:"manifold:<id>", url, question`.
 - Search is fuzzy and capped (~2,000 results/query), so coverage of low-activity AI markets is incomplete; high-traffic markets are covered by many term/sort combinations.
 - Core markets (current p on 24 Oct 2026): see `doomclock/pipeline/markets.json`. "Massive AI catastrophe before 2030" (czck4zd672) is shown on the timeline only.
 
-38532 records (market 1831, price 35135, resolution 1566), clean file 12.2 MB, raw cache 460 MB.
+38532 records (market 1831, price 35135, resolution 1566), clean file 12.0 MB, raw cache 460 MB.
 
 ## Records per month (by ts)
 

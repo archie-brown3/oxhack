@@ -39,7 +39,7 @@ for (const f of await readdir(join(dir, "markets"))) {
   for (const d of before.slice(0, -1)) days.delete(d);
   for (const [day, { p }] of days) {
     const end = Date.parse(day + "T23:59:59Z");
-    recs.push({ ...common, ts: new Date(Math.min(end, now)).toISOString(), kind: "price", p: Math.round(p * 1e4) / 1e4 });
+    recs.push({ ...common, ts: iso(Math.min(end, now))!, kind: "price", p: Math.round(p * 1e4) / 1e4 });
   }
   const res = m.resolution, rts = iso(m.resolutionTime);
   if (m.isResolved && rts && res) {

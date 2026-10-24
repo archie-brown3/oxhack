@@ -1,0 +1,26 @@
+<!-- @dsCard group="Clock" height=500 subtitle="Top-left of World and Engine; the thumbnail goes on cards and sheets" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>QuarterClock — preview</title></head>
+<body>
+<div class="dc-row" style="align-items:flex-start;gap:var(--space-8)">
+  <section class="dc-panel dc-clock" aria-label="Doom Clock">
+    <div class="cap"><span class="dc-label dc-label--real">Real forecast</span><span class="dc-faint">1 min = 1 year</span></div>
+    <div class="face" id="face"></div>
+    <p class="reading">6 Minutes to Midnight</p>
+    <div class="cd">6y 052d 11:42:09</div>
+    <div class="to">until <b>Dec 2032</b><span class="dc-mock">mock</span>, when the chance of AI catastrophe passes 1 in 10</div>
+    <a class="why" href="#why">Why this time?</a>
+  </section>
+  <div class="dc-thumb">
+    <div class="box" id="thumb"></div>
+    <div class="cap">It is 6 minutes to midnight</div>
+    <div class="dc-data">real forecast · 24 Oct 2026</div>
+  </div>
+</div>
+<script>
+  document.getElementById('face').innerHTML = DoomClock.face({ minutes: 6.15, range: [4.24, 10.99], ghost: 85 / 60, yours: 4.9 });
+  document.getElementById('thumb').innerHTML = DoomClock.face({ minutes: 6.15, labels: false });
+</script>
+</body>
+</html>

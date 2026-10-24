@@ -30,7 +30,7 @@ for (const series of await readdir(join(dir, "markets"))) {
         const bid = Number(c.yes_bid?.close_dollars), ask = Number(c.yes_ask?.close_dollars);
         const p = c.price?.close_dollars ?? c.price?.previous_dollars ?? (bid >= 0 && ask >= 0 ? (bid + ask) / 2 : null);
         if (p == null) continue;
-        recs.push({ ...common, ts: new Date(c.end_period_ts * 1000).toISOString(), kind: "price", p: Number(p), bid: bid || null, ask: ask || null, volume: Number(c.volume_fp), open_interest: Number(c.open_interest_fp) });
+        recs.push({ ...common, ts: iso(c.end_period_ts * 1000)!, kind: "price", p: Number(p), bid: bid || null, ask: ask || null, volume: Number(c.volume_fp), open_interest: Number(c.open_interest_fp) });
       }
     }
   }

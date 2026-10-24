@@ -1,15 +1,16 @@
 // Shared by clean-<source>.ts: write point-in-time records to data/clean/<source>.jsonl, sorted by ts.
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, rename, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 
 export const CUT = Date.parse("2024-10-24T00:00:00Z");
 export type Rec = { ts: string; source: string; kind: string; id: string; url: string; [k: string]: unknown };
 
-// ISO UTC from a Date-parsable value or epoch ms; null if it cannot be parsed.
+// ISO UTC to the second (no ms) from a Date-parsable value or epoch ms; null if it cannot be parsed.
+// Sub-second times round UP, so a ts is never earlier than when the source made it public.
 export function iso(v: unknown): string | null {
   if (v == null || v === "") return null;
   const t = typeof v === "number" ? v : Date.parse(String(v).replace(" ", "T").replace(/\+00$/, "Z"));
-  return Number.isFinite(t) ? new Date(t).toISOString() : null;
+  return Number.isFinite(t) ? new Date(Math.ceil(t / 1000) * 1000).toISOString().replace(".000Z", "Z") : null;
 }
 
 export async function writeClean(source: string, recs: Rec[]) {
@@ -17,7 +18,9 @@ export async function writeClean(source: string, recs: Rec[]) {
   const dir = join(import.meta.dirname, "../../../data/clean");
   await mkdir(dir, { recursive: true });
   const body = recs.map((r) => JSON.stringify(r)).join("\n") + "\n";
-  await writeFile(join(dir, `${source}.jsonl`), body);
+  const file = join(dir, `${source}.jsonl`);
+  await writeFile(file + ".tmp", body); // atomic: readers never see a half-written file
+  await rename(file + ".tmp", file);
   const byKind: Record<string, number> = {}, byMonth: Record<string, number> = {};
   for (const r of recs) { byKind[r.kind] = (byKind[r.kind] ?? 0) + 1; byMonth[r.ts.slice(0, 7)] = (byMonth[r.ts.slice(0, 7)] ?? 0) + 1; }
   console.log(source, recs.length, "records", (body.length / 1e6).toFixed(1) + " MB", byKind, "\nper month", byMonth);

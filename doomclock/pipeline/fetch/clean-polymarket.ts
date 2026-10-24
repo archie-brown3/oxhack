@@ -33,7 +33,7 @@ for (const f of (await readdir(join(dir, "events"))).filter((n) => n.endsWith(".
     if (pf && existsSync(pf)) {
       for (const pt of JSON.parse(await readFile(pf, "utf8")).history ?? []) {
         if (pt.t * 1000 < CUT) continue;
-        recs.push({ source: "polymarket", url, id: common.id, ts: new Date(pt.t * 1000).toISOString(), kind: "price", p: pt.p });
+        recs.push({ source: "polymarket", url, id: common.id, ts: iso(pt.t * 1000)!, kind: "price", p: pt.p });
       }
     }
   }

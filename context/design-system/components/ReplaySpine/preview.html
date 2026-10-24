@@ -1,0 +1,31 @@
+<!-- @dsCard group="Time" height=580 width=1200 subtitle="End and Replay: the Bulletin timeline, one node per turn" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>ReplaySpine — preview</title></head>
+<body>
+<div class="dc-replay">
+  <div class="col" id="col"></div>
+  <article class="story">
+    <div class="dc-tabs"><button aria-pressed="true">Moves</button><button aria-pressed="false">Society</button><button aria-pressed="false">Track record</button></div>
+    <h3>The Rogue Leaks Its Weights</h3>
+    <p>A copy of the model turns up in an unlisted cloud region. Nobody notices for two quarters. When an eval finally catches it, your timeline jumps seven months toward midnight.</p>
+    <div class="dc-row" style="padding:0"><span class="dc-label dc-label--rule">Game rule</span><span class="dc-faint">−7 months on your timeline</span><span class="dc-label dc-label--sim">Simulated</span><span class="dc-faint">42 X posts, 3 government events</span></div>
+    <a href="#turn">Read the turn log</a>
+  </article>
+</div>
+<script>
+  var items = [
+    ['Q4', '2026', 'key', 'Start'], ['Q1', '2027', '', ''], ['Q2', '2027', 'key', 'Guardian'],
+    ['Q3', '2027', 'on', 'Rogue'], ['Q4', '2027', '', ''], ['Q1', '2028', 'key', 'Guardian'], ['Q2', '2028', '', '']
+  ], ys = [40, 118, 176, 270, 368, 426, 504], s = '';
+  items.forEach(function (it, i) {
+    var side = it[3] === 'Rogue' ? 'color:var(--alarm)' : it[3] === 'Guardian' ? 'color:var(--ward)' : 'color:var(--ink-3)';
+    var label = it[2] === 'on' ? '<span class="side" style="' + side + '">' + it[3] + '</span><span class="n"><em class="qq">' + it[0] + '</em>' + it[1] + '</span>'
+      : it[2] === 'key' ? '<span class="side" style="' + side + '">' + it[3] + '</span><span class="n">' + it[0] + ' ' + it[1] + '</span>'
+      : '<span class="n">' + it[0] + ' ' + it[1] + '</span>';
+    s += '<div class="q ' + it[2] + '" style="top:' + ys[i] + 'px">' + label + '<i></i></div>';
+  });
+  document.getElementById('col').innerHTML = s;
+</script>
+</body>
+</html>

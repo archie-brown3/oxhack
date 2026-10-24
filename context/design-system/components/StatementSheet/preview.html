@@ -1,0 +1,27 @@
+<!-- @dsCard group="Paper" height=700 width=1200 subtitle="Why this time? as a Paper sheet over the dimmed globe" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>StatementSheet — preview</title></head>
+<body>
+<div data-theme="paper" class="dc-sheet">
+  <h2 class="title">Why this time?</h2>
+  <div class="split">
+    <div class="lead">
+      <div class="dc-tabs" style="flex-direction:column;align-items:flex-start;gap:var(--space-2)"><button aria-pressed="false">Anchors</button><button aria-pressed="false">Fan</button><button aria-pressed="false">Date</button><button aria-pressed="true">Hand</button></div>
+      <div class="dc-thumb"><div class="box" id="thumb"></div><div class="cap">It is 6 minutes to midnight</div></div>
+    </div>
+    <article class="story">
+      <span class="dc-label dc-label--real">Real forecast</span>
+      <h3>6 Minutes to Midnight</h3>
+      <p>Prediction markets give the anchor points. Ten thousand simulated futures run from them, and the clock reads the date when one in ten of those futures has reached catastrophe: December 2032<span class="dc-mock">mock</span>. That is six years away, so the hand sits six minutes from midnight.</p>
+      <p>The dashed tick is the Bulletin's 85 seconds from January 2026. They cover every risk and meet once a year. Our hand covers AI alone and moves with the markets every day.</p>
+      <a href="#track">See the track record</a>
+      <p class="verdict">A prediction, not a prophecy.</p>
+    </article>
+  </div>
+</div>
+<script>
+  document.getElementById('thumb').innerHTML = DoomClock.face({ minutes: 6.15, ghost: 85 / 60, labels: false });
+</script>
+</body>
+</html>

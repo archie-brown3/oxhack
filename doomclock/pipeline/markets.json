@@ -1,95 +1,98 @@
 {
-  "fetched_at": "2026-10-24T17:18:59.349884Z",
   "manifold": [
     {
       "id": "F3WW5VQthbykdojxr0Ef",
+      "role": "anchor",
+      "node": "asi2030",
+      "horizonYear": 2030,
+      "label": "ASI by 2030",
       "url": "https://manifold.markets/IsaacKing/will-there-be-a-superintelligence-b-10fdd93e8092",
       "question": "Conditional on no existential catastrophe, will there be a superintelligence by 2030?",
-      "node": "Superintelligence timing",
-      "horizon": "2030",
-      "p": 0.3608,
-      "traders": 243,
-      "is_resolved": false
+      "deadline": "2030-01-01T08:00:00Z",
+      "criteriaNote": "Conditional on no existential catastrophe"
     },
     {
       "id": "cSmn5bvykckNzpKJYz1a",
+      "role": "anchor",
+      "node": "asi2040",
+      "horizonYear": 2040,
+      "label": "ASI by 2040",
       "url": "https://manifold.markets/IsaacKing/will-there-be-a-superintelligence-b-ebf6057128a0",
       "question": "Conditional on no existential catastrophe, will there be a superintelligence by 2040?",
-      "node": "Superintelligence timing",
-      "horizon": "2040",
-      "p": 0.75,
-      "traders": 273,
-      "is_resolved": false
+      "deadline": "2040-01-01T08:00:00Z",
+      "criteriaNote": "Conditional on no existential catastrophe"
     },
     {
       "id": "kRyHJpIcEOnokT5KnP0a",
+      "role": "anchor",
+      "node": "asi2100",
+      "horizonYear": 2100,
+      "label": "ASI by 2100",
       "url": "https://manifold.markets/IsaacKing/will-there-be-a-superintelligence-b",
       "question": "Conditional on no existential catastrophe, will there be a superintelligence by 2100?",
-      "node": "Superintelligence timing",
-      "horizon": "2100",
-      "p": 0.8635,
-      "traders": 111,
-      "is_resolved": false
+      "deadline": "2100-01-01T08:00:00Z",
+      "criteriaNote": "Conditional on no existential catastrophe"
     },
     {
       "id": "wn5c8MBJNO0BfGjLmyJ2",
+      "role": "anchor",
+      "node": "cat2100",
+      "horizonYear": 2100,
+      "label": "AI kills ≥10% by 2100",
       "url": "https://manifold.markets/jack/global-catastrophe-series-by-2100-w-73fc5b6f55b0",
       "question": "Will AI cause a global catastrophe killing at least 10% of humans before 2100?",
-      "node": "Catastrophe: AI kills >=10% of humans",
-      "horizon": "2100",
-      "p": 0.297,
-      "traders": 19,
-      "is_resolved": false
+      "deadline": "2100-01-02T04:59:00Z",
+      "criteriaNote": "Play money, thin market: 19 traders, 7 daily closes since 2024-05-22"
     },
     {
       "id": "czck4zd672",
+      "role": "warning",
+      "label": "Massive AI catastrophe before 2030",
       "url": "https://manifold.markets/ersatz/will-there-be-a-massive-catastrophe",
       "question": "Will there be a massive catastrophe caused by AI before 2030?",
-      "node": "Near-term catastrophe (timeline only)",
-      "horizon": "2030",
-      "p": 0.3911,
-      "traders": 47,
-      "is_resolved": false
+      "deadline": "2030-01-01T22:59:00Z"
     },
     {
       "id": "ZZRAP59Egn",
+      "role": "warning",
+      "label": "$100M loss-of-control incident in 2026",
       "url": "https://manifold.markets/waterlilly/will-there-be-an-ai-loss-of-control",
       "question": "Will there be an AI loss of control incident that causes over $100 million in damages in 2026?",
-      "node": "Warning sign: $100M loss-of-control incident",
-      "horizon": "2026",
-      "p": 0.2688,
-      "traders": 28,
-      "is_resolved": false
+      "deadline": "2026-12-31T23:59:00Z"
     },
     {
       "id": "IxrSYXN8z93GJRVi7VjG",
+      "role": "warning",
+      "label": "Agent proliferation event before 2035",
       "url": "https://manifold.markets/dogway/will-there-be-a-highly-risky-or-cat",
       "question": "Will there be a highly risky or catastrophic AI agent proliferation event before 2035?",
-      "node": "Warning sign: agent proliferation event",
-      "horizon": "2035",
-      "p": 0.8139,
-      "traders": 17,
-      "is_resolved": false
+      "deadline": "2035-01-02T04:59:00Z"
     },
     {
       "id": "nZNhbZsrUglzyUWclEiS",
+      "role": "warning",
+      "label": "AI incident with severe backlash by 2040",
       "url": "https://manifold.markets/chris/will-a-serious-incident-caused-by-a",
       "question": "Will a serious incident caused by AI happen that causes a severe public backlash (akin to Nuclear Fission) by 2040?",
-      "node": "Warning sign: serious incident with backlash",
-      "horizon": "2040",
-      "p": 0.7314,
-      "traders": 16,
-      "is_resolved": false
+      "deadline": "2040-01-02T06:59:00Z"
     }
   ],
   "kalshi": [
     {
-      "series": "KXAGICO",
-      "note": "any company announces AGI; one market per date"
+      "ticker": "KXAGICO",
+      "role": "capability_curve",
+      "label": "Any company announces AGI",
+      "url": "https://kalshi.com/markets/kxagico",
+      "question": "Will any company announce that it has achieved Artificial General Intelligence (AGI) before Jan 1, 2031?",
+      "criteriaNote": "If any company (public or private) officially announces that it has achieved Artificial General Intelligence (AGI) after market issuance and before Jan 1, 2031, then the market resolves to Yes. AGI-like/near-AGI statements do not count."
     },
     {
-      "series": "KXUSTAKEOVER",
-      "note": "US government takes control of an AI company"
+      "ticker": "KXUSTAKEOVER",
+      "role": "card",
+      "label": "US government takes control of an AI company",
+      "url": "https://kalshi.com/markets/kxustakeover",
+      "question": "Will the US government take control of any AI company or project before 2030?"
     }
-  ]
+  ],
+  "polymarket": []
 }

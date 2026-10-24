@@ -1,0 +1,65 @@
+<!-- @dsCard group="Screens" page height=900 width=1440 subtitle="World at 1440×900: globe ~78% of the height, four corners, ~10% chrome" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>WorldScreen — preview</title></head>
+<body>
+<div class="dc-world">
+  <svg class="globe-dots" id="globe" style="position:absolute;left:50%;top:40px;width:700px;height:700px;margin-left:-350px" viewBox="0 0 700 700" aria-label="Globe"></svg>
+
+  <section class="corner dc-panel dc-clock" style="left:var(--space-5);top:var(--space-5)" aria-label="Doom Clock">
+    <div class="cap"><span class="dc-label dc-label--real">Real forecast</span><span class="dc-faint">1 min = 1 year</span></div>
+    <div class="face" id="face"></div>
+    <p class="reading">6 Minutes to Midnight</p>
+    <div class="cd">6y 052d 11:42:09</div>
+    <div class="to">until <b>Dec 2032</b><span class="dc-mock">mock</span>, when the chance of AI catastrophe passes 1 in 10</div>
+    <a class="why" href="#why">Why this time?</a>
+  </section>
+
+  <div class="corner dc-panel" style="left:50%;top:var(--space-5);transform:translateX(-50%);padding:var(--space-2) var(--space-5)">
+    <div class="dc-tabs"><button aria-pressed="true">World<kbd>E</kbd></button><button aria-pressed="false">Engine</button></div>
+  </div>
+  <div class="slot" style="left:50%;top:76px;width:480px;height:44px;margin-left:-240px">Phase 2 · Guardian vs Rogue strip</div>
+  <div class="slot" style="left:var(--space-5);top:560px;width:260px;height:120px">Phase 2 · opponent's last 3 moves</div>
+
+  <section class="corner dc-panel" style="right:var(--space-5);top:var(--space-5);width:290px;display:grid;gap:var(--space-2)" aria-label="Watched future">
+    <div style="display:flex;align-items:baseline;gap:var(--space-2)"><b style="font:700 16px/20px var(--font-sans)">Future #4,812</b><span class="dc-faint">of 10,000</span></div>
+    <div class="dc-dim">Earlier than 69% of futures. Catastrophe in Q2 2031 in this one.</div>
+    <div style="display:flex;justify-content:space-between;align-items:center"><div class="dc-tabs" style="gap:var(--space-3)"><button aria-pressed="false">Early</button><button aria-pressed="true">Typical</button><button aria-pressed="false">Late</button></div><button class="dc-btn dc-btn--outline">Roll <kbd>R</kbd></button></div>
+  </section>
+
+  <div class="corner dc-panel" style="left:var(--space-5);right:var(--space-5);bottom:var(--space-5);padding:0">
+    <div class="dc-ticker">
+      <span class="lab dc-label dc-label--real">Real news</span>
+      <div class="run"><span class="it"><span class="dc-data">06 Oct</span><span>Prize-winning short story investigated over disputed AI-writing claims</span></span><span class="it"><span class="dc-data">03 Oct</span><span>Teen hiker needed a helicopter rescue after reportedly following chatbot directions</span></span></div>
+    </div>
+    <div class="dc-timebar" style="padding-block:0 var(--space-2)">
+      <button class="dc-play" aria-label="Play" style="margin-bottom:var(--space-3)"><svg viewBox="0 0 14 14"><path d="M3 1.5v11l9-5.5z"/></svg></button>
+      <div class="dc-spine" id="spine" style="height:96px"></div>
+      <button class="dc-btn" style="margin-bottom:var(--space-3)">Map key</button>
+    </div>
+  </div>
+  <div class="note" style="right:var(--space-5);top:300px;text-align:right;width:220px">globe ≈ 78% of height<br>corners sit space-5 from the edges<br>nothing else on screen while playing</div>
+</div>
+<script>
+  document.getElementById('face').innerHTML = DoomClock.face({ minutes: 6.15, range: [4.24, 10.99], ghost: 85 / 60 });
+  // Hex-dot globe stand-in: a disc of dots, a few lit for the Rogue and the Guardian, rings for events.
+  var g = '', c = 350, R = 330, step = 14, k = 0;
+  g += '<circle cx="350" cy="350" r="' + R + '" style="fill:var(--raised);stroke:var(--rule)"/>';
+  for (var y = c - R + 8; y < c + R; y += step) for (var x = c - R + 8 + ((y / step) % 2) * step / 2; x < c + R; x += step) {
+    var dx = x - c, dy = y - c; if (dx * dx + dy * dy > (R - 10) * (R - 10)) continue;
+    var land = Math.sin(x / 41) + Math.cos(y / 37) + Math.sin((x + y) / 53) > 0.35; if (!land) continue;
+    k++; var lit = (x > 380 && x < 520 && y > 220 && y < 330 && k % 3 === 0) ? 'var(--alarm)' : (x > 170 && x < 300 && y > 200 && y < 300 && k % 5 === 0) ? 'var(--ward)' : (dy < 0 ? 'var(--ink-2)' : 'var(--ink-3)');
+    g += '<circle cx="' + x.toFixed(1) + '" cy="' + y + '" r="3.4" style="fill:' + lit + '"/>';
+  }
+  g += '<circle cx="240" cy="250" r="14" style="fill:none;stroke:var(--ink);stroke-width:2"/>';
+  g += '<circle cx="470" cy="420" r="14" style="fill:none;stroke:var(--sim);stroke-width:2;stroke-dasharray:4 3"/>';
+  g += '<path d="M470 270 Q560 330 520 440" style="fill:none;stroke:var(--alarm);stroke-width:2;stroke-linecap:round"/>';
+  document.getElementById('globe').innerHTML = g;
+  var a = 2024.75, b = 2036, X = function (v) { return ((v - a) / (b - a) * 100).toFixed(2) + '%'; }, today = 2026.81, s = '';
+  s += '<div class="axis" style="top:64px;width:' + X(today) + '"></div><div class="proj" style="top:64px;left:' + X(today) + '"></div>';
+  for (var yr = 2025; yr <= 2035; yr++) s += '<div class="node" style="top:64px;left:' + X(yr) + '"></div><div class="yr" style="top:76px;left:' + X(yr) + '">' + yr + '</div>';
+  s += '<div class="node today" style="top:64px;left:' + X(today) + '"></div><div class="big" style="bottom:36px;font-size:48px;line-height:48px;left:' + X(today) + '"><small style="vertical-align:22px">Q4</small>2026</div>';
+  document.getElementById('spine').innerHTML = s;
+</script>
+</body>
+</html>

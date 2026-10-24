@@ -11,6 +11,7 @@
 
 ## Clean schema: `data/clean/polymarket.jsonl`
 Common: `ts, source:"polymarket", kind, id:"pm:<marketId>", url` (event page).
+All times are ISO UTC to the second (no ms); sub-second source times are rounded up.
 - `kind=market`: `ts` = market `startDate`. `event_id, event_title, question, outcome` (candidate name in multi-outcome events), `monthly_best_model` (true for the monthly best-model events), `end_date, volume, description` (resolution rules text).
 - `kind=price`: `ts` = CLOB point time, `p` = Yes price. About one point per day.
 - `kind=resolution`: `ts` = market `closedTime` (fallback event close / end date), `result` YES|NO from the final outcome price (>= 0.99 / <= 0.01). 2,060 of 2,095 resolved markets have price history: that is this source's backtest pool.
@@ -22,7 +23,7 @@ Common: `ts, source:"polymarket", kind, id:"pm:<marketId>", url` (event page).
 - Multi-outcome events: each candidate is its own market; the Yes prices of an event sum to roughly 1, not exactly.
 - Tag discovery is capped at 100 events/page, so very old low-volume events may be missed.
 
-149534 records (market 2483, price 144956, resolution 2095), clean file 32.1 MB, raw cache 105 MB.
+149534 records (market 2483, price 144956, resolution 2095), clean file 31.5 MB, raw cache 105 MB.
 
 ## Records per month (by ts)
 

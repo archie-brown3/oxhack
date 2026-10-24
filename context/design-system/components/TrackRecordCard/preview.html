@@ -1,0 +1,24 @@
+<!-- @dsCard group="Paper" height=560 width=1200 subtitle="Track record: the Bulletin's statements grid, one card per backtest checkpoint" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>TrackRecordCard — preview</title></head>
+<body>
+<div data-theme="paper">
+  <div class="dc-cards" id="cards"></div>
+</div>
+<script>
+  var rows = [
+    ['1 Mar 2025', 7.4, 'It read 7 minutes to midnight', '0.208', '0.214'],
+    ['1 Jul 2025', 6.9, 'It read 7 minutes to midnight', '0.221', '0.219'],
+    ['1 Nov 2025', 6.5, 'It read 6 minutes to midnight', '0.197', '0.206']
+  ], s = '';
+  rows.forEach(function (r) {
+    s += '<article class="dc-card"><div class="glyph">' + DoomClock.face({ minutes: r[1], labels: false }) + '</div>' +
+      '<div class="yr">' + r[0] + '</div><div class="read">' + r[2] + '</div>' +
+      '<div class="score">Panel ' + r[3] + ' · market ' + r[4] + ' · coin 0.250 Brier<span class="dc-mock">mock</span></div>' +
+      '<button class="dc-btn dc-btn--outline">Open this checkpoint</button></article>';
+  });
+  document.getElementById('cards').innerHTML = s;
+</script>
+</body>
+</html>

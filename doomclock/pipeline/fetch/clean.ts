@@ -65,7 +65,8 @@ const jobs: Record<string, () => void> = {
     write("hn", [...byId.values()].filter((r) => r.queries.some((q: string) => SURE.has(q)) || AIISH.test(r.title)));
   },
 
-  // AIID: incidents; ts = earliest report publication date (when the incident was first public).
+  // AIID: incidents; ts = max(earliest report publication, event_date 00:00Z): an incident can't be public
+  // before it happened (31 incidents have a linked report dated before event_date). The window is on first_report_ts.
   aiid() {
     const dir = join(RAW, "aiid/extracted");
     const snap = join(dir, readdirSync(dir).sort().at(-1)!, "mongodump_full_snapshot");
@@ -77,10 +78,12 @@ const jobs: Record<string, () => void> = {
       const rs = list(i.reports).map((n) => rep.get(String(n))).filter((r) => /^\d{4}-\d\d-\d\d/.test(r?.date_published ?? ""));
       if (!rs.length) continue;
       rs.sort((a, b) => a!.date_published.localeCompare(b!.date_published));
-      const ts = rs[0]!.date_published.slice(0, 19) + "Z";
-      if (ts < START || ts > new Date().toISOString()) continue;
+      const first_report_ts = rs[0]!.date_published.slice(0, 19) + "Z";
+      const happened = /^\d{4}-\d\d-\d\d$/.test(i.date) ? i.date + "T00:00:00Z" : "";
+      const ts = happened > first_report_ts ? happened : first_report_ts;
+      if (first_report_ts < START || ts > new Date().toISOString()) continue;
       out.push({
-        ts, source: "aiid", kind: "incident", id: i.incident_id, url: `https://incidentdatabase.ai/cite/${i.incident_id}`,
+        ts, first_report_ts, source: "aiid", kind: "incident", id: i.incident_id, url: `https://incidentdatabase.ai/cite/${i.incident_id}`,
         event_date: i.date || null, title: i.title, description: i.description.slice(0, 400),
         deployers: list(i["Alleged deployer of AI system"]), developers: list(i["Alleged developer of AI system"]),
         harmed: list(i["Alleged harmed or nearly harmed parties"]), n_reports: rs.length, first_report_url: rs[0]!.url,

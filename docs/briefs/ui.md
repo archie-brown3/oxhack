@@ -13,7 +13,7 @@ A **Monte Carlo simulation**, not a game.
 
 ## Design system (binding)
 
-`docs/design-system/README.md` and `tokens.json`, from Archie's artifact (https://claude.ai/artifact/VGsoVrzhbyFcnM1otCMgJN, the source of truth).
+`context/design-system/README.md` and `tokens.json`, from Archie's artifact (https://claude.ai/artifact/VGsoVrzhbyFcnM1otCMgJN, the source of truth).
 
 - **Themes:** Stage (dark) is for World and Engine. Paper (light) sheets slide over the dimmed globe for Why this time?, Track record and Inputs.
 - **Colour:** monochrome Stage.
@@ -53,6 +53,16 @@ A **Monte Carlo simulation**, not a game.
      - The graph re-fits to the new size. The cast becomes a full roster: role, country and stance per agent.
 4. **Why this time? (Paper).** Anchors → Monte Carlo fan of 10,000 futures → 1-in-10 date → the hand. Ends with "A prediction, not a prophecy."
 5. **Track record (Paper).** Market Brier against a 50% coin and the base rate, with CIs, a reliability curve and n. The caveats are visible.
+
+## Specific context, always (Archie, 22:30: the main problem to solve)
+
+The experience fails if events happen, or the clock moves, without a specific reason on screen. Be as specific as possible.
+
+- **Why the clock moved:** every time the hand moves, show a callout under the clock built from the frame's `drivers`. Example: "Hand moved **4 months toward midnight**: Manifold 'ASI by 2030' rose **36% → 41%** (12 Mar 2026, 214 traders) [link]". List the top 1–3 drivers, plus "other: N days" for the residual. Only market moves are causes.
+- **What happened:** every event shows who, what, where and when, plus its source link and provenance label, using `WorldEvent.detail`, `who`, `where` and `ts`. Example: "US Commerce Dept (BIS) published export rule 2026-04112 restricting AI chips to China · 3 Feb 2026 · Federal Register [link] · REAL". Never show a vague headline alone.
+- **Events are context, never causes.** When an event lands in the same frame as a clock move, show it as "around the same time". Never "because of".
+- **Major events on the main UI:** when a `major` event lands (real or simulated), show it on the World screen itself, not only in the ticker. Use the newsflash band (a `display-3` headline, then the specific detail line, then the source) and flare the country on the globe. Simulated majors carry the SIMULATED label and the `sim` style.
+- **Account avatars:** every X-feed account and every government and news source shows its avatar from `doomclock/web/public/avatars/` (the assets agent is producing them; until then, monogram placeholders).
 
 ## The demo path (judge, about 3 minutes)
 

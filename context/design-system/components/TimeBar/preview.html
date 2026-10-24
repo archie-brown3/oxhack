@@ -1,0 +1,30 @@
+<!-- @dsCard group="Time" height=190 width=1200 subtitle="Bottom of World: the Bulletin's spine laid on its side" -->
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>TimeBar — preview</title></head>
+<body>
+<div style="padding:var(--space-5)">
+  <div class="dc-panel" style="padding:0">
+    <div class="dc-timebar">
+      <button class="dc-play" aria-label="Play"><svg viewBox="0 0 14 14"><path d="M3 1.5v11l9-5.5z"/></svg></button>
+      <div class="dc-tabs" style="gap:var(--space-3);margin-bottom:var(--space-2)"><button aria-pressed="true">1×</button><button aria-pressed="false">2×</button><button aria-pressed="false">4×</button></div>
+      <div class="dc-spine" id="spine" role="slider" aria-label="Quarter" aria-valuetext="Q1 2029" tabindex="0"></div>
+      <button class="dc-btn" style="margin-bottom:var(--space-2)">Map key</button>
+    </div>
+  </div>
+</div>
+<script>
+  var a = 2024.75, b = 2036, x = function (y) { return ((y - a) / (b - a) * 100).toFixed(2) + '%'; };
+  var today = 2026.81, on = 2029.0, key = { 2028: 1, 2031: 1 }, s = '';
+  s += '<div class="axis" style="width:' + x(today) + '"></div><div class="proj" style="left:' + x(today) + '"></div>';
+  for (var y = 2025; y <= 2035; y++) {
+    s += '<div class="node' + (key[y] ? ' key' : '') + '" style="left:' + x(y) + '"></div>';
+    s += '<div class="yr' + (key[y] ? ' key' : '') + '" style="left:' + x(y) + '">' + y + '</div>';
+  }
+  s += '<div class="node today" style="left:' + x(today) + '"></div><div class="tag today" style="left:' + x(today) + '">Today</div>';
+  s += '<div class="tag cat" style="left:' + x(2031.4) + '">✕ Catastrophe, this future</div>';
+  s += '<div class="node on" style="left:' + x(on) + '"></div><div class="big" style="left:' + x(on) + '"><small>Q1</small>2029</div>';
+  document.getElementById('spine').innerHTML = s;
+</script>
+</body>
+</html>

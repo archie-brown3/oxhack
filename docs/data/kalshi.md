@@ -10,8 +10,9 @@
 
 ## Clean schema: `data/clean/kalshi.jsonl`
 Common: `ts, source:"kalshi", kind, id:"kalshi:<ticker>", url` (series page; per-market URLs are not stable), `series, event`.
+All times are ISO UTC to the second (no ms); sub-second source times are rounded up.
 - `kind=market`: `ts` = `open_time` (when it became tradable). `core` (true for KXAGICO/KXUSTAKEOVER), `title, subtitle, close_time, volume, rules_primary, rules_secondary`.
-- `kind=price`: `ts` = end of the daily candle (UTC). `p` = yes price in dollars/probability: last trade close, else previous trade, else bid/ask mid. Also `bid, ask, volume, open_interest`. Days with no price information are dropped.
+- `kind=price`: `ts` = end of the daily candle (UTC). That can be up to a day after the last trade, which is conservative for `ts < T`, so it is left unchanged. `p` = yes price in dollars/probability: last trade close, else previous trade, else bid/ask mid. Also `bid, ask, volume, open_interest`. Days with no price information are dropped.
 - `kind=resolution`: `ts` = `settlement_ts`, `result` YES|NO. Void/scalar results are dropped.
 - Backtest pool: resolution records with >= 2 price points (the `id` joins market/price/resolution): 1,980 questions. Point-in-time use: filter `ts < T`; a market's resolution only counts when its resolution `ts < T`.
 
@@ -21,7 +22,7 @@ Common: `ts, source:"kalshi", kind, id:"kalshi:<ticker>", url` (series page; per
 - **Rules caveat:** KXAGICO resolves on a company *officially announcing it achieved AGI* ("AGI-like/near-AGI" statements do not count) — a much lower bar than Manifold's ASI. Read `rules_primary/secondary` per market; resolution wording differs between series.
 - Candle `price` fields are empty on days without trades; `p` then falls back to bid/ask mid or the previous price, so it is a quote, not a trade.
 
-52513 records (market 3648, price 45594, resolution 3271), clean file 16.4 MB, raw cache 67 MB.
+52513 records (market 3648, price 45594, resolution 3271), clean file 16.2 MB, raw cache 67 MB.
 
 ## Records per month (by ts)
 

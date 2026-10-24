@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en" data-theme="stage">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b0b0b">
+<title>Doom Clock</title>
+<link rel="stylesheet" href="ds/tokens.css">
+<link rel="stylesheet" href="ds/bundle.css">
+<style>
+/* Prototype layout and overrides on top of the design system (ds/bundle.css). Values come from ds/tokens.css. */
+html, body { height: 100%; overflow: hidden; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+kbd { font: var(--type-data); color: var(--ink-3); }
+.eyebrow { font: var(--type-eyebrow); letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; }
+.dc-btn { color: var(--action); }
+.dc-btn--sm { min-height: 26px; padding: 0 var(--space-3); font-size: 12px; }
+
+/* ---------- stage ---------- */
+#globe { position: fixed; left: 0; right: 0; top: 0; bottom: 150px; }
+body.engine:not(.ov) #globe { visibility: hidden; }
+#vignette { position: fixed; inset: 0; pointer-events: none; opacity: 0; transition: opacity .6s; box-shadow: inset 0 0 180px rgba(229, 72, 77, .14); }
+body.ended #vignette { opacity: 1; }
+
+/* ---------- clock (top-left, never hides) ---------- */
+#clock { position: fixed; left: var(--space-5); top: var(--space-5); z-index: 60; cursor: pointer; transition: border-color .15s; }
+#clock:hover { border-color: var(--rule-strong); }
+.dc-face .ghost-t { font-size: 6px; } /* system draws it at 4.8 (9.6px); the 12px floor wins */
+#clock .reading { margin: var(--space-1) 0 0; }
+#clock .why { margin-top: var(--space-1); }
+body.engine #clock .to { display: none; }
+
+/* ---------- top centre: World | Engine ---------- */
+#viewseg { position: fixed; top: var(--space-5); left: 50%; transform: translateX(-50%); z-index: 30; padding: var(--space-2) var(--space-5); }
+
+/* ---------- top right: the watched future ---------- */
+#future { position: fixed; right: var(--space-5); top: var(--space-5); width: 290px; z-index: 20; display: grid; gap: var(--space-3); }
+#future .t { display: flex; align-items: baseline; gap: var(--space-2); }
+#future .t b { font: 700 16px/20px var(--font-sans); }
+#future .ms { display: grid; gap: var(--space-1); }
+#future .ms div { display: flex; justify-content: space-between; gap: var(--space-2); }
+#future .ms .none { color: var(--ink-3); }
+#future .row { display: flex; justify-content: space-between; align-items: center; gap: var(--space-2); }
+#future .dc-tabs { gap: var(--space-3); }
+body.engine #future { display: none; }
+
+/* ---------- bottom dock: ticker over the time spine ---------- */
+#dock { position: fixed; left: var(--space-5); right: var(--space-5); bottom: var(--space-5); z-index: 25; padding: 0; }
+#ticker .run { display: block; position: relative; height: 100%; }
+#ticker .runner { position: absolute; top: 0; bottom: 0; display: inline-flex; align-items: center; gap: var(--space-8); white-space: nowrap; will-change: transform; }
+#ticker .runner.go { animation: tick linear infinite; }
+#ticker:hover .runner.go { animation-play-state: paused; }
+@keyframes tick { to { transform: translateX(-50%); } }
+#ticker .it a { color: inherit; text-decoration: none; } #ticker .it a:hover { text-decoration: underline; text-underline-offset: 3px; }
+#ticker .lab { width: 120px; }
+.dc-timebar { padding: 0 var(--space-4) var(--space-2) var(--space-3); }
+.dc-timebar .dc-play { margin-bottom: 14px; }
+.dc-timebar > .dc-tabs { gap: var(--space-3); margin-bottom: 26px; }
+.dc-timebar > .dc-btn { margin-bottom: 18px; }
+#scrub { height: 92px; cursor: pointer; touch-action: none; margin: 0 var(--space-3); }
+#scrub .axis, #scrub .proj, #scrub .node { top: 60px; }
+#scrub .yr { top: 72px; }
+#scrub .tag { top: 40px; }
+#scrub .big { bottom: 36px; font-size: 48px; line-height: 48px; transition: left .25s cubic-bezier(.2, .8, .2, 1); pointer-events: none; }
+#scrub .big small { vertical-align: 22px; }
+#scrub .node.on { transition: left .25s cubic-bezier(.2, .8, .2, 1); }
+#scrub.drag .big, #scrub.drag .node.on { transition: none; }
+#scrub .node.end { width: 9px; height: 9px; margin: -4px 0 0 -4.5px; border-radius: 0; transform: rotate(45deg); background: var(--alarm); }
+#scrub .ended { position: absolute; right: 0; top: 59px; height: 3px; background: var(--alarm); opacity: .35; }
+
+/* coach line */
+#coach { position: fixed; left: 50%; bottom: 196px; transform: translateX(-50%); z-index: 24; padding: var(--space-2) var(--space-4); color: var(--ink-2);
+  transition: opacity .2s, transform .2s cubic-bezier(.2, .8, .2, 1); }
+#coach b { color: var(--ink); }
+#coach.hide { opacity: 0; transform: translate(-50%, 6px); pointer-events: none; }
+
+/* newsflash: over the right of the globe, turning points only */
+#flash { position: fixed; left: calc(50% + 110px); top: 290px; z-index: 26; cursor: pointer; opacity: 0; transform: translateY(8px); pointer-events: none;
+  transition: opacity .18s, transform .18s cubic-bezier(.2, .8, .2, 1); }
+#flash.on { opacity: 1; transform: none; pointer-events: auto; transition: opacity .25s, transform .3s cubic-bezier(.2, .8, .2, 1); }
+#flash .timer i { width: 100%; transform-origin: left; }
+#flash.run .timer i { animation: drain 4s linear forwards; }
+#flash:hover .timer i { animation-play-state: paused; }
+@keyframes drain { to { transform: scaleX(0); } }
+
+/* globe marks: rings for events, a diamond for catastrophe */
+.bub { position: relative; pointer-events: auto; cursor: pointer; transform: translate(-50%, -50%); animation: pop .35s cubic-bezier(.2, .8, .2, 1) both; }
+.bub .b { display: grid; place-items: center; width: 26px; height: 26px; border-radius: var(--radius-round); font: 600 11px/1 var(--font-sans); color: var(--ink);
+  background: var(--scrim); border: 1.5px dashed var(--sim); transition: transform .12s; }
+.bub.real .b { width: 16px; height: 16px; background: transparent; border: 2px solid var(--ink); }
+.bub.cat .b { width: 16px; height: 16px; border: 0; border-radius: 0; background: var(--alarm); transform: rotate(45deg); }
+.bub:hover .b { transform: scale(1.15); } .bub.cat:hover .b { transform: rotate(45deg) scale(1.15); }
+@keyframes pop { from { opacity: 0; transform: translate(-50%, -50%) scale(.4); } }
+
+#pop { position: fixed; z-index: 40; width: 300px; display: none; }
+#pop.on { display: grid; gap: var(--space-2); animation: rise .18s cubic-bezier(.2, .8, .2, 1); }
+#pop .h { display: flex; gap: var(--space-3); align-items: center; }
+#pop .h b { display: block; font-weight: 600; }
+#pop p { margin: 0; }
+#pop .f { display: flex; justify-content: space-between; align-items: center; gap: var(--space-2); }
+@keyframes rise { from { opacity: 0; transform: translateY(4px); } }
+.av { width: 30px; height: 30px; flex: none; display: grid; place-items: center; font: 600 12px/1 var(--font-sans); background: var(--raised); border: 1px solid var(--rule); border-radius: var(--radius-1); color: var(--ink); }
+
+/* popovers anchored to their trigger */
+.pop { position: fixed; z-index: 45; display: none; }
+.pop.on { display: grid; animation: rise .16s cubic-bezier(.2, .8, .2, 1); }
+#keypop { right: var(--space-5); bottom: 196px; width: 360px; padding: 0; }
+#keypop .dc-marks { grid-template-columns: minmax(0, 1fr); }
+#review { position: fixed; right: var(--space-5); bottom: 196px; z-index: 24; font-size: 12px; color: var(--ink-3); border: 1px dashed var(--rule-strong); border-radius: var(--radius-1); padding: var(--space-1) var(--space-3); background: var(--scrim); }
+#review:hover { color: var(--ink-2); }
+#revpop { right: var(--space-5); bottom: 232px; width: 320px; gap: var(--space-3); }
+#revpop h4 { margin: 0; }
+#revpop .jumps { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+#revpop p { margin: 0; color: var(--ink-3); }
+body.engine #review, body.engine #keybtn { visibility: hidden; }
+
+/* ---------- engine ---------- */
+#society, #engine { display: none; }
+body.engine #society, body.engine #engine { display: grid; }
+body.engine #ticker { display: none; }
+#society { position: fixed; left: var(--space-5); width: 260px; top: var(--soc-top, 420px); bottom: 150px; z-index: 20; gap: var(--space-3); align-content: start; overflow: auto; }
+#society h3, .pane h3 { margin: 0; display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-2); }
+.members { display: grid; }
+.members button { display: grid; grid-template-columns: 26px minmax(0, 1fr); text-align: left; padding: var(--space-1) var(--space-2); border-radius: var(--radius-1); color: var(--ink-2); }
+.members button:hover { color: var(--ink); background: var(--rule); }
+.members button[aria-pressed="true"] { color: var(--ink); box-shadow: inset 2px 0 0 var(--sim); }
+.run .nums { display: grid; grid-template-columns: repeat(4, auto); justify-content: space-between; }
+.run .nums div { color: var(--ink-3); font-size: 12px; line-height: 16px; }
+.run .nums b { display: block; font: 600 13px/19px var(--font-sans); color: var(--ink); }
+.run .rounds { margin-top: var(--space-2); display: flex; gap: 2px; align-items: flex-end; height: 18px; }
+.run .rounds i { flex: 1; background: var(--ink-3); min-height: 2px; }
+
+#engine { position: fixed; z-index: 15; top: 76px; bottom: 150px; left: 300px; right: var(--space-5);
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); gap: var(--space-3); }
+#engine .head { grid-column: 1 / -1; display: flex; align-items: baseline; gap: var(--space-3); min-width: 0; }
+#engine .head h2 { margin: 0; font: 600 18px/28px var(--font-sans); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#engine .head .dc-data { white-space: nowrap; }
+#engine .etabs { display: none; }
+.pane { display: flex; flex-direction: column; min-height: 0; padding: 0; overflow: hidden; }
+.pane > h3 { padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--rule); }
+.pane .scroll { overflow: auto; min-height: 0; flex: 1; }
+.post { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: var(--space-3); padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--rule); }
+.post:last-child { border-bottom: 0; }
+.post .who { display: flex; gap: var(--space-2); align-items: baseline; flex-wrap: wrap; color: var(--ink-3); font-size: 12px; }
+.post .who b { color: var(--ink); font-size: 13px; font-weight: 600; }
+.post .tx { margin-top: 2px; white-space: pre-line; text-wrap: pretty; }
+.post .qt { margin-top: var(--space-2); padding: var(--space-2) var(--space-3); border: 1px solid var(--rule); color: var(--ink-2); white-space: pre-line; }
+.post .meta { margin-top: var(--space-1); display: flex; gap: var(--space-4); }
+.post.seed .who span:last-child { font-style: italic; color: var(--sim); }
+.post.hl { background: var(--rule); }
+#kgwrap { position: relative; height: 52%; border-bottom: 1px solid var(--rule); flex: none; }
+#kg { width: 100%; height: 100%; display: block; }
+#kglegend { position: absolute; left: var(--space-3); bottom: var(--space-2); display: flex; gap: var(--space-3); flex-wrap: wrap; font-size: 12px; color: var(--ink-3); pointer-events: none; }
+#kglegend i { display: inline-block; width: 8px; height: 8px; border-radius: var(--radius-round); margin-right: var(--space-1); }
+.ag { display: grid; grid-template-columns: 8px minmax(0, 1fr) auto; gap: var(--space-3); align-items: center; padding: var(--space-2) var(--space-4); color: var(--ink-3); font-size: 12px; line-height: 16px; }
+.ag:hover { background: var(--rule); }
+.ag b { color: var(--ink); font-weight: 500; font-size: 13px; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ag i { width: 8px; height: 8px; border-radius: var(--radius-round); }
+#tooltip { position: fixed; z-index: 70; pointer-events: none; max-width: 300px; display: none; padding: var(--space-2) var(--space-3); }
+
+/* engine variant B: the same panes as a sheet over the globe */
+body.ov #engine { left: auto; width: 460px; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto minmax(0, 1fr); }
+body.ov #engine .head { flex-wrap: wrap; row-gap: 0; }
+body.ov #engine .etabs { display: block; padding: var(--space-2) var(--space-4); justify-self: start; }
+body.ov #engine .pane { display: none; }
+body.ov #engine[data-tab="x"] #p-x, body.ov #engine[data-tab="gn"] #p-gn, body.ov #engine[data-tab="cg"] #p-cg { display: flex; }
+body.ov #engine .pane > h3 { display: none; }
+
+/* ---------- Paper sheets over the dimmed globe; the clock stays visible ---------- */
+.scrim { position: fixed; inset: 0; z-index: 50; background: rgba(11, 11, 11, .64); display: none; }
+.scrim.on { display: block; animation: fade .2s; }
+@keyframes fade { from { opacity: 0; } }
+.sheet { position: absolute; left: 300px; right: var(--space-5); top: var(--space-5); bottom: var(--space-5); overflow: auto; border-radius: var(--radius-0); box-shadow: var(--lift);
+  animation: slide .3s cubic-bezier(.2, .8, .2, 1); }
+@keyframes slide { from { opacity: 0; transform: translateY(24px); } }
+.sheet .x { position: absolute; right: var(--space-4); top: var(--space-4); width: 32px; height: 32px; font-size: 20px; color: var(--ink-2); }
+.sheet .x:hover { color: var(--ink); }
+.dc-sheet .title { margin-bottom: var(--space-8); }
+.dc-sheet .lead .dc-tabs { flex-direction: column; align-items: flex-start; gap: var(--space-2); }
+.dc-sheet .lead .dc-thumb .box { width: 132px; }
+.story .lede { display: flex; gap: var(--space-3); align-items: center; }
+.anc { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0 var(--space-4); padding: var(--space-3) 0; border-top: 1px solid var(--rule); }
+.anc b { font: var(--type-numeral-l); }
+.anc span { grid-column: 1 / -1; color: var(--ink-3); font-size: 12px; }
+.anc div { font: var(--type-body-l); }
+.waffle { display: grid; grid-template-columns: repeat(40, 1fr); gap: 2px; max-width: 560px; }
+.waffle i { aspect-ratio: 1; background: var(--rule); }
+.waffle i.c { background: var(--alarm); }
+.fan { position: relative; max-width: 600px; }
+.fan .tip { position: absolute; top: 0; display: none; white-space: nowrap; padding: var(--space-2) var(--space-3); }
+.next { color: var(--action); font-weight: 600; justify-self: start; text-underline-offset: 3px; text-decoration: underline; }
+.dc-cards { padding: 0; background: none; }
+.track-intro { max-width: 920px; margin: 0 auto var(--space-8); display: grid; gap: var(--space-4); }
+.track-intro p { font: var(--type-body-l); margin: 0; max-width: 64ch; }
+
+/* engine: pane counts, LIVE vs RECORDED, full screen */
+.pane h3 .dc-data, #society h3 .dc-data { text-transform: none; letter-spacing: 0; white-space: nowrap; }
+.state { margin-left: auto; display: inline-flex; align-items: center; gap: var(--space-2); padding: var(--space-1) var(--space-3); border: 1px solid var(--rule-strong); border-radius: var(--radius-1);
+  font: var(--type-eyebrow); letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; color: var(--ink-2); white-space: nowrap; }
+.state .dc-data { text-transform: none; letter-spacing: 0; }
+.state.live { border-color: var(--ink); color: var(--ink); }
+.state.live::before { content: ""; width: 7px; height: 7px; border-radius: var(--radius-round); background: var(--ink); animation: blink 1.2s ease-in-out infinite alternate; }
+@keyframes blink { to { opacity: .2; } }
+.post.new { animation: rise .35s cubic-bezier(.2, .8, .2, 1); }
+.subhead { display: flex; justify-content: space-between; align-items: center; padding: var(--space-2) var(--space-4); border-bottom: 1px solid var(--rule); }
+#kgwrap .maxbtn { position: absolute; right: var(--space-3); top: var(--space-3); background: var(--scrim); }
+#kgwrap .maxhead { display: none; }
+#kgwrap.max { position: fixed; inset: 0; z-index: 80; height: auto; background: var(--ground); border: 0; }
+#kgwrap.max .maxbtn { display: none; }
+#kgwrap.max .maxhead { display: flex; gap: var(--space-3); align-items: baseline; position: absolute; left: var(--space-5); top: var(--space-5); right: var(--space-5); }
+#kgwrap.max #kglegend { left: var(--space-5); bottom: var(--space-5); }
+.maxhead h2, #roster h2 { margin: 0; font: 600 18px/28px var(--font-sans); }
+.maxhead .dc-btn, #roster .rhead .dc-btn { margin-left: auto; }
+#roster { position: fixed; inset: 0; z-index: 80; background: var(--ground); display: none; overflow: auto; padding: var(--space-5) var(--space-8) var(--space-8); }
+#roster.on { display: block; }
+#roster .rhead { display: flex; gap: var(--space-3); align-items: baseline; margin-bottom: var(--space-4); }
+.tbl { width: 100%; border-collapse: collapse; }
+.tbl th, .tbl td { text-align: left; padding: var(--space-2) var(--space-3); border-bottom: 1px solid var(--rule); vertical-align: top; }
+.tbl th { font: var(--type-eyebrow); letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; color: var(--ink-3); }
+.tbl td.n, .tbl th.n { text-align: right; font-variant-numeric: tabular-nums; }
+.tbl td small { display: block; color: var(--ink-3); font-size: 12px; line-height: 16px; max-width: 64ch; }
+
+/* Inputs (Paper): what the engine knows, as of a date */
+.asof { max-width: 920px; margin: 0 auto var(--space-8); display: grid; gap: var(--space-2); }
+.asof-read { display: flex; align-items: baseline; gap: var(--space-3); flex-wrap: wrap; }
+.asof-read b { font: var(--type-numeral-l); }
+#asof { -webkit-appearance: none; appearance: none; width: 100%; height: 24px; background: transparent; cursor: pointer; margin: 0; }
+#asof::-webkit-slider-runnable-track { height: 1px; background: linear-gradient(90deg, var(--ink) 0 var(--p, 100%), var(--rule-strong) var(--p, 100%)); }
+#asof::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; margin-top: -6px; border-radius: var(--radius-round); background: var(--ink); }
+#asof::-moz-range-track { height: 1px; background: var(--rule-strong); } #asof::-moz-range-progress { height: 1px; background: var(--ink); }
+#asof::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: var(--radius-round); background: var(--ink); }
+.asof-ticks { display: flex; justify-content: space-between; font: var(--type-numeral-s); color: var(--ink-3); }
+#intabs button { display: flex; justify-content: space-between; gap: var(--space-4); width: 180px; }
+#intabs .dc-data { letter-spacing: 0; }
+.irow { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: var(--space-3); padding: var(--space-2) 0; border-top: 1px solid var(--rule); }
+.irow a { color: var(--ink); text-decoration: none; } .irow a:hover { text-decoration: underline; text-underline-offset: 3px; color: var(--action); }
+.irow .src { display: block; }
+.mk { display: grid; grid-template-columns: minmax(0, 1fr) 200px; gap: var(--space-2) var(--space-6); padding: var(--space-4) 0; border-top: 1px solid var(--rule); align-items: center; }
+.mk .q { font: var(--type-body-l); }
+.mk .p { display: flex; align-items: baseline; gap: var(--space-2); }
+.mk .p b { font: var(--type-numeral-l); }
+.mk .meta { grid-column: 1 / -1; }
+.mk svg { width: 200px; height: 48px; overflow: visible; }
+.infoot { position: sticky; bottom: calc(-1 * var(--space-8)); margin: var(--space-8) calc(-1 * var(--space-8)) calc(-1 * var(--space-12)); padding: var(--space-4) var(--space-8); background: var(--raised);
+  border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; gap: var(--space-6); }
+.infoot p { margin: 0; max-width: 64ch; color: var(--ink-2); }
+.dc-btn--primary kbd { color: var(--on-oxblood); }
+.coach-skip { margin-left: var(--space-3); }
+.rel { width: 100%; max-width: 340px; }
+.ci { color: var(--ink-3); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+</style>
+</head>
+<body>
+<div id="globe"></div>
+<div id="vignette"></div>
+
+<!-- clock: the real forecast, never hidden -->
+<section id="clock" class="dc-panel dc-clock" role="button" tabindex="0" aria-label="Doom Clock, real forecast. Open: why this time?">
+  <div class="cap"><span class="dc-label dc-label--real">Real forecast</span><span class="dc-faint">1 min = 1 year</span></div>
+  <div class="face" id="face"></div>
+  <p class="reading" id="reading"></p>
+  <div class="cd" id="cd">–</div>
+  <div class="to">until <b>Dec 2032</b><span class="dc-mock">mock</span>, when the chance of AI catastrophe passes 1 in 10</div>
+  <span class="why">Why this time?</span>
+</section>
+
+<nav id="viewseg" class="dc-panel" aria-label="View">
+  <div class="dc-tabs"><button data-view="inputs" aria-pressed="false">Inputs<kbd>I</kbd></button><button data-view="world" aria-pressed="true">World<kbd>W</kbd></button><button data-view="engine" aria-pressed="false">Engine<kbd>E</kbd></button></div>
+</nav>
+
+<!-- the one future being played -->
+<section id="future" class="dc-panel" aria-label="Watched future">
+  <div class="t"><b id="fname">Future</b><span class="dc-faint">of 10,000</span></div>
+  <div class="dc-dim" id="fsub"></div>
+  <div class="ms" id="fms"></div>
+  <div class="row">
+    <div class="dc-tabs" id="fpick"><button data-q="0.1" aria-pressed="false">Early</button><button data-q="0.5" aria-pressed="false">Typical</button><button data-q="0.9" aria-pressed="false">Late</button></div>
+    <button class="dc-btn dc-btn--outline" id="roll" aria-label="Roll another future">Roll <kbd>R</kbd></button>
+  </div>
+  <span class="dc-data" id="fseed"></span>
+</section>
+
+<!-- engine: a screen by default, a sheet over the globe in variant B -->
+<aside id="society" class="dc-panel" aria-label="Society"></aside>
+<main id="engine" data-tab="x">
+  <div class="head">
+    <span class="dc-label dc-label--sim">Simulated</span>
+    <h2 id="ehead">The society under this future</h2>
+    <span class="dc-data">MiroFish · X only · English</span>
+    <span class="state" id="estate"></span>
+  </div>
+  <div class="etabs dc-panel"><div class="dc-tabs" id="etabs"><button data-t="x" aria-pressed="true">X feed</button><button data-t="gn" aria-pressed="false">Government &amp; news</button><button data-t="cg" aria-pressed="false">Cast &amp; graph</button></div></div>
+  <section class="pane dc-panel" id="p-x"><h3 class="eyebrow">X feed <span class="dc-data" id="nx"></span></h3><div class="scroll" id="xfeed"></div></section>
+  <section class="pane dc-panel" id="p-gn"><h3 class="eyebrow">Government &amp; news <span class="dc-data" id="ngn"></span></h3><div class="scroll" id="gnfeed"></div></section>
+  <section class="pane dc-panel" id="p-cg">
+    <h3 class="eyebrow">Cast &amp; graph <span class="dc-data" id="ncast"></span></h3>
+    <div id="kgwrap" tabindex="-1">
+      <div class="maxhead"><span class="dc-label dc-label--sim">Simulated</span><h2>Knowledge graph</h2><span class="dc-data" id="kgcount"></span><button class="dc-btn dc-btn--sm" data-unmax>Close <kbd>Esc</kbd></button></div>
+      <canvas id="kg"></canvas><div id="kglegend"></div>
+      <button class="dc-btn dc-btn--sm maxbtn" data-max="graph" title="Full screen (F)">Full screen <kbd>F</kbd></button>
+    </div>
+    <div class="subhead" id="casthead"><span class="eyebrow">Cast</span><button class="dc-btn dc-btn--sm dc-btn--quiet" data-max="cast">Full roster <kbd>F</kbd></button></div>
+    <div class="scroll" id="cast" tabindex="-1"></div>
+  </section>
+</main>
+
+<section id="roster" role="dialog" aria-label="Cast roster">
+  <div class="rhead"><span class="dc-label dc-label--sim">Simulated</span><h2>The cast</h2><span class="dc-data" id="rostercount"></span><button class="dc-btn dc-btn--sm" data-unmax>Close <kbd>Esc</kbd></button></div>
+  <table class="tbl"><thead><tr><th>Account</th><th>Role</th><th>Country</th><th>Stance</th><th class="n">Influence</th><th class="n">Activity</th><th class="n">Posts</th></tr></thead><tbody id="rosterbody"></tbody></table>
+  <p class="dc-faint">Country is inferred from the account's name <span class="dc-mock">mock</span>. Roles, stances, influence and activity come from the MiroFish simulation config.</p>
+</section>
+
+<div id="coach" class="dc-panel hide"></div>
+<section id="flash" class="dc-flash" role="status" aria-live="polite">
+  <div class="band"><span id="fband">Turning point</span><span id="fq"></span></div>
+  <div class="body"><h3 id="fh"></h3><p id="fp"></p><div class="shift" id="fshift"></div></div>
+  <div class="timer"><i></i></div>
+</section>
+
+<!-- bottom: ticker over the time spine -->
+<footer id="dock" class="dc-panel">
+  <div class="dc-ticker" id="ticker"><span class="lab dc-label dc-label--real" id="tlab">Real news</span><div class="run"><div class="runner" id="trun"></div></div></div>
+  <div class="dc-timebar">
+    <button class="dc-play" id="play" aria-label="Play"></button>
+    <div class="dc-tabs" id="speed"><button data-s="1" aria-pressed="true">1×</button><button data-s="2" aria-pressed="false">2×</button><button data-s="4" aria-pressed="false">4×</button></div>
+    <div class="dc-spine" id="scrub" role="slider" tabindex="0" aria-label="Quarter"></div>
+    <button class="dc-btn" id="keybtn">Map key</button>
+  </div>
+</footer>
+
+<div id="keypop" class="pop dc-panel" role="dialog" aria-label="Map key">
+  <div class="dc-marks">
+    <div class="dc-mark"><svg viewBox="0 0 40 28"><circle class="k-land1" cx="5" cy="14" r="3.4"/><circle class="k-land1" cx="15" cy="14" r="3.4" style="fill:var(--ink-2)"/><circle class="k-land2" cx="25" cy="14" r="3.4"/><circle class="k-land3" cx="35" cy="14" r="3.4"/></svg><span><b>Land dots</b>, brighter where this future has more frontier AI activity <span class="dc-mock">mock split</span></span></div>
+    <div class="dc-mark"><svg viewBox="0 0 40 28"><circle class="k-real" cx="20" cy="14" r="9"/></svg><span><b>Solid ring</b>: a real incident before today (AI Incident Database)</span></div>
+    <div class="dc-mark"><svg viewBox="0 0 40 28"><circle class="k-sim" cx="20" cy="14" r="9"/></svg><span><b>Dashed ring</b>: simulated by MiroFish after today. Click to read it</span></div>
+    <div class="dc-mark"><svg viewBox="0 0 40 28"><rect class="k-cat" x="14" y="8" width="12" height="12" transform="rotate(45 20 14)"/></svg><span><b>Red diamond</b>: catastrophe, in this one future</span></div>
+    <div class="dc-mark"><svg viewBox="0 0 40 28"><path class="k-house" d="M12 15 20 7l8 8v8H12Z"/></svg><span><b>House</b>: a publicly mapped datacentre site (Epoch AI), not compute share</span></div>
+  </div>
+</div>
+
+<button id="review">Mockup review</button>
+<div id="revpop" class="pop dc-panel" role="dialog" aria-label="Mockup review">
+  <h4 class="eyebrow">Engine layout</h4>
+  <div class="dc-tabs" id="evar"><button data-v="screen" aria-pressed="true">Screen (chosen)</button><button data-v="ov" aria-pressed="false">Overlay sheet</button></div>
+  <h4 class="eyebrow">Engine state</h4>
+  <div class="dc-tabs" id="estatevar"><button data-v="live" aria-pressed="false">Live</button><button data-v="rec" aria-pressed="true">Recorded</button></div>
+  <h4 class="eyebrow">Jump to</h4>
+  <div class="jumps" id="jumps">
+    <button class="dc-btn dc-btn--sm" data-j="inputs">Inputs</button><button class="dc-btn dc-btn--sm" data-j="start">Oct 2024</button><button class="dc-btn dc-btn--sm" data-j="today">Today</button>
+    <button class="dc-btn dc-btn--sm" data-j="asi">This future's superintelligence</button><button class="dc-btn dc-btn--sm" data-j="cat">This future's end</button>
+    <button class="dc-btn dc-btn--sm" data-j="why">Why this time?</button><button class="dc-btn dc-btn--sm" data-j="track">Track record</button>
+  </div>
+  <p>Real: market odds, AIID incidents, Epoch datacentres, the Bulletin, the 10,000 futures (sim.ts, seed 1) and two MiroFish spike runs. Anything marked <i>mock</i> is invented for the mockup.</p>
+</div>
+
+<div id="pop" class="dc-panel" role="dialog"></div>
+<div id="tooltip" class="dc-panel"></div>
+
+<!-- Inputs (Paper): what the engine knows, as of a date -->
+<div class="scrim" id="inputs">
+  <div class="sheet dc-sheet" data-theme="paper" role="dialog" aria-modal="true" aria-labelledby="inputs-h">
+    <button class="x" data-close aria-label="Close">×</button>
+    <h2 class="title" id="inputs-h">What the engine knows</h2>
+    <div class="asof">
+      <div class="asof-read"><span class="eyebrow">As of</span><b id="asofdate"></b><span class="dc-dim" id="asofnote"></span></div>
+      <input type="range" id="asof" aria-label="As of date">
+      <div class="asof-ticks"><span>24 Oct 2024</span><span>2025</span><span>2026</span><span>Today</span></div>
+    </div>
+    <div class="split">
+      <div class="lead">
+        <div class="dc-tabs" id="intabs"></div>
+        <p class="dc-dim" style="margin:0">Every item is dated by when it became public. The engine reads only items dated before the as-of date, so nothing from the future leaks in.</p>
+      </div>
+      <article class="story" id="instory"></article>
+    </div>
+    <div class="infoot"><p>Run live samples 10,000 futures in your browser, then one MiroFish quarter streams into Engine. A recorded run stands by as the fallback.</p>
+      <button class="dc-btn dc-btn--primary" id="runlive">Run live <kbd>⏎</kbd></button></div>
+  </div>
+</div>
+
+<!-- Why this time? (Paper) -->
+<div class="scrim" id="why">
+  <div class="sheet dc-sheet" data-theme="paper" role="dialog" aria-modal="true" aria-labelledby="why-h">
+    <button class="x" data-close aria-label="Close">×</button>
+    <h2 class="title" id="why-h">Why this time?</h2>
+    <div class="split">
+      <div class="lead">
+        <div class="dc-tabs" id="whytabs"><button data-s="anchors" aria-pressed="true">Anchors</button><button data-s="fan" aria-pressed="false">Fan</button><button data-s="date" aria-pressed="false">Date</button><button data-s="hand" aria-pressed="false">Hand</button></div>
+        <div class="dc-thumb"><div class="box" id="thumb"></div><div class="cap" id="thumbcap"></div><div class="dc-data">real forecast · 24 Oct 2026</div></div>
+      </div>
+      <article class="story" id="story"></article>
+    </div>
+  </div>
+</div>
+
+<!-- Track record (Paper, stub) -->
+<div class="scrim" id="track">
+  <div class="sheet dc-sheet" data-theme="paper" role="dialog" aria-modal="true" aria-labelledby="track-h">
+    <button class="x" data-close aria-label="Close">×</button>
+    <h2 class="title" id="track-h">Track record</h2>
+    <div class="track-intro">
+      <p>Are the market inputs any good? On AI questions that have already resolved, we score the market price at each checkpoint against a 50% coin and the base rate. Lower Brier is better.</p>
+    </div>
+    <div id="trackbody" style="max-width:920px;margin:0 auto var(--space-8);display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:var(--space-8);align-items:start"></div>
+    <div class="dc-cards" id="cards" style="max-width:920px;margin:0 auto"></div>
+    <div class="track-intro" style="margin-top:var(--space-8)"><p class="dc-dim" style="font:var(--type-body)"><b>Caveats.</b> Every number here is a fixture until the backtest runs. Questions count only if the model's cutoff plus one month is before the checkpoint; the earlier half picks the panel weight and the later half reports. The clock's date itself can't be backtested, so it is never scored.</p></div>
+  </div>
+</div>
+
+<script src="globe.gl.min.js"></script>
+<script src="ne_110m_countries.js"></script>
+<script src="ds/bundle.js"></script>
+<script src="data.js"></script>
+<script src="inputs.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
