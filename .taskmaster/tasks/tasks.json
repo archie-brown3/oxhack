@@ -917,6 +917,18 @@
         "priority": "medium",
         "subtasks": [],
         "updatedAt": "2026-10-24T21:35:00Z"
+      },
+      {
+        "id": 145,
+        "title": "[P1 \u00b7 web] CI (GitHub Actions) and Vercel deploy for doomclock/web",
+        "description": "GitHub Actions runs typecheck, tests and build for doomclock/web on every push and PR. Vercel deploys doomclock/web from the GitHub repo: previews per PR, production from main. Owner instruction 25 Oct.",
+        "details": "Scope: .github/workflows/ci.yml, doomclock/web/vercel.json, task board. Needs the owner to run 'vercel login' and link the project (root dir doomclock/web). CI is red on main until the in-flight contracts.ts / sim.ts edits land (noAsiBy2100 type error, avatars.ts implicit any); do not touch those files from this task. Static site, no secrets in the build.",
+        "testStrategy": "",
+        "status": "in-progress",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": [],
+        "updatedAt": "2026-10-24T21:15:45.115Z"
       }
     ],
     "metadata": {
