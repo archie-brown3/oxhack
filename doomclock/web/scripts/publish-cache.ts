@@ -20,3 +20,14 @@ console.log(`publish:cache wrote datacentres.json (${dcLines.length} sites)`)
 const bulletin = readFileSync(fileURLToPath(new URL('../../../data/clean/doomsday_clock.jsonl', import.meta.url)), 'utf8').trim().split('\n').map((l) => JSON.parse(l))
 writeFileSync(cacheDir + 'bulletin.json', JSON.stringify(bulletin))
 console.log(`publish:cache wrote bulletin.json (${bulletin.length} settings)`)
+
+// The engine's one input, built from the files above (engine/world.ts). ui loads cache/world.json.
+const { worldFrom } = await import('../src/engine/world.ts')
+const read = (f: string) => JSON.parse(readFileSync(dataDir + f, 'utf8'))
+const markets = JSON.parse(readFileSync(fileURLToPath(new URL('../../pipeline/markets.json', import.meta.url)), 'utf8'))
+const world = worldFrom({
+  state: read('state.json'), marketInputs: read('market-inputs.json'), signalInputs: read('signal-inputs.json'),
+  events: read('events.json'), markets, bulletin,
+})
+writeFileSync(cacheDir + 'world.json', JSON.stringify(world))
+console.log(`publish:cache wrote world.json (asOf ${world.asOf}, ${world.events.length} events)`)

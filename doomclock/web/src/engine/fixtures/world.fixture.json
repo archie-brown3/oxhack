@@ -1263,5 +1263,6 @@
     {"ts":"2026-10-12T10:14:00Z","kind":"government","title":"UK government: Britain steps up national defences against growing AI risks","url":"https://www.gov.uk/government/news/britain-steps-up-national-defences-against-growing-ai-risks","source":"gov.uk","region":"rest","provenance":"real"},
     {"ts":"2026-10-13T23:59:59Z","kind":"news","title":"Character.ai files for Chapter 11 bankruptcy.","url":"https://edition.cnn.com/2026/10/13/tech/character-ai-bankruptcy-filing","source":"wikipedia","provenance":"real"}
   ],
-  "lagMeanYears": 3
+  "lagMeanYears": 3,
+  "bulletinSeconds": 85
 }

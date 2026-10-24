@@ -21,8 +21,9 @@ apply to both entry points.
 
 We are building the **Doom Clock**: a Plague Inc for AI, run on real data. The Guardian (the
 player) plays against an AI agent playing the Rogue AI. The world starts from today's real
-prediction-market odds and AI news, and a Monte Carlo of 10,000 futures turns them into a
-countdown that every move shifts.
+prediction-market odds and AI news. A model turns them into a countdown that every move shifts:
+the clock reads the model's catastrophe curve exactly, and a Monte Carlo of 10,000 futures drawn
+from the same model gives the futures the globe replays (they agree with the clock within 1 pt).
 
 - **Engine A**: the forecast. It combines market odds, a three-persona LLM panel reading
   Hacker News and the Monte Carlo, and a backtest sets the panel weight `w`.
@@ -70,7 +71,8 @@ the two separate, because the HRT pitch rests on the backtest scoring the real f
 - New code goes in `doomclock/`, in TypeScript throughout:
   - `doomclock/pipeline/`: Node. It fetches data, runs the panel and the backtest, and writes
     `state.json` and `backtest.json`. It includes a small `node:http` server.
-  - `doomclock/web/`: Vite + React. It runs the Monte Carlo in the browser (`sim.ts`, a pure
+  - `doomclock/web/`: Vite + React. The engine (`src/engine/`, seam `index.ts`: `buildTimeline`,
+    `readClock`, `worldFrom`) runs in the browser. It runs the Monte Carlo (`sim.ts`, a pure
     function with a seeded RNG).
 - Globe: globe.gl / react-globe.gl on a dark sphere with Natural Earth 110m GeoJSON. It needs no
   texture and works offline.

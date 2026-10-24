@@ -605,6 +605,10 @@ export interface ClockReading {
   date10RangeBy: { lag: [IsoTime | null, IsoTime | null]; market: [IsoTime | null, IsoTime | null] }
   /** Minutes to midnight on the face: years from the reading's time to date10, floored at 0. */
   minutesToMidnight: number | null
+  /** The face's hand in Bulletin seconds: k · minutesToMidnight, with k = the Bulletin's latest setting
+   *  / today's minutesToMidnight (85 s → 1 s ≈ 24 days). Today's clock reads exactly the Bulletin's
+   *  setting. A display calibration (owner, 24 Oct), not a forecast. Null with date10. */
+  secondsToMidnight: number | null
   pCat2100: Prob
 }
 
@@ -654,6 +658,8 @@ export interface World {
   events: WorldEvent[]
   /** Mean ASI → catastrophe lag in years. A default (3), not market-backed. */
   lagMeanYears: number
+  /** The Bulletin's latest Doomsday Clock setting before asOf, in seconds (85 since Jan 2026). */
+  bulletinSeconds: number
 }
 
 export interface AnchorHistory {

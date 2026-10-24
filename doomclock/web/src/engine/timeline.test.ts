@@ -115,6 +115,14 @@ test("readClock: date10 to the day, inside its ranges, minutes = years to it; ev
   for (const t of [early, typical, late]) assert.deepEqual(t.clock, c);
 });
 
+test("the face: today's hand sits at the Bulletin's 85 s; other frames scale by the same k", () => {
+  const today = readClock(world);
+  assert.ok(Math.abs(today.secondsToMidnight! - 85) < 1e-9);
+  const k = 85 / today.minutesToMidnight!;
+  for (const f of typical.frames) assert.ok(Math.abs(f.clock!.secondsToMidnight! - k * f.clock!.minutesToMidnight!) < 1e-9, f.quarter);
+  assert.equal(readClock(withAnchor("cat2100", 0.05)).secondsToMidnight, null);
+});
+
 test("date10 moves monotonically with each anchor", () => {
   const d = date10(world);
   for (const id of ["asi2030", "asi2040", "cat2100"] as NodeId[]) {
@@ -164,7 +172,7 @@ test("per-frame clocks: real frames read the quarter's prices; projected frames 
   const proj = f.filter((x) => x.provenance === "projected");
   for (let i = 0; i < proj.length; i++) {
     const c = proj[i].clock!;
-    assert.deepEqual({ ...c, minutesToMidnight: 0 }, { ...typical.clock, minutesToMidnight: 0 });
+    assert.deepEqual({ ...c, minutesToMidnight: 0, secondsToMidnight: 0 }, { ...typical.clock, minutesToMidnight: 0, secondsToMidnight: 0 });
     if (i > 0) assert.ok(c.minutesToMidnight! <= proj[i - 1].clock!.minutesToMidnight!);
     assert.ok(c.minutesToMidnight! >= 0);
     if (i > 0) assert.deepEqual([proj[i].drivers, proj[i].timeDays, proj[i].residualDays], [[], 0, 0]);
@@ -236,7 +244,9 @@ test("the timeline builds from the real data files", (t) => {
   if (!names.every((n) => existsSync(new URL(n, data)))) return t.skip("data files not built");
   const [state, marketInputs, signalInputs, ev] = names.map((n) => read(new URL(n, data)));
   const markets = read(new URL("../../../pipeline/markets.json", import.meta.url));
-  const real = worldFrom({ state, marketInputs, signalInputs, events: ev, markets });
+  const bulletin = readFileSync(new URL("clean/doomsday_clock.jsonl", data), "utf8").trim().split("\n").map((l) => JSON.parse(l));
+  const real = worldFrom({ state, marketInputs, signalInputs, events: ev, markets, bulletin });
+  assert.equal(real.bulletinSeconds, 85);
   const tl = pick(real, PICKS.typical);
   assert.equal(tl.frames.length, 45);
   assert.ok(tl.clock.date10 !== null && tl.frames.every((f) => f.clock !== null));

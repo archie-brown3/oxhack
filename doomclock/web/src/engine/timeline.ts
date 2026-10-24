@@ -37,7 +37,20 @@ type Anchors = Record<NodeId, Prob>;
 type Ranges = Record<NodeId, [Prob, Prob]>;
 
 export function readClock(world: World): ClockReading {
-  return reading(world.anchors, msToYear(parseTime(world.asOf)), world.lagMeanYears, todayRanges(world)).clock;
+  const { clock } = reading(world.anchors, msToYear(parseTime(world.asOf)), world.lagMeanYears, todayRanges(world));
+  return withSeconds(clock, secondsPerYear(world, clock));
+}
+
+// The face's calibration (owner, 24 Oct): today's hand sits at the Bulletin's setting, so
+// k = Bulletin seconds / years to today's date10. A display scale, not a forecast.
+function secondsPerYear(world: World, today: ClockReading): number | null {
+  const m = today.minutesToMidnight;
+  return m ? world.bulletinSeconds / m : null;
+}
+
+function withSeconds(clock: ClockReading, k: number | null): ClockReading {
+  const m = clock.minutesToMidnight;
+  return { ...clock, secondsToMidnight: k === null || m === null ? null : k * m };
 }
 
 export function buildTimeline(world: World, pick: Pick): Timeline {
@@ -47,6 +60,7 @@ export function buildTimeline(world: World, pick: Pick): Timeline {
   const input = simInput(world.anchors, now, L);
   const future = choose(simPaths(input, { seed: MC_SEED, paths: FUTURES }).paths, pick);
   const today = reading(world.anchors, now, L, todayRanges(world));
+  const perYear = secondsPerYear(world, today.clock);
   const quarters = Array.from({ length: FRAMES }, (_, k) => quarter(k));
   const capability = capabilityCurve(world, quarters);
   const regions = normalise(world.regions);
@@ -64,7 +78,8 @@ export function buildTimeline(world: World, pick: Pick): Timeline {
     const snap = snaps[k];
     const projected = q.start >= asOf;
     const clock =
-      snap && projected ? { ...snap.clock, minutesToMidnight: minutesTo(snap.clock.date10, msToYear(q.start)) } : snap?.clock ?? null;
+      snap &&
+      withSeconds(projected ? { ...snap.clock, minutesToMidnight: minutesTo(snap.clock.date10, msToYear(q.start)) } : snap.clock, perYear);
     return {
       quarter: q.label,
       start: iso(q.start),
@@ -79,7 +94,7 @@ export function buildTimeline(world: World, pick: Pick): Timeline {
     };
   });
 
-  return { schema: "doomclock.timeline/1", asOf: world.asOf, frames, clock: today.clock, line: "real", future };
+  return { schema: "doomclock.timeline/1", asOf: world.asOf, frames, clock: withSeconds(today.clock, perYear), line: "real", future };
 }
 
 // ---------- the clock ----------
@@ -136,6 +151,7 @@ function reading(a: Anchors, at: number, L: number, ranges: Ranges): { clock: Cl
     date10Range: span([...all, ...market]),
     date10RangeBy: { lag: span(lag), market: span(market) },
     minutesToMidnight: minutesTo(date10, at),
+    secondsToMidnight: null, // set by withSeconds
     pCat2100: analyticCdf(simInput(a, at, L), HORIZON),
   };
   return { clock, y10 };
