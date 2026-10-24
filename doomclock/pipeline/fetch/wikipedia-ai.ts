@@ -27,8 +27,18 @@ if (raw.continue) console.warn("warning: API response is incomplete (continue)",
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const MON = `(${MONTHS.join("|")})`;
 const DASH = "(?:–|&ndash;|-)";
-// "<day>[–<day>] [<Month>] [– <day> [<Month>]] [– <text>]"; ranges keep the first day
-const DATE = new RegExp(`^(\\d{1,2})(?:\\s*${DASH}\\s*\\d{1,2})?(?:\\s+${MON})?(?:\\s*${DASH}\\s*\\d{1,2}(?:\\s+${MON})?)?\\s*(?:${DASH}\\s*([\\s\\S]*))?$`);
+// "<day>[–<day>] [<Month>] [– <day> [<Month>]] [– <text>]"; groups: 1 day, 2/4 range end day, 3 month, 5 end month, 6 text.
+// A range is dated by its LAST day: the text covers the whole range, so it was not all public before then.
+const DATE = new RegExp(`^(\\d{1,2})(?:\\s*${DASH}\\s*(\\d{1,2}))?(?:\\s+${MON})?(?:\\s*${DASH}\\s*(\\d{1,2})(?:\\s+${MON})?)?\\s*(?:${DASH}\\s*([\\s\\S]*))?$`);
+
+// Point-in-time text: title, kind and region come from the item's FIRST sentence only. Later sentences are often
+// hindsight written after the fact ("Within days … goes viral", "OpenAI restores it … within days").
+// A sentence ends at . ! ? (plus a closing quote) before a space, except after "U.S."-style or "Richard S."-style
+// initials, "v." and a few abbreviations ("Warner Bros. Discovery").
+const END = /(?<!\.[A-Za-z]|\b[A-Z][a-z]* [A-Z]|\bv|\b(?:Bros|Inc|Ltd|Corp|Co|Jr|Sr|Dr|Mr|Mrs|Ms|St|vs))[.!?]["”’']?(?=\s)/;
+const firstSentence = (s: string) => { const m = END.exec(s); return m ? s.slice(0, m.index + m[0].length) : s; };
+// Hindsight clauses that sit inside a first sentence, checked by hand on the 24 Oct 2026 revisions: cut from here on.
+const TRIM = [", opening a year-long industry-wide competition", ", a design decision that becomes the subject of regulatory action"];
 
 const ENT: Record<string, string> = { ndash: "–", mdash: "—", nbsp: " ", amp: "&", quot: '"', apos: "'", lt: "<", gt: ">", minus: "−", hellip: "…", thinsp: " " };
 function strip(s: string) {
@@ -99,6 +109,7 @@ const kindOf = (t: string) =>
 const recs: Rec[] = [];
 const drop = { noDay: 0, orphanChild: 0, badDate: 0, before: 0, future: 0, short: 0 };
 let wikiUrls = 0;
+const trimmed = new Set<string>();
 for (const page of raw.query?.pages ?? []) {
   if (page.missing || !page.revisions?.length) { console.warn("warning: missing page", page.title); continue; }
   const { revid, slots } = page.revisions[0];
@@ -120,31 +131,35 @@ for (const page of raw.query?.pages ?? []) {
     const child = b[1].length > 1, d = b[2].replace(/&nbsp;/g, " ").match(DATE);
     // a '**' line takes its date-only parent's date unless it names its own day + month;
     // without a date-only parent it is detail under an item that has text (or under an undated line)
-    if (child && !(d && d[2])) { if (parent) items.push({ ...parent, body: b[2] }); else drop.orphanChild++; continue; }
+    if (child && !(d && d[3])) { if (parent) items.push({ ...parent, body: b[2] }); else drop.orphanChild++; continue; }
     if (!child) parent = null;
     if (!d) { drop.noDay++; continue; }
-    const m = d[2] ? MONTHS.indexOf(d[2]) : month;
-    if (d[4] == null || !strip(d[4])) { parent = { day: +d[1], month: m }; continue; } // date-only line
-    items.push({ day: +d[1], month: m, body: d[4] });
+    const m = d[3] ? MONTHS.indexOf(d[3]) : month;
+    let endMonth = d[5] ? MONTHS.indexOf(d[5]) : m;
+    if (endMonth != null && m != null && endMonth < m) endMonth += 12; // "30 December – 2 January" ends next year
+    const end = { day: +(d[4] ?? d[2] ?? d[1]), month: endMonth };
+    if (d[6] == null || !strip(d[6])) { parent = end; continue; } // date-only line
+    items.push({ ...end, body: d[6] });
   }
 
   const article = page.title, perDay = new Map<string, number>();
   for (const it of items) {
     if (it.month == null) { drop.badDate++; continue; }
-    const date = new Date(Date.UTC(year, it.month, it.day));
-    if (date.getUTCMonth() !== it.month) { drop.badDate++; continue; }
+    const date = new Date(Date.UTC(year, it.month, it.day)); // month 12+ rolls into the next year
+    if (date.getUTCMonth() !== it.month % 12) { drop.badDate++; continue; }
     const day = date.toISOString().slice(0, 10), ts = `${day}T23:59:59Z`;
     if (Date.parse(ts) < CUT) { drop.before++; continue; }
     if (ts >= fetchedAt) { drop.future++; continue; }
-    const full = strip(it.body);
-    if (full.length < 20) { drop.short++; console.log("dropped (under 20 chars):", day, JSON.stringify(full)); continue; }
+    let first = firstSentence(strip(it.body));
+    for (const c of TRIM) if (first.includes(c)) { first = first.slice(0, first.indexOf(c)) + "."; trimmed.add(c); }
+    if (first.length < 20) { drop.short++; console.log("dropped (under 20 chars):", day, JSON.stringify(first)); continue; }
     let url: string | null = null;
     for (const r of refs(it.body)) if ((url = citeUrl(r.body ?? defs.get(r.name ?? "") ?? ""))) break;
     if (!url) { url = `https://en.wikipedia.org/wiki/${year}_in_artificial_intelligence`; wikiUrls++; }
     const k = (perDay.get(day) ?? 0) + 1;
     perDay.set(day, k);
-    const region = regionOf(full);
-    recs.push({ ts, source: "wikipedia", kind: kindOf(full), id: `wiki:${day}-${k}`, url, title: cut(full), ...(region ? { region } : {}), article, revid });
+    const region = regionOf(first);
+    recs.push({ ts, source: "wikipedia", kind: kindOf(first), id: `wiki:${day}-${k}`, url, title: cut(first), ...(region ? { region } : {}), article, revid });
   }
 }
 
@@ -152,3 +167,4 @@ await writeClean("wikipedia_ai", recs);
 const tally = (f: (r: Rec) => unknown) => recs.reduce<Record<string, number>>((a, r) => ((a[String(f(r) ?? "unknown")] = (a[String(f(r) ?? "unknown")] ?? 0) + 1), a), {});
 console.log("fetched", fetchedAt, "| by article", tally((r) => r.article), "| by region", tally((r) => r.region));
 console.log("dropped", drop, "| wikipedia fallback urls", wikiUrls);
+for (const c of TRIM) if (!trimmed.has(c)) console.warn("warning: hindsight trim no longer matches (text changed? re-check by hand):", JSON.stringify(c));

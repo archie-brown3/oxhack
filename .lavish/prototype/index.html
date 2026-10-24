@@ -15,7 +15,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 :focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 kbd { font: var(--type-data); color: var(--ink-3); }
 .eyebrow { font: var(--type-eyebrow); letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; }
-.dc-btn { color: var(--action); }
 .dc-btn--sm { min-height: 26px; padding: 0 var(--space-3); font-size: 12px; }
 
 /* ---------- stage ---------- */
@@ -235,7 +234,7 @@ body.ov #engine .pane > h3 { display: none; }
 #intabs button { display: flex; justify-content: space-between; gap: var(--space-4); width: 180px; }
 #intabs .dc-data { letter-spacing: 0; }
 .irow { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: var(--space-3); padding: var(--space-2) 0; border-top: 1px solid var(--rule); }
-.irow a { color: var(--ink); text-decoration: none; } .irow a:hover { text-decoration: underline; text-underline-offset: 3px; color: var(--action); }
+.story .irow a { color: var(--ink); font-weight: 400; text-decoration: none; } .story .irow a:hover { text-decoration: underline; text-underline-offset: 3px; color: var(--action); }
 .irow .src { display: block; }
 .mk { display: grid; grid-template-columns: minmax(0, 1fr) 200px; gap: var(--space-2) var(--space-6); padding: var(--space-4) 0; border-top: 1px solid var(--rule); align-items: center; }
 .mk .q { font: var(--type-body-l); }
@@ -243,7 +242,7 @@ body.ov #engine .pane > h3 { display: none; }
 .mk .p b { font: var(--type-numeral-l); }
 .mk .meta { grid-column: 1 / -1; }
 .mk svg { width: 200px; height: 48px; overflow: visible; }
-.infoot { position: sticky; bottom: calc(-1 * var(--space-8)); margin: var(--space-8) calc(-1 * var(--space-8)) calc(-1 * var(--space-12)); padding: var(--space-4) var(--space-8); background: var(--raised);
+.infoot { position: sticky; bottom: calc(-1 * var(--space-12)); margin: var(--space-8) calc(-1 * var(--space-8)) calc(-1 * var(--space-12)); padding: var(--space-4) var(--space-8); background: var(--raised);
   border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; gap: var(--space-6); }
 .infoot p { margin: 0; max-width: 64ch; color: var(--ink-2); }
 .dc-btn--primary kbd { color: var(--on-oxblood); }

@@ -44,10 +44,11 @@ const KX = [DC.fan.inputs.startYear, ...DC.fan.inputs.asi.map(a => a.year)], KP 
 const cdfAt = y => { if (y <= KX[0]) return 0; for (let i = 1; i < KX.length; i++) if (y <= KX[i]) return KP[i - 1] + (KP[i] - KP[i - 1]) * (y - KX[i - 1]) / (KX[i] - KX[i - 1]); return KP.at(-1); };
 const arrival = u => { for (let i = 1; i < KX.length; i++) if (u < KP[i]) return KX[i - 1] + (u - KP[i - 1]) * (KX[i] - KX[i - 1]) / (KP[i] - KP[i - 1]); return Infinity; };
 const N = 10000, LAG = 3, P_BAD = Math.min(1, DC.fan.inputs.pCat2100 / cdfAt(2100));
-const PATHS = (() => { const r = mulberry32(1), out = [];
+function sample() { const r = mulberry32(1), out = [];
   for (let i = 0; i < N; i++) { const u1 = r(), u2 = r(), u3 = r(), asi = arrival(u1), lag = -LAG * Math.log(1 - u3), c = asi + lag;
     out.push({ id: i + 1, asi: asi > 2100 ? Infinity : asi, cat: (asi <= 2100 && u2 < P_BAD && c <= 2100) ? c : Infinity }); }
-  return out; })();
+  return out; }
+const PATHS = sample();
 // Ranked over ALL futures (owner, 24 Oct): no catastrophe by 2100 ranks last, then by superintelligence year.
 const ORDER = PATHS.map((_, i) => i).sort((a, b) => (PATHS[a].cat - PATHS[b].cat) || (PATHS[a].asi - PATHS[b].asi) || a - b);
 ORDER.forEach((pi, r) => PATHS[pi].rank = r);
@@ -69,6 +70,10 @@ const PLACE = { 'Australian': [-27, 134], 'Delhi': [28.6, 77.2], 'Greek': [38, 2
   'Canad': [45.4, -75.7], 'Spanish': [40.4, -3.7], 'Argentine': [-34.6, -58.4], 'FBI': [38.9, -77], 'US government': [38.9, -77], 'D.C.': [38.9, -77], 'Meta': [37.5, -122.1],
   'OpenAI': [37.8, -122.4], 'Anthropic': [37.8, -122.4], 'Claude': [37.8, -122.4], 'DeepSeek': [30.3, 120.2], 'Alibaba': [30.3, 120.2], 'DeepMind': [51.5, -0.1], 'xAI': [37.4, -122.1],
   'Bulletin': [41.9, -87.6], 'Mother Jones': [37.8, -122.3], 'Clara': [37.8, -122.3], 'press': [40.7, -74], 'Incident Database': [47.6, -122.3], 'Safety': [51.75, -1.25] };
+const COUNTRY = { Australian: 'Australia', Delhi: 'India', Greek: 'Greece', 'New Jersey': 'US', Philadelphia: 'US', CNN: 'US', Canad: 'Canada', Spanish: 'Spain', Argentine: 'Argentina',
+  FBI: 'US', 'US government': 'US', 'D.C.': 'US', Meta: 'US', OpenAI: 'US', Anthropic: 'US', Claude: 'US', DeepSeek: 'China', Alibaba: 'China', DeepMind: 'UK', xAI: 'US',
+  Bulletin: 'US', 'Mother Jones': 'US', Clara: 'US', 'Incident Database': 'US' }; // mock: inferred from the account name
+const countryOf = name => { for (const k in COUNTRY) if (name.includes(k)) return COUNTRY[k]; return '–'; };
 const placeOf = name => { for (const k in PLACE) if (name.includes(k)) return PLACE[k]; return [20, 0]; };
 const postText = p => (p.quote && p.quote !== 'None' && p.quote !== 'null') ? p.quote : p.text;
 const initials = n => n.split(/\s+/).filter(w => /^[A-Za-z]/.test(w)).slice(0, 2).map(w => w[0]).join('').toUpperCase();
@@ -281,7 +286,7 @@ const PLAY = '<svg viewBox="0 0 14 14"><path d="M3 1.5v11l9-5.5z"/></svg>', PAUS
 function step() {
   if (cur >= Q.length - 1) return pause();
   setQuarter(cur + 1, { live: true });
-  if (cur === TODAY && intro) { intro = false; pause(); setTimeout(() => coach('Press <b>Space</b> to play this future, or <b>R</b> to roll another'), 4300); }
+  if (cur === TODAY && intro) { intro = false; pause(); setTimeout(() => coach(`Press <b>Space</b> to play this future${live ? ', or <b>E</b> to watch its society run live' : ', or <b>R</b> to roll another'}`), 4300); }
   if (cur > TODAY && inQ(FUT.cat, cur)) pause(); // the watched future ends here
 }
 function play() { if (cur >= Q.length - 1 || (cur > TODAY && FUT.cat < decYear(Q[cur].start))) setQuarter(TODAY); playing = true; $('#play').innerHTML = PAUSE; $('#play').setAttribute('aria-label', 'Pause'); clearInterval(timer); timer = setInterval(step, QMS / speed); }
@@ -310,22 +315,41 @@ $('#fpick').onclick = e => { const b = e.target.closest('button'); if (b) { hide
 // ---------- engine: the MiroFish society for the watched future ----------
 const ROLEORDER = { gov: 0, media: 1, lab: 2, other: 3 };
 function renderSociety() {
-  const m = memberFor(FUT), q = Math.max(cur, TODAY + 1), r = DC.runs[(q - TODAY - 1) % DC.runs.length];
-  const mx = Math.max(...r.rounds.map(x => x.actions)), acts = r.rounds.slice(1).reduce((a, x) => a + x.actions, 0);
+  const m = memberFor(FUT), q = engineQ(), r = DC.runs[(q - TODAY - 1) % DC.runs.length];
+  let mx = Math.max(...r.rounds.map(x => x.actions)), acts = r.rounds.slice(1).reduce((a, x) => a + x.actions, 0), rounds = r.rounds.length - 1, secs = Math.round(r.wall_s), cost = r.cost.toFixed(3), bars = r.rounds.map(x => x.actions);
+  if (isLive()) { const shown = STREAM.slice(0, live.shown); rounds = shown.length ? shown.at(-1).round : 0; acts = shown.length; secs = Math.round((Date.now() - live.t0) / 1000); cost = (secs / 47 * .03).toFixed(3);
+    bars = [1, 2, 3].map(k => shown.filter(p => p.round === k).length); mx = Math.max(1, ...bars); }
   $('#society').innerHTML = `
     <h3 class="eyebrow">Society <span class="dc-data">nearest of 5</span></h3>
     <div class="members">${ENSEMBLE.map(e => `<button data-k="${e.k}" aria-pressed="${e === m}"><span class="dc-data">#${e.k}</span><span>${Math.round(e.q * 100)}th pct · ${e.path.cat < Infinity ? 'ends ' + ym(e.path.cat) : 'no catastrophe'}</span></button>`).join('')}</div>
-    <h3 class="eyebrow">Run stats <span class="dc-data">${qName(q)}</span></h3>
-    <div class="run"><div class="nums"><div><b>${r.rounds.length - 1}</b>rounds</div><div><b>${acts}</b>actions</div><div><b>${Math.round(r.wall_s)} s</b>time</div><div><b>$${r.cost.toFixed(3)}</b>cost</div></div>
-      <div class="rounds" title="Actions per round (round 0 = seed posts)">${r.rounds.map(x => `<i style="height:${x.actions / mx * 100}%"></i>`).join('')}</div></div>
-    <div class="dc-faint">Mockup: two real spike runs stand in for every quarter and future.</div>`;
+    <h3 class="eyebrow">Run stats <span class="dc-data">${qName(q)}${isLive() ? ' · live' : ''}</span></h3>
+    <div class="run"><div class="nums"><div><b>${rounds}</b>rounds</div><div><b>${acts}</b>${isLive() ? 'posts' : 'actions'}</div><div><b>${secs} s</b>time</div><div><b>$${cost}</b>cost</div></div>
+      <div class="rounds" title="Actions per round">${bars.map(a => `<i style="height:${a / mx * 100}%"></i>`).join('')}</div></div>
+    <div class="dc-faint">${isLive() ? 'A recorded run stands by as the fallback. ' : ''}Mockup: two real spike runs stand in for every quarter and future${isLive() ? ', and the live stream replays one' : ''}.</div>`;
   $('#society .members').onclick = e => { const b = e.target.closest('button'); if (b) watch(ENSEMBLE[+b.dataset.k - 1].path); };
 }
 const placeSociety = () => document.body.style.setProperty('--soc-top', ($('#clock').getBoundingClientRect().bottom + 12) + 'px');
 function renderEngineHead() {
-  const q = Math.max(cur, TODAY + 1);
-  $('#ehead').textContent = `The society under Future #${fmt(FUT.id)}, ${qName(q)}${cur <= TODAY ? ' (the first simulated quarter)' : ''}`;
+  $('#ehead').textContent = `The society under Future #${fmt(FUT.id)}, ${qName(engineQ())}${cur <= TODAY ? ' (the first simulated quarter)' : ''}`;
+  const st = $('#estate'), mmss = s => `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`;
+  if (isLive()) { const shown = STREAM.slice(0, live.shown), secs = Math.round((Date.now() - live.t0) / 1000);
+    st.className = 'state live'; st.innerHTML = `Live <span class="dc-data">${live.done ? 'complete' : `round ${shown.at(-1)?.round ?? 1} of 3`} · ${mmss(secs)} · ${shown.length}/${STREAM.length} posts</span>`; }
+  else { st.className = 'state'; st.innerHTML = `Recorded <span class="dc-data">run sim_908b44137fec · seed 1 · path ${FUT.id}</span>`; }
 }
+// LIVE: one MiroFish quarter streaming in (task 16). RECORDED: from the replay library (task 11).
+// Mockup: the live stream replays the spike run's posts at about one per second.
+const STREAM = [...DC.feed].sort((a, b) => a.round - b.round || a.id - b.id);
+let live = null;
+const engineQ = () => Math.max(cur, TODAY + 1);
+const isLive = () => !!live && engineQ() === TODAY + 1;
+const isEngine = () => document.body.classList.contains('engine');
+function startLive() {
+  stopLive(); live = { t0: Date.now(), shown: 0, done: false };
+  live.timer = setInterval(() => { live.shown = Math.min(STREAM.length, live.shown + 1); live.done = live.shown >= STREAM.length; if (live.done) clearInterval(live.timer);
+    if (isEngine()) { renderFeeds(); renderEngineHead(); renderSociety(); } }, REDUCED ? 300 : 1100);
+  press('#estatevar button', b => b.dataset.v === 'live');
+}
+function stopLive() { if (live) clearInterval(live.timer); live = null; press('#estatevar button', b => b.dataset.v === 'rec'); }
 function postHTML(p, { seed = '' } = {}) {
   const c = castById[p.uid], quote = p.quote && p.quote !== 'None' && p.quote !== 'null';
   return `<div class="post${seed ? ' seed' : ''}" data-uid="${p.uid}">${av(c)}<div style="min-width:0">
@@ -333,14 +357,17 @@ function postHTML(p, { seed = '' } = {}) {
     <div class="tx">${esc(quote ? p.quote : p.text)}</div>${quote ? `<div class="qt">${esc(p.text)}</div>` : ''}
     ${seed ? '' : `<div class="meta dc-data"><span>♡ ${p.likes ?? 0}</span><span>↻ ${p.shares ?? 0}</span></div>`}</div></div>`;
 }
-function renderEngine() {
-  const x = [...DC.feed].sort((a, b) => b.round - a.round);
+function renderFeeds() {
+  const all = isLive() ? STREAM.slice(0, live.shown) : STREAM, x = [...all].reverse(), fresh = isLive() && !live.done ? x[0] : null; // newest first
   const carry = DC.injected.filter(e => e.kind === 'carry_over');
-  $('#xfeed').innerHTML = x.map(p => postHTML(p)).join('') + carry.map(p => postHTML(p, { seed: 'carried over from last quarter' })).join('');
-  $('#nx').textContent = `${x.length} posts`;
-  const seeds = DC.injected.filter(e => e.kind !== 'carry_over'), gn = DC.feed.filter(p => ['gov', 'media'].includes(ROLE(castById[p.uid]?.type)));
+  $('#xfeed').innerHTML = x.map(p => postHTML(p).replace('class="post"', `class="post${p === fresh ? ' new' : ''}"`)).join('') + carry.map(p => postHTML(p, { seed: 'carried over from last quarter' })).join('');
+  $('#nx').textContent = isLive() ? `${x.length} of ${STREAM.length} posts` : `${x.length} posts`;
+  const seeds = DC.injected.filter(e => e.kind !== 'carry_over'), gn = x.filter(p => ['gov', 'media'].includes(ROLE(castById[p.uid]?.type)));
   $('#gnfeed').innerHTML = seeds.map(p => postHTML(p, { seed: "this future's event, seeded" })).join('') + gn.map(p => postHTML(p)).join('');
   $('#ngn').textContent = `${seeds.length} seeded · ${gn.length} posts`;
+}
+function renderEngine() {
+  renderFeeds();
   const cast = [...DC.cast].sort((a, b) => ROLEORDER[ROLE(a.type)] - ROLEORDER[ROLE(b.type)] || b.influence - a.influence);
   $('#cast').innerHTML = cast.map(c => `<div class="ag" data-uid="${c.id}" title="${esc(c.bio)}"><i style="background:${ROLESHADE[ROLE(c.type)]}"></i><div style="min-width:0"><b>${esc(c.name)}</b>${esc(c.type)} · ${esc(c.stance)}</div><span class="dc-data">${c.influence.toFixed(1)}</span></div>`).join('');
   $('#ncast').textContent = `${DC.cast.length} accounts`;
@@ -348,8 +375,25 @@ function renderEngine() {
     a.onmouseenter = () => { hlName = castById[a.dataset.uid]?.name; drawKG(); $$(`.post[data-uid="${a.dataset.uid}"]`).forEach(p => p.classList.add('hl')); };
     a.onmouseleave = () => { hlName = null; drawKG(); $$('.post.hl').forEach(p => p.classList.remove('hl')); };
   });
+  $('#kgcount').textContent = `${KN.length} nodes · ${KE.length} edges · Zep graph from the smoke run`;
   $('#kglegend').innerHTML = ['gov', 'media', 'lab', 'other'].map(r => `<span><i style="background:${ROLESHADE[r]}"></i>${ROLENAME[r]}</span>`).join('') + `<span><i style="border:1.5px solid ${tok('sim')}"></i>MiroFish account</span>`;
 }
+function renderRoster() {
+  const posts = id => DC.feed.filter(p => p.uid === id).length;
+  const cast = [...DC.cast].sort((a, b) => ROLEORDER[ROLE(a.type)] - ROLEORDER[ROLE(b.type)] || b.influence - a.influence);
+  $('#rostercount').textContent = `${cast.length} MiroFish accounts · X only`;
+  $('#rosterbody').innerHTML = cast.map(c => `<tr><td><b>${esc(c.name)}</b> <span class="dc-data">@${esc(c.handle)}</span><small>${esc(c.bio)}</small></td>
+    <td>${ROLENAME[ROLE(c.type)]}<small>${esc(c.type)}</small></td><td>${countryOf(c.name)}</td><td>${esc(c.stance)}</td>
+    <td class="n">${c.influence.toFixed(1)}</td><td class="n">${c.activity.toFixed(2)}</td><td class="n">${posts(c.id)}</td></tr>`).join('');
+}
+// Full screen for the graph or the cast: a fixed panel at inset 0, F to toggle the panel in focus, Esc to close.
+let maxed = null, focusPanel = 'graph';
+function maximise(which) { unmax(); maxed = which;
+  if (which === 'graph') { $('#kgwrap').classList.add('max'); requestAnimationFrame(drawKG); } else { renderRoster(); $('#roster').classList.add('on'); } }
+function unmax() { if (!maxed) return false; $('#kgwrap').classList.remove('max'); $('#roster').classList.remove('on'); maxed = null; requestAnimationFrame(drawKG); return true; }
+document.addEventListener('click', e => { const m = e.target.closest('[data-max]'); if (m) maximise(m.dataset.max); else if (e.target.closest('[data-unmax]')) unmax(); });
+$('#kgwrap').addEventListener('pointerenter', () => focusPanel = 'graph');
+['#cast', '#casthead'].forEach(s => $(s).addEventListener('pointerenter', () => focusPanel = 'cast'));
 $('#etabs').onclick = e => { const b = e.target.closest('button'); if (!b) return; $('#engine').dataset.tab = b.dataset.t; press('#etabs button', x => x === b); requestAnimationFrame(drawKG); };
 
 // knowledge graph: a small force layout, computed once
@@ -376,7 +420,7 @@ function drawKG() {
   const dpr = devicePixelRatio || 1; cv.width = r.width * dpr; cv.height = r.height * dpr;
   const c = cv.getContext('2d'); c.scale(dpr, dpr); c.clearRect(0, 0, r.width, r.height);
   const xs = KN.map(n => n.x), ys = KN.map(n => n.y), [x0, x1, y0, y1] = [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)];
-  const pad = 16, sc = Math.min((r.width - 2 * pad) / (x1 - x0), (r.height - 2 * pad - 22) / (y1 - y0));
+  const big = r.width > 900, pad = big ? 72 : 16, sc = Math.min((r.width - 2 * pad) / (x1 - x0), (r.height - 2 * pad - 22) / (y1 - y0));
   const ox = (r.width - (x1 - x0) * sc) / 2, P = n => [ox + (n.x - x0) * sc, pad + (n.y - y0) * sc];
   kgMap = { P };
   const hi = hlName ? KN.findIndex(n => n.name === hlName) : kgHover, on = hi != null && hi >= 0;
@@ -387,7 +431,7 @@ function drawKG() {
     c.globalAlpha = on && i !== hi && !nb.has(i) ? .2 : 1;
     c.fillStyle = n.label === 'Entity' ? KGC.entity : ROLESHADE[KGROLE(n.label)]; c.beginPath(); c.arc(x, y, rad, 0, 7); c.fill();
     if (cast) { c.strokeStyle = KGC.sim; c.lineWidth = 1.5; c.beginPath(); c.arc(x, y, rad + 2.5, 0, 7); c.stroke(); }
-    if (i === hi || (on && nb.has(i) && cast)) { c.fillStyle = KGC.ink; c.font = '12px -apple-system,system-ui'; c.fillText(n.name.slice(0, 30), x + rad + 5, y + 4); }
+    if (i === hi || (on && nb.has(i) && cast) || (big && cast && !on)) { c.fillStyle = KGC.ink; c.font = '12px -apple-system,system-ui'; c.fillText(n.name.slice(0, 30), x + rad + 5, y + 4); }
     c.globalAlpha = 1; });
 }
 $('#kg').addEventListener('mousemove', e => {
@@ -399,6 +443,64 @@ $('#kg').addEventListener('mousemove', e => {
   tt.style.display = 'block'; tt.style.left = Math.min(innerWidth - 320, e.clientX + 14) + 'px'; tt.style.top = (e.clientY + 12) + 'px';
 });
 $('#kg').addEventListener('mouseleave', () => { kgHover = null; $('#tooltip').style.display = 'none'; drawKG(); });
+
+// ---------- Inputs: what the engine knows, as of a date (Paper) ----------
+// Real, dated data from inputs.js (data/state.json, data/events.json) and data.js (Epoch datacentres).
+// Point-in-time: T is the end of the chosen day and only items with ts < T are shown.
+const IN = window.INPUTS, D0 = Date.UTC(2024, 9, 24), DAY = 864e5, NDAYS = Math.round((Date.UTC(2026, 9, 24) - D0) / DAY);
+let asOfDay = NDAYS, inTab = 'markets';
+const dayISO = d => new Date(D0 + d * DAY).toISOString().slice(0, 10);
+const dmy = iso => new Date(iso + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
+const SRC = { 'federal-register': 'Federal Register', 'gov.uk': 'GOV.UK', eu: 'European Union', wikipedia: 'Wikipedia', aiid: 'AI Incident Database' }, WHERE = { US: 'United States', China: 'China' };
+const SOURCES = [['markets', 'Markets'], ['incident', 'Incidents'], ['government', 'Government'], ['news', 'News'], ['datacentres', 'Datacentres']];
+function known(T) {
+  const ev = k => IN.events.filter(e => e[1] === k && e[0] < T).reverse();
+  return { markets: IN.anchors, incident: ev('incident'), government: ev('government'), news: ev('news'),
+    datacentres: DC.dcs.filter(d => d.ts.slice(0, 10) < T).sort((a, b) => b.ts.localeCompare(a.ts)) };
+}
+function spark(a, T) {
+  const W = 200, H = 48, x = d => (Date.parse(d) - D0) / (NDAYS * DAY) * W, ps = a.history.map(h => h[1]), lo = Math.min(...ps) - .05, hi = Math.max(...ps) + .05, y = p => H - (p - lo) / (hi - lo) * H;
+  const pts = a.history.filter(h => h[0] < T), tx = x(T);
+  return `<svg viewBox="0 0 ${W} ${H}" aria-label="Price history to the as-of date"><line x1="0" x2="${W}" y1="${H}" y2="${H}" style="stroke:var(--rule)"/>
+    ${pts.length ? `<path d="${pts.map((h, i) => `${i ? 'L' : 'M'}${x(h[0]).toFixed(1)},${y(h[1]).toFixed(1)}`).join('')}" style="fill:none;stroke:var(--ink);stroke-width:1.5"/><circle cx="${x(pts.at(-1)[0])}" cy="${y(pts.at(-1)[1])}" r="3" style="fill:var(--ink)"/>` : ''}
+    <line x1="${tx}" x2="${tx}" y1="0" y2="${H}" style="stroke:var(--ink-3)" stroke-dasharray="2 2"/></svg>`;
+}
+function renderInputs() {
+  const T = dayISO(asOfDay + 1), K = known(T), all = known('9999'), today = asOfDay === NDAYS;
+  const hidden = ['incident', 'government', 'news', 'datacentres'].reduce((n, k) => n + all[k].length - K[k].length, 0)
+    + IN.anchors.reduce((n, a) => n + a.history.filter(h => h[0] >= T).length, 0);
+  $('#asof').style.setProperty('--p', (asOfDay / NDAYS * 100) + '%');
+  $('#asofdate').textContent = dmy(dayISO(asOfDay));
+  $('#asofnote').textContent = today ? 'Today. Nothing is hidden.' : `${fmt(hidden)} later items hidden`;
+  $('#intabs').innerHTML = SOURCES.map(([k, t]) => `<button data-k="${k}" aria-pressed="${k === inTab}">${t}<span class="dc-data">${fmt(K[k].length)}</span></button>`).join('');
+  const rows = (list, row) => list.slice(0, 40).map(row).join('') + (list.length > 40 ? `<p class="dc-faint" style="margin:0">and ${fmt(list.length - 40)} earlier items</p>` : '') || '<p class="dc-faint">Nothing yet at this date.</p>';
+  const evRow = e => `<div class="irow"><span class="dc-data">${dmy(e[0])}</span><div><a href="${esc(e[3])}" target="_blank" rel="noopener">${esc(e[2])}</a><span class="src dc-data">${esc(SRC[e[4]] ?? e[4])}${WHERE[e[5]] ? ' · ' + WHERE[e[5]] : ''}</span></div></div>`;
+  const head = (h, src, note) => `<div class="lede">${REALL}<span class="dc-data">${src}</span></div><h3>${h}</h3>${note ? `<p>${note}</p>` : ''}`;
+  $('#instory').innerHTML = inTab === 'markets'
+    ? head('Market anchors', 'Manifold · quarterly prices from data/state.json', 'The four prices the Monte Carlo is built on. Each shows only the price history before the as-of date.')
+      + IN.anchors.map(a => { const pts = a.history.filter(h => h[0] < T), last = pts.at(-1);
+        return `<div class="mk"><div class="q">${esc(a.question)}</div>${spark(a, T)}
+          <div class="p">${last ? `<b>${Math.round(last[1] * 100)}%</b><span class="dc-data">on ${dmy(last[0])}</span>` : '<span class="dc-faint">No price yet</span>'}</div><span></span>
+          <div class="meta dc-data">${a.traders} traders today · last trade ${dmy(a.lastTrade.slice(0, 10))} · <a href="${esc(a.url)}" target="_blank" rel="noopener">Manifold ↗</a></div></div>`; }).join('')
+    : inTab === 'datacentres'
+      ? head('Datacentres', 'Epoch AI · data/clean/datacentres.jsonl', 'Publicly mapped sites, not compute share. The globe draws each one as a house from its date.')
+        + rows(K.datacentres, d => `<div class="irow"><span class="dc-data">${dmy(d.ts.slice(0, 10))}</span><div>${esc(d.name)}<span class="src dc-data">${esc(d.operator)} · ${esc(d.country)}${d.power_mw ? ' · ' + d.power_mw + ' MW' : ''} · Epoch AI</span></div></div>`)
+      : head({ incident: 'AI incidents', government: 'Government actions', news: 'AI news' }[inTab], { incident: 'AI Incident Database · data/events.json', government: 'Federal Register, gov.uk, EU · data/events.json', news: 'Wikipedia timeline of AI · data/events.json' }[inTab])
+        + rows(K[inTab], evRow);
+}
+$('#asof').min = 0; $('#asof').max = NDAYS; $('#asof').value = NDAYS;
+$('#asof').addEventListener('input', e => { asOfDay = +e.target.value; renderInputs(); });
+$('#intabs').onclick = e => { const b = e.target.closest('button'); if (b) { inTab = b.dataset.k; renderInputs(); } };
+// Run live: sample the 10,000 futures in the browser now, start one live MiroFish quarter, replay the real record to today.
+function runLive() {
+  closeAll(); setView('world');
+  const t0 = performance.now(); sample(); const ms = Math.max(1, Math.round(performance.now() - t0));
+  startLive(); intro = true; setQuarter(0); setSpeed(2); play();
+  coach(`Sampled 10,000 futures in ${ms} ms, in your browser. Replaying the real record to today. <button class="dc-btn dc-btn--sm coach-skip" id="skip">Skip</button>`);
+  $('#skip').onclick = e => { e.stopPropagation(); skipToToday(); };
+}
+function skipToToday() { pause(); hideCoach(); intro = false; setQuarter(TODAY, { live: true }); setTimeout(() => coach('Press <b>Space</b> to play this future, or <b>E</b> to watch its society run live'), 4300); }
+$('#runlive').onclick = runLive;
 
 // ---------- Why this time? (a Paper sheet, one step at a time) ----------
 function fanSVG() {
@@ -476,16 +578,35 @@ $('#story').onclick = e => { const a = e.target.closest('[data-go]'); if (!a) re
   if (a.dataset.go === 'track') { closeAll(); openModal('#track'); } else showStep(a.dataset.go); };
 
 // ---------- Track record (Paper, fixture cards) ----------
-function renderTrack() {
-  const rows = [['1 Nov 2025', 6.5, '0.197', '0.206'], ['1 Jul 2025', 6.9, '0.221', '0.219'], ['1 Mar 2025', 7.4, '0.208', '0.214']]; // fixture, newest first
-  $('#cards').innerHTML = rows.map(([t, m, panel, market]) => `<article class="dc-card"><div class="glyph">${DoomClock.face({ minutes: m, labels: false })}</div>
-    <div class="yr">${t}</div><div class="read">It read ${Math.round(m)} minutes to midnight</div>
-    <div class="score">Panel ${panel} · market ${market} · coin 0.250 Brier<span class="dc-mock">mock</span></div>
+function renderTrack() { // every number here is a fixture until the backtest runs
+  const W = 300, H = 240, p = 36, sx = v => p + v * (W - 2 * p), sy = v => H - p - v * (H - 2 * p);
+  const bins = [[.05, .07, 9], [.15, .12, 8], [.25, .22, 7], [.35, .38, 6], [.5, .44, 7], [.7, .66, 6], [.9, .85, 5]];
+  const t = 'style="fill:var(--ink-3);font:400 12px var(--font-sans)"';
+  $('#trackbody').innerHTML = `<div>
+      <table class="tbl"><thead><tr><th>Forecaster</th><th class="n">Brier</th><th class="n">95% CI</th><th class="n">vs coin</th></tr></thead><tbody>
+        <tr><td><b>Market price at T</b></td><td class="n"><b>0.162</b></td><td class="n ci">0.141–0.183</td><td class="n">−35%</td></tr>
+        <tr><td>Base rate</td><td class="n">0.221</td><td class="n ci">0.198–0.244</td><td class="n">−12%</td></tr>
+        <tr><td>50% coin</td><td class="n">0.250</td><td class="n ci">–</td><td class="n">–</td></tr></tbody></table>
+      <p class="dc-dim" style="margin:var(--space-3) 0 0">n = 48 resolved AI questions<span class="dc-mock">mock</span></p></div>
+    <div><div class="eyebrow dc-faint" style="margin-bottom:var(--space-2)">Reliability</div>
+      <svg viewBox="0 0 ${W} ${H}" class="rel" role="img" aria-label="Reliability curve: market price against how often it came true">
+        <rect x="${p}" y="${p}" width="${W - 2 * p}" height="${H - 2 * p}" style="fill:none;stroke:var(--rule)"/>
+        <line x1="${sx(0)}" y1="${sy(0)}" x2="${sx(1)}" y2="${sy(1)}" style="stroke:var(--ink-3)" stroke-dasharray="3 3"/>
+        <path d="${bins.map(([f, o], i) => `${i ? 'L' : 'M'}${sx(f)},${sy(o)}`).join('')}" style="fill:none;stroke:var(--ink);stroke-width:1.5"/>
+        ${bins.map(([f, o, n]) => `<circle cx="${sx(f)}" cy="${sy(o)}" r="${2.5 + n * .35}" style="fill:var(--ink);stroke:var(--raised);stroke-width:1.5"><title>${n} questions</title></circle>`).join('')}
+        <text x="${W / 2}" y="${H - 8}" ${t} text-anchor="middle">market price</text>
+        <text x="12" y="${H / 2}" ${t} transform="rotate(-90 12 ${H / 2})" text-anchor="middle">came true</text></svg>
+      <div class="dc-faint">Dot size is the number of questions<span class="dc-mock">mock</span></div></div>`;
+  const rows = [['1 Nov 2025', 6.5, '0.171', '0.229', 16], ['1 Jul 2025', 6.9, '0.158', '0.214', 17], ['1 Mar 2025', 7.4, '0.160', '0.220', 15]]; // newest first
+  $('#cards').innerHTML = rows.map(([d, m, market, base, n]) => `<article class="dc-card"><div class="glyph">${DoomClock.face({ minutes: m, labels: false })}</div>
+    <div class="yr">${d}</div><div class="read">It read ${Math.round(m)} minutes to midnight</div>
+    <div class="score">Market ${market} · base rate ${base} · coin 0.250 Brier · n ${n}<span class="dc-mock">mock</span></div>
     <button class="dc-btn dc-btn--outline">Open this checkpoint</button></article>`).join('');
 }
 
 // ---------- wiring ----------
 function setView(v) {
+  if (v === 'inputs') return openModal('#inputs');
   document.body.classList.toggle('engine', v === 'engine');
   press('#viewseg button', b => b.dataset.view === v);
   ctl.autoRotate = !REDUCED && v === 'world';
@@ -495,26 +616,32 @@ function setView(v) {
 const setVariant = v => { document.body.classList.toggle('ov', v === 'ov'); press('#evar button', b => b.dataset.v === v); requestAnimationFrame(drawKG); };
 $('#viewseg').onclick = e => { const b = e.target.closest('button'); if (b) setView(b.dataset.view); };
 $('#evar').onclick = e => { const b = e.target.closest('button'); if (b) { setVariant(b.dataset.v); setView('engine'); } };
-const openModal = (id, step) => { if (id === '#why') showStep(step || 'anchors'); $(id).classList.add('on'); pause(); closeFlash(); };
-const closeAll = () => { $$('.scrim').forEach(s => s.classList.remove('on')); $$('.pop').forEach(p => p.classList.remove('on')); closePop(); };
+const openModal = (id, step) => { if (id === '#why') showStep(step || 'anchors'); if (id === '#inputs') { renderInputs(); press('#viewseg button', b => b.dataset.view === 'inputs'); }
+  $(id).classList.add('on'); pause(); closeFlash(); hideCoach(); };
+const viewPress = () => press('#viewseg button', b => b.dataset.view === (isEngine() ? 'engine' : 'world'));
+const closeAll = () => { viewPress(); $$('.scrim').forEach(s => s.classList.remove('on')); $$('.pop').forEach(p => p.classList.remove('on')); closePop(); };
 $('#clock').onclick = () => openModal('#why');
 $('#clock').onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); openModal('#why'); } };
-$$('.scrim').forEach(s => s.addEventListener('click', e => { if (e.target === s || e.target.closest('[data-close]')) s.classList.remove('on'); }));
+$$('.scrim').forEach(s => s.addEventListener('click', e => { if (e.target === s || e.target.closest('[data-close]')) { s.classList.remove('on'); viewPress(); } }));
 const toggle = (id, e) => { e.stopPropagation(); const on = !$(id).classList.contains('on'); $$('.pop').forEach(p => p.classList.remove('on')); $(id).classList.toggle('on', on); };
 $('#keybtn').onclick = e => toggle('#keypop', e);
 $('#review').onclick = e => toggle('#revpop', e);
 document.addEventListener('click', e => { if (!e.target.closest('.pop, #pop, .bub')) { $$('.pop').forEach(p => p.classList.remove('on')); closePop(); } });
+$('#estatevar').onclick = e => { const b = e.target.closest('button'); if (!b) return; if (b.dataset.v === 'live') { startLive(); setQuarter(TODAY + 1); } else stopLive(); setView('engine'); };
 $('#jumps').onclick = e => { const b = e.target.closest('button'); if (!b) return; const j = b.dataset.j; pause(); hideCoach(); intro = false;
-  if (j === 'start') setQuarter(0); if (j === 'today') setQuarter(TODAY);
+  if (j === 'inputs') openModal('#inputs'); if (j === 'start') setQuarter(0); if (j === 'today') setQuarter(TODAY);
   if (j === 'asi' && qOf(FUT.asi) > TODAY) { setQuarter(qOf(FUT.asi) - 1); setSpeed(1); play(); }
   if (j === 'cat' && qOf(FUT.cat) > TODAY) { setQuarter(qOf(FUT.cat) - 1); setSpeed(1); play(); }
   if (j === 'why') openModal('#why'); if (j === 'track') openModal('#track'); };
 addEventListener('keydown', e => {
   if (e.metaKey || e.ctrlKey || e.altKey || e.target.closest('input,textarea')) return;
-  if (e.key === 'Escape') return closeAll();
+  if (e.key === 'Escape') return unmax() || closeAll();
+  if ($('#inputs').classList.contains('on') && e.key === 'Enter' && !e.target.closest('a,button,input')) return runLive();
   if ($$('.scrim.on').length) return;
   const k = e.key.toLowerCase();
-  if (k === 'e') setView(document.body.classList.contains('engine') ? 'world' : 'engine');
+  if (k === 'f' && isEngine()) maxed ? unmax() : maximise(focusPanel);
+  else if (k === 'i') openModal('#inputs');
+  else if (k === 'e') setView(document.body.classList.contains('engine') ? 'world' : 'engine');
   else if (k === 'w') setView('world');
   else if (k === 'r') $('#roll').click();
   else if (e.key === ' ' && !e.target.closest('button,[role=button]')) { e.preventDefault(); hideCoach(); playing ? pause() : play(); }
@@ -530,7 +657,11 @@ $('#thumbcap').textContent = `It is ${MINUTES} minutes to midnight`;
 fit(); renderFuture(); renderClock(); tickClock(); renderTrack(); renderSociety(); renderEngine(); buildSpine(); wireSpine();
 setQuarter(0);
 if (params.has('q')) setQuarter(+params.get('q'));
-else { setSpeed(2); play(); } // opening: replay the real record at 2x, then stop at today
+else if (!params.has('autoplay')) { if (params.get('asof')) asOfDay = Math.max(0, Math.min(NDAYS, Math.round((Date.parse(params.get('asof')) - D0) / DAY))), $('#asof').value = asOfDay;
+  if (params.get('src')) inTab = params.get('src'); openModal('#inputs'); } // demo step 1: what the engine knows; Run live starts the replay
+else { setSpeed(2); play(); }
+if (params.has('live')) { startLive(); if (+params.get('live') > 0) live.shown = +params.get('live'); }
+if (params.has('max')) setTimeout(() => maximise(params.get('max')), 300);
 if (params.get('layout') === 'overlay') setVariant('ov');
 if (params.get('view') === 'engine') setView('engine');
 if (params.get('tab')) $(`#etabs [data-t="${params.get('tab')}"]`)?.click();

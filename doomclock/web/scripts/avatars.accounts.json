@@ -1,0 +1,385 @@
+{
+ "accounts": [
+  {
+   "id": "australian-officials",
+   "name": "Australian officials",
+   "role": "government",
+   "provenance": "simulated",
+   "aliases": [
+    "australian_officials_188"
+   ]
+  },
+  {
+   "id": "meta",
+   "name": "Meta",
+   "role": "lab",
+   "provenance": "simulated",
+   "aliases": [
+    "meta_569"
+   ]
+  },
+  {
+   "id": "the-press",
+   "name": "The press",
+   "role": "media",
+   "provenance": "simulated",
+   "aliases": [
+    "the_press_504"
+   ]
+  },
+  {
+   "id": "australian-authorities",
+   "name": "Australian authorities",
+   "role": "government",
+   "provenance": "simulated",
+   "aliases": [
+    "australian_authorities_244"
+   ]
+  },
+  {
+   "id": "canadian-media",
+   "name": "Canadian media",
+   "role": "media",
+   "provenance": "simulated",
+   "aliases": [
+    "canadian_media_410"
+   ]
+  },
+  {
+   "id": "new-jersey-regulators",
+   "name": "New Jersey regulators",
+   "role": "government",
+   "provenance": "simulated",
+   "aliases": [
+    "new_jersey_regulators_813",
+    "new_jersey_regulators_918"
+   ]
+  },
+  {
+   "id": "safety-researchers",
+   "name": "Safety researchers",
+   "role": "researcher",
+   "provenance": "simulated",
+   "aliases": [
+    "safety_researchers_308"
+   ]
+  },
+  {
+   "id": "greek-police",
+   "name": "Greek police",
+   "role": "government",
+   "provenance": "simulated",
+   "aliases": [
+    "greek_police_172"
+   ]
+  },
+  {
+   "id": "delhi-police",
+   "name": "Delhi Police",
+   "role": "government",
+   "provenance": "simulated",
+   "aliases": [
+    "delhi_police_970"
+   ],
+   "mono": "DP"
+  },
+  {
+   "id": "incident-database-sim",
+   "name": "Incident Database",
+   "role": "researcher",
+   "provenance": "simulated",
+   "aliases": [
+    "incident_database_279"
+   ],
+   "mono": "ID"
+  },
+  {
+   "id": "philadelphia-police",
+   "name": "Philadelphia police",
+   "role": "government",
+   "provenance": "simulated",
+   "aliases": [
+    "philadelphia_police_582"
+   ]
+  },
+  {
+   "id": "cnn",
+   "name": "CNN",
+   "role": "media",
+   "provenance": "simulated",
+   "aliases": [
+    "cnn_652"
+   ],
+   "mono": "CN"
+  },
+  {
+   "id": "library-and-archives-canada",
+   "name": "Library and Archives Canada",
+   "role": "government",
+   "provenance": "simulated",
+   "aliases": [
+    "library_and_archives_canada_951"
+   ]
+  },
+  {
+   "id": "openai",
+   "name": "OpenAI",
+   "role": "lab",
+   "provenance": "simulated",
+   "aliases": [
+    "openai_953"
+   ],
+   "mono": "OA"
+  },
+  {
+   "id": "claude-chatbot",
+   "name": "Claude chatbot",
+   "role": "lab",
+   "provenance": "simulated",
+   "aliases": [
+    "claude_chatbot_626"
+   ],
+   "mono": "Cl"
+  },
+  {
+   "id": "us-government",
+   "name": "US government",
+   "role": "government",
+   "provenance": "simulated",
+   "aliases": [
+    "us_government_371"
+   ],
+   "mono": "US"
+  },
+  {
+   "id": "the-bulletin-of-the-atomic-scientists",
+   "name": "The Bulletin of the Atomic Scientists",
+   "role": "media",
+   "provenance": "simulated",
+   "aliases": [
+    "the_bulletin_of_the_atomic_scientists_179"
+   ],
+   "mono": "BA"
+  },
+  {
+   "id": "spanish-data-protection-authority",
+   "name": "Spanish Data Protection Authority",
+   "role": "government",
+   "provenance": "simulated",
+   "aliases": [
+    "spanish_data_protection_authority_972"
+   ],
+   "mono": "AE"
+  },
+  {
+   "id": "clara-jeffery",
+   "name": "Clara Jeffery",
+   "role": "public",
+   "provenance": "simulated",
+   "aliases": [
+    "clara_jeffery_255"
+   ]
+  },
+  {
+   "id": "argentine-federal-police",
+   "name": "Argentine Federal Police",
+   "role": "government",
+   "provenance": "simulated",
+   "aliases": [
+    "argentine_federal_police_110"
+   ]
+  },
+  {
+   "id": "fbi",
+   "name": "FBI",
+   "role": "government",
+   "provenance": "simulated",
+   "aliases": [
+    "fbi_206"
+   ],
+   "mono": "FB"
+  },
+  {
+   "id": "deepseek",
+   "name": "DeepSeek",
+   "role": "lab",
+   "provenance": "simulated",
+   "aliases": [
+    "deepseek_850"
+   ],
+   "mono": "DS"
+  },
+  {
+   "id": "alibaba",
+   "name": "Alibaba",
+   "role": "lab",
+   "provenance": "simulated",
+   "aliases": [
+    "alibaba_440"
+   ],
+   "mono": "AL"
+  },
+  {
+   "id": "google-deepmind",
+   "name": "Google DeepMind",
+   "role": "lab",
+   "provenance": "simulated",
+   "aliases": [
+    "google_deepmind_288"
+   ],
+   "mono": "GD"
+  },
+  {
+   "id": "xai",
+   "name": "xAI",
+   "role": "lab",
+   "provenance": "simulated",
+   "aliases": [
+    "xai_132"
+   ],
+   "mono": "xA"
+  },
+  {
+   "id": "d-c-court-of-appeals",
+   "name": "D.C. Court of Appeals",
+   "role": "government",
+   "provenance": "simulated",
+   "aliases": [
+    "dc_court_of_appeals_173"
+   ]
+  },
+  {
+   "id": "mother-jones",
+   "name": "Mother Jones",
+   "role": "media",
+   "provenance": "simulated",
+   "aliases": [
+    "mother_jones_588"
+   ],
+   "mono": "MJ"
+  },
+  {
+   "id": "anthropic",
+   "name": "Anthropic",
+   "role": "lab",
+   "provenance": "simulated",
+   "aliases": [
+    "anthropic_921"
+   ]
+  },
+  {
+   "id": "federal-register",
+   "name": "Federal Register",
+   "role": "government",
+   "provenance": "real"
+  },
+  {
+   "id": "gov-uk",
+   "name": "GOV.UK",
+   "role": "government",
+   "provenance": "real",
+   "mono": "UK"
+  },
+  {
+   "id": "eur-lex",
+   "name": "EUR-Lex",
+   "role": "government",
+   "provenance": "real",
+   "mono": "EL"
+  },
+  {
+   "id": "ai-incident-database",
+   "name": "AI Incident Database",
+   "role": "researcher",
+   "provenance": "real",
+   "mono": "AI"
+  },
+  {
+   "id": "manifold",
+   "name": "Manifold",
+   "role": "market",
+   "provenance": "real"
+  },
+  {
+   "id": "kalshi",
+   "name": "Kalshi",
+   "role": "market",
+   "provenance": "real"
+  },
+  {
+   "id": "polymarket",
+   "name": "Polymarket",
+   "role": "market",
+   "provenance": "real"
+  },
+  {
+   "id": "epoch",
+   "name": "Epoch",
+   "role": "researcher",
+   "provenance": "real"
+  },
+  {
+   "id": "eu-commission",
+   "name": "EU Commission",
+   "role": "government",
+   "provenance": "simulated",
+   "mono": "EU"
+  },
+  {
+   "id": "uk-government",
+   "name": "UK government",
+   "role": "government",
+   "provenance": "simulated",
+   "mono": "UK"
+  },
+  {
+   "id": "china-miit",
+   "name": "China MIIT",
+   "role": "government",
+   "provenance": "simulated",
+   "mono": "MI"
+  },
+  {
+   "id": "japan-government",
+   "name": "Japan government",
+   "role": "government",
+   "provenance": "simulated"
+  },
+  {
+   "id": "wire-desk",
+   "name": "Wire desk",
+   "role": "media",
+   "provenance": "simulated"
+  },
+  {
+   "id": "tech-press",
+   "name": "Tech press",
+   "role": "media",
+   "provenance": "simulated"
+  },
+  {
+   "id": "financial-press",
+   "name": "Financial press",
+   "role": "media",
+   "provenance": "simulated"
+  },
+  {
+   "id": "public",
+   "name": "Public",
+   "role": "public",
+   "provenance": "simulated"
+  },
+  {
+   "id": "independent-researcher",
+   "name": "Independent researcher",
+   "role": "researcher",
+   "provenance": "simulated"
+  },
+  {
+   "id": "prediction-traders",
+   "name": "Prediction traders",
+   "role": "market",
+   "provenance": "simulated"
+  }
+ ]
+}
