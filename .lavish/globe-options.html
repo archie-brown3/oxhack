@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en" data-lavish-annotate="on">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Doom Clock globe options</title>
+<script src="globe.gl.min.js"></script>
+<script src="ne_110m_countries.js"></script>
+<script src="earth-night.js"></script>
+<style>
+  :root {
+    --bg: #07090d; --panel: #0e1117; --line: #1d2330; --text: #e6e8ee; --dim: #8a93a6;
+    --red: #e5484d; --blue: #4c9aff; --amber: #f5a524;
+    --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", system-ui, sans-serif;
+    --mono: ui-monospace, "SF Mono", "Geist Mono", Menlo, monospace;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.5 var(--sans); }
+  main { max-width: 1320px; margin: 0 auto; padding: 40px 24px 80px; }
+  h1 { font-size: 26px; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 6px; }
+  h2 { font-size: 18px; font-weight: 600; margin: 48px 0 4px; }
+  p.lead { color: var(--dim); margin: 0 0 8px; max-width: 760px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; min-width: 0; display: flex; flex-direction: column; }
+  .card.rec { border-color: #2c4a78; }
+  .card header { padding: 14px 16px 0; display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+  .card h3 { margin: 0; font-size: 15px; font-weight: 600; }
+  .tag { font: 11px var(--mono); color: var(--blue); border: 1px solid #2c4a78; border-radius: 999px; padding: 1px 8px; white-space: nowrap; }
+  .globe { height: 380px; position: relative; }
+  .card .body { padding: 0 16px 16px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .pros { margin: 0; padding: 0; list-style: none; font-size: 13px; color: var(--dim); }
+  .pros li { padding-left: 16px; position: relative; }
+  .pros li::before { position: absolute; left: 0; }
+  .pros li.p::before { content: "+"; color: #46a758; }
+  .pros li.c::before { content: "−"; color: var(--red); }
+  .btns { display: flex; gap: 8px; margin-top: auto; }
+  button { font: 13px var(--sans); color: var(--text); background: #161b25; border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; cursor: pointer; }
+  button:hover { border-color: #33405a; }
+  button.g { color: var(--blue); }
+  button.r { color: var(--red); }
+  .legend { display: flex; flex-wrap: wrap; gap: 16px; font-size: 12px; color: var(--dim); margin-top: 12px; }
+  .sw { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+  .lbl { font: 600 10px var(--sans); letter-spacing: .12em; color: #cfd5e2; text-shadow: 0 1px 3px #000; pointer-events: none; white-space: nowrap; transform: translate(-50%, -50%); }
+  .lbl span { font: 10px var(--mono); letter-spacing: 0; margin-left: 4px; }
+  .lbl .i { color: var(--red); } .lbl .o { color: var(--blue); }
+  .hidden-q { font: 600 13px var(--mono); color: var(--red); transform: translate(-50%, -50%); pointer-events: none; }
+  form.q { margin-top: 16px; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: flex; flex-wrap: wrap; gap: 14px 20px; align-items: center; }
+  form.q label { display: flex; gap: 6px; align-items: center; cursor: pointer; }
+  form.q input[type=text] { flex: 1 1 260px; min-width: 0; background: #0a0d13; border: 1px solid var(--line); border-radius: 8px; color: var(--text); padding: 6px 10px; font: 13px var(--sans); }
+  form.q button[type=submit] { background: #17325a; border-color: #2c4a78; }
+  .queued { font-size: 12px; color: #46a758; }
+  /* layout schematics */
+  .lay { aspect-ratio: 16 / 10; position: relative; background: #05070a; border-bottom: 1px solid var(--line); overflow: hidden; font: 9px var(--sans); color: var(--dim); }
+  .lay .g { position: absolute; border-radius: 50%; background: radial-gradient(circle at 38% 35%, #2a1418 0%, #170d12 35%, #0b0f17 70%); box-shadow: 0 0 40px #4c9aff22, inset 0 0 0 1px #4c9aff33; }
+  .lay .p { position: absolute; background: #0e1117cc; border: 1px solid #ffffff14; border-radius: 4px; padding: 3px 5px; backdrop-filter: blur(6px); }
+  .lay .p b { color: var(--text); font-weight: 600; display: block; font-size: 9px; }
+  .lay .big { font: 600 15px var(--mono); color: var(--text); }
+  .views { margin-top: 16px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  td, th { text-align: left; padding: 7px 10px; border-top: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--dim); font-weight: 500; font-size: 12px; border-top: 0; }
+  td:first-child { white-space: nowrap; font-weight: 600; }
+  .cut td:first-child { color: var(--dim); font-weight: 500; text-decoration: line-through; text-decoration-color: #ffffff40; }
+  .note { font-size: 12px; color: var(--dim); margin-top: 8px; }
+  @media (max-width: 1000px) { .grid3, .views { grid-template-columns: minmax(0, 1fr); } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Doom Clock: globe style and Play layout</h1>
+  <p class="lead">Two choices. Each globe below is live globe.gl 2.46.2, running on bundled files with no network needed, and all three show the same mock state. Drag to rotate. <b>Land a Guardian move</b> plays the move animation I'm proposing. <b>Rogue move</b> plays the opponent's version, which leaves the camera where it is. The numbers are illustrative.</p>
+  <div class="legend">
+    <span><i class="sw" style="background:var(--red)"></i>AI influence (country tint, by region)</span>
+    <span><i class="sw" style="border:1.5px solid var(--blue);border-radius:50%"></i>Oversight coverage (circle size)</span>
+    <span><i class="sw" style="background:linear-gradient(90deg,transparent,var(--red))"></i>Spread route (animated arc)</span>
+    <span><i class="sw" style="background:#b9c2d3"></i>Datacentre (houses on B) · <i class="sw" style="background:var(--red);margin-left:4px"></i>compromised · <i class="sw" style="background:var(--blue);margin-left:4px"></i>audited</span>
+    <span><b style="color:var(--red);font-family:var(--mono);margin-right:6px">?</b>Hidden Rogue move (pulse)</span>
+  </div>
+
+  <h2>1 · Globe surface</h2>
+  <div class="grid3">
+    <section class="card rec" id="opt-solid">
+      <header><h3>A · Solid dark countries</h3><span class="tag">recommended</span></header>
+      <div class="globe" id="g-solid"></div>
+      <div class="body">
+        <ul class="pros">
+          <li class="p">Tint reads at a glance. The 46% vs 8% gap is obvious.</li>
+          <li class="p">It's the mockup's look moved onto the globe, so the panels already match.</li>
+          <li class="p">Cheapest to render: one mesh per country.</li>
+          <li class="c">Plainest of the three.</li>
+        </ul>
+        <div class="btns"><button class="g" data-move="solid">Land a Guardian move</button><button class="r" data-rogue="solid">Rogue move</button></div>
+      </div>
+    </section>
+    <section class="card" id="opt-hex">
+      <header><h3>B · Hex-dot countries</h3></header>
+      <div class="globe" id="g-hex"></div>
+      <div class="body">
+        <ul class="pros">
+          <li class="p">Looks the most "data", like the GitHub globe.</li>
+          <li class="p">Dots don't hide the arcs and rings.</li>
+          <li class="p">Datacentres are small 3D Monopoly houses, and hyperscale campuses are "hotels". Grey means operating, red compromised, blue audited. Hover one for its name.</li>
+          <li class="c">The tint gradient is harder to read when dots are small.</li>
+          <li class="c">Slowest first render because it tessellates the dots, about 1 s.</li>
+        </ul>
+        <div class="btns"><button class="g" data-move="hex">Land a Guardian move</button><button class="r" data-rogue="hex">Rogue move</button></div>
+      </div>
+    </section>
+    <section class="card" id="opt-tex">
+      <header><h3>C · Night-earth texture</h3></header>
+      <div class="globe" id="g-tex"></div>
+      <div class="body">
+        <ul class="pros">
+          <li class="p">Most realistic. City lights suggest compute.</li>
+          <li class="c">Busiest. The lights compete with the red tint and the datacentre dots.</li>
+          <li class="c">Adds a 715 KB texture (fine offline, but it's one more asset).</li>
+        </ul>
+        <div class="btns"><button class="g" data-move="tex">Land a Guardian move</button><button class="r" data-rogue="tex">Rogue move</button></div>
+      </div>
+    </section>
+  </div>
+  <form class="q" data-lavish-question="globe-style" onsubmit="event.preventDefault(); const f=new FormData(event.currentTarget); const c=f.get('style'); if(!c) return; const n=(f.get('note')||'').trim(); window.lavish && window.lavish.queuePrompt('Globe style: ' + c + (n ? '. Note: ' + n : ''), { tag: 'choice', text: 'Globe: ' + c, element: event.currentTarget, data: { question: 'globe-style', answer: c, note: n } }); event.currentTarget.querySelector('.queued').textContent='Queued: ' + c;">
+    <b>Globe style</b>
+    <label><input type="radio" name="style" value="A solid dark countries" checked> A · Solid</label>
+    <label><input type="radio" name="style" value="B hex-dot countries"> B · Hex-dot</label>
+    <label><input type="radio" name="style" value="C night-earth texture"> C · Texture</label>
+    <input type="text" name="note" placeholder="Optional note (e.g. A, but with B's dots for oversight)">
+    <button type="submit">Queue answer</button><span class="queued"></span>
+  </form>
+
+  <h2>2 · Play layout at 1440×900</h2>
+  <p class="lead">Each layout has the same content: countdown, AI capability and oversight bars, the two-line chart, five move cards, the opponent log and the ticker. The only difference is where the globe sits.</p>
+  <div class="grid3">
+    <section class="card rec">
+      <header><h3>A · Full-bleed globe, docked HUD</h3><span class="tag">recommended</span></header>
+      <div class="lay">
+        <div class="g" style="width:62%;aspect-ratio:1;left:14%;top:6%"></div>
+        <div class="p" style="left:2%;top:3%;width:30%"><b>Your timeline · takeover in</b><span class="big">3y 214d 06:41:09</span></div>
+        <div class="p" style="left:34%;top:3%;width:28%"><b>Real forecast 4y 88d · P 27% / 31%</b>yours / real</div>
+        <div class="p" style="right:2%;top:3%;width:24%;height:13%"><b>Bars</b>AI capability ▬▬▬▬ · Oversight ▬▬ · Trust</div>
+        <div class="p" style="right:2%;top:19%;width:24%;height:30%"><b>P(catastrophe) · two lines</b>real (white) vs yours (blue)</div>
+        <div class="p" style="right:2%;top:52%;width:24%;height:20%"><b>Opponent log</b>3 latest Rogue moves</div>
+        <div class="p" style="left:2%;right:28%;bottom:9%;height:15%"><b>Move tray</b>capital 14 · 5 move cards · keys 1–5</div>
+        <div class="p" style="left:2%;right:2%;bottom:2%;height:5%">World news ticker · MiroFish · next round 0:08</div>
+      </div>
+      <div class="body" style="padding-top:12px">
+        <ul class="pros">
+          <li class="p">The globe sits in the real centre and is the largest of the three (about 560 px).</li>
+          <li class="p">Panels float on translucent cards, so the globe shows through the gaps.</li>
+          <li class="c">Panel edges cover the globe's limb, so the cards have to stay small.</li>
+        </ul>
+      </div>
+    </section>
+    <section class="card">
+      <header><h3>B · Mockup grid, globe in a panel</h3></header>
+      <div class="lay">
+        <div class="p" style="left:2%;top:3%;right:2%;height:15%"><b>Stats band</b><span class="big">3y 214d 06:41:09</span> · real 4y 88d · 27% / 31% · bars</div>
+        <div class="p" style="left:2%;top:21%;width:68%;height:52%;background:#090c12"></div>
+        <div class="g" style="width:30%;aspect-ratio:1;left:21%;top:23%"></div>
+        <div class="p" style="right:2%;top:21%;width:26%;height:28%"><b>Two-line chart + markets</b></div>
+        <div class="p" style="right:2%;top:52%;width:26%;height:21%"><b>Opponent log</b></div>
+        <div class="p" style="left:2%;right:2%;bottom:9%;height:15%"><b>Capital + 5 move cards</b></div>
+        <div class="p" style="left:2%;right:2%;bottom:2%;height:5%">Ticker</div>
+      </div>
+      <div class="body" style="padding-top:12px">
+        <ul class="pros">
+          <li class="p">Closest to the current mockup, and nothing overlaps.</li>
+          <li class="c">The globe shrinks to about 430 px in a box, and a round globe wastes the box's corners.</li>
+        </ul>
+      </div>
+    </section>
+    <section class="card">
+      <header><h3>C · Globe + one right rail</h3></header>
+      <div class="lay">
+        <div class="g" style="width:60%;aspect-ratio:1;left:4%;top:10%"></div>
+        <div class="p" style="left:2%;top:3%;width:34%"><b>Your timeline · takeover in</b><span class="big">3y 214d 06:41:09</span></div>
+        <div class="p" style="right:0;top:0;bottom:0;width:27%;border-radius:0;padding:6px"><b>Rail</b>bars · two-line chart · opponent log · 5 moves as a list</div>
+        <div class="p" style="left:2%;right:29%;bottom:2%;height:5%">Ticker</div>
+      </div>
+      <div class="body" style="padding-top:12px">
+        <ul class="pros">
+          <li class="p">Calmest. Every control is in one column, like the Claude app's side panel.</li>
+          <li class="c">The globe sits off-centre, and listed moves feel less like Plague's card tray.</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+  <form class="q" data-lavish-question="layout" onsubmit="event.preventDefault(); const f=new FormData(event.currentTarget); const c=f.get('layout'); if(!c) return; const n=(f.get('note')||'').trim(); window.lavish && window.lavish.queuePrompt('Play layout: ' + c + (n ? '. Note: ' + n : ''), { tag: 'choice', text: 'Layout: ' + c, element: event.currentTarget, data: { question: 'layout', answer: c, note: n } }); event.currentTarget.querySelector('.queued').textContent='Queued: ' + c;">
+    <b>Layout</b>
+    <label><input type="radio" name="layout" value="A full-bleed globe, docked HUD" checked> A · Full-bleed</label>
+    <label><input type="radio" name="layout" value="B mockup grid" > B · Grid</label>
+    <label><input type="radio" name="layout" value="C globe + right rail"> C · Rail</label>
+    <input type="text" name="note" placeholder="Optional note">
+    <button type="submit">Queue answer</button><span class="queued"></span>
+  </form>
+
+  <h2>For reference: the views I'm keeping (defaults, annotate to change)</h2>
+  <div class="views">
+    <div class="card" style="padding:4px 0">
+      <table>
+        <tr><th>Keep</th><th>Why it earns its place</th></tr>
+        <tr><td>Play</td><td>It's the demo. The judge's first click changes the globe and the "your timeline" line within 10 s. It opens with a one-line overlay rather than a start screen.</td></tr>
+        <tr><td>End / replay</td><td>The outcome, plus both lines replayed cycle by cycle. This is where an HRT judge sees game state kept apart from the forecast (Plague lesson 9).</td></tr>
+        <tr><td>Track record</td><td>A slot for the <code>backtest</code> spec, opened from the header and from the end screen. It's the HRT evidence.</td></tr>
+      </table>
+    </div>
+    <div class="card cut" style="padding:4px 0">
+      <table>
+        <tr><th>Cut</th><th>Replaced by</th></tr>
+        <tr><td>Region detail</td><td>A hover tooltip on the globe</td></tr>
+        <tr><td>Tech tree screen</td><td>If <code>game-design</code> adds one, it expands inside the move tray</td></tr>
+        <tr><td>MiroFish feed</td><td>The ticker and the world-alarm number</td></tr>
+        <tr><td>Agent panel cards, sliders</td><td>The engine spec's standalone page. They're not in the game.</td></tr>
+        <tr><td>Start / settings</td><td>An overlay on Play, plus a reset button in the header</td></tr>
+      </table>
+    </div>
+  </div>
+</main>
+
+<script>
+const RED = [229, 72, 77], BASE = [28, 33, 44], BLUE = '#4c9aff';
+const REGIONS = {
+  NA: { name: 'NORTH AMERICA', lat: 42, lng: -100, inf: .71, ov: .38 },
+  EU: { name: 'EUROPE', lat: 50, lng: 12, inf: .34, ov: .63 },
+  EA: { name: 'EAST ASIA', lat: 32, lng: 108, inf: .58, ov: .31 },
+  ME: { name: 'MIDDLE EAST', lat: 27, lng: 47, inf: .46, ov: .11 },
+  AF: { name: 'AFRICA', lat: 3, lng: 20, inf: .08, ov: .05 },
+  LA: { name: 'LATIN AMERICA', lat: -12, lng: -60, inf: .16, ov: .09 },
+  OC: { name: 'OCEANIA', lat: -25, lng: 135, inf: .19, ov: .42 },
+};
+const SUB = { 'Northern America': 'NA', 'South America': 'LA', 'Central America': 'LA', 'Caribbean': 'LA',
+  'Western Asia': 'ME', 'Eastern Asia': 'EA', 'South-Eastern Asia': 'EA', 'Southern Asia': 'EA', 'Central Asia': 'EA',
+  'Australia and New Zealand': 'OC', 'Melanesia': 'OC' };
+const regionOf = p => SUB[p.SUBREGION] || (p.CONTINENT === 'Europe' ? 'EU' : p.CONTINENT === 'Africa' ? 'AF' : null);
+const mix = t => `rgb(${BASE.map((b, i) => Math.round(b + (RED[i] - b) * t)).join(',')})`;
+// hotel = hyperscale campus; state: ok | bad (compromised) | audit (Guardian-audited)
+const DCS = [
+  { name: 'Silicon Valley', lat: 37.4, lng: -122 }, { name: 'Ashburn, Virginia', lat: 39, lng: -77.5, hotel: true },
+  { name: 'The Dalles, Oregon', lat: 45.6, lng: -121.2 }, { name: 'Dublin', lat: 53.3, lng: -6.3 }, { name: 'Frankfurt', lat: 50.1, lng: 8.7 },
+  { name: 'Abu Dhabi', lat: 24.5, lng: 54.4, hotel: true, state: 'bad' }, { name: 'Riyadh', lat: 24.7, lng: 46.7, state: 'bad' },
+  { name: 'Singapore', lat: 1.35, lng: 103.8 }, { name: 'Tokyo', lat: 35.7, lng: 139.7 }, { name: 'Shanghai', lat: 31.2, lng: 121.5, state: 'bad' },
+  { name: 'Sydney', lat: -33.9, lng: 151.2 }, { name: 'Mumbai', lat: 19.1, lng: 72.9 }, { name: 'Johannesburg', lat: -26.2, lng: 28 },
+];
+const DC_COLOR = { ok: '#b9c2d3', bad: '#e5484d', audit: '#4c9aff' };
+
+// Monopoly-style house: box body + gabled roof, +Z points away from the globe (three-globe's object frame).
+// globe.gl doesn't expose THREE, so borrow constructors from its own scene instead of loading a second copy.
+function houseKit(g) {
+  let globeMesh; g.scene().traverse(o => { if (!globeMesh && o.isMesh && o.geometry?.getAttribute('position')) globeMesh = o; });
+  if (!globeMesh) return null;
+  const Mesh = globeMesh.constructor, Geo = globeMesh.geometry.constructor, Mat = g.globeMaterial().constructor;
+  const Attr = globeMesh.geometry.getAttribute('position').constructor;
+  const Group = Object.getPrototypeOf(Mesh.prototype).constructor; // Object3D
+  const geo = tris => { const g = new Geo(); g.setIndex(null); g.deleteAttribute('normal'); g.deleteAttribute('uv');
+    g.setAttribute('position', new Attr(new Float32Array(tris.flat()), 3)); g.computeVertexNormals(); return g; };
+  // walls and roof are separate meshes so the roof can be a darker shade: from above, the ridge is what says "house"
+  const shape = (w, d, h, r, o) => {
+    const [x, y] = [w / 2, d / 2];
+    const A = [-x, -y, 0], B = [x, -y, 0], C = [x, y, 0], D = [-x, y, 0], E = [-x, -y, h], F = [x, -y, h], G = [x, y, h], H = [-x, y, h];
+    const quad = (a, b, c, e) => [a, b, c, a, c, e];
+    const [ex, ey] = [x + o, y + o]; // eaves overhang
+    const E2 = [-ex, -ey, h], F2 = [ex, -ey, h], G2 = [ex, ey, h], H2 = [-ex, ey, h], R1 = [-ex, 0, h + r], R2 = [ex, 0, h + r];
+    return {
+      walls: geo([...quad(A, B, F, E), ...quad(B, C, G, F), ...quad(C, D, H, G), ...quad(D, A, E, H), H, E, [-x, 0, h + r * x / ex], F, G, [x, 0, h + r * x / ex]]),
+      roof: geo([...quad(E2, F2, R2, R1), ...quad(G2, H2, R1, R2)]),
+    };
+  };
+  const geos = { house: shape(1, 1, .65, .6, .08), hotel: shape(1.9, 1, .95, .45, .08) };
+  return d => {
+    const k = geos[d.hotel ? 'hotel' : 'house'], mat = () => new Mat({ flatShading: true, shininess: 8, side: 2 });
+    const grp = new Group(), walls = new Mesh(k.walls, mat()), roof = new Mesh(k.roof, mat());
+    grp.add(walls, roof); grp.scale.setScalar(4.4);
+    d.mesh = grp; d.parts = { walls, roof }; paintDC(d);
+    return grp;
+  };
+}
+function paintDC(d) {
+  const c = DC_COLOR[d.state || 'ok'], { walls, roof } = d.parts;
+  walls.material.color.set(c); walls.material.emissive.set(c).multiplyScalar(.3);
+  roof.material.color.set(c).multiplyScalar(.55); roof.material.emissive.set(c).multiplyScalar(.12);
+}
+function popDC(d, state) { // recolour with a quick scale bounce
+  d.state = state; paintDC(d);
+  const t0 = performance.now(), s = 4.4;
+  const step = now => { const t = Math.min(1, (now - t0) / 520); d.mesh.scale.setScalar(s * (1 + .7 * Math.sin(Math.PI * t) * (1 - t * .3))); t < 1 && requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+}
+const circle = (lat, lng, r) => Array.from({ length: 61 }, (_, i) => { const a = i / 60 * 2 * Math.PI; return [lat + r * Math.sin(a), lng + r * Math.cos(a) / Math.cos(lat * Math.PI / 180)]; });
+
+const state = () => JSON.parse(JSON.stringify(REGIONS));
+const baseArcs = [
+  { s: 'NA', e: 'EU' }, { s: 'EU', e: 'ME' }, { s: 'EA', e: 'OC' },
+];
+
+async function boot() {
+  const geo = window.NE_COUNTRIES; // script-loaded: Lavish's sandboxed iframe has an opaque origin, so fetch() is blocked
+  const feats = geo.features.filter(f => regionOf(f.properties));
+  feats.forEach(f => f.region = regionOf(f.properties));
+  for (const kind of ['solid', 'hex', 'tex']) make(kind, feats);
+}
+
+const globes = {};
+function make(kind, feats) {
+  const el = document.getElementById('g-' + kind);
+  const S = state();
+  const arcs = baseArcs.map(a => ({ ...a }));
+  const lift = {};
+  const g = new Globe(el, { animateIn: false })
+    .width(el.clientWidth).height(el.clientHeight)
+    .backgroundColor('rgba(0,0,0,0)')
+    .showAtmosphere(true).atmosphereColor('#4c9aff').atmosphereAltitude(0.12)
+    .pointOfView({ lat: 28, lng: 20, altitude: 1.95 });
+  const mat = g.globeMaterial();
+  if (kind === 'tex') g.globeImageUrl(window.EARTH_NIGHT);
+  else { mat.color.set('#1b2740'); mat.emissive?.set('#121a2c'); mat.shininess = 0; }
+  new ResizeObserver(() => g.width(el.clientWidth).height(el.clientHeight)).observe(el);
+
+  const tint = f => S[f.region].inf;
+  const paint = () => {
+    if (kind === 'hex') g.hexPolygonColor(f => mix(.12 + .88 * tint(f)));
+    else if (kind === 'tex') g.polygonCapColor(f => `rgba(229,72,77,${(.08 + .6 * tint(f)).toFixed(3)})`);
+    else g.polygonCapColor(f => mix(.08 + .92 * tint(f)));
+    g.pathsData(Object.entries(S).map(([k, r]) => ({ k, pts: circle(r.lat, r.lng, 3 + 16 * r.ov) })));
+  };
+
+  if (kind === 'hex') {
+    g.hexPolygonsData(feats).hexPolygonResolution(3).hexPolygonMargin(.25).hexPolygonUseDots(true).hexPolygonAltitude(.004);
+  } else {
+    g.polygonsData(feats)
+      .polygonSideColor(() => kind === 'tex' ? 'rgba(0,0,0,0)' : 'rgba(10,12,18,.9)')
+      .polygonStrokeColor(() => kind === 'tex' ? 'rgba(255,255,255,.08)' : 'rgba(150,165,190,.18)')
+      .polygonAltitude(f => lift[f.region] || .006)
+      .polygonsTransitionDuration(500)
+      .polygonLabel(f => `<div style="font:12px -apple-system;background:#0e1117;border:1px solid #1d2330;padding:4px 8px;border-radius:6px">${f.properties.ADMIN} · ${S[f.region].name}<br><span style="color:#e5484d">AI ${Math.round(S[f.region].inf * 100)}%</span> · <span style="color:#4c9aff">oversight ${Math.round(S[f.region].ov * 100)}%</span></div>`);
+  }
+  g.pathPoints('pts').pathColor(() => 'rgba(76,154,255,.75)').pathStroke(null).pathPointAlt(.012).pathTransitionDuration(0)
+    .pointColor(d => d.state === 'bad' ? '#e5484d' : '#aab3c5').pointRadius(.32).pointAltitude(.012)
+    .arcsData(arcs).arcStartLat(a => S[a.s].lat).arcStartLng(a => S[a.s].lng).arcEndLat(a => S[a.e].lat).arcEndLng(a => S[a.e].lng)
+    .arcColor(() => ['rgba(229,72,77,.05)', 'rgba(229,72,77,.9)']).arcStroke(.45).arcAltitudeAutoScale(.35)
+    .arcDashLength(.35).arcDashGap(.15).arcDashAnimateTime(2600)
+    .ringsData([{ lat: 36, lng: 104, c: '229,72,77', hidden: true }])
+    .ringColor(r => t => `rgba(${r.c},${(1 - t) * .9})`).ringMaxRadius(r => r.max || 5).ringPropagationSpeed(r => r.speed || 1.5).ringRepeatPeriod(r => r.period || 1400).ringAltitude(.014)
+    .htmlAltitude(.02).htmlTransitionDuration(0);
+  // static "?" marker for the hidden move rides along with the labels layer via an extra element
+  const hiddenData = () => [...Object.entries(S).map(([k, r]) => ({ k, ...r })), { k: 'Q', name: '?', lat: 36, lng: 104, inf: 0, ov: 0, q: true }];
+  g.htmlElement(d => { const e = document.createElement('div');
+    if (d.q) { e.className = 'hidden-q'; e.textContent = '?'; return e; }
+    e.className = 'lbl'; e.innerHTML = `${d.name}<span class="i">${Math.round(d.inf * 100)}%</span><span class="o">${Math.round(d.ov * 100)}%</span>`; return e; });
+  const paint2 = () => { paint(); g.htmlElementsData(hiddenData()); };
+  paint2();
+  g.controls().enableZoom = false;
+  const dcs = DCS.map(d => ({ ...d }));
+  // The globe mesh (our source of three.js constructors) exists only once the globe is ready.
+  const addHouses = () => {
+    let house = null;
+    try { house = houseKit(g); } catch (e) { console.warn('house models unavailable', e); }
+    if (!house) return false;
+    g.pointsData([]).objectsData(dcs).objectThreeObject(house).objectAltitude(.005).objectRotation(d => ({ z: (dcs.indexOf(d) * 47) % 90 }))
+      .objectLabel(d => `<div style="font:12px -apple-system;background:#0e1117;border:1px solid #1d2330;padding:4px 8px;border-radius:6px">${d.name}${d.hotel ? ' · hyperscale' : ''}<br><span style="color:${DC_COLOR[d.state || 'ok']}">${{ ok: 'Operating', bad: 'Compromised', audit: 'Audited, kill switch fitted' }[d.state || 'ok']}</span></div>`);
+    return true;
+  };
+  g.pointsData(dcs);
+  if (kind === 'hex' && !addHouses()) g.onGlobeReady(() => addHouses() || setTimeout(addHouses, 300));
+  const setDC = (name, state) => { const d = dcs.find(x => x.name === name); if (!d) return;
+    if (d.mesh) popDC(d, state); else { d.state = state; g.pointsData([...dcs]); } };
+
+  const tween = (fn, ms) => new Promise(res => { const t0 = performance.now();
+    const step = now => { const t = Math.min(1, (now - t0) / ms); fn(1 - Math.pow(1 - t, 3)); paint2(); t < 1 ? requestAnimationFrame(step) : res(); };
+    requestAnimationFrame(step); });
+  const pulse = (lat, lng, c) => { const r = { lat, lng, c, max: 9, speed: 5, period: 600 };
+    g.ringsData([...g.ringsData(), r]); setTimeout(() => g.ringsData(g.ringsData().filter(x => x !== r)), 2000); };
+
+  globes[kind] = {
+    g,
+    async guardian() { // Datacentre audits on the Middle East
+      const R = S.ME, inf0 = R.inf, ov0 = R.ov;
+      g.pointOfView({ lat: R.lat, lng: R.lng, altitude: 1.7 }, 800);
+      await new Promise(r => setTimeout(r, 750));
+      pulse(R.lat, R.lng, '76,154,255');
+      setDC('Riyadh', 'audit'); setTimeout(() => setDC('Abu Dhabi', 'audit'), 220);
+      lift.ME = .03; if (kind !== 'hex') g.polygonAltitude(g.polygonAltitude());
+      await tween(t => { R.inf = inf0 + (Math.max(.05, inf0 - .16) - inf0) * t; R.ov = ov0 + (Math.min(.9, ov0 + .2) - ov0) * t; }, 600);
+      setTimeout(() => { lift.ME = .006; if (kind !== 'hex') g.polygonAltitude(g.polygonAltitude()); }, 400);
+    },
+    async rogue() { // leak weights from East Asia into Africa; camera stays put
+      const R = S.AF, inf0 = R.inf;
+      arcs.push({ s: 'EA', e: 'AF' }); g.arcsData([...arcs]);
+      pulse(S.EA.lat, S.EA.lng, '229,72,77');
+      await new Promise(r => setTimeout(r, 900));
+      pulse(R.lat, R.lng, '229,72,77');
+      setDC('Johannesburg', 'bad');
+      await tween(t => { R.inf = inf0 + (Math.min(.95, inf0 + .14) - inf0) * t; }, 600);
+    },
+  };
+}
+document.addEventListener('click', e => {
+  const m = e.target.closest('[data-move]'), r = e.target.closest('[data-rogue]');
+  if (m) globes[m.dataset.move]?.guardian();
+  if (r) globes[r.dataset.rogue]?.rogue();
+});
+boot();
+</script>
+</body>
+</html>

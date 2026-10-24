@@ -1,0 +1,1 @@
+Simulate how public opinion, the press, AI labs and governments react over the next two weeks to the recent AI incidents and the prediction-market odds in these documents. Predict which headlines and posts appear, whether public alarm about AI risk rises or falls, and which actors call for more or less oversight.

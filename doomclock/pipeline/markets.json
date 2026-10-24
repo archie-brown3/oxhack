@@ -1,0 +1,95 @@
+{
+  "fetched_at": "2026-10-24T17:18:59.349884Z",
+  "manifold": [
+    {
+      "id": "F3WW5VQthbykdojxr0Ef",
+      "url": "https://manifold.markets/IsaacKing/will-there-be-a-superintelligence-b-10fdd93e8092",
+      "question": "Conditional on no existential catastrophe, will there be a superintelligence by 2030?",
+      "node": "Superintelligence timing",
+      "horizon": "2030",
+      "p": 0.3608,
+      "traders": 243,
+      "is_resolved": false
+    },
+    {
+      "id": "cSmn5bvykckNzpKJYz1a",
+      "url": "https://manifold.markets/IsaacKing/will-there-be-a-superintelligence-b-ebf6057128a0",
+      "question": "Conditional on no existential catastrophe, will there be a superintelligence by 2040?",
+      "node": "Superintelligence timing",
+      "horizon": "2040",
+      "p": 0.75,
+      "traders": 273,
+      "is_resolved": false
+    },
+    {
+      "id": "kRyHJpIcEOnokT5KnP0a",
+      "url": "https://manifold.markets/IsaacKing/will-there-be-a-superintelligence-b",
+      "question": "Conditional on no existential catastrophe, will there be a superintelligence by 2100?",
+      "node": "Superintelligence timing",
+      "horizon": "2100",
+      "p": 0.8635,
+      "traders": 111,
+      "is_resolved": false
+    },
+    {
+      "id": "wn5c8MBJNO0BfGjLmyJ2",
+      "url": "https://manifold.markets/jack/global-catastrophe-series-by-2100-w-73fc5b6f55b0",
+      "question": "Will AI cause a global catastrophe killing at least 10% of humans before 2100?",
+      "node": "Catastrophe: AI kills >=10% of humans",
+      "horizon": "2100",
+      "p": 0.297,
+      "traders": 19,
+      "is_resolved": false
+    },
+    {
+      "id": "czck4zd672",
+      "url": "https://manifold.markets/ersatz/will-there-be-a-massive-catastrophe",
+      "question": "Will there be a massive catastrophe caused by AI before 2030?",
+      "node": "Near-term catastrophe (timeline only)",
+      "horizon": "2030",
+      "p": 0.3911,
+      "traders": 47,
+      "is_resolved": false
+    },
+    {
+      "id": "ZZRAP59Egn",
+      "url": "https://manifold.markets/waterlilly/will-there-be-an-ai-loss-of-control",
+      "question": "Will there be an AI loss of control incident that causes over $100 million in damages in 2026?",
+      "node": "Warning sign: $100M loss-of-control incident",
+      "horizon": "2026",
+      "p": 0.2688,
+      "traders": 28,
+      "is_resolved": false
+    },
+    {
+      "id": "IxrSYXN8z93GJRVi7VjG",
+      "url": "https://manifold.markets/dogway/will-there-be-a-highly-risky-or-cat",
+      "question": "Will there be a highly risky or catastrophic AI agent proliferation event before 2035?",
+      "node": "Warning sign: agent proliferation event",
+      "horizon": "2035",
+      "p": 0.8139,
+      "traders": 17,
+      "is_resolved": false
+    },
+    {
+      "id": "nZNhbZsrUglzyUWclEiS",
+      "url": "https://manifold.markets/chris/will-a-serious-incident-caused-by-a",
+      "question": "Will a serious incident caused by AI happen that causes a severe public backlash (akin to Nuclear Fission) by 2040?",
+      "node": "Warning sign: serious incident with backlash",
+      "horizon": "2040",
+      "p": 0.7314,
+      "traders": 16,
+      "is_resolved": false
+    }
+  ],
+  "kalshi": [
+    {
+      "series": "KXAGICO",
+      "note": "any company announces AGI; one market per date"
+    },
+    {
+      "series": "KXUSTAKEOVER",
+      "note": "US government takes control of an AI company"
+    }
+  ]
+}

@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en" data-lavish-annotate="on">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plague Inc UI board</title>
+<style>
+  :root {
+    --bg: #07090d; --panel: #0e1117; --line: #1d2330; --text: #e6e8ee; --dim: #8a93a6;
+    --red: #e5484d; --blue: #4c9aff; --green: #46a758;
+    --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", system-ui, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.5 var(--sans); }
+  main { max-width: 1320px; margin: 0 auto; padding: 40px 24px 80px; }
+  h1 { font-size: 26px; font-weight: 600; margin: 0 0 6px; letter-spacing: -0.01em; }
+  h2 { font-size: 18px; font-weight: 600; margin: 44px 0 12px; }
+  p.lead { color: var(--dim); margin: 0; max-width: 820px; }
+  .src { font: 12px var(--mono); color: var(--dim); margin-top: 6px; }
+  .board { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .pat { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; min-width: 0; }
+  .pat.wide { grid-column: 1 / -1; }
+  .shots { display: grid; gap: 2px; background: #000; }
+  .shots.n1 { grid-template-columns: 1fr; }
+  .shots.n2 { grid-template-columns: 1fr 1fr; }
+  .shots.n3 { grid-template-columns: 1fr 1fr 1fr; }
+  .shots figure { margin: 0; position: relative; }
+  .shots img { width: 100%; display: block; aspect-ratio: 16 / 9; object-fit: cover; cursor: zoom-in; }
+  .shots figcaption { position: absolute; left: 6px; bottom: 6px; font: 11px var(--mono); background: #000c; padding: 1px 6px; border-radius: 4px; color: #cfd5e2; }
+  .txt { padding: 14px 16px 16px; display: grid; gap: 8px; }
+  .txt h3 { margin: 0; font-size: 15px; font-weight: 600; }
+  .txt h3 .n { font: 12px var(--mono); color: var(--dim); margin-right: 8px; }
+  .row { display: grid; grid-template-columns: 58px minmax(0, 1fr); gap: 8px; font-size: 13px; }
+  .row > b { font: 600 11px var(--mono); letter-spacing: .04em; padding-top: 2px; }
+  .see > b { color: var(--dim); } .take > b { color: var(--green); } .ours > b { color: var(--blue); } .skip > b { color: var(--red); }
+  .pat.side { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .pat.side .shots { align-self: stretch; } .pat.side .shots img { height: 100%; }
+  .row span { color: #c3c9d6; }
+  .tag { display: inline-block; font: 11px var(--mono); border: 1px solid #2c4a78; color: var(--blue); border-radius: 999px; padding: 0 8px; margin-left: 6px; vertical-align: 1px; }
+  .tag.warn { border-color: #6b2a2d; color: var(--red); }
+  ul.skips { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+  ul.skips li { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; font-size: 13px; color: #c3c9d6; }
+  ul.skips li b { color: var(--text); }
+  dialog { padding: 0; border: 0; background: transparent; max-width: 96vw; }
+  dialog::backdrop { background: #000d; }
+  dialog img { max-width: 96vw; max-height: 92vh; display: block; border-radius: 6px; }
+  @media (max-width: 900px) { .board, .pat.side { grid-template-columns: minmax(0, 1fr); } .shots.n3 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Plague Inc: Evolved, UI inspiration for Doom Clock</h1>
+  <p class="lead">These are the 22 Steam store screenshots, grouped into the nine patterns worth borrowing. Each card says what the screenshot shows, what we take, where it lands in Doom Clock, and what we leave out. Click a screenshot to enlarge it. The patterns marked <span class="tag">changes a call</span> bear on the globe-style and layout choice in the other Lavish tab.</p>
+  <div class="src">Source: store.steampowered.com/app/246620 (Ndemic Creations), fetched 24 Oct 2026 with Firecrawl. Screenshots © Ndemic, used here only as internal reference.</div>
+
+  <h2>The main screen</h2>
+  <div class="board">
+    <section class="pat wide">
+      <div class="shots n3">
+        <figure><img src="plague/ss03.jpg" alt=""><figcaption>ss03</figcaption></figure>
+        <figure><img src="plague/ss15.jpg" alt=""><figcaption>ss15</figcaption></figure>
+        <figure><img src="plague/ss19.jpg" alt=""><figcaption>ss19</figcaption></figure>
+      </div>
+      <div class="txt">
+        <h3><span class="n">01</span>The map fills the screen, with four corners of HUD<span class="tag">changes a call</span></h3>
+        <div class="row see"><b>SEE</b><span>The map runs edge to edge. The HUD is four small pieces. Top-left is a <i>news</i> ticker in a dropdown. Top-right is the date plus pause/speed. Bottom-left is <i>Disease</i> (DNA points). Bottom-centre is the hovered country or the world (infected/dead plus a bar). Bottom-right is <i>World</i> cure %. Nothing else is on screen while you play.</span></div>
+        <div class="row take"><b>TAKE</b><span>Their whole layout is about 10% chrome. It's the strongest evidence for <b>Layout A, full-bleed</b>, and it suggests going further than my schematic did.</span></div>
+        <div class="row ours"><b>OURS</b><span>Top-left: ticker. Top-right: date, cycle and speed. Bottom-left: political capital. Bottom-centre: hovered region (AI % / oversight %) or the world. Bottom-right: the takeover countdown and the oversight bar. The chart and the move cards slide up from the bottom when you open them, Plague's "Disease" button pattern, rather than staying docked.</span></div>
+      </div>
+    </section>
+
+    <section class="pat">
+      <div class="shots n2">
+        <figure><img src="plague/ss18.jpg" alt=""><figcaption>ss18</figcaption></figure>
+        <figure><img src="plague/ss07.jpg" alt=""><figcaption>ss07</figcaption></figure>
+      </div>
+      <div class="txt">
+        <h3><span class="n">02</span>Spread shows as dot density inside each country<span class="tag">changes a call</span></h3>
+        <div class="row see"><b>SEE</b><span>Infection isn't a flat country fill. It's a spray of red dots that thickens until the country goes solid. In versus mode (ss18) each plague has its own colour of dots on the same map.</span></div>
+        <div class="row take"><b>TAKE</b><span>Density reads as "spreading" in a way a tint doesn't. That's a point for <b>hex-dot (B)</b>. A hybrid also works: solid dark countries (A), with H3 dots lit in proportion to AI influence.</span></div>
+        <div class="row ours"><b>OURS</b><span>The AI-influence layer becomes the share of a region's dots lit red. Oversight could be the same dots turning blue, which would replace the circles I drew.</span></div>
+      </div>
+    </section>
+
+    <section class="pat">
+      <div class="shots n2">
+        <figure><img src="plague/ss16.jpg" alt=""><figcaption>ss16</figcaption></figure>
+        <figure><img src="plague/ss05.jpg" alt=""><figcaption>ss05</figcaption></figure>
+      </div>
+      <div class="txt">
+        <h3><span class="n">03</span>Routes and the moment of spread</h3>
+        <div class="row see"><b>SEE</b><span>Air and sea routes are thin straight lines with plane and ship icons on them. A new infection is a braided arc that lands on a country, which then lights up (ss05: Greenland to China).</span></div>
+        <div class="row take"><b>TAKE</b><span>Keep standing routes faint. Save the bright, animated arc for the moment of spread, so motion always means something just happened.</span></div>
+        <div class="row ours"><b>OURS</b><span>Weight leaks and cloud compute deals are the Rogue's arcs. They animate once when the move lands, then settle into a faint permanent route. This changes my mock, where every arc animates all the time.</span></div>
+      </div>
+    </section>
+
+    <section class="pat">
+      <div class="shots n2">
+        <figure><img src="plague/ss19.jpg" alt="" style="object-position:70% 70%"><figcaption>ss19</figcaption></figure>
+        <figure><img src="plague/ss15.jpg" alt="" style="object-position:30% 30%"><figcaption>ss15</figcaption></figure>
+      </div>
+      <div class="txt">
+        <h3><span class="n">04</span>Bubbles to click on the map</h3>
+        <div class="row see"><b>SEE</b><span>Red biohazard pins give DNA when clicked. The hourglass bubble (ss15) marks where cure research starts. Both sit on the map at a place, not in a panel.</span></div>
+        <div class="row take"><b>TAKE</b><span>This is the 10-second hook. A judge sees something to click on the globe before reading any panel.</span></div>
+        <div class="row ours"><b>OURS</b><span>MiroFish alarm spikes appear as blue bubbles over a region; clicking one gives political capital. A hidden Rogue move is a red "?" pin that a successful eval reveals. Slot: <code>game-design</code> decides the payouts.</span></div>
+      </div>
+    </section>
+
+    <section class="pat">
+      <div class="shots n2">
+        <figure><img src="plague/ss16.jpg" alt="" style="object-position:50% 45%"><figcaption>ss16</figcaption></figure>
+        <figure><img src="plague/ss10.jpg" alt="" style="object-position:30% 80%"><figcaption>ss10</figcaption></figure>
+      </div>
+      <div class="txt">
+        <h3><span class="n">05</span>Newsflash cards</h3>
+        <div class="row see"><b>SEE</b><span>A big event gets a centred card with an image, a headline, two lines of copy and an OK button. The game pauses behind it. Smaller news only scrolls in the top-left ticker.</span></div>
+        <div class="row take"><b>TAKE</b><span>Two tiers: the ticker for routine news, a card for turning points. Keep the cards rare.</span></div>
+        <div class="row ours"><b>OURS</b><span>A card only for turning points: a hidden move revealed, a treaty signed, or a new stage of the world-alarm number. It doesn't block play and closes itself after about 4 s. A modal with an OK button stalls a judge.</span></div>
+      </div>
+    </section>
+
+    <section class="pat side">
+      <div class="shots n1">
+        <figure><img src="plague/ss18.jpg" alt="" style="object-position:50% 0%"><figcaption>ss18 (top)</figcaption></figure>
+      </div>
+      <div class="txt">
+        <h3><span class="n">06</span>Versus: both sides in one header strip, events on the left edge</h3>
+        <div class="row see"><b>SEE</b><span>A top-centre strip puts the two plagues side by side, with each one's numbers and a progress bar. A list down the left edge logs events ("Your starting country has been found", "Opponent starting country found").</span></div>
+        <div class="row take"><b>TAKE</b><span>"You vs them" as one thin strip, and the opponent's actions as a short list at the edge of the screen.</span></div>
+        <div class="row ours"><b>OURS</b><span>Header: Guardian (oversight %) vs Rogue AI (capability %) in one strip, which replaces the two separate bars. The opponent log is a narrow left-edge list of the last three moves.</span></div>
+      </div>
+    </section>
+  </div>
+
+  <h2>Secondary screens</h2>
+  <div class="board">
+    <section class="pat">
+      <div class="shots n2">
+        <figure><img src="plague/ss22.jpg" alt=""><figcaption>ss22</figcaption></figure>
+        <figure><img src="plague/ss02.jpg" alt=""><figcaption>ss02</figcaption></figure>
+      </div>
+      <div class="txt">
+        <h3><span class="n">07</span>Evolution history and trend graph, which is our end screen</h3>
+        <div class="row see"><b>SEE</b><span>The overview has a dated list of every upgrade (Coughing 3-5-2014, Water 1…), a trend graph of the stats over days, and a grid of key stats (start date, location, daily infections).</span></div>
+        <div class="row take"><b>TAKE</b><span>The move history and the line chart, read together, make the replay.</span></div>
+        <div class="row ours"><b>OURS</b><span>The end/replay view: a dated move list (both sides) beside the two-line chart, with a marker on the line at each move. This confirms the End view I kept.</span></div>
+      </div>
+    </section>
+
+    <section class="pat">
+      <div class="shots n2">
+        <figure><img src="plague/ss04.jpg" alt=""><figcaption>ss04</figcaption></figure>
+        <figure><img src="plague/ss21.jpg" alt=""><figcaption>ss21</figcaption></figure>
+      </div>
+      <div class="txt">
+        <h3><span class="n">08</span>Hex upgrade tree (slot for <code>game-design</code>)</h3>
+        <div class="row see"><b>SEE</b><span>Three tabs (Transmission/Symptoms/Abilities). Each is a hex grid where owned upgrades are lit and the next ones are outlined. The info panel has a name, one line of effect, a cost in DNA, and an Evolve button. Three stat bars run along the bottom.</span></div>
+        <div class="row take"><b>TAKE</b><span>If there's a tree at all: one grid, with the cost on the card and the effect in one line. The three bars along the bottom are worth taking even without a tree.</span></div>
+        <div class="row ours"><b>OURS</b><span>Only if <code>game-design</code> adds a tree, and then it opens inside the move tray, not as a separate screen. Without a tree, the five move cards are the whole tree.</span></div>
+      </div>
+    </section>
+
+    <section class="pat">
+      <div class="shots n1">
+        <figure><img src="plague/ss20.jpg" alt=""><figcaption>ss20</figcaption></figure>
+      </div>
+      <div class="txt">
+        <h3><span class="n">09</span>World screen: one status phrase, an ETA and a progress bar</h3>
+        <div class="row see"><b>SEE</b><span>"WORLD: Business as usual" is the headline. The cure card shows "173 days until completion" with an ETA date and a bar. There's also a donut of healthy/infected/dead and country lists.</span></div>
+        <div class="row take"><b>TAKE</b><span>The status phrase, which works like DEFCON stages, and the "N days until" framing. Skip the donut and the lists.</span></div>
+        <div class="row ours"><b>OURS</b><span>A world-alarm stage label under the countdown ("Business as usual", then "Concerned", "Emergency session", "Lockdown"), fed by MiroFish. We don't build this screen.</span></div>
+      </div>
+    </section>
+  </div>
+
+  <h2>Skip</h2>
+  <ul class="skips">
+    <li><b>Menus and pickers</b> (ss08 plague type, ss09 speedrun, ss11 scenarios, ss01 genotype, ss14 versus splash). A judge has 5–10 minutes, so we start straight on the globe.</li>
+    <li><b>Skeuomorphic red chrome</b>: bevelled frames, a gradient on every panel, DNA helix wallpaper. Your taste is restrained, so we keep flat translucent panels and one colour per side.</li>
+    <li><b>The satellite photo map</b> (ss05, ss10). It works for Plague because their red is a dense, saturated dot spray. A flat tint over a photo turns muddy, as option C in the other tab shows.</li>
+    <li><b>Tiny all-caps labels everywhere.</b> They were designed for 1080p fullscreen. At 1440×900 in a browser, the minimum is 12 px.</li>
+  </ul>
+</main>
+
+<dialog id="zoom" onclick="this.close()"><img alt=""></dialog>
+<script>
+  const dlg = document.getElementById('zoom');
+  document.addEventListener('click', e => {
+    const img = e.target.closest('.shots img');
+    if (!img) return;
+    dlg.querySelector('img').src = img.src;
+    dlg.showModal();
+  });
+</script>
+</body>
+</html>

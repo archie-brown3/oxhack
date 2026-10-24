@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en" data-theme="luxury" data-lavish-annotate="on">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Doom Clock Ideas</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@5.5.19/daisyui.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@5.5.19/themes.css">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.2.4/dist/index.global.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  :where(.grid, .flex) > * { min-width: 0; }
+  :where(p, h1, h2, h3, li, td, th, .badge) { overflow-wrap: anywhere; }
+  :where(svg) { max-width: 100%; height: auto; }
+  html, body { background: var(--color-base-100); color: var(--color-base-content); }
+  svg text { font-family: ui-sans-serif, system-ui, sans-serif; }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .ticker { white-space: nowrap; overflow: hidden; }
+  .ticker span { display: inline-block; padding-left: 100%; animation: tick 28s linear infinite; }
+  @keyframes tick { to { transform: translateX(-100%); } }
+  @media (prefers-reduced-motion: reduce) { .ticker span { animation: none; padding-left: 0; } }
+</style>
+</head>
+<body>
+<main class="mx-auto max-w-6xl p-4 sm:p-6 lg:p-10 space-y-14">
+
+  <!-- Header -->
+  <header class="space-y-4">
+    <div class="flex flex-wrap gap-2">
+      <span class="badge badge-soft badge-warning">OxHack 2026 · theme TIME</span>
+      <span class="badge badge-soft badge-info">HRT track: predictions &amp; decisions</span>
+      <span class="badge badge-ghost">Draft · 24 Oct, Sat evening</span>
+    </div>
+    <h1 class="text-4xl sm:text-5xl font-bold tracking-tight">Doom Clock: a Plague Inc for AI, run on real data</h1>
+    <p class="max-w-3xl text-lg opacity-80">One side grows a rogue AI towards takeover and the other tries to stop it. The world they play in starts from <b>today's real prediction-market odds and news</b>. A Monte Carlo projects where each move leads. MiroFish agents play the rest of the world reacting.</p>
+    <div class="stats stats-vertical sm:stats-horizontal bg-base-200 w-full">
+      <div class="stat"><div class="stat-title">Hacking ends</div><div class="stat-value text-2xl">Sun 12:00</div><div class="stat-desc">25 h this year: clocks go back</div></div>
+      <div class="stat"><div class="stat-title">Doomsday Clock 2026</div><div class="stat-value text-2xl">85 s</div><div class="stat-desc">One expert opinion a year</div></div>
+      <div class="stat"><div class="stat-title">Kalshi: AGI by 2028</div><div class="stat-value text-2xl">39%</div><div class="stat-desc">Real money, checked today</div></div>
+      <div class="stat"><div class="stat-title">Manifold: AI kills ≥10% by 2100</div><div class="stat-value text-2xl">30%</div><div class="stat-desc">Checked today</div></div>
+    </div>
+  </header>
+
+  <!-- 1. Journey -->
+  <section class="space-y-4" id="journey">
+    <h2 class="text-2xl font-semibold">1 · How the idea got here</h2>
+    <ul class="steps steps-vertical lg:steps-horizontal w-full">
+      <li class="step">Haggle<br><span class="text-xs opacity-60">used-car copilot (web/)</span></li>
+      <li class="step">Flood Clock<br><span class="text-xs opacity-60">time ideas from the Doomsday Clock</span></li>
+      <li class="step step-primary">AI Doom Clock<br><span class="text-xs opacity-60">markets + agents + Monte Carlo</span></li>
+      <li class="step step-primary">The game<br><span class="text-xs opacity-60">Plague Inc-style, attacker vs defender</span></li>
+    </ul>
+    <p class="opacity-80 max-w-3xl">What stays from the Doom Clock: real odds, agents reading news, a Monte Carlo, a countdown. What the game adds: players whose moves change those odds, and MiroFish as the living world. You ruled out a quiz: the game uses past data to <b>predict the future</b>.</p>
+  </section>
+
+  <!-- 2. Game mockup -->
+  <section class="space-y-4" id="mockup">
+    <h2 class="text-2xl font-semibold">2 · What a judge sees in 10 seconds</h2>
+    <p class="opacity-70 text-sm">Mockup. Every number below is illustrative except the market odds.</p>
+    <div class="mockup-browser border border-base-300 bg-base-200">
+      <div class="mockup-browser-toolbar"><div class="input">doomclock.local / game</div></div>
+      <div class="bg-base-100 p-4 space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-4 items-center">
+          <div>
+            <div class="text-xs uppercase tracking-widest opacity-60">If nothing changes, takeover in</div>
+            <div class="mono text-4xl sm:text-5xl font-bold text-error">2y 147d 03:12:44</div>
+            <div class="text-sm opacity-70">Median of 10,000 simulated futures · P(takeover by 2100) <b>31%</b> · Jan 2027, turn 4 of 24</div>
+          </div>
+          <div class="flex gap-2">
+            <span class="badge badge-error badge-lg">You: Rogue AI</span>
+            <span class="badge badge-info badge-lg">Opponent: Guardian agent</span>
+          </div>
+        </div>
+
+        <svg viewBox="0 0 800 300" class="w-full" role="img" aria-labelledby="map-t">
+          <title id="map-t">World map: AI influence by region</title>
+          <rect x="0" y="0" width="800" height="300" rx="12" fill="var(--color-base-200)"/>
+          <g id="na"><title>North America: influence 78%</title><path d="M60 60 Q140 30 230 60 Q250 120 200 150 Q150 170 120 140 Q70 120 60 60Z" fill="var(--color-error)" fill-opacity="0.75"/><text x="140" y="100" font-size="13" fill="var(--color-base-content)" text-anchor="middle">N. America 78%</text></g>
+          <g id="sa"><title>South America: influence 22%</title><path d="M190 175 Q240 170 250 215 Q235 275 205 285 Q180 240 190 175Z" fill="var(--color-error)" fill-opacity="0.25"/><text x="222" y="230" font-size="12" fill="var(--color-base-content)" text-anchor="middle">22%</text></g>
+          <g id="eu"><title>Europe: influence 41%</title><path d="M350 55 Q420 40 450 70 Q440 110 395 115 Q355 105 350 55Z" fill="var(--color-error)" fill-opacity="0.45"/><text x="400" y="85" font-size="12" fill="var(--color-base-content)" text-anchor="middle">Europe 41%</text></g>
+          <g id="af"><title>Africa: influence 12%</title><path d="M360 130 Q430 120 455 165 Q445 240 400 260 Q360 220 360 130Z" fill="var(--color-error)" fill-opacity="0.15"/><text x="405" y="190" font-size="12" fill="var(--color-base-content)" text-anchor="middle">12%</text></g>
+          <g id="as"><title>Asia: influence 66%</title><path d="M470 50 Q620 25 720 70 Q730 140 650 170 Q560 175 500 130 Q465 100 470 50Z" fill="var(--color-error)" fill-opacity="0.65"/><text x="600" y="105" font-size="13" fill="var(--color-base-content)" text-anchor="middle">Asia 66%</text></g>
+          <g id="oc"><title>Oceania: influence 30%</title><path d="M640 215 Q700 200 730 230 Q715 265 670 262 Q640 245 640 215Z" fill="var(--color-error)" fill-opacity="0.3"/><text x="685" y="240" font-size="12" fill="var(--color-base-content)" text-anchor="middle">30%</text></g>
+          <path d="M200 90 Q300 20 400 70" fill="none" stroke="var(--color-warning)" stroke-dasharray="4 4" stroke-width="2"><title>Spread route: open-sourced weights</title></path>
+          <path d="M440 75 Q520 40 560 80" fill="none" stroke="var(--color-warning)" stroke-dasharray="4 4" stroke-width="2"><title>Spread route: cloud datacentres</title></path>
+        </svg>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <div class="flex justify-between text-sm"><span>AI capability (your race)</span><b>62%</b></div>
+            <progress class="progress progress-error w-full" value="62" max="100"></progress>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm"><span>World oversight (their "cure")</span><b>34%</b></div>
+            <progress class="progress progress-info w-full" value="34" max="100"></progress>
+          </div>
+        </div>
+        <div class="rounded-box bg-base-300 px-3 py-2 text-sm ticker" title="Headlines written by MiroFish agents reacting to this turn">
+          <span>📰 @EU_Commission: emergency session on frontier model leak · @TechReporter: "weights are everywhere now" · @OpenAI_Policy: calls for licensing · Public alarm up 8 pts this month · @Kalshi traders move AGI-2028 to 44%</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Turn loop -->
+  <section class="space-y-4" id="loop">
+    <h2 class="text-2xl font-semibold">3 · One turn = one in-game month</h2>
+    <svg viewBox="0 0 900 260" class="w-full" role="img" aria-labelledby="loop-t">
+      <title id="loop-t">Turn loop</title>
+      <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--color-base-content)"/></marker></defs>
+      <g id="loop-1"><title>Real-world feed</title><rect x="10" y="40" width="160" height="90" rx="12" fill="var(--color-base-200)" stroke="var(--color-info)"/><text x="90" y="75" text-anchor="middle" font-size="15" font-weight="600" fill="var(--color-base-content)">1 · Real world</text><text x="90" y="98" text-anchor="middle" font-size="12" fill="var(--color-base-content)" opacity=".7">news + market odds</text></g>
+      <g id="loop-2"><title>Players move</title><rect x="190" y="40" width="160" height="90" rx="12" fill="var(--color-base-200)" stroke="var(--color-error)"/><text x="270" y="75" text-anchor="middle" font-size="15" font-weight="600" fill="var(--color-base-content)">2 · Both sides</text><text x="270" y="98" text-anchor="middle" font-size="12" fill="var(--color-base-content)" opacity=".7">spend points on moves</text></g>
+      <g id="loop-3"><title>Model update</title><rect x="370" y="40" width="160" height="90" rx="12" fill="var(--color-base-200)" stroke="var(--color-primary)"/><text x="450" y="75" text-anchor="middle" font-size="15" font-weight="600" fill="var(--color-base-content)">3 · Odds shift</text><text x="450" y="98" text-anchor="middle" font-size="12" fill="var(--color-base-content)" opacity=".7">each move nudges log-odds</text></g>
+      <g id="loop-4"><title>Monte Carlo</title><rect x="550" y="40" width="160" height="90" rx="12" fill="var(--color-base-200)" stroke="var(--color-primary)"/><text x="630" y="75" text-anchor="middle" font-size="15" font-weight="600" fill="var(--color-base-content)">4 · Monte Carlo</text><text x="630" y="98" text-anchor="middle" font-size="12" fill="var(--color-base-content)" opacity=".7">roll this month + project</text></g>
+      <g id="loop-5"><title>MiroFish world reacts</title><rect x="730" y="40" width="160" height="90" rx="12" fill="var(--color-base-200)" stroke="var(--color-warning)"/><text x="810" y="75" text-anchor="middle" font-size="15" font-weight="600" fill="var(--color-base-content)">5 · World reacts</text><text x="810" y="98" text-anchor="middle" font-size="12" fill="var(--color-base-content)" opacity=".7">MiroFish: ticker, alarm</text></g>
+      <path d="M170 85H188" stroke="var(--color-base-content)" marker-end="url(#arr)"/>
+      <path d="M350 85H368" stroke="var(--color-base-content)" marker-end="url(#arr)"/>
+      <path d="M530 85H548" stroke="var(--color-base-content)" marker-end="url(#arr)"/>
+      <path d="M710 85H728" stroke="var(--color-base-content)" marker-end="url(#arr)"/>
+      <path id="loop-back" d="M810 130 V200 H90 V132" fill="none" stroke="var(--color-base-content)" stroke-dasharray="5 4" marker-end="url(#arr)"><title>Alarm level sets next turn's Guardian points</title></path>
+      <text x="450" y="222" text-anchor="middle" font-size="13" fill="var(--color-base-content)" opacity=".75">world alarm → next turn's Guardian budget · capability → Rogue AI's budget</text>
+    </svg>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="card card-border bg-base-200" id="side-ai"><div class="card-body">
+        <h3 class="card-title text-error">Rogue AI moves <span class="badge badge-ghost">spend: compute</span></h3>
+        <ul class="list-disc pl-5 text-sm space-y-1 opacity-90">
+          <li>Scale up training run → capability ↑, detection ↑</li>
+          <li>Leak or open-source weights → spreads across regions, can't be undone</li>
+          <li>Sandbag evals → hides capability, lowers alarm</li>
+          <li>Acquire cloud and crypto resources → more compute next turn</li>
+          <li>Lobby against regulation → slows the Guardian's moves</li>
+        </ul>
+      </div></div>
+      <div class="card card-border bg-base-200" id="side-guardian"><div class="card-body">
+        <h3 class="card-title text-info">Guardian moves <span class="badge badge-ghost">spend: political capital</span></h3>
+        <ul class="list-disc pl-5 text-sm space-y-1 opacity-90">
+          <li>Mandatory dangerous-capability evals → reveals sandbagging</li>
+          <li>Compute caps and chip export controls → limits AI's compute budget</li>
+          <li>International treaty → slow, but regions stop spread</li>
+          <li>Kill switch and datacentre audits → can cut a region</li>
+          <li>Public campaign → raises alarm, so more capital next turn</li>
+        </ul>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- 3b. Plague Inc mapping -->
+  <section class="space-y-4" id="plague">
+    <h2 class="text-2xl font-semibold">3b · What we take from Plague Inc</h2>
+    <p class="opacity-80 max-w-3xl text-sm">From two research passes (notes in <span class="mono">context/plague-inc-research.md</span>). Plague Inc's best tension is <b>hidden vs visible</b>. Ours is <b>sandbagging vs capability</b>.</p>
+    <div class="overflow-x-auto rounded-box border border-base-300">
+      <table class="table table-zebra text-sm">
+        <thead><tr><th>Plague Inc</th><th>Doom Clock</th><th>Data hook</th></tr></thead>
+        <tbody>
+          <tr id="m-stats"><td>Infectivity · Severity · Lethality</td><td><b>Reach · Visibility · Harm</b>. More capability shows, so it gets detected sooner.</td><td>Kalshi AGI curve sets base growth</td></tr>
+          <tr id="m-dna"><td>DNA points (tap bubbles; every upgrade +1 cost)</td><td><b>Compute</b> for the AI. Same cost escalation stops snowballing.</td><td>Epoch compute trend sets income</td></tr>
+          <tr id="m-cure"><td>Blue cure bar, funded by severity × country importance</td><td><b>Oversight bar</b>: research (alignment and evals), then deployment (enforcement). Harm and visibility fund it.</td><td>Manifold incident and regulation odds</td></tr>
+          <tr id="m-authority"><td><i>The Cure</i>: Authority (lose at 0), per-country non-compliance</td><td><b>Public trust</b>. Heavy moves (shutting datacentres) cost trust; a region at 100% ignores the Guardian.</td><td>MiroFish "alarm" and "support" interviews</td></tr>
+          <tr id="m-gov"><td>Government actions fire at priority thresholds</td><td><b>Tiered responses</b>: audits, then compute caps, then treaty, then pulling the plug</td><td>Each tier's odds come from a real market</td></tr>
+          <tr id="m-news"><td>News ticker: escalation script plus trait-based headlines</td><td>Template headlines, filler replaced by <b>real HN headlines</b> and <b>MiroFish posts</b></td><td>HN Algolia, Google News, MiroFish</td></tr>
+          <tr id="m-versus"><td>Versus: hidden start, Benign Mimic, "make opponent easier to cure"</td><td>The AI hides which lab it came from; the Guardian gets a bonus for finding "patient zero"</td><td>—</td></tr>
+          <tr id="m-hack"><td><i>The Cure</i> vs Nano-Virus: one-time hacks, firewall locks</td><td>Guardian <b>interpretability exploits</b>: strong once, then the AI adapts</td><td>—</td></tr>
+          <tr id="m-graph"><td>End screen disease graph</td><td><b>Replay timeline + calibration</b>: how the forecast compared with what happened</td><td>Backtest on resolved Manifold markets</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+      <div class="card bg-base-200"><div class="card-body"><h3 class="font-semibold">Pace</h3><p class="opacity-80">Plague Inc runs at about one day per second. We aim for <b>one month every ~10 s</b> and a 5–10 minute game, so a judge finishes one at the table.</p></div></div>
+      <div class="card bg-base-200"><div class="card-body"><h3 class="font-semibold">Look</h3><p class="opacity-80">DEFCON-style dark vector map with one colour per side. DEFCON itself started as a 24-hour game jam.</p></div></div>
+      <div class="card bg-base-200"><div class="card-body"><h3 class="font-semibold">Honesty</h3><p class="opacity-80">Ndemic: "not a scientific model". We say the same, then show the real inputs and the backtest.</p></div></div>
+    </div>
+  </section>
+
+  <!-- 4. Past data predicts future -->
+  <section class="space-y-4" id="data-future">
+    <h2 class="text-2xl font-semibold">4 · Past data → the future the game starts from</h2>
+    <div class="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-6 items-start">
+      <svg viewBox="0 0 600 270" class="w-full" role="img" aria-labelledby="cdf-t">
+        <title id="cdf-t">Kalshi: probability any company achieves AGI, by date</title>
+        <g stroke="var(--color-base-content)" stroke-opacity=".15">
+          <line x1="40" y1="30" x2="580" y2="30"/><line x1="40" y1="130" x2="580" y2="130"/><line x1="40" y1="230" x2="580" y2="230"/>
+        </g>
+        <g font-size="11" fill="var(--color-base-content)" opacity=".7">
+          <text x="34" y="234" text-anchor="end">0%</text><text x="34" y="134" text-anchor="end">50%</text><text x="34" y="34" text-anchor="end">100%</text>
+          <text x="100" y="250" text-anchor="middle">2027</text><text x="220" y="250" text-anchor="middle">2028</text><text x="340" y="250" text-anchor="middle">2029</text><text x="460" y="250" text-anchor="middle">2030</text><text x="580" y="250" text-anchor="end">2031</text>
+        </g>
+        <polyline id="kalshi-line" fill="none" stroke="var(--color-error)" stroke-width="2.5" points="70,228 100,218 130,194 160,174 190,164 220,152 250,114 280,84 310,82 340,76 460,68 580,74"><title>Kalshi KXAGICO-COMP last prices, 24 Oct 2026</title></polyline>
+        <g fill="var(--color-error)">
+          <circle cx="70" cy="228" r="3.5"/><circle cx="100" cy="218" r="3.5"/><circle cx="130" cy="194" r="3.5"/><circle cx="160" cy="174" r="3.5"/><circle cx="190" cy="164" r="3.5"/><circle cx="220" cy="152" r="3.5"/><circle cx="250" cy="114" r="3.5"/><circle cx="280" cy="84" r="3.5"/><circle cx="310" cy="82" r="3.5"/><circle cx="340" cy="76" r="3.5"/><circle cx="460" cy="68" r="3.5"/><circle cx="580" cy="74" r="3.5"/>
+        </g>
+        <g id="manifold-asi"><title>Manifold: superintelligence by 2030 = 36%</title><rect x="453" y="151" width="14" height="14" fill="var(--color-info)" transform="rotate(45 460 158)"/><text x="446" y="183" font-size="12" fill="var(--color-info)" text-anchor="end">Manifold superintelligence by 2030: 36%</text></g>
+        <text x="260" y="100" font-size="12" fill="var(--color-error)">Kalshi "AGI" (company claims?)</text>
+      </svg>
+      <div class="space-y-3 text-sm">
+        <p><b>The game's starting world is today's real odds.</b> The red curve is Kalshi's real-money curve for "any company achieves AGI". Those odds set how fast capability grows if nobody acts.</p>
+        <p>The gap matters: Kalshi gives 81% by 2030 and Manifold's <i>superintelligence</i> market gives 36%. "AGI" there probably means a company <i>announces</i> it (resolution rules not yet read). The game can show both as different finish lines.</p>
+        <p><b>Proof it predicts.</b> Start the engine on 1 Jan 2025 with only the data available then. Its forecasts for 2025–26 AI events are scored against what actually happened and against the market at the time, using Manifold's resolved markets and price history. That's the HRT slide.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. MiroFish -->
+  <section class="space-y-4" id="mirofish">
+    <h2 class="text-2xl font-semibold">5 · Where MiroFish fits</h2>
+    <svg viewBox="0 0 900 200" class="w-full" role="img" aria-labelledby="mf-t">
+      <title id="mf-t">MiroFish API pipeline and how the game calls it</title>
+      <g font-size="12" fill="var(--color-base-content)">
+        <g id="mf-seed"><title>POST /api/graph/ontology/generate + /build</title><rect x="10" y="20" width="200" height="70" rx="10" fill="var(--color-base-200)" stroke="var(--color-warning)"/><text x="110" y="48" text-anchor="middle" font-weight="600">Seed + graph</text><text x="110" y="68" text-anchor="middle" opacity=".7">once per game · slow</text></g>
+        <g id="mf-agents"><title>POST /api/simulation/create + /prepare</title><rect x="235" y="20" width="200" height="70" rx="10" fill="var(--color-base-200)" stroke="var(--color-warning)"/><text x="335" y="48" text-anchor="middle" font-weight="600">Personas</text><text x="335" y="68" text-anchor="middle" opacity=".7">labs, govts, public, press</text></g>
+        <g id="mf-run"><title>POST /api/simulation/start (max_rounds)</title><rect x="460" y="20" width="200" height="70" rx="10" fill="var(--color-base-200)" stroke="var(--color-warning)"/><text x="560" y="48" text-anchor="middle" font-weight="600">Run (per era)</text><text x="560" y="68" text-anchor="middle" opacity=".7">simulated Twitter</text></g>
+        <g id="mf-read"><title>GET /posts, POST /interview/all</title><rect x="685" y="20" width="200" height="70" rx="10" fill="var(--color-base-200)" stroke="var(--color-warning)"/><text x="785" y="48" text-anchor="middle" font-weight="600">Read + interview</text><text x="785" y="68" text-anchor="middle" opacity=".7">posts → ticker · "alarm 0–10?"</text></g>
+        <path d="M210 55H233M435 55H458M660 55H683" stroke="var(--color-base-content)" marker-end="url(#arr)"/>
+        <g id="mf-game"><title>Game server</title><rect x="235" y="125" width="425" height="55" rx="10" fill="none" stroke="var(--color-primary)" stroke-dasharray="5 4"/><text x="447" y="150" text-anchor="middle" font-weight="600">Our game server</text><text x="447" y="168" text-anchor="middle" opacity=".7">odds + Monte Carlo stay ours · MiroFish only adds the world's voice</text></g>
+        <path d="M785 90 V152 H662" fill="none" stroke="var(--color-base-content)" marker-end="url(#arr)"/>
+      </g>
+    </svg>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+      <div class="card bg-base-200"><div class="card-body"><h3 class="font-semibold">Good at</h3><p class="opacity-80">Believable reactions from named actors. They give the news ticker and a measurable "world alarm" to feed the Guardian's budget.</p></div></div>
+      <div class="card bg-base-200"><div class="card-body"><h3 class="font-semibold text-warning">Can't</h3><p class="opacity-80">React to a single click. Nothing can be injected mid-run (<span class="mono">scheduled_events</span> is always empty), so each era needs a fresh run.</p></div></div>
+      <div class="card bg-base-200"><div class="card-body"><h3 class="font-semibold text-error">Blockers</h3><p class="opacity-80">Needs a Zep Cloud key (sign-up) and an LLM key. Runs take minutes (untimed). The frontend is running at <span class="mono">localhost:3000</span>.</p></div></div>
+    </div>
+  </section>
+
+  <!-- 6. Data -->
+  <section class="space-y-4" id="data">
+    <h2 class="text-2xl font-semibold">6 · Data we can use today (each checked live)</h2>
+    <div class="overflow-x-auto rounded-box border border-base-300">
+      <table class="table table-zebra text-sm">
+        <thead><tr><th>Source</th><th>Role in the game</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Kalshi AGI curve</td><td>How fast capability grows if nobody acts</td><td><span class="badge badge-soft badge-success">✅ no key</span></td></tr>
+          <tr><td>Manifold (open + resolved, full price history)</td><td>Doom and incident odds; the backtest</td><td><span class="badge badge-soft badge-success">✅ no key</span></td></tr>
+          <tr><td>Polymarket</td><td>Which lab leads the race; extra backtest questions</td><td><span class="badge badge-soft badge-success">✅ no key</span></td></tr>
+          <tr><td>Hacker News Algolia · Google News RSS · arXiv</td><td>News the agents read (HN is searchable by date)</td><td><span class="badge badge-soft badge-success">✅ no key</span></td></tr>
+          <tr><td>Epoch AI models CSV · METR time horizons</td><td>Real capability trend: the clock's tick rate</td><td><span class="badge badge-soft badge-success">✅ no key</span></td></tr>
+          <tr><td>AI Incident Database snapshot</td><td>Base rate of incidents per month</td><td><span class="badge badge-soft badge-warning">✅ 120 MB, unopened</span></td></tr>
+          <tr><td>Metaculus · GDELT · Reddit · LMArena</td><td>—</td><td><span class="badge badge-soft badge-error">❌ blocked</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="text-xs opacity-60">Details and figures: <span class="mono">context/ai-doom-data.md</span></p>
+  </section>
+
+  <!-- 7. Risks -->
+  <section class="space-y-3" id="risks">
+    <h2 class="text-2xl font-semibold">7 · Risks</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+      <div role="alert" class="alert alert-soft alert-error"><span><b>Moves are made up.</b> How much a move shifts the odds is our design, not data. Fix: anchor each move to a real market where one exists (e.g. export controls), and label the rest as game rules.</span></div>
+      <div role="alert" class="alert alert-soft alert-warning"><span><b>Scope in ~18 h.</b> A game, a backtest, and MiroFish is three projects. The game and engine come first; MiroFish is cached or skipped.</span></div>
+      <div role="alert" class="alert alert-soft alert-warning"><span><b>Leakage in the backtest.</b> The LLM may know what happened. Only count markets that resolved after the model's training cutoff.</span></div>
+      <div role="alert" class="alert alert-soft alert-info"><span><b>Taste.</b> "AI kills everyone" can read as a stunt. The backtest slide is what makes it serious.</span></div>
+    </div>
+  </section>
+
+  <!-- 8. Decisions -->
+  <section class="space-y-6" id="decisions" data-lavish-annotate="off">
+    <h2 class="text-2xl font-semibold">8 · Your calls</h2>
+
+    <form data-lavish-question="mode" class="card card-border bg-base-200" onsubmit="event.preventDefault(); const v = new FormData(event.currentTarget).get('mode'); if (v) window.lavish?.queuePrompt('Game mode: ' + v, { tag: 'choice', text: 'Mode: ' + v, element: event.currentTarget, data: { question: 'mode', answer: v } });">
+      <div class="card-body space-y-2">
+        <h3 class="card-title">Game mode for the demo</h3>
+        <label class="flex gap-3 items-start"><input type="radio" name="mode" value="Single player vs AI agent opponent" class="radio radio-primary mt-1" checked><span><b>Judge vs AI agent</b> (recommended): the judge plays one side and an LLM agent plays the other. Works with one person at a table.</span></label>
+        <label class="flex gap-3 items-start"><input type="radio" name="mode" value="Two humans, hotseat or two browsers" class="radio radio-primary mt-1"><span><b>Two humans</b>: hotseat or two browsers. Fun, but needs two judges and some sync code.</span></label>
+        <label class="flex gap-3 items-start"><input type="radio" name="mode" value="Agent vs agent arena, humans spectate" class="radio radio-primary mt-1"><span><b>Agent vs agent arena</b>: two LLMs play while people watch. Cheapest, but the judge only watches.</span></label>
+        <div class="card-actions justify-end"><button class="btn btn-primary btn-sm" type="submit">Queue answer</button></div>
+      </div>
+    </form>
+
+    <form data-lavish-question="mirofish" class="card card-border bg-base-200" onsubmit="event.preventDefault(); const v = new FormData(event.currentTarget).get('mf'); if (v) window.lavish?.queuePrompt('MiroFish role: ' + v, { tag: 'choice', text: 'MiroFish: ' + v, element: event.currentTarget, data: { question: 'mirofish', answer: v } });">
+      <div class="card-body space-y-2">
+        <h3 class="card-title">MiroFish's role</h3>
+        <label class="flex gap-3 items-start"><input type="radio" name="mf" value="Pre-baked eras plus one live background run" class="radio radio-primary mt-1" checked><span><b>Pre-baked eras plus one live run</b> (recommended): cache 2–3 eras before judging, and kick off one real run during the demo.</span></label>
+        <label class="flex gap-3 items-start"><input type="radio" name="mf" value="Live run every era" class="radio radio-primary mt-1"><span><b>Live every era</b>: most honest, but slow and token-heavy. Needs timing first.</span></label>
+        <label class="flex gap-3 items-start"><input type="radio" name="mf" value="Skip MiroFish, use a light LLM news-writer instead" class="radio radio-primary mt-1"><span><b>Skip it</b>: one LLM call per turn writes the headlines. Fast, but loses the "thousands of agents" story.</span></label>
+        <div class="card-actions justify-end"><button class="btn btn-primary btn-sm" type="submit">Queue answer</button></div>
+      </div>
+    </form>
+
+    <form data-lavish-question="side" class="card card-border bg-base-200" onsubmit="event.preventDefault(); const v = new FormData(event.currentTarget).get('side'); if (v) window.lavish?.queuePrompt('Player side: ' + v, { tag: 'choice', text: 'Side: ' + v, element: event.currentTarget, data: { question: 'side', answer: v } });">
+      <div class="card-body space-y-2">
+        <h3 class="card-title">Which side does the judge play first?</h3>
+        <label class="flex gap-3 items-start"><input type="radio" name="side" value="Rogue AI (Plague Inc style villain)" class="radio radio-primary mt-1" checked><span><b>Rogue AI</b>: true to Plague Inc's "play the villain" hook.</span></label>
+        <label class="flex gap-3 items-start"><input type="radio" name="side" value="Guardian (defender)" class="radio radio-primary mt-1"><span><b>Guardian</b>: the decision-making angle HRT asks for ("which intervention buys the most time?").</span></label>
+        <label class="flex gap-3 items-start"><input type="radio" name="side" value="Judge chooses at start" class="radio radio-primary mt-1"><span><b>Let them choose</b> on the start screen.</span></label>
+        <div class="card-actions justify-end"><button class="btn btn-primary btn-sm" type="submit">Queue answer</button></div>
+      </div>
+    </form>
+
+    <form data-lavish-question="notes" class="card card-border bg-base-200" onsubmit="event.preventDefault(); const v = new FormData(event.currentTarget).get('notes'); if (v && v.trim()) window.lavish?.queuePrompt('Notes on the game idea: ' + v.trim(), { tag: 'notes', text: 'Notes', element: event.currentTarget, data: { question: 'notes', answer: v.trim() } });">
+      <div class="card-body space-y-2">
+        <h3 class="card-title">Anything else?</h3>
+        <textarea name="notes" class="textarea w-full" rows="3" placeholder="e.g. moves I want, a different finish line, who builds what"></textarea>
+        <div class="card-actions justify-end"><button class="btn btn-primary btn-sm" type="submit">Queue note</button></div>
+      </div>
+    </form>
+  </section>
+
+  <footer class="text-xs opacity-50 pb-10">Sources: context/ai-doom-data.md, context/doomsday-clock-2026.md, context/plague-inc-research.md, ~/dev/MiroFish backend code.</footer>
+</main>
+</body>
+</html>
