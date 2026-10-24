@@ -3,6 +3,13 @@
 import type { BacktestFile } from '../../contracts.ts'
 
 export function TrackRecord({ bt, fixture }: { bt: BacktestFile; fixture: boolean }) {
+  if (fixture) return <>
+    <div className="lede"><span className="dc-data">Backtest not yet run</span></div>
+    <h3>Track record is not available yet</h3>
+    <p>We have not measured held-out prediction performance. Sample scores are hidden so they cannot be mistaken for results.</p>
+    <p>The planned check compares past market prices with a 50% guess and the base rate on resolved AI questions. It must use only data available before each checkpoint.</p>
+    <p>The countdown date itself cannot be scored by this test.</p>
+  </>
   const s = bt.scores.test
   const rows = [['Market price at T', s.market], ['Base rate', s.baseRate], ['50% coin', s.coin]] as const
   const W = 300, H = 240, p = 36, sx = (v: number) => p + v * (W - 2 * p), sy = (v: number) => H - p - v * (H - 2 * p)

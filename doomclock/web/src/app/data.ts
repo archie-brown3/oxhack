@@ -4,23 +4,24 @@
 import worldFixture from '../engine/fixtures/world.fixture.json?raw'
 import type { World } from '../contracts.ts'
 import type { BulletinSetting } from '../ui/clock/scale.ts'
+import type { Avatar } from '../ui/engine/EngineScreen.tsx'
 
 export interface Datacentre { ts: string; id: string; name: string; operator: string; lat: number; lon: number; country: string; status: string; power_mw?: number; url: string }
 export interface Country { properties: { ADM0_A3: string; NAME: string }; geometry: { type: 'Polygon' | 'MultiPolygon'; coordinates: number[][][] | number[][][][] } }
 export interface Countries { features: Country[] }
-export interface Data { world: World; worldSource: 'cache' | 'fixture'; dcs: Datacentre[]; bulletin: BulletinSetting[]; countries: Countries; centroids: Map<string, [number, number]> }
+export interface Data { avatars: Avatar[]; world: World; worldSource: 'cache' | 'fixture'; dcs: Datacentre[]; bulletin: BulletinSetting[]; countries: Countries; centroids: Map<string, [number, number]> }
 
 const get = async <T,>(path: string): Promise<T | null> => {
   try { const r = await fetch(path); return r.ok ? ((await r.json()) as T) : null } catch { return null }
 }
 
 export async function load(): Promise<Data> {
-  const [cached, dcs, bulletin, countries] = await Promise.all([
-    get<World>('cache/world.json'), get<Datacentre[]>('cache/datacentres.json'), get<BulletinSetting[]>('cache/bulletin.json'), get<Countries>('ne_110m_countries.geojson'),
+  const [cached, dcs, bulletin, countries, avatars] = await Promise.all([
+    get<World>('cache/world.json'), get<Datacentre[]>('cache/datacentres.json'), get<BulletinSetting[]>('cache/bulletin.json'), get<Countries>('ne_110m_countries.geojson'), get<Avatar[]>('avatars/manifest.json'),
   ])
   if (!countries) throw new Error('ne_110m_countries.geojson missing from public/')
   const world = cached ?? (JSON.parse(worldFixture) as World)
-  return { world, worldSource: cached ? 'cache' : 'fixture', dcs: dcs ?? [], bulletin: bulletin ?? [], countries, centroids: centroids(countries) }
+  return { avatars: avatars ?? [], world, worldSource: cached ? 'cache' : 'fixture', dcs: dcs ?? [], bulletin: bulletin ?? [], countries, centroids: centroids(countries) }
 }
 
 // A country's label point: the centre of its largest ring's bounding box.

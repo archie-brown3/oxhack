@@ -72,8 +72,8 @@ export function InputsSheet({ world, dcs, worldSource, onRun, onClose }: Props) 
             </>}
           </article>
         </div>
-        <div className="infoot"><p>Run live samples 10,000 futures in your browser, then replays the real record to today.</p>
-          <button className="dc-btn dc-btn--primary" onClick={onRun}>Run live <kbd>⏎</kbd></button></div>
+        <div className="infoot"><p>Sample 10,000 futures in your browser, then replay the real record to today. The Engine shows recorded MiroFish posts.</p>
+          <button className="dc-btn dc-btn--primary" onClick={onRun}>Run simulation <kbd>⏎</kbd></button></div>
       </div>
     </div>
   )

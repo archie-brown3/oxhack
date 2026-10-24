@@ -922,20 +922,70 @@
         "id": 19,
         "title": "[P1 \u00b7 ui] Engine screen: MiroFish society (RECORDED runs, cast, graph, full screen)",
         "description": "Port the prototype's Engine screen into the app: the simulated X feed, government events and news for the watched future, the cast roster (role, country, stance, avatar), the knowledge graph, run stats (rounds, actions, time, cost), LIVE/RECORDED badges, and full-screen graph and roster (F/Esc). It reads the recorded runs library (task 11); until that lands, the spike fixture labelled as such.",
-        "details": "Lane ui. Scope: doomclock/web/src/ui/engine/**. Every post and event shows who, what, where, when and source (the specific-context rule). Avatars from public/avatars/manifest.json.",
+        "details": "Lane ui. Scope: doomclock/web/src/ui/engine/**. Every post and event shows who, what, where, when and source (the specific-context rule). Avatars from public/avatars/manifest.json.\nBUILD (ui, 2026-10-24T21:34:35Z): src/ui/engine/EngineScreen.tsx + spike.fixture.json (test spike sim_908b44137fec, labelled fixture; UI-local EngineRun type until task 11 defines the library). Society panel (5 representative futures via buildTimeline percentiles), X feed / Government & news / Cast & graph, LIVE (Run live streams the recorded posts ~1/s, mock) vs RECORDED badges, full-screen graph and roster (F/Esc), avatars from public/avatars/manifest.json, SIMULATED label + run id on every post. npm run build passes; headless shot of the live Engine verified. Left: shots of both full-screen states, then the leftovers (30 fps, Inputs at a 2nd as-of date, mobile polish).\nCodex completing task19 after ui/Lead usage limit. Owner requests Engine before handoff. Correct recorded replay labels; verify both fullscreen views. Task145 globe-zoom is separate Herdr scope. CLI append unavailable due missing provider credentials; this note added directly to same shared board.\nFINAL CHECK: Codex verified Engine, fullscreen graph and roster in Chrome; avatars/provenance on all posts, keyboard focus trap/restore, RECORDED replay labels, recorded cost. Added bounded graph zoom 50-400 percent, wheel/trackpad and touch pinch, accessible +/-/reset; zoom persists across fullscreen. Verified buttons, wheel, reset, max limit, fullscreen persistence and mobile fullscreen. Touch-pinch code typechecked; direct mobile graph pinch not separately exercised. Fixture remains until task11; task16 live backend not implemented. npm test 38 passed, 4 existing missing-data skips; npm run build passed (large-bundle warning); git diff --check clean. No production deploy in this session. Staged-only snapshot independently checked: 37 passed, 4 skipped, build passed; excludes unrelated engine WIP (which adds one passing test).",
         "testStrategy": "Headless screenshot of the Engine screen and of both full-screen states. Every item has an avatar and a provenance label.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           10
         ],
         "priority": "high",
         "subtasks": [],
-        "updatedAt": "2026-10-24T22:00:00Z"
+        "updatedAt": "2026-10-24T21:43:56.332476+00:00"
+      },
+      {
+        "id": 145,
+        "title": "[P1 \u00b7 ui] Globe zoom in and out",
+        "description": "Owner requests mouse/trackpad zoom and visible accessible zoom in/out controls on the World globe before handoff.",
+        "details": "Owner instruction to Codex, 24 Oct. Scope doomclock/web/src/ui/world/Globe.tsx and a dedicated ui/world/globe-zoom.css if needed; coordinate before any App.tsx/app.css changes. Enable bounded wheel/pinch zoom, add labelled zoom in/out and reset controls using design tokens; preserve rotation, event picking and camera focus. Keep zoom across quarter changes; honour reduced motion. Verify visually zoom in/out/reset and limits at desktop and mobile; run npm test and npm run build. Separate Herdr agent globe-zoom owns this task; Engine task19 remains Codex scope.\n2026-10-24: IMPLEMENTED by globe-zoom wR:pT. Integrate only doomclock/web/src/ui/world/Globe.tsx and doomclock/web/src/ui/world/globe-zoom.css; existing dirty hidden prop/Engine visibility work preserved. Enables native bounded wheel/trackpad/two-touch zoom, 48px accessible +/-/Reset buttons, disabled limits, fitted-size reset preserving orientation, relative zoom across resize and zoom across quarters, reduced-motion rotation/damping and instant focus, user gesture takeover from focus animation. Verification: isolated headless Chrome at 1440x900 and 390x844 passes keyboard, wheel, ctrl-wheel pinch, two-touch pinch, both limits, reset, event picking, rotation, quarter persistence, focus tween interruption and Engine hiding; zero page errors. npm test: 38 pass, 4 existing missing-data skips; npm run build: pass with existing bundle-size warning. git diff --check clean. Evidence /private/tmp/task145-visual.mjs and /private/tmp/task145-desktop-default.png, task145-desktop-zoomed.png, task145-mobile-default.png, task145-mobile-pinched.png. FINAL MOBILE CSS moves controls from top20 to top64 to clear task146 nav; integrating Codex will visually verify combined layout via CUA. No further headless runs per owner. No commit; review pending integration.\nFINAL CHECK: Integrating Codex reviewed diff and mobile pinch PNG, then verified final combined mobile 390x844 layout and globe zoom button through CUA: top-right nav clears zoom controls and static news. Accepted for integration. npm test 38 passed, 4 existing missing-data skips; npm run build passed (large-bundle warning); git diff --check clean. No production deploy in this session. Staged-only snapshot independently checked: 37 passed, 4 skipped, build passed; excludes unrelated engine WIP (which adds one passing test).",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [
+          10
+        ],
+        "priority": "high",
+        "subtasks": [],
+        "startedAt": "2026-10-24T21:37:09.371Z",
+        "updatedAt": "2026-10-24T21:43:56.332476+00:00"
+      },
+      {
+        "id": 146,
+        "title": "[P1 \u00b7 ui] Slower replay and readable news events",
+        "description": "Owner says replay is too fast and news is hard to see. Slow default playback and make quarter events readable at a glance without chasing a moving ticker.",
+        "details": "Codex owns App.tsx, Hud.tsx and app.css. Replace moving news ticker with static event reader: headline, date, source, provenance, count and previous/next controls; browsing events pauses replay. Prioritise major events. Slow default quarter timing and retain speed controls. Verify visually and run tests/build. Coordinate with globe-zoom task145 (Globe.tsx and dedicated CSS only).\nFINAL CHECK: 8 seconds per quarter at 1x, intro now uses 1x; static major-first event reader with date/source/provenance and prev/next. Browsing or expanding context pauses replay. Verified rendered next-event advances count and pauses; mobile nav clears reader, full-width mobile headline. No moving text. npm test 38 passed, 4 existing missing-data skips; npm run build passed (large-bundle warning); git diff --check clean. No production deploy in this session. Staged-only snapshot independently checked: 37 passed, 4 skipped, build passed; excludes unrelated engine WIP (which adds one passing test).",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [
+          10
+        ],
+        "priority": "high",
+        "subtasks": [],
+        "updatedAt": "2026-10-24T21:43:56.332476+00:00"
+      },
+      {
+        "id": 147,
+        "title": "[P1 \u00b7 ui] Honest demo labels and claims",
+        "description": "Owner review: Manifold anchors are play-money; fixture track record must not imply measured results; Inputs action must distinguish local simulation from recorded MiroFish.",
+        "details": "Codex scope ui/why/WhySheet.tsx, ui/track/TrackRecord.tsx, ui/inputs/InputsSheet.tsx plus HANDOFF.md. Correct market copy, hide fixture scores behind a clear not-yet-measured state, rename Run live to Run simulation and explain local sampling plus recorded replay. Check rendered sheets and build. Do not implement task6 backtest or task16 live backend.\nFINAL CHECK: Manifold play-money explained; fixture Brier scores and n hidden behind backtest-not-yet-run state. CTA Run simulation explains browser sampling plus recorded MiroFish. Verified all three rendered sheets. docs/HANDOFF.md updated. npm test 38 passed, 4 existing missing-data skips; npm run build passed (large-bundle warning); git diff --check clean. No production deploy in this session. Staged-only snapshot independently checked: 37 passed, 4 skipped, build passed; excludes unrelated engine WIP (which adds one passing test).",
+        "testStrategy": "",
+        "status": "done",
+        "dependencies": [
+          10
+        ],
+        "priority": "high",
+        "subtasks": [],
+        "updatedAt": "2026-10-24T21:43:56.332476+00:00"
       }
     ],
     "metadata": {
       "created": "2026-10-24T19:50:00Z",
-      "description": "Doom Clock. P1 = the Monte Carlo simulation (10,000 futures; the globe plays one sampled future; a MiroFish society ensemble for ~5 representative futures): a Plague Inc-style world view of a quarterly Timeline (real -> projected), with the analog clock in the corner (build now). P2 = the game on the same screen (deferred, gated by task 9). Game plan: docs/superpowers/plans/2026-10-24-doom-clock-game-plan-full.md Demo path: Inputs (seed data, as-of slider) -> live run (Monte Carlo in the browser + one live MiroFish quarter) -> replay recorded futures -> Why this time? + Track record. SCOPE CUT 22:20 BST: checkpoints 00:00 engine+asOf+mockup OK, 03:00 World+clock+Why on real data, 06:00 Inputs+track record+recorded runs, 09:00 polish+Devpost (live run if ahead), freeze 11:30 GMT, submit 11:45 GMT."
+      "description": "Doom Clock. P1 = the Monte Carlo simulation (10,000 futures; the globe plays one sampled future; a MiroFish society ensemble for ~5 representative futures): a Plague Inc-style world view of a quarterly Timeline (real -> projected), with the analog clock in the corner (build now). P2 = the game on the same screen (deferred, gated by task 9). Game plan: docs/superpowers/plans/2026-10-24-doom-clock-game-plan-full.md Demo path: Inputs (seed data, as-of slider) -> live run (Monte Carlo in the browser + one live MiroFish quarter) -> replay recorded futures -> Why this time? + Track record. SCOPE CUT 22:20 BST: checkpoints 00:00 engine+asOf+mockup OK, 03:00 World+clock+Why on real data, 06:00 Inputs+track record+recorded runs, 09:00 polish+Devpost (live run if ahead), freeze 11:30 GMT, submit 11:45 GMT.",
+      "version": "1.0.0",
+      "lastModified": "2026-10-24T21:43:18.665Z",
+      "taskCount": 66,
+      "completedCount": 7,
+      "tags": [
+        "master"
+      ]
     }
   }
 }

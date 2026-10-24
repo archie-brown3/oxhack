@@ -21,8 +21,8 @@ export function WhySheet({ world, timeline, hand, pin, daysPerSecond, backtest, 
   const body = {
     anchors: <>
       <div className="lede"><span className="dc-label dc-label--real">Real</span><span className="dc-data">prices as of {dmy(world.asOf)}</span></div>
-      <h3>Real money sets the anchors</h3>
-      <p>Four prediction-market prices go in. No model and no opinion is added at this step.</p>
+      <h3>Market prices set the anchors</h3>
+      <p>Four Manifold play-money market prices go in. These are real recorded prices, but traders do not stake real money. Thin markets can be unreliable.</p>
       <div>
         {NODES.map((id) => { const h = world.anchorHistory[id]
           return <div className="anc" key={id}><div><a href={h.url} target="_blank" rel="noopener">{h.question}</a></div><b>{pct(world.anchors[id])}</b>

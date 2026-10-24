@@ -1,0 +1,32 @@
+.globe-zoom {
+  position: fixed;
+  right: var(--space-5);
+  top: 50%;
+  z-index: 24;
+  display: flex;
+  background: var(--scrim);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-1);
+  color: var(--ink);
+  font: var(--type-body);
+}
+
+.globe-zoom[hidden], body.engine .globe-zoom { display: none; }
+
+.globe-zoom button {
+  min-width: var(--space-12);
+  min-height: var(--space-12);
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-0);
+  touch-action: manipulation;
+}
+
+.globe-zoom button + button { border-left: 1px solid var(--rule-strong); }
+.globe-zoom button:hover:not(:disabled) { background: var(--raised); }
+.globe-zoom button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.globe-zoom button:disabled { color: var(--ink-3); cursor: default; }
+
+@media (max-width: 720px) {
+  .globe-zoom { right: var(--space-3); top: calc(var(--space-8) * 2); flex-direction: column; }
+  .globe-zoom button + button { border-left: 0; border-top: 1px solid var(--rule-strong); }
+}

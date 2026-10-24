@@ -1,6 +1,6 @@
 // The World HUD around the globe: the watched future (top-right), the ticker over the time spine
 // (bottom), the newsflash for turning points, the event popover and the map key.
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import type { SampledFuture, WorldEvent, WorldFrame } from '../../contracts.ts'
 import { dmy, fmt, monthYear, qName, sourceName } from '../format.ts'
 import type { Located } from './Globe.tsx'
@@ -32,24 +32,22 @@ export function FutureChip({ future, onPick, onRoll }: { future: SampledFuture; 
   )
 }
 
-export function Ticker({ events, real, note }: { events: WorldEvent[]; real: boolean; note?: string }) {
-  const run = useRef<HTMLDivElement>(null)
-  const go = events.length > 0 && !note && !matchMedia('(prefers-reduced-motion: reduce)').matches
-  useEffect(() => {
-    if (go && run.current) run.current.style.animationDuration = Math.max(20, run.current.scrollWidth / 2 / 70) + 's'
-  }, [events, go])
-  const items = events.slice(0, 14).map((e, k) => (
-    <span className={`it${isReal(e) ? '' : ' sim'}`} key={k}>
-      <span className="dc-data">{dmy(e.ts)}</span>
-      {e.url ? <a href={e.url} target="_blank" rel="noopener">{e.title}</a> : <span>{e.title}</span>}
-      <span className="dc-data">{sourceName(e.source)}</span>
-    </span>
-  ))
+export function Ticker({ events, real, note, onRead }: { events: WorldEvent[]; real: boolean; note?: string; onRead: () => void }) {
+  const [index, setIndex] = useState(0)
+  const ordered = [...events].sort((a, b) => Number(!!b.major) - Number(!!a.major))
+  const e = ordered[index % Math.max(1, ordered.length)]
+  const realEvent = e ? isReal(e) : real
+  const browse = (step: number) => { onRead(); setIndex((i) => (i + step + ordered.length) % ordered.length) }
   return (
-    <div className="dc-ticker" id="ticker">
-      <span className={`lab dc-label dc-label--${real ? 'real' : 'sim'}`}>{real ? 'Real news' : 'Simulated'}</span>
-      <div className="run"><div className={`runner${go ? ' go' : ''}`} ref={run}>{note ? <span className="it dc-dim">{note}</span> : events.length ? <>{items}{items}</> : <span className="it dc-dim">No events this quarter</span>}</div></div>
-    </div>
+    <section className="dc-ticker event-reader" id="ticker" aria-label="Quarter events" onClick={onRead}>
+      <div className="event-meta">
+        <span className={`dc-label dc-label--${realEvent ? 'real' : 'sim'}`}>{realEvent ? 'Real news' : 'Simulated'}</span>
+        {e && !note && <><time dateTime={e.ts}>{dmy(e.ts)}</time><span>{sourceName(e.source)}{e.where ? ` · ${e.where}` : ''}{e.major ? ' · major event' : ''}</span></>}
+      </div>
+      <div className="event-headline" aria-live="polite">{note ?? (e ? (e.url ? <a href={e.url} target="_blank" rel="noopener">{e.title} ↗</a> : e.title) : 'No events this quarter')}</div>
+      {e && !note && <div className="event-nav"><button className="dc-btn dc-btn--sm" aria-label="Previous news event" onClick={() => browse(-1)}>←</button><span className="dc-data">{index % ordered.length + 1} / {ordered.length}</span><button className="dc-btn dc-btn--sm" aria-label="Next news event" onClick={() => browse(1)}>→</button></div>}
+      {e?.detail && !note && <details className="event-detail" onToggle={(ev) => { if (ev.currentTarget.open) onRead() }}><summary>Read context · pauses replay</summary><p>{e.detail}</p>{e.who && <p>{e.who}</p>}</details>}
+    </section>
   )
 }
 

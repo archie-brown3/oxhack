@@ -9,12 +9,13 @@ import { bulletinAt, scaleOf } from '../ui/clock/scale.ts'
 import { dmy, monthYear, qName, sourceName } from '../ui/format.ts'
 import { InputsSheet } from '../ui/inputs/InputsSheet.tsx'
 import { WhySheet, type WhyTab } from '../ui/why/WhySheet.tsx'
+import { EngineScreen, type Member } from '../ui/engine/EngineScreen.tsx'
 import { GlobeView, locate, type Flare, type Located } from '../ui/world/Globe.tsx'
 import { EventPop, FutureChip, MapKey, Newsflash, Spine, Ticker, type Flash } from '../ui/world/Hud.tsx'
 import { countryAt, countryName, load, type Data } from './data.ts'
 
 const params = new URLSearchParams(location.search)
-const QMS = 2400 // one quarter at 1x
+const QMS = 8000 // one quarter at 1x: time to read the event before the next quarter
 const initialPick = (): Pick => { const f = params.get('fut'); return f && /^\d+$/.test(f) ? { seed: +f } : { percentile: PICKS[f as keyof typeof PICKS] ?? PICKS.early } }
 
 export function App() {
@@ -46,6 +47,17 @@ function World({ data }: { data: Data }) {
   const [keyOpen, setKeyOpen] = useState(false)
   const [coach, setCoach] = useState<{ text: string; skip?: boolean } | null>(null)
   const intro = useRef(false)
+  const [view, setView] = useState<'world' | 'engine'>(params.get('view') === 'engine' ? 'engine' : 'world')
+  const [maxed, setMaxed] = useState<'graph' | 'cast' | null>(null)
+  const [liveRun, setLiveRun] = useState<{ t0: number; shown: number } | null>(() => (params.has('live') ? { t0: Date.now(), shown: +params.get('live')! || 0 } : null))
+  // The five representative futures MiroFish runs a society for (task 11).
+  const ensemble = useMemo<Member[]>(() => [0.05, 0.1, 0.25, 0.5, 0.9].map((q, i) => ({ k: i + 1, q, future: buildTimeline(world, { percentile: q }).future })), [world])
+  // Recorded replay: one quarter's posts stream in, about one post a second (task 19).
+  useEffect(() => {
+    if (!liveRun || liveRun.shown >= 30) return
+    const t = setTimeout(() => setLiveRun((l) => l && { ...l, shown: l.shown + 1 }), 1100)
+    return () => clearTimeout(t)
+  }, [liveRun])
 
   const frame = frames[cur]
   const isToday = cur === today
@@ -94,7 +106,7 @@ function World({ data }: { data: Data }) {
       const n = c + 1
       if (n >= frames.length) { setPlaying(false); return c }
       setLive(true); setPop(null); setFlashes(flashesFor(frames[n], n))
-      if (n === today && intro.current) { intro.current = false; setPlaying(false); setCoach(null); setTimeout(() => setCoach({ text: 'Press Space to play this future, or R to roll another' }), 4300) }
+      if (n === today && intro.current) { intro.current = false; setPlaying(false); setCoach(null); setTimeout(() => setCoach({ text: 'Press Space to play this future, or E to watch its recorded society replay' }), 4300) }
       if (n > today && catT >= Date.parse(frames[n].start) && catT < Date.parse(frames[n].start) + 92 * 864e5) setPlaying(false)
       return n
     }), QMS / speed)
@@ -104,7 +116,7 @@ function World({ data }: { data: Data }) {
   const play = () => { if (cur >= frames.length - 1 || afterEnd) go(today, false); setCoach(null); setPlaying(true) }
   const runLive = () => {
     const t0 = performance.now(); buildTimeline(world, pick); const ms = Math.max(1, Math.round(performance.now() - t0))
-    setSheet(null); intro.current = true; go(0, true); setSpeed(2); setPlaying(true)
+    setSheet(null); setView('world'); setLiveRun({ t0: Date.now(), shown: 0 }); intro.current = true; go(0, true); setSpeed(1); setPlaying(true)
     setCoach({ text: `Sampled 10,000 futures in ${ms} ms, in your browser. Replaying the real record to today.`, skip: true })
   }
   const skip = () => { intro.current = false; setPlaying(false); setCoach(null); go(today, true) }
@@ -114,10 +126,13 @@ function World({ data }: { data: Data }) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.metaKey || e.ctrlKey || e.altKey || (e.target as HTMLElement).closest('input,textarea')) return
-      if (e.key === 'Escape') { setSheet(null); setPop(null); setKeyOpen(false); return }
+      if (e.key === 'Escape') { if (maxed) return setMaxed(null); setSheet(null); setPop(null); setKeyOpen(false); return }
       if (sheet) return
       const k = e.key.toLowerCase()
       if (k === 'i') setSheet('inputs')
+      else if (k === 'e') setView(view === 'engine' ? 'world' : 'engine')
+      else if (k === 'w') setView('world')
+      else if (k === 'f' && view === 'engine') setMaxed(maxed ? null : 'graph')
       else if (k === 'r') roll()
       else if (e.key === ' ' && !(e.target as HTMLElement).closest('button,[role=button],[role=slider]')) { e.preventDefault(); if (playing) setPlaying(false); else play() }
       else if (e.key === 'ArrowRight' && !(e.target as HTMLElement).closest('[role=slider]')) { setPlaying(false); go(cur + 1, true) }
@@ -134,20 +149,22 @@ function World({ data }: { data: Data }) {
   const setting = bulletinAt(bulletin, Date.parse(world.asOf))
 
   return (
-    <div className={ended ? 'ended' : ''} onClick={() => { setPop(null); setKeyOpen(false) }}>
-      <GlobeView countries={countries} dcs={data.dcs} frame={frame} ended={ended} events={located} spanMs={live && playing ? QMS / speed : null} flare={flare} focus={focus} rotate={!sheet} onPick={(e, anchor) => setPop({ e, anchor })} />
+    <div className={`${ended ? 'ended' : ''} ${view}`} onClick={() => { setPop(null); setKeyOpen(false) }}>
+      <GlobeView hidden={view === 'engine'} countries={countries} dcs={data.dcs} frame={frame} ended={ended} events={located} spanMs={live && playing ? QMS / speed : null} flare={flare} focus={focus} rotate={!sheet && view === 'world'} onPick={(e, anchor) => setPop({ e, anchor })} />
       <div id="vignette" />
       <Clock hand={hand} pin={scale.pin} daysPerSecond={scale.daysPerSecond} today={timeline.clock} isToday={isToday} frame={frame} prev={frames[cur - 1] ?? null} onWhy={() => setSheet('why')} />
       <nav id="viewseg" className="dc-panel" aria-label="View">
         <div className="dc-tabs">
           <button aria-pressed={sheet === 'inputs'} onClick={() => setSheet('inputs')}>Inputs<kbd>I</kbd></button>
-          <button aria-pressed={sheet !== 'inputs'} onClick={() => setSheet(null)}>World<kbd>W</kbd></button>
-          <button aria-pressed={false} disabled title="The Engine screen comes next">Engine<kbd>E</kbd></button>
+          <button aria-pressed={sheet !== 'inputs' && view === 'world'} onClick={() => { setSheet(null); setView('world') }}>World<kbd>W</kbd></button>
+          <button aria-pressed={sheet !== 'inputs' && view === 'engine'} onClick={() => { setSheet(null); setView('engine') }}>Engine<kbd>E</kbd></button>
         </div>
       </nav>
+      {view === 'engine' && <EngineScreen future={timeline.future} ensemble={ensemble} quarter={frame.quarter} firstSim={frames[today + 1].quarter} live={liveRun} avatars={data.avatars} maxed={maxed} onMax={setMaxed}
+        onWatch={(m) => choose({ percentile: m.q })} />}
       <FutureChip future={timeline.future} onPick={(q) => choose({ percentile: q })} onRoll={roll} />
       <footer id="dock" className="dc-panel">
-        <Ticker events={afterEnd ? [] : frame.events} real={frame.provenance === 'real'} note={tickerNote} />
+        <Ticker key={frame.quarter} events={afterEnd ? [] : frame.events} real={frame.provenance === 'real'} note={tickerNote} onRead={() => setPlaying(false)} />
         <div className="dc-timebar">
           <button className="dc-play" aria-label={playing ? 'Pause' : 'Play'} onClick={(e) => { e.stopPropagation(); if (playing) setPlaying(false); else play() }}>
             <svg viewBox="0 0 14 14">{playing ? <path d="M3 1.5h3v11H3zM8 1.5h3v11H8z" /> : <path d="M3 1.5v11l9-5.5z" />}</svg>

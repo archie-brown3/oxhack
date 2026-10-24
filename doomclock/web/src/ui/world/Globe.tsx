@@ -2,9 +2,10 @@
 // clickable bubbles for the quarter's events, and a country flare for major events.
 // Monochrome Stage: land runs ink-3 to ink-2 (capped so solid ink event rings stay visible).
 import Globe, { type GlobeInstance } from 'globe.gl'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { WorldEvent, WorldFrame } from '../../contracts.ts'
 import type { Countries, Datacentre } from '../../app/data.ts'
+import './globe-zoom.css'
 
 // A token's colour as [r, g, b], resolved by the browser (the minifier may write #808080 as "gray").
 const rgb = (n: string) => {
@@ -17,6 +18,8 @@ const rgb = (n: string) => {
 }
 const tok = (n: string) => `rgb(${rgb(n).join(',')})`
 const REDUCED = () => matchMedia('(prefers-reduced-motion: reduce)').matches
+const MIN_ALTITUDE = 0.35
+const ZOOM_STEP = 1.25
 
 export interface Located extends WorldEvent { lat: number; lng: number }
 export interface Flare { iso3: string[]; sim: boolean }
@@ -33,6 +36,7 @@ export function locate(e: WorldEvent, centroids: Map<string, [number, number]>):
 }
 
 interface Props {
+  hidden?: boolean
   countries: Countries
   dcs: Datacentre[]
   frame: WorldFrame
@@ -47,11 +51,24 @@ interface Props {
   onPick: (e: Located, anchor: HTMLElement) => void
 }
 
-export function GlobeView({ countries, dcs, frame, ended, events, spanMs, flare, focus, rotate, onPick }: Props) {
+export function GlobeView({ hidden, countries, dcs, frame, ended, events, spanMs, flare, focus, rotate, onPick }: Props) {
   const host = useRef<HTMLDivElement>(null)
   const g = useRef<GlobeInstance | null>(null)
+  const fittedAltitude = useRef(1)
+  const maxAltitude = useRef(1)
+  const [zoomLimits, setZoomLimits] = useState({ near: false, far: false })
   const pick = useRef(onPick)
   pick.current = onPick
+
+  const zoom = (direction: 'in' | 'out' | 'reset') => {
+    const globe = g.current
+    if (!globe) return
+    const current = globe.pointOfView().altitude
+    const altitude = direction === 'reset' ? fittedAltitude.current
+      : current * (direction === 'in' ? 1 / ZOOM_STEP : ZOOM_STEP)
+    // Direct manipulation: no camera tween, including with reduced motion.
+    globe.pointOfView({ altitude: Math.max(MIN_ALTITUDE, Math.min(maxAltitude.current, altitude)) })
+  }
 
   useEffect(() => {
     const el = host.current!
@@ -67,26 +84,47 @@ export function GlobeView({ countries, dcs, frame, ended, events, spanMs, flare,
       .pointOfView({ lat: 26, lng: -40 })
     const mat = globe.globeMaterial() as unknown as { color: { set: (c: string) => void }; emissive?: { set: (c: string) => void }; shininess: number }
     mat.color.set(tok('raised')); mat.emissive?.set(tok('ground')); mat.shininess = 0
-    const ctl = globe.controls() as unknown as { enableZoom: boolean; autoRotate: boolean; autoRotateSpeed: number }
-    ctl.enableZoom = false; ctl.autoRotateSpeed = 0.3
+    const ctl = globe.controls()
+    ctl.enableZoom = true; ctl.autoRotateSpeed = 0.3
+    ctl.minDistance = globe.getGlobeRadius() * (1 + MIN_ALTITUDE)
+    // A wheel/pinch/drag takes over from any event-focus camera sweep.
+    const takeControl = () => globe.pointOfView(globe.pointOfView())
+    ctl.addEventListener('start', takeControl)
+    globe.onZoom(({ altitude }) => {
+      const near = altitude <= MIN_ALTITUDE + 0.001
+      const far = altitude >= maxAltitude.current - 0.001
+      setZoomLimits((previous) => previous.near === near && previous.far === far ? previous : { near, far })
+    })
     // The globe fills about 78% of the screen height: solve the camera altitude for that size.
+    let fitted = false
     const fit = () => {
       const W = el.clientWidth, H = el.clientHeight
+      if (!W || !H) return
+      const relativeZoom = fitted ? globe.pointOfView().altitude / fittedAltitude.current : 1
       globe.width(W).height(H)
       const f = Math.min((0.78 * innerHeight) / H, (0.6 * W) / H, 0.92)
       const fov = (((globe.camera() as unknown as { fov?: number }).fov ?? 50) / 2) * (Math.PI / 180)
-      globe.pointOfView({ altitude: 1 / Math.sin(Math.atan(f * Math.tan(fov))) - 1 })
+      fittedAltitude.current = 1 / Math.sin(Math.atan(f * Math.tan(fov))) - 1
+      maxAltitude.current = fittedAltitude.current * 1.8
+      ctl.maxDistance = globe.getGlobeRadius() * (1 + maxAltitude.current)
+      globe.pointOfView({ altitude: Math.max(MIN_ALTITUDE, Math.min(maxAltitude.current, fittedAltitude.current * relativeZoom)) })
+      fitted = true
     }
     fit()
     addEventListener('resize', fit)
     g.current = globe
-    return () => { removeEventListener('resize', fit); globe._destructor(); el.replaceChildren(); g.current = null }
+    return () => { removeEventListener('resize', fit); ctl.removeEventListener('start', takeControl); globe._destructor(); el.replaceChildren(); g.current = null }
   }, [countries])
 
   useEffect(() => {
-    const ctl = g.current?.controls() as unknown as { autoRotate: boolean } | undefined
-    if (ctl) ctl.autoRotate = rotate && !REDUCED()
-  }, [rotate])
+    const ctl = g.current?.controls()
+    if (!ctl) return
+    const motion = matchMedia('(prefers-reduced-motion: reduce)')
+    const sync = () => { ctl.autoRotate = rotate && !motion.matches; ctl.enableDamping = !motion.matches }
+    sync()
+    motion.addEventListener('change', sync)
+    return () => motion.removeEventListener('change', sync)
+  }, [rotate, countries])
 
   // Land tint: ink-3 → ink-2 by this future's frontier activity; alarm once it has ended.
   useEffect(() => {
@@ -111,7 +149,7 @@ export function GlobeView({ countries, dcs, frame, ended, events, spanMs, flare,
   }, [frame, dcs])
 
   useEffect(() => {
-    if (focus && !REDUCED()) g.current?.pointOfView({ lat: focus[0], lng: focus[1] }, 1200)
+    if (focus) g.current?.pointOfView({ lat: focus[0], lng: focus[1] }, REDUCED() ? 0 : 1200)
   }, [focus])
 
   // Rings and bubbles: solid ink = real, dashed sim = simulated or projected.
@@ -139,5 +177,12 @@ export function GlobeView({ countries, dcs, frame, ended, events, spanMs, flare,
     return () => timers.forEach(clearTimeout)
   }, [events, spanMs])
 
-  return <div id="globe" ref={host} />
+  return <>
+    <div id="globe" ref={host} style={hidden ? { visibility: 'hidden' } : undefined} />
+    <div className="globe-zoom" role="group" aria-label="Globe zoom" hidden={hidden}>
+      <button type="button" aria-label="Zoom out" title={zoomLimits.far ? 'Minimum zoom reached' : 'Zoom out'} disabled={zoomLimits.far} onClick={() => zoom('out')}>−</button>
+      <button type="button" aria-label="Zoom in" title={zoomLimits.near ? 'Maximum zoom reached' : 'Zoom in'} disabled={zoomLimits.near} onClick={() => zoom('in')}>+</button>
+      <button type="button" aria-label="Reset globe zoom" title="Reset globe zoom" onClick={() => zoom('reset')}>Reset</button>
+    </div>
+  </>
 }
