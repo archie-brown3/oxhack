@@ -502,3 +502,60 @@ export interface ReliabilityBin {
   /** Share of YES outcomes in the bin. */
   observed: Prob
 }
+
+// ---------------------------------------------------------------------------
+// Timeline [engine produces, ui renders] — phase 1 foundation, extended by the game.
+// Phase 1: one timeline, the real forecast replayed and projected quarter by quarter.
+// Phase 2: the game applies actions between frames and recomputes a second timeline
+// ("yours"); the real one is never modified. So every view renders Timeline, never game state.
+// ---------------------------------------------------------------------------
+
+/** Where a frame's content comes from. Shown as a label in the UI. */
+export type Provenance = 'real' | 'projected' | 'simulated' | 'player'
+
+/** One dated thing that happened in a quarter (incident, government event, news, X post). */
+export interface WorldEvent {
+  ts: IsoTime
+  kind: 'incident' | 'government' | 'news' | 'post'
+  title: string
+  url?: string
+  source: string // e.g. 'aiid', 'guardian', 'mirofish', 'game'
+  region?: Region
+  provenance: Provenance
+}
+
+/** The world at the start of one quarter. */
+export interface WorldFrame {
+  quarter: QuarterLabel
+  start: IsoTime
+  provenance: Provenance // 'real' up to asOf, 'projected' after
+  /** Cumulative P(a company announces AGI) by this quarter (Kalshi curve, monotonised). */
+  capability: Prob
+  /** Share of frontier activity by region; drives the map tint. */
+  regions: Record<Region, number>
+  /** P(AI catastrophe) by the end of this quarter, from the Monte Carlo. */
+  pCat: Prob
+  /** Events that land in this quarter (map pings + ticker). */
+  events: WorldEvent[]
+}
+
+/** What the clock shows: a real predicted date, and the hand from 1 minute = 1 year. */
+export interface ClockReading {
+  /** Date the chance of AI catastrophe passes 1 in 10 (continuous, to the day). */
+  date10: IsoTime
+  /** Range of date10 across the lag assumption (min..max), shown as an arc. */
+  date10Range: [IsoTime, IsoTime]
+  /** Minutes to midnight on the face: years from asOf to date10. */
+  minutesToMidnight: number
+  pCat2100: Prob
+}
+
+export interface Timeline {
+  schema: 'doomclock.timeline/1'
+  asOf: IsoTime
+  /** From Oct 2024 (real) to the end of the projection horizon. */
+  frames: WorldFrame[]
+  clock: ClockReading
+  /** Which side produced it: 'real' now; the game adds 'yours'. */
+  line: 'real' | 'yours'
+}
