@@ -9,7 +9,7 @@ import { RAW, saveRaw } from "../lib/raw.ts";
 const day = new Date().toISOString().slice(0, 10);
 const ZIP_URL = "https://epoch.ai/data/data_centers/data_centers.zip";
 const PAGE = "https://epoch.ai/data/ai-data-centers";
-const UA = "oxhack-doomclock/0.1 (hackathon; archie1203brown@gmail.com)";
+const UA = "oxhack-doomclock/0.1 (hackathon project; contact via GitHub)";
 const OUT = join(RAW, "../clean/datacentres.jsonl");
 const dir = join(RAW, "datacentres");
 
