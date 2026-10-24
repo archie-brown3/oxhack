@@ -29,6 +29,8 @@ Every code change must follow a task. Use an active task with no unmet dependenc
 
 Archie is stepping away. **The team can make decisions.** The Lead agent continues to assign work, review changes, commit and push. Tell the Lead before changing another agent's files. Do not wait for Archie to make routine decisions.
 
+At this handoff, the existing Lead and UI Claude sessions have hit their usage limits. If they cannot respond, use a fresh agent to take over coordination. Check the board and unfinished file changes first.
+
 ### What is done, and what needs work
 
 This is a snapshot. Check the board and ask the Lead for changes before you start.
@@ -50,7 +52,7 @@ Known issues to check first:
 - The Kalshi data cleaner misses some price fields. Fix this for task 6, or leave that source out and state the limit.
 - The MiroFish seed still needs to use the current event data instead of Hacker News.
 - The catastrophe market has few traders. Show that limit beside its result.
-- The public site is [doomclock-web.vercel.app](https://doomclock-web.vercel.app). Local changes need a new deploy before they appear there. See [deployment steps](deploy.md).
+- The public site is [doomclock-web.vercel.app](https://doomclock-web.vercel.app). Pushes to `main` auto-deploy through Vercel. Check that the build succeeds before saying changes are live. See [deployment steps](deploy.md).
 - Track record has no measured result yet. The UI hides the sample scores. Finishing task **6** is a key remaining task for the HRT pitch.
 
 Latest checks for this handoff: 37 tests passed in the commit snapshot; four checks skipped because their data files do not exist yet. The web build passed with a large-bundle warning. Engine, graph, roster and news were checked in Chrome, including mobile layout. These checks do not prove prediction accuracy.
