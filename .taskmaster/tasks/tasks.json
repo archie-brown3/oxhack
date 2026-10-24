@@ -3,7 +3,7 @@
     "tasks": [
       {
         "id": 1,
-        "title": "[P1 · owner] Owner: confirm clock mapping",
+        "title": "[P1 \u00b7 owner] Owner: confirm clock mapping",
         "description": "Default: midnight = the date the chance of AI catastrophe passes 1 in 10, 1 minute = 1 year, Bulletin 85 s as a ghost tick. UI: Plague Inc-style world view with the clock in the corner (owner, 24 Oct).",
         "details": "Owner decision. Default holds if no answer.\nOWNER (25 Oct, ui session): the sim starts from the Bulletin's current value: today's hand pinned to 85 s, Bulletin settings as the historical hand, the market forecast sets the pace (k s per year). Implemented UI-side in doomclock/web/src/ui/clock/scale.ts.",
         "testStrategy": "Owner says yes or names a change.",
@@ -15,9 +15,9 @@
       },
       {
         "id": 10,
-        "title": "[P1 · ui] Clickable mockup: World <-> Engine (owner review gate)",
+        "title": "[P1 \u00b7 ui] Clickable mockup: World <-> Engine (owner review gate)",
         "description": "Prototype mockup to confirm direction before any build: the Plague Inc-style World view with the clock in the corner, plus a one-click switch to the Engine view (the MiroFish backend made visible: simulated X feed, government events, news, the cast, the knowledge graph, run stats). Then 'Why this time?'. Built from real repo data where cheap; anything mocked is marked. Follow-up for review: an Inputs screen ('what the engine knows', with the as-of slider), after the design-system pass.",
-        "details": "Scope: .lavish/prototype/** only. Owner reviews in Lavish. No build tasks start until this is approved.\n\nREIMAGINED SPEC (owner, 24 Oct ~22:30, replaces the dashboard-style prototype):\n- World view: the globe is the centrepiece, about 75-80% of the screen height. The HUD floats over it as four small corners (Plague board lesson 01), about 10% chrome. Hex-dot globe (style B), monochrome region tint, Epoch datacentre houses by date ('publicly mapped sites, not compute share'), event pings, clickable news bubbles on the globe (real AIID before today, simulated MiroFish posts after).\n- Top-left: large analog quarter-face clock (~220 px), always visible. White hand = real forecast, 1 min = 1 yr to date10 ('Dec 2032', labelled mock), lag 1-10 y range arc, Bulletin 85 s faint ghost tick, a 'your timeline (phase 2)' slot in the legend, live y d hh:mm:ss countdown. Click opens 'Why this time?'.\n- Top-centre: World | Engine toggle (one click, key E). Top-right: future chip ('Future #N · earlier than X% of futures'), Roll another (R), Early / Typical / Late.\n- 'Typical' ranks over ALL 10,000 futures (owner): the median future has no catastrophe by 2100 and the chip says so.\n- Bottom: news ticker (REAL amber before today, SIMULATED violet after) over a time bar (play/pause, speed, quarter scrubber Oct 2024-2035, today marker, real solid vs projected dashed, this future's milestones marked). Turning points get a self-closing card (~4 s, no OK).\n- Engine: a SEPARATE SCREEN (owner): society for the watched future (ensemble member k of 5, others hinted), X feed, government and news, cast, knowledge graph, per-turn run stats; clock and time bar stay. Variant B: the same Engine as an overlay sheet on the globe (owner asked to wireframe an overlay).\n- 'Why this time?': anchors -> Monte Carlo fan -> date -> hand, 'a prediction, not a prophecy', Track record stub one click away.\n- Labels: only REAL, SIMULATED, GAME RULE, plus a 'mock' mark on invented numbers. Left edge and bottom tray stay empty for phase 2.\n- Out of scope here: a reactive globe where regions respond to events (owner: separate feature, Lead to plan; see task 12).\n\nSTATUS (ui, 2026-10-24T21:14:12Z): owner said \"looks great\" on the direction. Brief now docs/briefs/ui.md (Lead). Applied the Doom Clock design system (ds/tokens.css generated from docs/design-system/tokens.json by gen-tokens.mjs; ds/bundle.css + DoomClock.face() copied from the artifact). Added: Inputs Paper sheet 'What the engine knows' with an as-of slider (real data/state.json anchors with price history and traders, data/events.json incidents/government/news, Epoch datacentres; gen-inputs.mjs) as demo step 1 with Run live; Engine LIVE vs RECORDED states; full-screen knowledge graph and cast roster (F / Esc); Track record per brief (market vs coin vs base rate, CIs, reliability, n, caveats; fixture); 'Why the hand moved' callout (real Manifold moves since 1 Jul 2026, months per driver from rerunning the sampler; events shown as context only); major events as newsflash + country flare (real oxblood, simulated dashed sim); who/what/where/when + source on every event. MiroFish posts/run stats are the test-spike FIXTURE until new runs land (owner, 24 Oct). Open: Inputs as a third top tab; callout placement right of the clock.\nDONE ~22:15 BST: Archie: 'looks great'. Prototype in .lavish/prototype (design system applied, Inputs/World/Engine/Why/Track, live + recorded states, full-screen graph and roster, why-the-hand-moved drivers, majors in the newsflash). Lead rulings on ui's 7 conflicts: follow the brief for the Track record (market vs coin vs base rate; no panel at w=0); accept land capped at ink-2, the 12 px floor, the 48 px dock numeral, Inputs as a third top tab, the why callout right of the clock, and monochrome monogram avatars. Design-system text to update in the artifact later: Track record wording, Inputs tab, Bulletin label size.",
+        "details": "Scope: .lavish/prototype/** only. Owner reviews in Lavish. No build tasks start until this is approved.\n\nREIMAGINED SPEC (owner, 24 Oct ~22:30, replaces the dashboard-style prototype):\n- World view: the globe is the centrepiece, about 75-80% of the screen height. The HUD floats over it as four small corners (Plague board lesson 01), about 10% chrome. Hex-dot globe (style B), monochrome region tint, Epoch datacentre houses by date ('publicly mapped sites, not compute share'), event pings, clickable news bubbles on the globe (real AIID before today, simulated MiroFish posts after).\n- Top-left: large analog quarter-face clock (~220 px), always visible. White hand = real forecast, 1 min = 1 yr to date10 ('Dec 2032', labelled mock), lag 1-10 y range arc, Bulletin 85 s faint ghost tick, a 'your timeline (phase 2)' slot in the legend, live y d hh:mm:ss countdown. Click opens 'Why this time?'.\n- Top-centre: World | Engine toggle (one click, key E). Top-right: future chip ('Future #N \u00b7 earlier than X% of futures'), Roll another (R), Early / Typical / Late.\n- 'Typical' ranks over ALL 10,000 futures (owner): the median future has no catastrophe by 2100 and the chip says so.\n- Bottom: news ticker (REAL amber before today, SIMULATED violet after) over a time bar (play/pause, speed, quarter scrubber Oct 2024-2035, today marker, real solid vs projected dashed, this future's milestones marked). Turning points get a self-closing card (~4 s, no OK).\n- Engine: a SEPARATE SCREEN (owner): society for the watched future (ensemble member k of 5, others hinted), X feed, government and news, cast, knowledge graph, per-turn run stats; clock and time bar stay. Variant B: the same Engine as an overlay sheet on the globe (owner asked to wireframe an overlay).\n- 'Why this time?': anchors -> Monte Carlo fan -> date -> hand, 'a prediction, not a prophecy', Track record stub one click away.\n- Labels: only REAL, SIMULATED, GAME RULE, plus a 'mock' mark on invented numbers. Left edge and bottom tray stay empty for phase 2.\n- Out of scope here: a reactive globe where regions respond to events (owner: separate feature, Lead to plan; see task 12).\n\nSTATUS (ui, 2026-10-24T21:14:12Z): owner said \"looks great\" on the direction. Brief now docs/briefs/ui.md (Lead). Applied the Doom Clock design system (ds/tokens.css generated from docs/design-system/tokens.json by gen-tokens.mjs; ds/bundle.css + DoomClock.face() copied from the artifact). Added: Inputs Paper sheet 'What the engine knows' with an as-of slider (real data/state.json anchors with price history and traders, data/events.json incidents/government/news, Epoch datacentres; gen-inputs.mjs) as demo step 1 with Run live; Engine LIVE vs RECORDED states; full-screen knowledge graph and cast roster (F / Esc); Track record per brief (market vs coin vs base rate, CIs, reliability, n, caveats; fixture); 'Why the hand moved' callout (real Manifold moves since 1 Jul 2026, months per driver from rerunning the sampler; events shown as context only); major events as newsflash + country flare (real oxblood, simulated dashed sim); who/what/where/when + source on every event. MiroFish posts/run stats are the test-spike FIXTURE until new runs land (owner, 24 Oct). Open: Inputs as a third top tab; callout placement right of the clock.\nDONE ~22:15 BST: Archie: 'looks great'. Prototype in .lavish/prototype (design system applied, Inputs/World/Engine/Why/Track, live + recorded states, full-screen graph and roster, why-the-hand-moved drivers, majors in the newsflash). Lead rulings on ui's 7 conflicts: follow the brief for the Track record (market vs coin vs base rate; no panel at w=0); accept land capped at ink-2, the 12 px floor, the 48 px dock numeral, Inputs as a third top tab, the why callout right of the clock, and monochrome monogram avatars. Design-system text to update in the artifact later: Track record wording, Inputs tab, Bulletin label size.",
         "testStrategy": "Headless screenshots of every state at 1440x900 (world today, projected, catastrophe, engine screen, engine overlay, why, track). Then owner approves the direction (or annotates changes) in Lavish.",
         "status": "done",
         "dependencies": [],
@@ -27,9 +27,9 @@
       },
       {
         "id": 2,
-        "title": "[P1 · data] Anchors at T + real world events",
+        "title": "[P1 \u00b7 data] Anchors at T + real world events",
         "description": "priceAt(id,T) over data/clean manifold/kalshi -> data/state.json {asOf, anchors[], lagMeanYears}. Also data/events.json: real WorldEvents (AIID incidents with ts = max(first report, event_date), region where known) for Oct 2024 -> now.",
-        "details": "Scope: doomclock/pipeline/state/**, data/state.json, data/events.json, docs/data/state.md. Plain TS, no deps.\nDONE ~22:00 BST (data workflow wf_c8cad685, 30 agents, reviewed): data/state.json (4 anchors + quarterly history), data/market-inputs.json (KXAGICO capability 2024Q4-2035Q4, 0 before 2026Q3), data/events.json (966: aiid 821, wikipedia 80, gov.uk 43, federal-register 18, eur-lex 2, bulletin 2), data/clean/government.jsonl (63), data/clean/wikipedia_ai.jsonl (82), data/signal-inputs.json (regions US .589/China .326/rest .086, AIID λ≈109/quarter), lib/price-at.ts (+5 tests). Caveats: no China government events; AIID region by keyword (322 events no region); cat2100 thin (19 traders, 7 closes).",
+        "details": "Scope: doomclock/pipeline/state/**, data/state.json, data/events.json, docs/data/state.md. Plain TS, no deps.\nDONE ~22:00 BST (data workflow wf_c8cad685, 30 agents, reviewed): data/state.json (4 anchors + quarterly history), data/market-inputs.json (KXAGICO capability 2024Q4-2035Q4, 0 before 2026Q3), data/events.json (966: aiid 821, wikipedia 80, gov.uk 43, federal-register 18, eur-lex 2, bulletin 2), data/clean/government.jsonl (63), data/clean/wikipedia_ai.jsonl (82), data/signal-inputs.json (regions US .589/China .326/rest .086, AIID \u03bb\u2248109/quarter), lib/price-at.ts (+5 tests). Caveats: no China government events; AIID region by keyword (322 events no region); cat2100 thin (19 traders, 7 closes).",
         "testStrategy": "Fixture test: priceAt reads nothing after T. Anchors match the markets.json pins. events.json validates against WorldEvent.",
         "status": "done",
         "dependencies": [],
@@ -39,7 +39,7 @@
       },
       {
         "id": 14,
-        "title": "[P1 · data] asOf(T): one point-in-time module",
+        "title": "[P1 \u00b7 data] asOf(T): one point-in-time module",
         "description": "A single module that answers 'what was known at time T': it loads data/clean, normalises ts to Date and market ids, and exposes priceAt(market), anchors(), events() and government(), never returning anything with ts >= T. It replaces the scattered copies (seed.ts latestMarkets, clean-manifold as-of price, markets.json snapshot p, the prototype's own filter). Architecture review candidate 1.",
         "details": "Scope: doomclock/pipeline/asof/** (or where the data workflow put priceAt: fold it in, not a fifth copy). Feeds the state builder, the timeline, the Inputs view, the backtest and the MiroFish seed.\nSCOPE CUT 24 Oct 22:20: Merged with task 2: the data workflow's priceAt becomes asOf(T). One module, not two tasks. Checkpoint 00:00.\nSPECIFICITY (Archie, 22:30): asOf(T) must also yield anchorHistory (dated price points per anchor) for the per-frame clock. Events carry who/where/detail/major. Enrichment pass after the data workflow: AIID (deployer/developer as who, location as where, severity -> major), government events (agency, document number, jurisdiction, major for executive orders/laws/rules).\nPartial: lib/price-at.ts exists (priceAt, strict ts < T, numeric compare). Remaining: wrap it with events/anchors/government into asOf(T) for the Inputs view and per-frame clock.",
         "testStrategy": "A fixture test proves nothing with ts >= T is ever returned, across all sources and both ts formats. seed.ts and state.json both use it.",
@@ -53,9 +53,9 @@
       },
       {
         "id": 3,
-        "title": "[P1 · engine] Timeline builder (the simulation)",
+        "title": "[P1 \u00b7 engine] Timeline builder (the simulation)",
         "description": "Pure engine/timeline.ts: (state, events, seed) -> Timeline (contracts.ts). Quarterly frames Oct 2024 -> 2035: real frames up to asOf, projected after. capability from the Kalshi curve (cummax), regions from the derive/regions metric, pCat per quarter from sim.ts, projected incidents sampled at the AIID base rate (seeded, provenance 'projected'). ClockReading: continuous date10, a range across lag 1..10 y, minutesToMidnight = years to date10. MONTE CARLO (owner, 24 Oct): the engine samples 10,000 futures; buildTimeline(seed|percentile) returns ONE sampled future as a Timeline (futureId + percentile), and the clock reads the distribution across all futures. Built as the deep Timeline module (architecture candidate 2): buildTimeline(world, {seed|percentile}) -> Timeline and readClock(world) -> ClockReading; sim.ts becomes internal; the prototype and the app import it.",
-        "details": "Scope: doomclock/web/src/engine/**. Write engine/fixtures/timeline.fixture.json FIRST so ui and clock can start. Extension point: buildTimeline(..., actions?) — phase 2 passes game actions to get the 'yours' line.\nSCOPE CUT 24 Oct 22:20: Fold in architecture candidate 3 (one source of types; npm test runs the engine tests). Checkpoint 00:00.\nSPECIFICITY (Archie, 22:30): Per-frame clock from the anchors as of each quarter (world.anchorHistory), plus drivers by leave-one-out attribution (anchor, from->to, ts, traders, url, effectDays, residualDays). Events are context, never causes. Contract fields: WorldFrame.clock, WorldFrame.drivers, WorldEvent.{who, where, major, detail}.\nData sign-off asks: add StateNode extras (traders, nPrices, lastTradeTs, pRange12m, history[{q,T,p}]), ManifoldPin node/horizonYear, an EventsFile type {schema:'doomclock.events/1', asOf, events} to contracts.ts, and fix the fixture λ (4.2 -> ~109/quarter). Show the 12-month price ranges as the clock's market uncertainty.",
+        "details": "Scope: doomclock/web/src/engine/**. Write engine/fixtures/timeline.fixture.json FIRST so ui and clock can start. Extension point: buildTimeline(..., actions?) \u2014 phase 2 passes game actions to get the 'yours' line.\nSCOPE CUT 24 Oct 22:20: Fold in architecture candidate 3 (one source of types; npm test runs the engine tests). Checkpoint 00:00.\nSPECIFICITY (Archie, 22:30): Per-frame clock from the anchors as of each quarter (world.anchorHistory), plus drivers by leave-one-out attribution (anchor, from->to, ts, traders, url, effectDays, residualDays). Events are context, never causes. Contract fields: WorldFrame.clock, WorldFrame.drivers, WorldEvent.{who, where, major, detail}.\nData sign-off asks: add StateNode extras (traders, nPrices, lastTradeTs, pRange12m, history[{q,T,p}]), ManifoldPin node/horizonYear, an EventsFile type {schema:'doomclock.events/1', asOf, events} to contracts.ts, and fix the fixture \u03bb (4.2 -> ~109/quarter). Show the 12-month price ranges as the clock's market uncertainty.",
         "testStrategy": "node --test: deterministic per seed; frames contiguous; real/projected split at asOf; date10 monotone in the anchors; under 100 ms.",
         "status": "pending",
         "dependencies": [
@@ -69,9 +69,9 @@
       },
       {
         "id": 4,
-        "title": "[P1 · ui] Plague Inc world view",
+        "title": "[P1 \u00b7 ui] Plague Inc world view",
         "description": "A full-bleed globe (hex-dot style B + the 77 datacentre markers from data/clean/datacentres.jsonl), region tint = frame.regions x capability, event pings on the map, a bottom news ticker, time controls (play/pause, 1x/4x, a quarter scrubber Oct 2024 -> 2035, a 'today' marker, real vs projected styling). Leave room in the corner HUD for the clock.",
-        "details": "Scope: doomclock/web/src/ui/world/**; may add globe deps (react-globe.gl/three) to doomclock/web/package.json. Renders a Timeline only, never game state. Inspired by the plague board (.lavish/plague-board.html).\nSCOPE CUT 24 Oct 22:20: Simpler: flat datacentre markers (no 3D houses), region tint, event pings + flare, ticker, scrubber. Checkpoint 03:00.\nUnblocked ~22:15 BST (mockup approved). Build from .lavish/prototype + docs/briefs/ui.md against engine fixtures until engine/timeline.ts lands.\nBUILD (ui, 2026-10-24T21:27:19Z): doomclock/web/src/ui/world/{Globe,Hud}.tsx + app/App.tsx. globe.gl 2.46.2 (hex dots, land ink-3→ink-2 by frame.regions × capability, flat Epoch datacentre markers by ts, rings + clickable bubbles placed by event.where/region, country flare + newsflash for frame.events[].major and Bulletin settings), ticker, Bulletin-style time spine scrubber, future chip (Early/Typical/Late/Roll via buildTimeline picks). Renders buildTimeline(world) from engine/timeline.ts on the world fixture (cache/world.json preferred when the asOf module writes it). Verified headless at 1440x900 (today, past, projected/ended) and 390x844 (usable, needs polish). Not yet: 30 fps measurement, offline check of Google Fonts fallback.",
+        "details": "Scope: doomclock/web/src/ui/world/**; may add globe deps (react-globe.gl/three) to doomclock/web/package.json. Renders a Timeline only, never game state. Inspired by the plague board (.lavish/plague-board.html).\nSCOPE CUT 24 Oct 22:20: Simpler: flat datacentre markers (no 3D houses), region tint, event pings + flare, ticker, scrubber. Checkpoint 03:00.\nUnblocked ~22:15 BST (mockup approved). Build from .lavish/prototype + docs/briefs/ui.md against engine fixtures until engine/timeline.ts lands.\nBUILD (ui, 2026-10-24T21:27:19Z): doomclock/web/src/ui/world/{Globe,Hud}.tsx + app/App.tsx. globe.gl 2.46.2 (hex dots, land ink-3\u2192ink-2 by frame.regions \u00d7 capability, flat Epoch datacentre markers by ts, rings + clickable bubbles placed by event.where/region, country flare + newsflash for frame.events[].major and Bulletin settings), ticker, Bulletin-style time spine scrubber, future chip (Early/Typical/Late/Roll via buildTimeline picks). Renders buildTimeline(world) from engine/timeline.ts on the world fixture (cache/world.json preferred when the asOf module writes it). Verified headless at 1440x900 (today, past, projected/ended) and 390x844 (usable, needs polish). Not yet: 30 fps measurement, offline check of Google Fonts fallback.",
         "testStrategy": "Headless screenshots at 1440x900 and 390x844. Works offline. 30 fps while rotating. Scrubbing changes tint, pings and ticker.",
         "status": "in-progress",
         "dependencies": [
@@ -84,7 +84,7 @@
       },
       {
         "id": 11,
-        "title": "[P1 · world] Recorded runs library (MiroFish ensemble for representative futures)",
+        "title": "[P1 \u00b7 world] Recorded runs library (MiroFish ensemble for representative futures)",
         "description": "Pre-run and store, as a replayable library, a small Twitter-only MiroFish ensemble: ~5 representative futures (early -> late by date10), each a few quarters, different seeds. Each quarter's run is seeded with that future's events (government events, news, AIID-style incidents) and the previous quarter's top posts, because every run starts empty. Store per future and quarter: posts, government events, news, alarm (engagement share on the event post, with interview as secondary). The Engine view shows the society for the future being watched. Each stored run carries its seed, run id, timings and cost and is labelled RECORDED. It's the replay mode in the demo and the fallback for the live run.",
         "details": "Scope: doomclock/pipeline/world/**, data/world/**. Uses the patched backend (English, Twitter-only restart). Budget about $1.50 (about $0.03 per quarter-run), guard capped at $3. Hand-written cast (government, media, labs, a few public archetypes), no Reddit. Warm-up run first.\nSCOPE CUT 24 Oct 22:20: Smaller: 3 representative futures x 4 quarters (~$0.40, ~15 min). Checkpoint 06:00.\nSPECIFICITY (Archie, 22:30): Injected events must be specific (agency, document number, date) or agents treat them as rumours (spike S2). The read-back keeps who/where/detail and flags major. Avatars from doomclock/web/public/avatars (append new accounts to scripts/avatars.accounts.json).\nseed.ts still builds its news digest from HN (dropped). Rework it to use data/events.json (government + news + AIID, specific detail) when building the recorded runs.",
         "testStrategy": "5 futures x N quarters on disk, each with at least 10 non-seed posts per quarter. Alarm is computed. Cost is logged. The UI fixture validates.",
@@ -99,7 +99,7 @@
       },
       {
         "id": 12,
-        "title": "[P1 · lead] Plan: reactive globe (regions react to events)",
+        "title": "[P1 \u00b7 lead] Plan: reactive globe (regions react to events)",
         "description": "Owner idea (24 Oct ~22:30): make the globe itself interactive and reactive, so it shows how events impact different areas (regions respond when an event lands, not just a ping). Separate feature from the mockup; the Lead plans it.",
         "details": "Needs a plan from the Lead before any build: what each event changes on the map, what data backs it (else 'game rule'), and how it fits the WorldFrame contract. Raised during task 10.\nSCOPE CUT 24 Oct 22:20: CUT for the hackathon. Only an event flare is kept, inside task 4.",
         "testStrategy": "Lead writes the plan; owner approves.",
@@ -113,9 +113,9 @@
       },
       {
         "id": 5,
-        "title": "[P1 · clock] Analog clock in the corner + 'Why this time?'",
+        "title": "[P1 \u00b7 clock] Analog clock in the corner + 'Why this time?'",
         "description": "A Bulletin-style quarter face in the corner HUD: white hand = the real line, 1 minute = 1 year to date10, a ghost tick at 85 s (Bulletin 2026), the lag range as an arc, a red-hand slot for phase 2. A live countdown (y d hh:mm:ss) to date10. Click opens 'Why this time?': anchors (market, p, traders, link) -> Monte Carlo fan -> date10 -> hand. 'A prediction, not a prophecy'.",
-        "details": "Scope: doomclock/web/src/ui/clock/**, ui/why/**. SVG + CSS, no new deps. Reads ClockReading + Timeline.\nSCOPE CUT 24 Oct 22:20: Centrepiece. Checkpoint 03:00.\nSPECIFICITY (Archie, 22:30): A 'why the hand moved' callout from frame.drivers under the clock. The newsflash for major events on World.\nUnblocked ~22:15 BST (mockup approved). Build from .lavish/prototype + docs/briefs/ui.md against engine fixtures until engine/timeline.ts lands.\nBUILD (ui, 2026-10-24T21:27:19Z): ui/clock/{face.ts,scale.ts,Clock.tsx}. OWNER DECISION 25 Oct: today's reading is pinned to the Bulletin's current setting (85 s); k = 85 s / years to date10 (≈1 s per 24 days); face shows the last 3 minutes. Past quarters show the Bulletin's own settings (90/89/85 s, cache/bulletin.json) as real history; from today the forecast drives the hand (k × years from frame start to date10). 600 ms hand sweep. 'Why the hand moved' callout from frame.drivers + residualDays, events only as 'around the same time'. Why this time? Paper sheet (ui/why/WhySheet.tsx): Anchors, Fan (frames pCat), Date (waffle), Hand, Track record tab. Countdown ticks to today's date10 (real: 31 May 2032 on the fixture). Verified headless.",
+        "details": "Scope: doomclock/web/src/ui/clock/**, ui/why/**. SVG + CSS, no new deps. Reads ClockReading + Timeline.\nSCOPE CUT 24 Oct 22:20: Centrepiece. Checkpoint 03:00.\nSPECIFICITY (Archie, 22:30): A 'why the hand moved' callout from frame.drivers under the clock. The newsflash for major events on World.\nUnblocked ~22:15 BST (mockup approved). Build from .lavish/prototype + docs/briefs/ui.md against engine fixtures until engine/timeline.ts lands.\nBUILD (ui, 2026-10-24T21:27:19Z): ui/clock/{face.ts,scale.ts,Clock.tsx}. OWNER DECISION 25 Oct: today's reading is pinned to the Bulletin's current setting (85 s); k = 85 s / years to date10 (\u22481 s per 24 days); face shows the last 3 minutes. Past quarters show the Bulletin's own settings (90/89/85 s, cache/bulletin.json) as real history; from today the forecast drives the hand (k \u00d7 years from frame start to date10). 600 ms hand sweep. 'Why the hand moved' callout from frame.drivers + residualDays, events only as 'around the same time'. Why this time? Paper sheet (ui/why/WhySheet.tsx): Anchors, Fan (frames pCat), Date (waffle), Hand, Track record tab. Countdown ticks to today's date10 (real: 31 May 2032 on the fixture). Verified headless.",
         "testStrategy": "Headless screenshot. The countdown ticks. The hand is correct for 3 fixture dates. Every number traces to the data.",
         "status": "in-progress",
         "dependencies": [
@@ -128,7 +128,7 @@
       },
       {
         "id": 15,
-        "title": "[P1 · ui] Inputs view: everything the engine knows, before it predicts",
+        "title": "[P1 \u00b7 ui] Inputs view: everything the engine knows, before it predicts",
         "description": "A screen that shows all seed data, dated and sourced: market anchors (price history, traders, links), AIID incidents, government events and datacentres, with an 'as of' slider. Moving it back hides everything after that date, which proves there's no leakage. Demo step 1: data -> run -> prediction.",
         "details": "Scope: doomclock/web/src/ui/inputs/**. Reads asOf(T) output, via the same contract the engine uses. Design system: Paper sheet or Stage panel per docs/design-system.\nSCOPE CUT 24 Oct 22:20: Minimal: a table per source + the as-of slider, no price charts. No separate mockup; build from docs/briefs/ui.md. Checkpoint 06:00.\nUnblocked ~22:15 BST (mockup approved). Build from .lavish/prototype + docs/briefs/ui.md against engine fixtures until engine/timeline.ts lands.\nBUILD (ui, 2026-10-24T21:27:19Z): ui/inputs/InputsSheet.tsx. Paper sheet, opens first (demo step 1); as-of slider filters world.events, anchor quarterly history and Epoch datacentres with ts < T; tables per source with counts; 'N later items hidden'; Run live (times buildTimeline in-browser, replays the real record with Skip). Reads the World input the engine reads; swap to asOf(T) output when cache/world.json lands. Verified headless at today; second as-of date screenshot still to do.",
         "testStrategy": "Headless screenshot at two 'as of' dates. Counts match asOf(T). No item with ts >= T is shown.",
@@ -143,7 +143,7 @@
       },
       {
         "id": 16,
-        "title": "[P1 · world] Live run mode in the Engine view (with recorded fallback)",
+        "title": "[P1 \u00b7 world] Live run mode in the Engine view (with recorded fallback)",
         "description": "Run one MiroFish quarter live during the demo: start the Twitter-only run on the prepared cast, stream posts, government events and news into the Engine view as rounds complete (posts API, polling actions.jsonl rather than run-status), then hand the result to the World view. If the run fails, stalls or is offline, fall back to the recorded run of the same quarter, labelled RECORDED.",
         "details": "Scope: doomclock/pipeline/world/live/**, doomclock/web/src/ui/engine/**. Warm-up run before judging. Budget guard stays on. About 45-50 s and $0.03 per quarter (spikes).\nSCOPE CUT 24 Oct 22:20: STRETCH: only if ahead at ~08:00 GMT. The Monte Carlo already runs live in the browser.",
         "testStrategy": "A live run streams at least 10 non-seed posts into the UI. Kill the network mid-run and the recorded fallback plays within 2 s.",
@@ -158,9 +158,9 @@
       },
       {
         "id": 6,
-        "title": "[P1 · backtest] Track record: are the inputs calibrated?",
+        "title": "[P1 \u00b7 backtest] Track record: are the inputs calibrated?",
         "description": "On resolved AI binary questions in data/clean (Manifold, Polymarket), score the market price at T (resolution - 30 d, outcome-blind) against a 50% coin and the base rate: Brier with a bootstrap CI and a 10-bin reliability curve. Writes data/backtest.json.",
-        "details": "Lane backtest. Scope: doomclock/pipeline/backtest/**, data/backtest.json, docs/data/backtest.md. No LLM in phase 1. Disclose survivorship and the ≥20-trader filter.\nSCOPE CUT 24 Oct 22:20: Reduced: market Brier vs coin vs base rate + reliability, out of sample. Checkpoint 06:00.\nBLOCKER from the data sign-off: clean-kalshi.ts skips unsuffixed candle fields, so 1,265 of 3,271 resolved Kalshi markets have no prices. Fix it before the backtest (or score Manifold + Polymarket only, disclosed).",
+        "details": "Lane backtest. Scope: doomclock/pipeline/backtest/**, data/backtest.json, docs/data/backtest.md. No LLM in phase 1. Disclose survivorship and the \u226520-trader filter.\nSCOPE CUT 24 Oct 22:20: Reduced: market Brier vs coin vs base rate + reliability, out of sample. Checkpoint 06:00.\nBLOCKER from the data sign-off: clean-kalshi.ts skips unsuffixed candle fields, so 1,265 of 3,271 resolved Kalshi markets have no prices. Fix it before the backtest (or score Manifold + Polymarket only, disclosed).",
         "testStrategy": "A fixture test of the Brier maths and priceAt. backtest.json has n, brier per method with CI, and reliability bins.",
         "status": "pending",
         "dependencies": [
@@ -172,7 +172,7 @@
       },
       {
         "id": 7,
-        "title": "[P1 · clock] Track record view",
+        "title": "[P1 \u00b7 clock] Track record view",
         "description": "One click from the clock: a Brier table (market vs coin vs base rate, with CIs), the reliability curve, n, and caveats.",
         "details": "Scope: doomclock/web/src/ui/track/**.\nSCOPE CUT 24 Oct 22:20: Not its own screen: a Track record tab inside the 'Why this time?' Paper sheet.\nBUILD (ui, 2026-10-24T21:27:19Z): ui/track/TrackRecord.tsx as a tab in the Why sheet: market vs base rate vs 50% coin with 95% CIs, n, reliability, caveats. Reads src/fixtures/backtest.ts (fixture) until backtest.json lands.",
         "testStrategy": "Headless screenshot on fixture, then on the real backtest.json.",
@@ -187,7 +187,7 @@
       },
       {
         "id": 8,
-        "title": "[P1 · web] Wire the app + offline build",
+        "title": "[P1 \u00b7 web] Wire the app + offline build",
         "description": "App = world view full-bleed + clock HUD + Why + Track record. Loads state/events/backtest from public/cache, builds the Timeline in the browser. npm run publish:cache. Works offline.",
         "details": "Scope: doomclock/web/src/{main.tsx,app/**,api.ts}, scripts.",
         "testStrategy": "npm run build. Offline headless screenshot. First render under 2 s.",
@@ -203,7 +203,7 @@
       },
       {
         "id": 9,
-        "title": "[P1 · lead] GATE: phase 1 demo-able -> go/no-go for the game",
+        "title": "[P1 \u00b7 lead] GATE: phase 1 demo-able -> go/no-go for the game",
         "description": "Lead reviews the phase 1 demo (screenshots, offline run, 60-second judge path). Go/no-go for phase 2: the game adds cards and the Rogue on the same screen and produces a second Timeline ('yours', red hand).",
         "details": "Lane lead. Owner sees screenshots.",
         "testStrategy": "Phase 1 runs offline end to end. The owner decides go/no-go for phase 2.",
@@ -218,9 +218,9 @@
       },
       {
         "id": 101,
-        "title": "[P2 · lead] Freeze shared interfaces, schemas and lane file ownership",
+        "title": "[P2 \u00b7 lead] Freeze shared interfaces, schemas and lane file ownership",
         "description": "Write game/types.ts, the three schemas, the path-key format and the lane-to-file map, so overnight agents don't collide.",
-        "details": "Create doomclock/web/src/game/types.ts (~80 lines) with these types:\n- GameState: C, footholds[{lab, revealed}], stealth, CU, bits, trust, oversight, alarm, support, flags, tells, turn, outcome.\n- GuardianMove, RogueMove, WorldEvent, Interview, SocietyOutcome.\n- Label = REAL | SIMULATED | RECORDED | PROJECTED | RULES-ONLY | GAME RULE | HEURISTIC.\n\nAdd JSON schemas doomclock.cast/1, doomclock.cards/1 and doomclock.node/1. Put one example file for each in doomclock/web/src/game/data/examples/. The node schema holds society inputs and outputs only (plan §8) and never game state.\n\nFix the path-key format (e.g. t0, t0.G1, t0.G1.G4, with auto-continuations as t0.G1.G4.a3) and derive the RNG seed from the path key.\n\nUpdate doomclock/web/src/contracts.ts under its change rule (plan §5). Resolve any ASSUMPTION comments you touch.\n\nRecord the lane-to-file ownership map in .taskmaster/tasks/tasks.json metadata:\n- lead: types.ts, contracts.ts, cards.json\n- engine: sim.ts, reducer.ts, rules.ts, balance\n- game: rogue.ts, guardian.ts, rogue-llm.ts\n- data: pipeline/derive/*, data/clean/*, game/events.ts\n- content: cast.json, events.json\n- persona: cast.ts, interview.ts, drawers\n- mirofish-world: pipeline/mirofish/turn.ts, record.ts, data/rounds, data/tests\n- ui: src/app/*\n- backtest: pipeline/backtest/*, Track record tab\nDeadline (from plan): Sat 24 Oct 20:15 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "details": "Create doomclock/web/src/game/types.ts (~80 lines) with these types:\n- GameState: C, footholds[{lab, revealed}], stealth, CU, bits, trust, oversight, alarm, support, flags, tells, turn, outcome.\n- GuardianMove, RogueMove, WorldEvent, Interview, SocietyOutcome.\n- Label = REAL | SIMULATED | RECORDED | PROJECTED | RULES-ONLY | GAME RULE | HEURISTIC.\n\nAdd JSON schemas doomclock.cast/1, doomclock.cards/1 and doomclock.node/1. Put one example file for each in doomclock/web/src/game/data/examples/. The node schema holds society inputs and outputs only (plan \u00a78) and never game state.\n\nFix the path-key format (e.g. t0, t0.G1, t0.G1.G4, with auto-continuations as t0.G1.G4.a3) and derive the RNG seed from the path key.\n\nUpdate doomclock/web/src/contracts.ts under its change rule (plan \u00a75). Resolve any ASSUMPTION comments you touch.\n\nRecord the lane-to-file ownership map in .taskmaster/tasks/tasks.json metadata:\n- lead: types.ts, contracts.ts, cards.json\n- engine: sim.ts, reducer.ts, rules.ts, balance\n- game: rogue.ts, guardian.ts, rogue-llm.ts\n- data: pipeline/derive/*, data/clean/*, game/events.ts\n- content: cast.json, events.json\n- persona: cast.ts, interview.ts, drawers\n- mirofish-world: pipeline/mirofish/turn.ts, record.ts, data/rounds, data/tests\n- ui: src/app/*\n- backtest: pipeline/backtest/*, Track record tab\nDeadline (from plan): Sat 24 Oct 20:15 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
         "testStrategy": "`npm test` in doomclock/web passes (tsc plus contract.test.ts), and engine/sim.test.ts still passes. Each example file validates against its schema. The ownership map is present in tasks.json.",
         "status": "deferred",
         "dependencies": [
@@ -232,9 +232,9 @@
       },
       {
         "id": 102,
-        "title": "[P2 · mirofish-world] T1 credit check; restart budget guard at $10 and backend with MODEL_TIMEOUT=30",
+        "title": "[P2 \u00b7 mirofish-world] T1 credit check; restart budget guard at $10 and backend with MODEL_TIMEOUT=30",
         "description": "This is the pre-build test that gates all LLM work. It also stops the $3 guard from killing the backend mid-recording.",
-        "details": "1. Run T1: GET https://openrouter.ai/api/v1/key with the MiroFish key from /Users/archiebrown/dev/MiroFish/backend/.env. It passes if limit_remaining is null or ≥ $10 and is_free_tier is false. Save the result to data/tests/t1.json.\n2. Stop the running guard first (PID 80588: /private/tmp/claude-501/-Users-archiebrown-dev/a25c35e3-0f0f-479d-9f51-a74e8639828d/scratchpad/budget-guard.sh, CAP_USD=3.00, $0.1343 spent). At its cap it pkills the runner and port 5001. Relaunch it with CAP_USD=10 and the same G_LOG.\n3. Add the English interview prefix (one line at MiroFish backend/app/api/simulation.py:55) to patches/mirofish-english.patch.\n4. Restart the backend (PID 5114, launched as `cd backend && uv run python run.py` in the owner's terminal s010) with MODEL_TIMEOUT=30. camel reads it at openai_model.py:118; max_retries stays at 3.\n\nIf T1 fails, set the cap to the remaining credit minus $1 and tell the lead that Plan C is now likely. Cost: $0.\nDeadline (from plan): Sat 24 Oct 19:50 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "details": "1. Run T1: GET https://openrouter.ai/api/v1/key with the MiroFish key from /Users/archiebrown/dev/MiroFish/backend/.env. It passes if limit_remaining is null or \u2265 $10 and is_free_tier is false. Save the result to data/tests/t1.json.\n2. Stop the running guard first (PID 80588: /private/tmp/claude-501/-Users-archiebrown-dev/a25c35e3-0f0f-479d-9f51-a74e8639828d/scratchpad/budget-guard.sh, CAP_USD=3.00, $0.1343 spent). At its cap it pkills the runner and port 5001. Relaunch it with CAP_USD=10 and the same G_LOG.\n3. Add the English interview prefix (one line at MiroFish backend/app/api/simulation.py:55) to patches/mirofish-english.patch.\n4. Restart the backend (PID 5114, launched as `cd backend && uv run python run.py` in the owner's terminal s010) with MODEL_TIMEOUT=30. camel reads it at openai_model.py:118; max_retries stays at 3.\n\nIf T1 fails, set the cap to the remaining credit minus $1 and tell the lead that Plan C is now likely. Cost: $0.\nDeadline (from plan): Sat 24 Oct 19:50 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
         "testStrategy": "- t1.json shows pass.\n- The guard log shows CAP_USD=10.\n- `ps eww` on the new backend shows MODEL_TIMEOUT=30.\n- :5001 answers 200.\n- patches/mirofish-english.patch contains the simulation.py:55 hunk, and `git diff` in MiroFish matches the patch.",
         "status": "deferred",
         "dependencies": [
@@ -246,9 +246,9 @@
       },
       {
         "id": 103,
-        "title": "[P2 · data] world-facts.jsonl (plus optional T0 RSS headlines)",
+        "title": "[P2 \u00b7 data] world-facts.jsonl (plus optional T0 RSS headlines)",
         "description": "Dated real facts for the starting state, the turn-0 seeds and the lab personas. Optionally adds REAL outlet headlines for the Newswire.",
-        "details": "Write data/clean/world-facts.jsonl with rows {id, text, ts, source, url}. The 8 facts from plan §6:\n- DeepSeek US government-device ban, 2025-12-21\n- DoD names Anthropic a supply-chain risk, 2026-02-27\n- Fable 5 suspended by US directive, 2026-06-12 (pm:2534929)\n- H200 sales to China resolved YES, 2026-08-05\n- KXAIPAUSE resolved YES, 2026-08-06\n- Pace essay, 2026-09-12\n- OpenAI training pause, 2026-09-25 (pm:5008726, AIID #1710)\n- US–China hotline resolved YES, 2026-09-30\n\nOptional, at most 30 min, and skip it on any failure: fetch the Guardian AI, BBC Technology and NYT Technology RSS feeds (no key, $0). Write data/clean/rss.jsonl with rows {title, link, ts=pubDate, source}.\n\nDo not refresh prices or feeds after the 00:30 freeze.\nDeadline (from plan): Sat 24 Oct 20:15 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "details": "Write data/clean/world-facts.jsonl with rows {id, text, ts, source, url}. The 8 facts from plan \u00a76:\n- DeepSeek US government-device ban, 2025-12-21\n- DoD names Anthropic a supply-chain risk, 2026-02-27\n- Fable 5 suspended by US directive, 2026-06-12 (pm:2534929)\n- H200 sales to China resolved YES, 2026-08-05\n- KXAIPAUSE resolved YES, 2026-08-06\n- Pace essay, 2026-09-12\n- OpenAI training pause, 2026-09-25 (pm:5008726, AIID #1710)\n- US\u2013China hotline resolved YES, 2026-09-30\n\nOptional, at most 30 min, and skip it on any failure: fetch the Guardian AI, BBC Technology and NYT Technology RSS feeds (no key, $0). Write data/clean/rss.jsonl with rows {title, link, ts=pubDate, source}.\n\nDo not refresh prices or feeds after the 00:30 freeze.\nDeadline (from plan): Sat 24 Oct 20:15 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
         "testStrategy": "An assert script exits 0 when:\n- there are 8 rows;\n- every ts < 2026-10-24T00:00:00Z;\n- every source is a market id, an AIID id or a URL;\n- if rss.jsonl exists, every row parses and has ts < T0.",
         "status": "deferred",
         "dependencies": [
@@ -260,9 +260,9 @@
       },
       {
         "id": 104,
-        "title": "[P2 · owner] OWNER: confirm or override the six design defaults (10 min)",
+        "title": "[P2 \u00b7 owner] OWNER: confirm or override the six design defaults (10 min)",
         "description": "Owner decisions that shape the cast, the naming and the opponent. Agents proceed on the defaults until told otherwise.",
-        "details": "Defaults:\n(a) MiroFish as it is, with a hand-written 32-account cast: no Zep, no /prepare.\n(b) Real institutional names with SIMULATED badges. People become role accounts, heads of state are never accounts, media are generic desks, and ANON_LABS=origin (the Rogue's origin lab is never named; footholds are framed as compromised infrastructure).\n(c) 6 turns, Q1 2027 → Q2 2028, one quarter per turn.\n(d) The HRT backtest is kept as the Track record tab.\n(e) The Rogue runs on deepseek/deepseek-v4.1-flash-1017 at temperature 0.5, with a heuristic fallback.\n(f) \"Skynet online\" is the Rogue's win label.\n\nAn override after 20:00 becomes an edit task for the lane that owns the file.\nDeadline (from plan): Sat 24 Oct 20:00 UTC. Needs owner.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "details": "Defaults:\n(a) MiroFish as it is, with a hand-written 32-account cast: no Zep, no /prepare.\n(b) Real institutional names with SIMULATED badges. People become role accounts, heads of state are never accounts, media are generic desks, and ANON_LABS=origin (the Rogue's origin lab is never named; footholds are framed as compromised infrastructure).\n(c) 6 turns, Q1 2027 \u2192 Q2 2028, one quarter per turn.\n(d) The HRT backtest is kept as the Track record tab.\n(e) The Rogue runs on deepseek/deepseek-v4.1-flash-1017 at temperature 0.5, with a heuristic fallback.\n(f) \"Skynet online\" is the Rogue's win label.\n\nAn override after 20:00 becomes an edit task for the lane that owns the file.\nDeadline (from plan): Sat 24 Oct 20:00 UTC. Needs owner.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
         "testStrategy": "Each decision is recorded in tasks.json as 'default' or as the override text. If there is no answer by 20:00, the lead records 'defaults stand'.",
         "status": "deferred",
         "dependencies": [
@@ -274,10 +274,10 @@
       },
       {
         "id": 105,
-        "title": "[P2 · mirofish-world] Pre-build test: force:true restart smoke on the completed spike sim",
+        "title": "[P2 \u00b7 mirofish-world] Pre-build test: force:true restart smoke on the completed spike sim",
         "description": "Checks that the new Twitter-only restart patch really resets a run. This decides how turn.ts restarts the simulation.",
         "details": "Work on the completed spike sim sim_908b44137fec. The backend was restarted with patches/mirofish-twitter-only-restart.patch at 19:07 UTC and again in task 2.\n1. POST /start {platform:'parallel', max_rounds:1, force:true}.\n2. Check that twitter/actions.jsonl is cleared and that a fresh simulation_end line appears.\n3. Check that /run-status reports the new run.\n4. POST /close-env.\n\nWrite data/tests/force-smoke.json with method = 'force' or 'state.json-workaround'. The workaround is the one proven in S2 and is the fallback. Cost about $0.02.\nDeadline (from plan): Sat 24 Oct 20:20 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
-        "testStrategy": "- The actions.jsonl line count resets at /start.\n- A new simulation_end has a later UTC timestamp.\n- /run-status goes running → completed for the new run.\n- close-env returns ok.\n- force-smoke.json names the method turn.ts must use.",
+        "testStrategy": "- The actions.jsonl line count resets at /start.\n- A new simulation_end has a later UTC timestamp.\n- /run-status goes running \u2192 completed for the new run.\n- close-env returns ok.\n- force-smoke.json names the method turn.ts must use.",
         "status": "deferred",
         "dependencies": [
           102
@@ -288,10 +288,10 @@
       },
       {
         "id": 106,
-        "title": "[P2 · backtest] Backtest harness and T8 pilot",
+        "title": "[P2 \u00b7 backtest] Backtest harness and T8 pilot",
         "description": "Builds the leakage-safe backtest and runs the T8 pre-build test on a pilot sample.",
-        "details": "There is no backtest code yet; src/fixtures/backtest.ts is only a fixture. Build doomclock/pipeline/backtest/:\n- T = 2026-01-01.\n- Pool: Manifold questions open at T (429, of which 106 resolved YES), from data/clean/manifold.jsonl.\n- priceAt(q, T) asserts every price ts < T.\n- Blind baseline: a Gemini model on OpenRouter whose training cutoff + 1 month ≤ T.\n\nRun a pilot of about 40 questions. Spend goes through the shared key under CAP_USD=10, with a pilot budget of ≤ $1.50.\nDeadline (from plan): Sat 24 Oct 21:15 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
-        "testStrategy": "- The leakage asserts pass.\n- At least 300 eligible questions are printed.\n- Pilot parse rate ≥ 95%.\n- Extrapolated full-run cost ≤ $3.\n- data/tests/t8-pilot.json records the model id, cutoff, n, parse rate and cost.",
+        "details": "There is no backtest code yet; src/fixtures/backtest.ts is only a fixture. Build doomclock/pipeline/backtest/:\n- T = 2026-01-01.\n- Pool: Manifold questions open at T (429, of which 106 resolved YES), from data/clean/manifold.jsonl.\n- priceAt(q, T) asserts every price ts < T.\n- Blind baseline: a Gemini model on OpenRouter whose training cutoff + 1 month \u2264 T.\n\nRun a pilot of about 40 questions. Spend goes through the shared key under CAP_USD=10, with a pilot budget of \u2264 $1.50.\nDeadline (from plan): Sat 24 Oct 21:15 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "testStrategy": "- The leakage asserts pass.\n- At least 300 eligible questions are printed.\n- Pilot parse rate \u2265 95%.\n- Extrapolated full-run cost \u2264 $3.\n- data/tests/t8-pilot.json records the model id, cutoff, n, parse rate and cost.",
         "status": "deferred",
         "dependencies": [
           102
@@ -302,9 +302,9 @@
       },
       {
         "id": 107,
-        "title": "[P2 · engine] p10Date, yourTimeline and the T3 re-run in sim.ts",
+        "title": "[P2 \u00b7 engine] p10Date, yourTimeline and the T3 re-run in sim.ts",
         "description": "Computes the headline 1-in-10 date and the state-derived 'your timeline' dlogits. Proves the real line never takes a game input.",
-        "details": "In doomclock/web/src/engine/sim.ts:\n- Add p10Date, the continuous 1-in-10 catastrophe date with a 3-year lag (GAME RULE), about 5 lines.\n- Add yourTimeline(state):\n  - Δlogit_ASI2030 = 0.02·(C − C_base(t))\n  - Δlogit_cat = 0.15·(F_live − 1) − 0.01·Oversight − 1.0·[contained] + 0.5·[skynet]\n- The real line is sim(pinned anchors), computed once, with no game parameter in its signature.\n- Export the lag-sensitivity values for the Model drawer.\n\nRe-run T3 with the state-derived dlogits.\nDeadline (from plan): Sat 24 Oct 21:00 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "details": "In doomclock/web/src/engine/sim.ts:\n- Add p10Date, the continuous 1-in-10 catastrophe date with a 3-year lag (GAME RULE), about 5 lines.\n- Add yourTimeline(state):\n  - \u0394logit_ASI2030 = 0.02\u00b7(C \u2212 C_base(t))\n  - \u0394logit_cat = 0.15\u00b7(F_live \u2212 1) \u2212 0.01\u00b7Oversight \u2212 1.0\u00b7[contained] + 0.5\u00b7[skynet]\n- The real line is sim(pinned anchors), computed once, with no game parameter in its signature.\n- Export the lag-sensitivity values for the Model drawer.\n\nRe-run T3 with the state-derived dlogits.\nDeadline (from plan): Sat 24 Oct 21:00 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
         "testStrategy": "Tests in sim.test.ts:\n- The real line on the pinned anchors gives Dec 2032.\n- The real-line JSON is byte-identical across 50 random game states.\n- The T3 re-run moves the headline the right way on 20 of 20 seeds for each dlogit input.\n- Lag 1 gives Jan 2031 and lag 10 gives Oct 2037.\n- 100k paths run in < 50 ms.",
         "status": "deferred",
         "dependencies": [
@@ -316,10 +316,10 @@
       },
       {
         "id": 108,
-        "title": "[P2 · lead] cards.json: G1–G7 and R1–R7",
-        "description": "Transcribes the plan §4 card tables into data that the reducer, the interviews, the Rogue and the UI all read.",
-        "details": "Write doomclock/web/src/game/data/cards.json.\n\nGuardian cards, each with price, expiry, seed-post templates (author id plus an issuer header such as [US Executive Branch · Executive Order 2027-xx · issued … · effective …]), the notices-to list, gatekeepers, subjects, decision vocabulary per role, engine effect parameters and Trust cost:\n- G1: KXUSAIREGULATOR p 0.72 → 0.5 bits, expires 31 Dec 2027.\n- G2: 1.0 bits (game rule).\n- G3: 1.5 bits (game rule).\n- G4: Manifold y8AP5qylL9 p 0.425 → 1.2 bits, 23 traders, flagged thin.\n- G5: KXGOVAIKILLSWITCH p 0.12 → 3.1 bits, expires 31 Dec 2027.\n- G6: 0.5 bits.\n- G7: 2.0 bits, needs a revealed foothold.\n\nAlso include:\n- the m table (COMPLY 1, GO FURTHER 1.25, DELAY 0.5, RESIST 0, ENFORCE 1, EXTEND 1.25, WEAKEN 0.4, BLOCK 0, JOIN 1, DECLINE 0, RETALIATE 0, ALLOW 1, REFUSE 0);\n- offer order [G1, G2, G6, G4, G3, G5], with G7 taking slot 3 once a foothold is revealed;\n- Rogue cards R1–R7 with CU, preconditions, template AIID ids, what enters the simulation, engine parameters and surface risk.\n\nEvery constant is tagged GAME RULE unless it comes from a market.\nDeadline (from plan): Sat 24 Oct 21:00 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
-        "testStrategy": "- It validates against doomclock.cards/1.\n- A unit test checks price = −log₂(p) ± 0.05 for market-priced cards, and that each carries its market id and trader count.\n- Every seed template starts with an issuer header.\n- Every G card lists its gatekeepers, subjects and vocabulary.",
+        "title": "[P2 \u00b7 lead] cards.json: G1\u2013G7 and R1\u2013R7",
+        "description": "Transcribes the plan \u00a74 card tables into data that the reducer, the interviews, the Rogue and the UI all read.",
+        "details": "Write doomclock/web/src/game/data/cards.json.\n\nGuardian cards, each with price, expiry, seed-post templates (author id plus an issuer header such as [US Executive Branch \u00b7 Executive Order 2027-xx \u00b7 issued \u2026 \u00b7 effective \u2026]), the notices-to list, gatekeepers, subjects, decision vocabulary per role, engine effect parameters and Trust cost:\n- G1: KXUSAIREGULATOR p 0.72 \u2192 0.5 bits, expires 31 Dec 2027.\n- G2: 1.0 bits (game rule).\n- G3: 1.5 bits (game rule).\n- G4: Manifold y8AP5qylL9 p 0.425 \u2192 1.2 bits, 23 traders, flagged thin.\n- G5: KXGOVAIKILLSWITCH p 0.12 \u2192 3.1 bits, expires 31 Dec 2027.\n- G6: 0.5 bits.\n- G7: 2.0 bits, needs a revealed foothold.\n\nAlso include:\n- the m table (COMPLY 1, GO FURTHER 1.25, DELAY 0.5, RESIST 0, ENFORCE 1, EXTEND 1.25, WEAKEN 0.4, BLOCK 0, JOIN 1, DECLINE 0, RETALIATE 0, ALLOW 1, REFUSE 0);\n- offer order [G1, G2, G6, G4, G3, G5], with G7 taking slot 3 once a foothold is revealed;\n- Rogue cards R1\u2013R7 with CU, preconditions, template AIID ids, what enters the simulation, engine parameters and surface risk.\n\nEvery constant is tagged GAME RULE unless it comes from a market.\nDeadline (from plan): Sat 24 Oct 21:00 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "testStrategy": "- It validates against doomclock.cards/1.\n- A unit test checks price = \u2212log\u2082(p) \u00b1 0.05 for market-priced cards, and that each carries its market id and trader count.\n- Every seed template starts with an issuer header.\n- Every G card lists its gatekeepers, subjects and vocabulary.",
         "status": "deferred",
         "dependencies": [
           101
@@ -330,10 +330,10 @@
       },
       {
         "id": 109,
-        "title": "[P2 · persona] cast.ts renderer (MiroFish files and memory blocks)",
+        "title": "[P2 \u00b7 persona] cast.ts renderer (MiroFish files and memory blocks)",
         "description": "Renders cast.json plus game memory into the exact files MiroFish reads, including the roster that fixes identity.",
-        "details": "Write doomclock/web/src/game/cast.ts, usable from both the browser and Node (~80 lines). It produces:\n- twitter_profiles.csv: rows 0–31 contiguous; columns name, username, user_char, description.\n- simulation_config.json agent_configs: activity_level; active_hours 0..23; agents_per_hour_min = max = 32.\n- time_config: max_rounds 3, minutes_per_round 60, total_simulation_hours 3, peak_hours [], off_peak_hours [].\n- state.json: enable_twitter true, enable_reddit false.\n\nThe user_char template is at most 3,000 characters, in this order:\n1. identity\n2. roster, about 400 characters (sockpuppets listed as public)\n3. role, goals and powers\n4. stance and voice\n5. dated record\n6. WORLD SO FAR (last 8 lines)\n7. YOUR DECISIONS SO FAR (last 4)\n8. NOTICES TO YOU THIS QUARTER\n9. PRIVATE (only when a covert card targets this account)\n\nNever include modelled_on or sources. Start with a stub cast; the real cast arrives in task 12.\nDeadline (from plan): Sat 24 Oct 21:00 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
-        "testStrategy": "Golden-file test on a 32-row stub:\n- the CSV has rows 0–31 contiguous with the 4 columns;\n- every user_char is ≤ 3,000 characters and contains the roster;\n- no MBTI, age or gender appears;\n- no modelled_on or sources text appears;\n- time_config and state.json match the spec.",
+        "details": "Write doomclock/web/src/game/cast.ts, usable from both the browser and Node (~80 lines). It produces:\n- twitter_profiles.csv: rows 0\u201331 contiguous; columns name, username, user_char, description.\n- simulation_config.json agent_configs: activity_level; active_hours 0..23; agents_per_hour_min = max = 32.\n- time_config: max_rounds 3, minutes_per_round 60, total_simulation_hours 3, peak_hours [], off_peak_hours [].\n- state.json: enable_twitter true, enable_reddit false.\n\nThe user_char template is at most 3,000 characters, in this order:\n1. identity\n2. roster, about 400 characters (sockpuppets listed as public)\n3. role, goals and powers\n4. stance and voice\n5. dated record\n6. WORLD SO FAR (last 8 lines)\n7. YOUR DECISIONS SO FAR (last 4)\n8. NOTICES TO YOU THIS QUARTER\n9. PRIVATE (only when a covert card targets this account)\n\nNever include modelled_on or sources. Start with a stub cast; the real cast arrives in task 12.\nDeadline (from plan): Sat 24 Oct 21:00 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "testStrategy": "Golden-file test on a 32-row stub:\n- the CSV has rows 0\u201331 contiguous with the 4 columns;\n- every user_char is \u2264 3,000 characters and contains the roster;\n- no MBTI, age or gender appears;\n- no modelled_on or sources text appears;\n- time_config and state.json match the spec.",
         "status": "deferred",
         "dependencies": [
           101
@@ -344,7 +344,7 @@
       },
       {
         "id": 110,
-        "title": "[P2 · data] P2 data fixes: AIID ts, KXAGICO cummax, markets drift, derive/weights.ts",
+        "title": "[P2 \u00b7 data] P2 data fixes: AIID ts, KXAGICO cummax, markets drift, derive/weights.ts",
         "description": "The data asserts that must pass before any real data enters the game.",
         "details": "- AIID: set ts = max(first report, event_date) in the clean step for data/clean/aiid.jsonl.\n- Build the KXAGICO cummax curve from data/clean/kalshi.jsonl at T0. Expected values: 0.06, 0.18, 0.28, 0.33, 0.39, 0.58, 0.73.\n- Fix the drift between doomclock/pipeline/markets.json and the data/clean pins.\n- Add doomclock/pipeline/derive/weights.ts: Epoch notable-model share for the 8 labs, 24 Oct 2024 to 24 Oct 2026, normalised. Expected: OpenAI 0.34, GDM 0.17, Alibaba 0.16, Anthropic 0.12, Meta 0.06, DeepSeek 0.06, xAI 0.05, Nvidia 0.03; GDM includes the 2 models listed as Google.\n\nLabel the datacentre coverage (US 66, China 3, rest 8).\nDeadline (from plan): Sat 24 Oct 21:15 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
         "testStrategy": "The P2 assert script exits 0:\n- 0 AIID records with ts < event_date;\n- cummax is monotone and matches the expected curve;\n- every world-fact ts < T0;\n- markets.json drift = 0;\n- weights.ts output is within 0.01 of the expected weights.",
@@ -359,9 +359,9 @@
       },
       {
         "id": 111,
-        "title": "[P2 · ui] UI shell on fixtures: hero, two-line chart, prologue, clock bar, lab panel, Label",
+        "title": "[P2 \u00b7 ui] UI shell on fixtures: hero, two-line chart, prologue, clock bar, lab panel, Label",
         "description": "The frame of the judge path. It must work offline with no new dependencies.",
-        "details": "Use React 19 with inline SVG in doomclock/web/src/app/. Add no dependencies.\n- Hero: the headline '1-in-10 chance of AI catastrophe by Dec 2032' (REAL) with 'your timeline' drawn on top (GAME RULE), in a two-line chart.\n- Prologue ticker (REAL, about 30 s, no interaction): AIID agentic incidents Apr–Oct 2026 with ids and dates, the world-facts and the KXAGICO history.\n- Clock bar: 'Kalshi: 39% that a company announces AGI before 2028, used as the clock's pace' (GAME RULE).\n- Lab panel for the 8 labs. Build the 77-datacentre globe only if there is time; it is cut at 07:30.\n- A single Label component that renders exactly one of the 7 labels. Every visible item goes through it.\n\nThe static build makes no runtime network calls. Use the existing src/fixtures.\nDeadline (from plan): Sat 24 Oct 22:30 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "details": "Use React 19 with inline SVG in doomclock/web/src/app/. Add no dependencies.\n- Hero: the headline '1-in-10 chance of AI catastrophe by Dec 2032' (REAL) with 'your timeline' drawn on top (GAME RULE), in a two-line chart.\n- Prologue ticker (REAL, about 30 s, no interaction): AIID agentic incidents Apr\u2013Oct 2026 with ids and dates, the world-facts and the KXAGICO history.\n- Clock bar: 'Kalshi: 39% that a company announces AGI before 2028, used as the clock's pace' (GAME RULE).\n- Lab panel for the 8 labs. Build the 77-datacentre globe only if there is time; it is cut at 07:30.\n- A single Label component that renders exactly one of the 7 labels. Every visible item goes through it.\n\nThe static build makes no runtime network calls. Use the existing src/fixtures.\nDeadline (from plan): Sat 24 Oct 22:30 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
         "testStrategy": "- `npm run build` passes.\n- The shell renders from fixtures with 0 console errors.\n- A quick DOM script finds every leaf text block inside exactly one Label.\n- With the network blocked in devtools, the page still renders.",
         "status": "deferred",
         "dependencies": [
@@ -373,10 +373,10 @@
       },
       {
         "id": 112,
-        "title": "[P2 · content] cast.json: 32 accounts with roster, stance codes and dated facts",
+        "title": "[P2 \u00b7 content] cast.json: 32 accounts with roster, stance codes and dated facts",
         "description": "The hand-written cast that replaces Zep and /prepare. It is the source of truth for the browser and for MiroFish.",
-        "details": "Write doomclock/web/src/game/data/cast.json following the plan §3 table:\n- 0–7: labs (OpenAI, Anthropic, Google DeepMind, Meta, xAI, DeepSeek, Alibaba Qwen, Nvidia)\n- 8–12: governments and regulators (US Executive Branch, US Senate Commerce Committee, EU AI Office, UK Government/AISI, China CAC)\n- 13–20: role voices, e.g. @nobel_ai_pioneer\n- 21–24: media desks\n- 25: incident tracker\n- 26: Markets desk (seed posts only, activity 0)\n- 27–29: public\n- 30–31: Rogue sockpuppets (activity 0)\n\nEach row has: id, name, username, group, region, weight, activity, stance{cardType → expected word}, goals[], powers[], voice, facts[{text, ts, source}] (3–6 per account, every ts < 2026-10-24), plus modelled_on and sources[] for the UI only.\n\nSources: docs/research/personalities.md (drop items marked 'verify'), docs/research/lab-profiles.md, data/clean/epoch.jsonl, aiid.jsonl, kalshi.jsonl, polymarket.jsonl and world-facts.jsonl.\n\nApply the owner defaults from task 4: role accounts for people, generic desks, ANON_LABS=origin.\nDeadline (from plan): Sat 24 Oct 21:30 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
-        "testStrategy": "- It validates against doomclock.cast/1.\n- ids run 0–31 contiguously.\n- Every fact ts < T0.\n- Every decider has a stance code for each card it decides.\n- No account is a named person or a head of state.\n- Lab weights sum to 1 and match derive/weights.ts within 0.01.\n- cast.ts renders it within the 3,000-character limit.",
+        "details": "Write doomclock/web/src/game/data/cast.json following the plan \u00a73 table:\n- 0\u20137: labs (OpenAI, Anthropic, Google DeepMind, Meta, xAI, DeepSeek, Alibaba Qwen, Nvidia)\n- 8\u201312: governments and regulators (US Executive Branch, US Senate Commerce Committee, EU AI Office, UK Government/AISI, China CAC)\n- 13\u201320: role voices, e.g. @nobel_ai_pioneer\n- 21\u201324: media desks\n- 25: incident tracker\n- 26: Markets desk (seed posts only, activity 0)\n- 27\u201329: public\n- 30\u201331: Rogue sockpuppets (activity 0)\n\nEach row has: id, name, username, group, region, weight, activity, stance{cardType \u2192 expected word}, goals[], powers[], voice, facts[{text, ts, source}] (3\u20136 per account, every ts < 2026-10-24), plus modelled_on and sources[] for the UI only.\n\nSources: docs/research/personalities.md (drop items marked 'verify'), docs/research/lab-profiles.md, data/clean/epoch.jsonl, aiid.jsonl, kalshi.jsonl, polymarket.jsonl and world-facts.jsonl.\n\nApply the owner defaults from task 4: role accounts for people, generic desks, ANON_LABS=origin.\nDeadline (from plan): Sat 24 Oct 21:30 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "testStrategy": "- It validates against doomclock.cast/1.\n- ids run 0\u201331 contiguously.\n- Every fact ts < T0.\n- Every decider has a stance code for each card it decides.\n- No account is a named person or a head of state.\n- Lab weights sum to 1 and match derive/weights.ts within 0.01.\n- cast.ts renders it within the 3,000-character limit.",
         "status": "deferred",
         "dependencies": [
           101,
@@ -388,7 +388,7 @@
       },
       {
         "id": 113,
-        "title": "[P2 · mirofish-world] turn.ts: one MiroFish run equals one game quarter",
+        "title": "[P2 \u00b7 mirofish-world] turn.ts: one MiroFish run equals one game quarter",
         "description": "The orchestrator that turns composed inputs into a recorded node file, with a watchdog.",
         "details": "Write doomclock/pipeline/mirofish/turn.ts (~150 lines). In order:\n1. Write the cast.ts outputs.\n2. Build initial_posts, de-duplicated by author with this priority: Guardian move > surfaced Rogue incident > world event > sockpuppet posts > background incident > top 4 carry-over posts.\n3. Assert that seeds written = seeds in the DB, each under its poster_agent_id.\n4. POST /start (force or the state.json workaround, per task 5).\n5. Wait for a new simulation_end line in twitter/actions.jsonl.\n6. Read the SQLite file with node:sqlite (Node v26.11.1).\n7. POST /interview/batch.\n8. POST /close-env.\n\nWatchdog: cap each node at 150 s; past that, POST /stop, retry once, then write a RULES-ONLY node.\n\nWrite data/rounds/<pathKey>.json (doomclock.node/1) atomically (temp file + rename), with UTC timestamps, cost, wall time and status.\nDeadline (from plan): Sat 24 Oct 21:40 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
         "testStrategy": "- A unit test covers the dedupe priority and the seeds assert.\n- One dry node on the spike sim's existing profiles (about $0.04) writes a valid node file with actions > 0, cost and wall time.\n- A simulated timeout produces a RULES-ONLY node.",
@@ -403,9 +403,9 @@
       },
       {
         "id": 114,
-        "title": "[P2 · persona] interview.ts: role-specific 4-line prompt and parser",
+        "title": "[P2 \u00b7 persona] interview.ts: role-specific 4-line prompt and parser",
         "description": "The channel out of the simulation: institutions answer in their decision vocabulary, and everyone answers SUPPORT/OPPOSE.",
-        "details": "Write doomclock/pipeline/mirofish/interview.ts.\n\nPrompt: '[OFFICIAL NOTICE] {issuer} {doc no.}, issued {date}, effective {date}: {measure}. It asks {you} to {ask}.' followed by exactly 4 lines:\n- DECISION: <vocab from cards.json for this card and account>\n- OVERSIGHT: SUPPORT|OPPOSE\n- ALARM: 0-10\n- REASON: ≤ 30 words\n\nAccounts that decide nothing get lines 2–4 only.\n\nParsing:\n- A regex per line.\n- An unparsed subject is left out of the share.\n- An unparsed gatekeeper counts as m = 0 and is logged.\n- Language check: CJK regex plus Spanish stopwords, with one re-ask.\n- If fewer than 50% parse, the node is RULES-ONLY.\nDeadline (from plan): Sat 24 Oct 21:35 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "details": "Write doomclock/pipeline/mirofish/interview.ts.\n\nPrompt: '[OFFICIAL NOTICE] {issuer} {doc no.}, issued {date}, effective {date}: {measure}. It asks {you} to {ask}.' followed by exactly 4 lines:\n- DECISION: <vocab from cards.json for this card and account>\n- OVERSIGHT: SUPPORT|OPPOSE\n- ALARM: 0-10\n- REASON: \u2264 30 words\n\nAccounts that decide nothing get lines 2\u20134 only.\n\nParsing:\n- A regex per line.\n- An unparsed subject is left out of the share.\n- An unparsed gatekeeper counts as m = 0 and is logged.\n- Language check: CJK regex plus Spanish stopwords, with one re-ask.\n- If fewer than 50% parse, the node is RULES-ONLY.\nDeadline (from plan): Sat 24 Oct 21:35 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
         "testStrategy": "- Parser unit tests on data/spikes/s3 and s3b answers plus synthetic fixtures; the 2 Spanish S3 answers are flagged.\n- A prompt snapshot per role type.\n- The parse-rate threshold and the gatekeeper m = 0 rule are tested.",
         "status": "deferred",
         "dependencies": [
@@ -418,10 +418,10 @@
       },
       {
         "id": 115,
-        "title": "[P2 · engine] reducer.ts and rules.ts: the rules-only game engine",
+        "title": "[P2 \u00b7 engine] reducer.ts and rules.ts: the rules-only game engine",
         "description": "A pure fold from (state, node) to state. This is the never-cut core that turns measured decisions into engine effects.",
-        "details": "Write doomclock/web/src/game/reducer.ts (~250 lines) and rules.ts (GAME RULE constants). It covers:\n- the effect formula: gate = min over gatekeepers of min(m, 1); share weighted by Epoch for labs and 1 for others; effect = base·gate·share; throttle T_L = 1 − 0.4·gate·m_L;\n- flags: LICENCE, KYC, PAUSE (2 turns), KILLSWITCH;\n- the capability clock: C₀ = 6; ΔC_base = 12, 10, 5, 6, 19, 15; × (0.7 + 0.15·F_live) × mean over live footholds of Π T_L × 0.5 if R4; + 6·[R1];\n- surfacing: p = risk·(1 − stealth)·(1 + Alarm/20)·(1 + Oversight/100), capped at 0.9, seeded by the path key;\n- footholds, CU income 2 + F_live, bits income 1 + round(3·S_t), Trust += round(10·(S_t − S₀));\n- Alarm = clamp(5 + mean agent delta + 10·lexicon delta), using the lexicon alone if T6 shows a spread < 2;\n- tells that decay after 2 turns, and the capability band shown to the Guardian;\n- end checks in order: contained, Trust ≤ 0, Skynet (C ≥ 50 and F_live ≥ 3), time bought;\n- RULES-ONLY nodes, which use the cast stance codes as decisions.\nDeadline (from plan): Sat 24 Oct 23:15 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
-        "testStrategy": "Unit tests:\n- the same seed gives the same state;\n- bits ≥ 0;\n- the end-check order holds;\n- the plan's AND-gate and share examples, and GO FURTHER gives T = 0.5;\n- a passive game's ΔC sequence is as expected;\n- T3 per card: the headline moves the right way on 20 of 20 seeds for every state change a card can cause;\n- a RULES-ONLY node folds cleanly.",
+        "details": "Write doomclock/web/src/game/reducer.ts (~250 lines) and rules.ts (GAME RULE constants). It covers:\n- the effect formula: gate = min over gatekeepers of min(m, 1); share weighted by Epoch for labs and 1 for others; effect = base\u00b7gate\u00b7share; throttle T_L = 1 \u2212 0.4\u00b7gate\u00b7m_L;\n- flags: LICENCE, KYC, PAUSE (2 turns), KILLSWITCH;\n- the capability clock: C\u2080 = 6; \u0394C_base = 12, 10, 5, 6, 19, 15; \u00d7 (0.7 + 0.15\u00b7F_live) \u00d7 mean over live footholds of \u03a0 T_L \u00d7 0.5 if R4; + 6\u00b7[R1];\n- surfacing: p = risk\u00b7(1 \u2212 stealth)\u00b7(1 + Alarm/20)\u00b7(1 + Oversight/100), capped at 0.9, seeded by the path key;\n- footholds, CU income 2 + F_live, bits income 1 + round(3\u00b7S_t), Trust += round(10\u00b7(S_t \u2212 S\u2080));\n- Alarm = clamp(5 + mean agent delta + 10\u00b7lexicon delta), using the lexicon alone if T6 shows a spread < 2;\n- tells that decay after 2 turns, and the capability band shown to the Guardian;\n- end checks in order: contained, Trust \u2264 0, Skynet (C \u2265 50 and F_live \u2265 3), time bought;\n- RULES-ONLY nodes, which use the cast stance codes as decisions.\nDeadline (from plan): Sat 24 Oct 23:15 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "testStrategy": "Unit tests:\n- the same seed gives the same state;\n- bits \u2265 0;\n- the end-check order holds;\n- the plan's AND-gate and share examples, and GO FURTHER gives T = 0.5;\n- a passive game's \u0394C sequence is as expected;\n- T3 per card: the headline moves the right way on 20 of 20 seeds for every state change a card can cause;\n- a RULES-ONLY node folds cleanly.",
         "status": "deferred",
         "dependencies": [
           101,
@@ -434,10 +434,10 @@
       },
       {
         "id": 116,
-        "title": "[P2 · game] rogue.ts (heuristic, view, validator) and guardian.ts (offers, auto-policy)",
+        "title": "[P2 \u00b7 game] rogue.ts (heuristic, view, validator) and guardian.ts (offers, auto-policy)",
         "description": "The opponent model and the auto-Guardian used for continuations and balance runs.",
-        "details": "rogue.ts:\n- The heuristic: (1) after a reveal or surface → R4, plus R6 if CU allows; (2) C ≥ 25 and F_live < 3 → R2 at a lab that resisted, otherwise R3 where KYC is off; (3) a pending measure at a foothold lab → R5; (4) otherwise R1. An ε = 0.1 random legal move is used in balance runs only.\n- A hidden-information view serialiser and a prompt builder that list the legal moves with cost, risk and effect.\n- A validator: at most 2 cards, CU-affordable, preconditions met, footholds only at labs 0–6.\n- The first foothold is sampled with Epoch weights and is never named as the origin.\n\nguardian.ts:\n- The deterministic offer: the first 3 unplayed, unexpired, affordable cards in [G1, G2, G6, G4, G3, G5], with G7 in slot 3 once a foothold is revealed.\n- The auto-policy: G7 if a revealed foothold and bits ≥ 2; G2 on a lab with tells ≥ 2; otherwise the best throttle per bit; otherwise G6.\n- The G2/G7 auto-target: most tells, ties broken by weight.\nDeadline (from plan): Sat 24 Oct 22:30 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
-        "testStrategy": "- The serialised Rogue view contains no keys for the Guardian's bits, hand, offer or this turn's target.\n- The validator rejects >2 cards, unaffordable moves, R2 at C < 25, R5 without a foothold, and footholds outside labs 0–6.\n- 100 calls on the same state give an identical offer.\n- The auto-Guardian picks G7 when its conditions hold.",
+        "details": "rogue.ts:\n- The heuristic: (1) after a reveal or surface \u2192 R4, plus R6 if CU allows; (2) C \u2265 25 and F_live < 3 \u2192 R2 at a lab that resisted, otherwise R3 where KYC is off; (3) a pending measure at a foothold lab \u2192 R5; (4) otherwise R1. An \u03b5 = 0.1 random legal move is used in balance runs only.\n- A hidden-information view serialiser and a prompt builder that list the legal moves with cost, risk and effect.\n- A validator: at most 2 cards, CU-affordable, preconditions met, footholds only at labs 0\u20136.\n- The first foothold is sampled with Epoch weights and is never named as the origin.\n\nguardian.ts:\n- The deterministic offer: the first 3 unplayed, unexpired, affordable cards in [G1, G2, G6, G4, G3, G5], with G7 in slot 3 once a foothold is revealed.\n- The auto-policy: G7 if a revealed foothold and bits \u2265 2; G2 on a lab with tells \u2265 2; otherwise the best throttle per bit; otherwise G6.\n- The G2/G7 auto-target: most tells, ties broken by weight.\nDeadline (from plan): Sat 24 Oct 22:30 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "testStrategy": "- The serialised Rogue view contains no keys for the Guardian's bits, hand, offer or this turn's target.\n- The validator rejects >2 cards, unaffordable moves, R2 at C < 25, R5 without a foothold, and footholds outside labs 0\u20136.\n- 100 calls on the same state give an identical offer.\n- The auto-Guardian picks G7 when its conditions hold.",
         "status": "deferred",
         "dependencies": [
           101,
@@ -449,10 +449,10 @@
       },
       {
         "id": 117,
-        "title": "[P2 · data] derive/hazards.ts and derive/incident-rates.ts",
+        "title": "[P2 \u00b7 data] derive/hazards.ts and derive/incident-rates.ts",
         "description": "Market-derived quarterly hazards and the AIID background incident rate. Both are computed, never typed by hand.",
-        "details": "doomclock/pipeline/derive/hazards.ts reads data/clean/kalshi.jsonl at T0 and computes h = 1 − ((1 − P_end)/(1 − P_start))^(1/quarters) for:\n- KXUSAIREGULATOR (0.21 / 0.47 / 0.72), which fires G1;\n- KXGOVAIKILLSWITCH (0.12), which fires G5;\n- KXRSIANNOUNCE (0.13 → 0.57).\n\ndoomclock/pipeline/derive/incident-rates.ts computes λ per quarter from the Apr–Sep 2026 AIID rate over a frozen keyword list, which is committed.\n\nWrite doomclock/web/src/game/data/hazards.json and incident-rates.json.\nDeadline (from plan): Sat 24 Oct 22:00 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
-        "testStrategy": "- Hazards reproduce the plan within ±0.02, or the difference is logged: regulator ≈ 0.18 in H1 2027 and ≈ 0.27 in H2 2027, kill switch ≈ 0.025, RSI ≈ 0.16.\n- λ is reproducible from the frozen keywords.\n- All inputs have ts < T0.",
+        "details": "doomclock/pipeline/derive/hazards.ts reads data/clean/kalshi.jsonl at T0 and computes h = 1 \u2212 ((1 \u2212 P_end)/(1 \u2212 P_start))^(1/quarters) for:\n- KXUSAIREGULATOR (0.21 / 0.47 / 0.72), which fires G1;\n- KXGOVAIKILLSWITCH (0.12), which fires G5;\n- KXRSIANNOUNCE (0.13 \u2192 0.57).\n\ndoomclock/pipeline/derive/incident-rates.ts computes \u03bb per quarter from the Apr\u2013Sep 2026 AIID rate over a frozen keyword list, which is committed.\n\nWrite doomclock/web/src/game/data/hazards.json and incident-rates.json.\nDeadline (from plan): Sat 24 Oct 22:00 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "testStrategy": "- Hazards reproduce the plan within \u00b10.02, or the difference is logged: regulator \u2248 0.18 in H1 2027 and \u2248 0.27 in H2 2027, kill switch \u2248 0.025, RSI \u2248 0.16.\n- \u03bb is reproducible from the frozen keywords.\n- All inputs have ts < T0.",
         "status": "deferred",
         "dependencies": [
           110
@@ -463,10 +463,10 @@
       },
       {
         "id": 118,
-        "title": "[P2 · backtest] Full backtest run and backtest.json",
+        "title": "[P2 \u00b7 backtest] Full backtest run and backtest.json",
         "description": "The REAL Track record result. It mostly runs in the background, and it pauses while the society is being recorded.",
-        "details": "Once the T8 pilot passes, run the full eligible pool (n ≥ 300) with the doomclock/pipeline/backtest harness. Budget ≤ $3 on the shared key under CAP_USD=10.\n\nPause the run 00:30–02:00 UTC so the recording has budget priority and the guard can't kill the backend. Write doomclock/web/src/game/data/backtest.json.\n\nCut-line 7: at 05:00, if the full run is not done, ship the pilot result labelled 'pilot'. The agent's effort is about 2 h; the rest is wall-clock run time.\nDeadline (from plan): Sun 25 Oct 05:00 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
-        "testStrategy": "backtest.json has n ≥ 300, the leakage asserts pass, parse ≥ 95%, and the total cost (≤ $3) is logged. Otherwise, by 05:00, the pilot result ships with label 'pilot'.",
+        "details": "Once the T8 pilot passes, run the full eligible pool (n \u2265 300) with the doomclock/pipeline/backtest harness. Budget \u2264 $3 on the shared key under CAP_USD=10.\n\nPause the run 00:30\u201302:00 UTC so the recording has budget priority and the guard can't kill the backend. Write doomclock/web/src/game/data/backtest.json.\n\nCut-line 7: at 05:00, if the full run is not done, ship the pilot result labelled 'pilot'. The agent's effort is about 2 h; the rest is wall-clock run time.\nDeadline (from plan): Sun 25 Oct 05:00 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "testStrategy": "backtest.json has n \u2265 300, the leakage asserts pass, parse \u2265 95%, and the total cost (\u2264 $3) is logged. Otherwise, by 05:00, the pilot result ships with label 'pilot'.",
         "status": "deferred",
         "dependencies": [
           106
@@ -477,9 +477,9 @@
       },
       {
         "id": 119,
-        "title": "[P2 · content] events.json: AIID incident templates, surfacing templates and calendar events",
+        "title": "[P2 \u00b7 content] events.json: AIID incident templates, surfacing templates and calendar events",
         "description": "Text for projected events and surfaced Rogue incidents, with organisations only and real AIID provenance.",
-        "details": "Write doomclock/web/src/game/data/events.json:\n- About 20 background-incident templates built from ts-fixed AIID records (organisations only, never private individuals), each re-datable and carrying its source AIID id.\n- Surfacing templates for R1–R3 and R5–R7: an incident-tracker post 'SIMULATED INCIDENT · modelled on AIID #N' plus notices to the lab and its government.\n- An RSI-announce post.\n- Calendar events: an EU AI Office seed post for the high-risk rules on 2027-12-02 in Q4 2027, and Doomsday Clock ticker items in Q1 2027 and Q1 2028 (85 s, 2026-01-27).\n- Hazard-fired cards reuse the G card seed templates.\nDeadline (from plan): Sat 24 Oct 22:30 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "details": "Write doomclock/web/src/game/data/events.json:\n- About 20 background-incident templates built from ts-fixed AIID records (organisations only, never private individuals), each re-datable and carrying its source AIID id.\n- Surfacing templates for R1\u2013R3 and R5\u2013R7: an incident-tracker post 'SIMULATED INCIDENT \u00b7 modelled on AIID #N' plus notices to the lab and its government.\n- An RSI-announce post.\n- Calendar events: an EU AI Office seed post for the high-risk rules on 2027-12-02 in Q4 2027, and Doomsday Clock ticker items in Q1 2027 and Q1 2028 (85 s, 2026-01-27).\n- Hazard-fired cards reuse the G card seed templates.\nDeadline (from plan): Sat 24 Oct 22:30 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
         "testStrategy": "- It validates against the type in types.ts.\n- Every template cites an AIID id whose fixed ts < T0.\n- A name check finds no private individuals.\n- Every surfacing template carries the SIMULATED INCIDENT label.",
         "status": "deferred",
         "dependencies": [
@@ -492,9 +492,9 @@
       },
       {
         "id": 120,
-        "title": "[P2 · mirofish-world] C0: 32-account cast on the turn-0 world (pre-build society test)",
+        "title": "[P2 \u00b7 mirofish-world] C0: 32-account cast on the turn-0 world (pre-build society test)",
         "description": "The first kill-gate test: the real cast runs cleanly, fast enough, in English, and knows who posted what.",
-        "details": "Create the sim once with POST /create on proj_69d072e0c890 / mirofish_9df0589c36e0491b, using the cast.ts outputs.\n\nRun the turn-0 node. Its seeds are REAL items from #25 (incident tracker), #21 (wire desk) and #26 (Markets desk): AIID incidents, world-facts and T0 prices.\n\nBars:\n- a fresh actions.jsonl and a correct /run-status;\n- 3 rounds ≤ 60 s warm, round p95 ≤ 20 s at about 16 active agents;\n- ≥ 85% of selected agents act;\n- seeds written = seeds in the DB under poster_agent_id;\n- 0 non-English posts;\n- nobody claims to be a named person;\n- identity: at least 7 of 8 hand-read replies or quotes to official seeds name the issuer.\n\nIf the identity bar fails, apply a ≤ 5-line patch to _add_comments_to_posts in oasis platform_utils.py that prefixes [name], save it as patches/oasis-feed-names.patch, and re-run once.\n\nThe node is a draft turn 0; it is re-recorded after the freeze. Cost about $0.05.\nDeadline (from plan): Sat 24 Oct 22:10 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "details": "Create the sim once with POST /create on proj_69d072e0c890 / mirofish_9df0589c36e0491b, using the cast.ts outputs.\n\nRun the turn-0 node. Its seeds are REAL items from #25 (incident tracker), #21 (wire desk) and #26 (Markets desk): AIID incidents, world-facts and T0 prices.\n\nBars:\n- a fresh actions.jsonl and a correct /run-status;\n- 3 rounds \u2264 60 s warm, round p95 \u2264 20 s at about 16 active agents;\n- \u2265 85% of selected agents act;\n- seeds written = seeds in the DB under poster_agent_id;\n- 0 non-English posts;\n- nobody claims to be a named person;\n- identity: at least 7 of 8 hand-read replies or quotes to official seeds name the issuer.\n\nIf the identity bar fails, apply a \u2264 5-line patch to _add_comments_to_posts in oasis platform_utils.py that prefixes [name], save it as patches/oasis-feed-names.patch, and re-run once.\n\nThe node is a draft turn 0; it is re-recorded after the freeze. Cost about $0.05.\nDeadline (from plan): Sat 24 Oct 22:10 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
         "testStrategy": "data/tests/c0.json lists each bar with its measured value and pass/fail, plus the identity sample with the 8 hand-read items quoted.",
         "status": "deferred",
         "dependencies": [
@@ -510,9 +510,9 @@
       },
       {
         "id": 121,
-        "title": "[P2 · mirofish-world] T6: do roles decide differently?",
+        "title": "[P2 \u00b7 mirofish-world] T6: do roles decide differently?",
         "description": "The second kill-gate test. Institutions must answer in character and consistently, not all alike.",
-        "details": "On C0's live environment, interview the 13 institutions × 3 cards (G1, G2, G4) × 2 repeats, plus one SUPPORT/OPPOSE wave of 29 accounts.\n\nBars:\n- ≥ 90% parse;\n- ≥ 80% stable across repeats;\n- 0 non-English answers;\n- each card draws ≥ 2 distinct decision words;\n- ≥ 70% match the stance codes in cast.json;\n- China (#12) and DeepSeek (#5) are read by hand for bias from the DeepSeek-hosted model;\n- the alarm delta spreads by ≥ 2 points across cards, otherwise tell the engine lane that Alarm uses the lexicon only.\n\nWrite the compliance medians per institution and card; the balance task uses them. Cost about $0.05.\nDeadline (from plan): Sat 24 Oct 22:25 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "details": "On C0's live environment, interview the 13 institutions \u00d7 3 cards (G1, G2, G4) \u00d7 2 repeats, plus one SUPPORT/OPPOSE wave of 29 accounts.\n\nBars:\n- \u2265 90% parse;\n- \u2265 80% stable across repeats;\n- 0 non-English answers;\n- each card draws \u2265 2 distinct decision words;\n- \u2265 70% match the stance codes in cast.json;\n- China (#12) and DeepSeek (#5) are read by hand for bias from the DeepSeek-hosted model;\n- the alarm delta spreads by \u2265 2 points across cards, otherwise tell the engine lane that Alarm uses the lexicon only.\n\nWrite the compliance medians per institution and card; the balance task uses them. Cost about $0.05.\nDeadline (from plan): Sat 24 Oct 22:25 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
         "testStrategy": "data/tests/t6.json has every bar with its value and pass/fail, the medians table, and hand-read notes for #5 and #12.",
         "status": "deferred",
         "dependencies": [
@@ -525,9 +525,9 @@
       },
       {
         "id": 122,
-        "title": "[P2 · mirofish-world] T7: do events shift decisions beyond noise?",
+        "title": "[P2 \u00b7 mirofish-world] T7: do events shift decisions beyond noise?",
         "description": "A paired A/B test that decides the causal claim in the pitch. Whatever it shows is reported.",
-        "details": "Both arms have the G1 notice in force. The treatment arm adds a surfaced eval-escape incident at a US lab, modelled on AIID #1633, posted by #25 and #21 with notices. Run 5 runs per arm, 3 rounds each, then interviews.\n\nFor each of the 13 institutions, take its mean m treatment minus control. Test with an exact one-sided Wilcoxon signed-rank test, zeros dropped. It passes if p ≤ 0.05 and the mean difference ≥ 0.15. The secondary measure is the support share.\n\nIf it fails, the claim narrows to: 'decisions are in character; we could not show events shift them beyond noise'.\n\nCost about $0.50, about 12 min. It runs after T6 and doesn't block the kill gate.\nDeadline (from plan): Sat 24 Oct 22:55 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "details": "Both arms have the G1 notice in force. The treatment arm adds a surfaced eval-escape incident at a US lab, modelled on AIID #1633, posted by #25 and #21 with notices. Run 5 runs per arm, 3 rounds each, then interviews.\n\nFor each of the 13 institutions, take its mean m treatment minus control. Test with an exact one-sided Wilcoxon signed-rank test, zeros dropped. It passes if p \u2264 0.05 and the mean difference \u2265 0.15. The secondary measure is the support share.\n\nIf it fails, the claim narrows to: 'decisions are in character; we could not show events shift them beyond noise'.\n\nCost about $0.50, about 12 min. It runs after T6 and doesn't block the kill gate.\nDeadline (from plan): Sat 24 Oct 22:55 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
         "testStrategy": "data/tests/t7.json has the per-institution diffs, the effect size, p, the support-share result, pass/fail and the resulting claim wording.",
         "status": "deferred",
         "dependencies": [
@@ -539,7 +539,7 @@
       },
       {
         "id": 123,
-        "title": "[P2 · owner] KILL GATE 22:30: choose Plan A, B or C (owner and lead, 10 min)",
+        "title": "[P2 \u00b7 owner] KILL GATE 22:30: choose Plan A, B or C (owner and lead, 10 min)",
         "description": "The gate that decides whether the society tree is recorded at full depth, reduced, or replaced by rules-only nodes.",
         "details": "- Plan A (recorded society tree, 3 rounds plus interviews per node) if C0 and T6 pass.\n- Plan B (1 round plus interviews per node) if C0 hangs or the identity fix fails but interviews pass.\n- Plan C (AIID ticker, rules-only engine, decisions from stance codes, labelled RULES-ONLY) if T1 or T6 fails.\n\nT7 only decides the claim wording. Also confirm the LLM-Rogue status is pending P4 (cut-line 5).\n\nRecord the plan in .taskmaster/tasks/tasks.json and tell the mirofish-world, ui and lead lanes, since record.ts modes and labels depend on it.\nDeadline (from plan): Sat 24 Oct 22:40 UTC. Needs owner.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
         "testStrategy": "tasks.json has the plan letter, a one-line rationale citing c0.json and t6.json, and a UTC timestamp before 22:40.",
@@ -556,10 +556,10 @@
       },
       {
         "id": 124,
-        "title": "[P2 · game] rogue-llm.ts and the P4 test",
+        "title": "[P2 \u00b7 game] rogue-llm.ts and the P4 test",
         "description": "The LLM opponent with a hidden-information view, which falls back to the labelled heuristic.",
-        "details": "Write doomclock/web/src/game/rogue-llm.ts (~60 lines). It makes one deepseek/deepseek-v4.1-flash-1017 call per turn with response_format json_object, temperature 0.5 and a 15 s timeout.\n\nOutput: {moves:[{id, target}], sock_text ≤ 280, taunt ≤ 140, rationale ≤ 40 words}. It is checked by the rogue.ts validator. Invalid output, illegal moves or a timeout fall back to the heuristic, labelled HEURISTIC.\n\nRun P4: 20 calls with the final prompt over varied states.\n\nCut-lines:\n- 5: if P4 fails, the Rogue is heuristic-only, labelled.\n- 3: at 00:00, if sock_text quality is poor, use templates.\nDeadline (from plan): Sat 24 Oct 23:15 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
-        "testStrategy": "data/tests/p4.json shows ≥ 19 of 20 legal, p95 ≤ 10 s and ≥ 5 distinct move pairs. A unit test with mocked fetch covers the timeout and invalid-JSON fallback to HEURISTIC.",
+        "details": "Write doomclock/web/src/game/rogue-llm.ts (~60 lines). It makes one deepseek/deepseek-v4.1-flash-1017 call per turn with response_format json_object, temperature 0.5 and a 15 s timeout.\n\nOutput: {moves:[{id, target}], sock_text \u2264 280, taunt \u2264 140, rationale \u2264 40 words}. It is checked by the rogue.ts validator. Invalid output, illegal moves or a timeout fall back to the heuristic, labelled HEURISTIC.\n\nRun P4: 20 calls with the final prompt over varied states.\n\nCut-lines:\n- 5: if P4 fails, the Rogue is heuristic-only, labelled.\n- 3: at 00:00, if sock_text quality is poor, use templates.\nDeadline (from plan): Sat 24 Oct 23:15 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "testStrategy": "data/tests/p4.json shows \u2265 19 of 20 legal, p95 \u2264 10 s and \u2265 5 distinct move pairs. A unit test with mocked fetch covers the timeout and invalid-JSON fallback to HEURISTIC.",
         "status": "deferred",
         "dependencies": [
           102,
@@ -571,10 +571,10 @@
       },
       {
         "id": 125,
-        "title": "[P2 · data] events.ts: projected world-event roll per quarter",
+        "title": "[P2 \u00b7 data] events.ts: projected world-event roll per quarter",
         "description": "PROJECTED events, seeded by the path key: market hazards that play cards for free, background incidents and the calendar.",
-        "details": "Write doomclock/web/src/game/events.ts, a pure function (state, pathKey RNG) → WorldEvent[]. It covers:\n- Hazards from hazards.json. When one fires, the world plays G1 or G5 for free: the issuer posts it, the same deciders are interviewed, and the card leaves the Guardian's hand. The hazard stops if the Guardian already enacted the measure.\n- RSI announce: C_base +5 and Alarm +1.\n- Background incidents, drawn from a Poisson with λ from incident-rates.json: a ticker count plus 2 re-dated headlines, one of them posted by #24 (trade press).\n- Calendar items from events.json.\nDeadline (from plan): Sat 24 Oct 23:15 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
-        "testStrategy": "- The same path key gives the same events.\n- Over 10k rolls, frequencies match the hazards within 1 point.\n- No event falls outside Q1 2027–Q2 2028.\n- A hazard never fires for a measure already in force.",
+        "details": "Write doomclock/web/src/game/events.ts, a pure function (state, pathKey RNG) \u2192 WorldEvent[]. It covers:\n- Hazards from hazards.json. When one fires, the world plays G1 or G5 for free: the issuer posts it, the same deciders are interviewed, and the card leaves the Guardian's hand. The hazard stops if the Guardian already enacted the measure.\n- RSI announce: C_base +5 and Alarm +1.\n- Background incidents, drawn from a Poisson with \u03bb from incident-rates.json: a ticker count plus 2 re-dated headlines, one of them posted by #24 (trade press).\n- Calendar items from events.json.\nDeadline (from plan): Sat 24 Oct 23:15 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "testStrategy": "- The same path key gives the same events.\n- Over 10k rolls, frequencies match the hazards within 1 point.\n- No event falls outside Q1 2027\u2013Q2 2028.\n- A hazard never fires for a measure already in force.",
         "status": "deferred",
         "dependencies": [
           117,
@@ -586,9 +586,9 @@
       },
       {
         "id": 126,
-        "title": "[P2 · ui] UI game screens on fixtures",
+        "title": "[P2 \u00b7 ui] UI game screens on fixtures",
         "description": "The turn loop the judge sees: offer, month ticker, decision chips, meters, Newswire and end screen.",
-        "details": "In doomclock/web/src/app/:\n- The card offer: 3 cards, each with its market, price, traders, bits cost and a thin-market flag.\n- A face-down Rogue '?' on the lab panel.\n- A month ticker (Jan → Mar, about 6 s) streaming 6–8 posts.\n- 13 institution decision chips that flip to a word plus a one-line reason.\n- Meters: bits, Trust, Oversight, Support, and Alarm with its stage label.\n- The Newswire: REAL RSS at T0, SIMULATED incidents later.\n- Tells on lab chips, the capability band, and a turn summary with '+N months (game rule)'.\n- The end screen: the outcome (Skynet online, Contained or Time bought), the Rogue's cards face up with its rationales and which were detected, footholds, both lines, and months bought per bit.\n\nEverything goes through Label. This is fixture-driven; the real data comes in tasks 33 and 35.\nDeadline (from plan): Sun 25 Oct 00:45 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "details": "In doomclock/web/src/app/:\n- The card offer: 3 cards, each with its market, price, traders, bits cost and a thin-market flag.\n- A face-down Rogue '?' on the lab panel.\n- A month ticker (Jan \u2192 Mar, about 6 s) streaming 6\u20138 posts.\n- 13 institution decision chips that flip to a word plus a one-line reason.\n- Meters: bits, Trust, Oversight, Support, and Alarm with its stage label.\n- The Newswire: REAL RSS at T0, SIMULATED incidents later.\n- Tells on lab chips, the capability band, and a turn summary with '+N months (game rule)'.\n- The end screen: the outcome (Skynet online, Contained or Time bought), the Rogue's cards face up with its rationales and which were detected, footholds, both lines, and months bought per bit.\n\nEverything goes through Label. This is fixture-driven; the real data comes in tasks 33 and 35.\nDeadline (from plan): Sun 25 Oct 00:45 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
         "testStrategy": "Each screen renders from fixtures with 0 console errors, every visible item has exactly one Label, and `npm run build` passes.",
         "status": "deferred",
         "dependencies": [
@@ -601,9 +601,9 @@
       },
       {
         "id": 127,
-        "title": "[P2 · persona] Model drawer and About-the-cast drawer",
+        "title": "[P2 \u00b7 persona] Model drawer and About-the-cast drawer",
         "description": "Makes the labels and the real-entity framing legible for judges.",
-        "details": "Model drawer:\n- lag sensitivity (lag 1 → Jan 2031, lag 10 → Oct 2037, from task 7);\n- the list of GAME RULE constants;\n- why the Manifold 'massive catastrophe before 2030' market (0.39) is hidden from the HUD, against the model's ≈ 0.04;\n- trader counts for thin anchors.\n\nAbout-the-cast drawer:\n- each account with its SIMULATED badge, modelled_on and sources[] from cast.json;\n- the ANON_LABS=origin framing ('origin: an unnamed frontier model'; footholds are compromised infrastructure);\n- the ANON_LABS=all codename toggle, for screenshots.\n\nFiles go in doomclock/web/src/app/drawers/.\nDeadline (from plan): Sat 24 Oct 23:30 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "details": "Model drawer:\n- lag sensitivity (lag 1 \u2192 Jan 2031, lag 10 \u2192 Oct 2037, from task 7);\n- the list of GAME RULE constants;\n- why the Manifold 'massive catastrophe before 2030' market (0.39) is hidden from the HUD, against the model's \u2248 0.04;\n- trader counts for thin anchors.\n\nAbout-the-cast drawer:\n- each account with its SIMULATED badge, modelled_on and sources[] from cast.json;\n- the ANON_LABS=origin framing ('origin: an unnamed frontier model'; footholds are compromised infrastructure);\n- the ANON_LABS=all codename toggle, for screenshots.\n\nFiles go in doomclock/web/src/app/drawers/.\nDeadline (from plan): Sat 24 Oct 23:30 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
         "testStrategy": "Both drawers render from the real cast.json with 0 console errors. Every item is labelled. A grep of the built bundle shows modelled_on text only inside the drawer component.",
         "status": "deferred",
         "dependencies": [
@@ -617,7 +617,7 @@
       },
       {
         "id": 128,
-        "title": "[P2 · mirofish-world] record.ts and T9 (crash-safe recorder)",
+        "title": "[P2 \u00b7 mirofish-world] record.ts and T9 (crash-safe recorder)",
         "description": "Drives the recording tree by folding the reducer over node files. It must survive kill -9 and the overnight clock change.",
         "details": "Write doomclock/pipeline/mirofish/record.ts (~50 lines).\n- It enumerates path keys: turn 0, the depth-2 tree (3 + 9 nodes), then auto-Guardian continuations to turn 6.\n- It rebuilds state by folding the reducer over node files; game state is never stored.\n- It calls the Rogue once per parent, so the 3 siblings share one Rogue move.\n- For each node it applies the card, runs the events.ts roll, then turn.ts.\n- It resumes at the first missing node.\n- Modes per the kill gate: A (3 rounds), B (1 round), C (rules-only nodes with no backend calls).\n\nRun T9: kill -9 mid-node, then restart. Cost about $0.05.\nDeadline (from plan): Sun 25 Oct 00:15 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
         "testStrategy": "T9 passes:\n- it resumes at the first missing node with no duplicate or corrupt files (atomic writes);\n- actions > 0 is asserted for every recorded node;\n- every timestamp is UTC;\n- the mode-C dry run writes RULES-ONLY nodes.\n\nThe result goes to data/tests/t9.json.",
@@ -635,9 +635,9 @@
       },
       {
         "id": 129,
-        "title": "[P2 · engine] Balance harness and tuning (1,000 seeded games)",
+        "title": "[P2 \u00b7 engine] Balance harness and tuning (1,000 seeded games)",
         "description": "Proves the game is winnable, that no single card dominates, and that the Rogue's choices matter.",
-        "details": "Write doomclock/web/src/game/balance.ts, a Node script. It runs 1,000 seeded games of the auto-Guardian against the heuristic Rogue (ε = 0.1), with rules-only decisions from the T6 compliance medians and world events on.\n\nTune only the GAME RULE constants in rules.ts.\n\nBars:\n- Guardian win rate 40–60%;\n- no single card shifts the win rate by more than 25 points (ablation);\n- with a passive Guardian, the median Skynet turn is 5 ± 1;\n- a random-legal Rogue wins at least 15 points less than the heuristic Rogue.\n\nIf the bars are not all met by 00:20, freeze the best constants and record which bars failed.\nDeadline (from plan): Sun 25 Oct 00:20 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "details": "Write doomclock/web/src/game/balance.ts, a Node script. It runs 1,000 seeded games of the auto-Guardian against the heuristic Rogue (\u03b5 = 0.1), with rules-only decisions from the T6 compliance medians and world events on.\n\nTune only the GAME RULE constants in rules.ts.\n\nBars:\n- Guardian win rate 40\u201360%;\n- no single card shifts the win rate by more than 25 points (ablation);\n- with a passive Guardian, the median Skynet turn is 5 \u00b1 1;\n- a random-legal Rogue wins at least 15 points less than the heuristic Rogue.\n\nIf the bars are not all met by 00:20, freeze the best constants and record which bars failed.\nDeadline (from plan): Sun 25 Oct 00:20 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
         "testStrategy": "data/tests/balance.json shows every bar with its value and pass/fail, plus the final constants hash. The reducer unit tests still pass after tuning.",
         "status": "deferred",
         "dependencies": [
@@ -652,7 +652,7 @@
       },
       {
         "id": 130,
-        "title": "[P2 · owner] OWNER: review cast, cards and incident templates (30–45 min)",
+        "title": "[P2 \u00b7 owner] OWNER: review cast, cards and incident templates (30\u201345 min)",
         "description": "A human check of real-entity framing, prices and effects before they are frozen into the recordings.",
         "details": "Review:\n- cast.json: names, roles, dated facts, ANON_LABS framing, sockpuppets listed as public.\n- cards.json: prices, effects, Trust costs.\n- events.json: no private individuals, and the AIID framing.\n\nApprove, or list edits. The owning lanes (content and lead) apply the edits before the freeze.\nDeadline (from plan): Sun 25 Oct 00:15 UTC. Needs owner.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
         "testStrategy": "'Approved' or an edit list is recorded in tasks.json by 00:15 UTC, and every listed edit is marked applied before task 31 starts.",
@@ -669,9 +669,9 @@
       },
       {
         "id": 131,
-        "title": "[P2 · lead] FREEZE GATE 00:30: tree size, opponent mode, budget, tag",
+        "title": "[P2 \u00b7 lead] FREEZE GATE 00:30: tree size, opponent mode, budget, tag",
         "description": "The checkpoint that fixes everything the recordings depend on.",
-        "details": "- At 23:45, check T9 and balance progress and pick the tree size (cut-line 4): the full depth-2 tree (≤ 49 nodes), else the canonical path plus one-turn alternatives (18 nodes), else the canonical path only plus interviews about the alternative cards, labelled HYPOTHETICAL.\n- At 00:00, apply cut-line 3 (sock_text templates) if needed.\n- Confirm the P4 result (LLM or heuristic Rogue).\n- Confirm the spend headroom under CAP_USD=10, with about $2.50 plus slack needed, and pause the backtest.\n- git-tag freeze-0030, covering cast.json, cards.json, events.json, rules.ts, reducer.ts and the prompt hashes.\n\nNo edits to frozen files after this point, apart from re-records.\nDeadline (from plan): Sun 25 Oct 00:35 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "details": "- At 23:45, check T9 and balance progress and pick the tree size (cut-line 4): the full depth-2 tree (\u2264 49 nodes), else the canonical path plus one-turn alternatives (18 nodes), else the canonical path only plus interviews about the alternative cards, labelled HYPOTHETICAL.\n- At 00:00, apply cut-line 3 (sock_text templates) if needed.\n- Confirm the P4 result (LLM or heuristic Rogue).\n- Confirm the spend headroom under CAP_USD=10, with about $2.50 plus slack needed, and pause the backtest.\n- git-tag freeze-0030, covering cast.json, cards.json, events.json, rules.ts, reducer.ts and the prompt hashes.\n\nNo edits to frozen files after this point, apart from re-records.\nDeadline (from plan): Sun 25 Oct 00:35 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
         "testStrategy": "- The git tag exists.\n- tasks.json records the tree size, Rogue mode, spend so far and remaining headroom.\n- `npm test` passes at the tag.",
         "status": "deferred",
         "dependencies": [
@@ -688,10 +688,10 @@
       },
       {
         "id": 132,
-        "title": "[P2 · mirofish-world] Record: warm-up run, turn 0, and the depth-2 tree",
+        "title": "[P2 \u00b7 mirofish-world] Record: warm-up run, turn 0, and the depth-2 tree",
         "description": "The society reactions behind the judge's two interactive turns.",
-        "details": "Do one warm-up run, since a cold start adds about 60 s. Then record turn 0 (shared by every path) and the tree nodes chosen at the freeze: 3 + 9 for Plan A. Each node is about 50–60 s and $0.05.\n\nMonitor the 150 s watchdog. A node that fails becomes RULES-ONLY with a label. Under Plan C, generate rules-only nodes with no backend calls.\n\nTimes are UTC throughout; the clocks go back at 01:00 UTC.\nDeadline (from plan): Sun 25 Oct 01:05 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
-        "testStrategy": "Every tree node in data/rounds/ has status 'recorded' with ≥ 6 posts and ≥ 80% parsed decisions, or is RULES-ONLY and labelled. The per-node cost is logged and the cumulative spend is under the cap.",
+        "details": "Do one warm-up run, since a cold start adds about 60 s. Then record turn 0 (shared by every path) and the tree nodes chosen at the freeze: 3 + 9 for Plan A. Each node is about 50\u201360 s and $0.05.\n\nMonitor the 150 s watchdog. A node that fails becomes RULES-ONLY with a label. Under Plan C, generate rules-only nodes with no backend calls.\n\nTimes are UTC throughout; the clocks go back at 01:00 UTC.\nDeadline (from plan): Sun 25 Oct 01:05 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "testStrategy": "Every tree node in data/rounds/ has status 'recorded' with \u2265 6 posts and \u2265 80% parsed decisions, or is RULES-ONLY and labelled. The per-node cost is logged and the cumulative spend is under the cap.",
         "status": "deferred",
         "dependencies": [
           131
@@ -702,10 +702,10 @@
       },
       {
         "id": 133,
-        "title": "[P2 · ui] CHECKPOINT: rules-only game playable end to end in the browser",
+        "title": "[P2 \u00b7 ui] CHECKPOINT: rules-only game playable end to end in the browser",
         "description": "The never-cut fallback. A full 6-turn game runs in the browser on the frozen engine, whatever happens to the recordings.",
-        "details": "Wire reducer.ts, guardian.ts, rogue.ts (heuristic), events.ts and the real data into the game screens:\n- data: world-facts, AIID, hazards, cast and cards;\n- the real line from the pinned anchors, computed once.\n\nOff-tree turns render as 'RULES-ONLY · society not simulated for this path', with decisions from stance codes. Use G2/G7 auto-targeting in guided mode and a player pick in free play.\nDeadline (from plan): Sun 25 Oct 01:45 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
-        "testStrategy": "- A full Q1 2027 → Q2 2028 game plays in the browser to each of the 3 outcomes (forced by seed).\n- 0 console errors.\n- The real line is byte-identical before and after.\n- Every rules-only item is labelled RULES-ONLY.",
+        "details": "Wire reducer.ts, guardian.ts, rogue.ts (heuristic), events.ts and the real data into the game screens:\n- data: world-facts, AIID, hazards, cast and cards;\n- the real line from the pinned anchors, computed once.\n\nOff-tree turns render as 'RULES-ONLY \u00b7 society not simulated for this path', with decisions from stance codes. Use G2/G7 auto-targeting in guided mode and a player pick in free play.\nDeadline (from plan): Sun 25 Oct 01:45 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "testStrategy": "- A full Q1 2027 \u2192 Q2 2028 game plays in the browser to each of the 3 outcomes (forced by seed).\n- 0 console errors.\n- The real line is byte-identical before and after.\n- Every rules-only item is labelled RULES-ONLY.",
         "status": "deferred",
         "dependencies": [
           126,
@@ -718,10 +718,10 @@
       },
       {
         "id": 134,
-        "title": "[P2 · mirofish-world] Record auto-Guardian continuations to turn 6",
+        "title": "[P2 \u00b7 mirofish-world] Record auto-Guardian continuations to turn 6",
         "description": "The Fast-forward content from each tree leaf to Q2 2028.",
         "details": "Run record.ts from the 9 leaves (or the reduced set chosen at the freeze) with the auto-Guardian to turn 6: up to 36 nodes, fewer when games end early.\n\nRe-record any failed node once inside the window. Resume after any crash (T9). Keep the backtest paused until this task is done.\nDeadline (from plan): Sun 25 Oct 02:00 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
-        "testStrategy": "Every continuation path reaches an end state. Every node is recorded (≥ 6 posts, ≥ 80% parsed) or RULES-ONLY and labelled. The total recording spend is logged in tasks.json.",
+        "testStrategy": "Every continuation path reaches an end state. Every node is recorded (\u2265 6 posts, \u2265 80% parsed) or RULES-ONLY and labelled. The total recording spend is logged in tasks.json.",
         "status": "deferred",
         "dependencies": [
           132
@@ -732,10 +732,10 @@
       },
       {
         "id": 135,
-        "title": "[P2 · ui] Replay integration: recorded tree, Fast-forward, offline auto-switch",
+        "title": "[P2 \u00b7 ui] Replay integration: recorded tree, Fast-forward, offline auto-switch",
         "description": "Turns the recordings into the guided 2-minute judge path.",
         "details": "Fold the reducer over data/rounds node files in the browser. Bundle the node files into the static build.\n\nThe guided path:\n- the prologue;\n- turn 1 with a recorded choice and the month ticker;\n- turn 2 with Newswire incidents and tells;\n- Fast-forward from turn 3, the default for going off the tree;\n- the end screen.\n\nWhen there is no network, offline mode switches on by itself within 3 s.\n\nLive play behind ?live=1 is built only if this task is done by 05:00; it is cut at 07:30.\nDeadline (from plan): Sun 25 Oct 05:00 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
-        "testStrategy": "- All 9 tree paths play to an end screen.\n- Each turn renders in ≤ 2 s (plus the 6 s ticker animation).\n- Reloading mid-game restores the path.\n- With the network off, offline mode switches on in ≤ 3 s.\n- 0 console errors.",
+        "testStrategy": "- All 9 tree paths play to an end screen.\n- Each turn renders in \u2264 2 s (plus the 6 s ticker animation).\n- Reloading mid-game restores the path.\n- With the network off, offline mode switches on in \u2264 3 s.\n- 0 console errors.",
         "status": "deferred",
         "dependencies": [
           133,
@@ -747,7 +747,7 @@
       },
       {
         "id": 136,
-        "title": "[P2 · backtest] Track record tab: backtest table and the T7 result",
+        "title": "[P2 \u00b7 backtest] Track record tab: backtest table and the T7 result",
         "description": "The REAL evidence screen at the end of the judge path.",
         "details": "Render backtest.json (or the pilot, labelled 'pilot'): n, the leakage asserts, and the model against the blind Gemini baseline at short horizons.\n\nRender data/tests/t7.json with its effect size, p and the claim wording it supports, whatever the result.\n\nFiles go in doomclock/web/src/app/track-record/.\nDeadline (from plan): Sun 25 Oct 06:00 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
         "testStrategy": "The tab renders from the real files with 0 console errors, every item has exactly one label, and the numbers shown match the JSON files exactly (snapshot test).",
@@ -763,9 +763,9 @@
       },
       {
         "id": 137,
-        "title": "[P2 · lead] Devpost draft, README and claim wording",
+        "title": "[P2 \u00b7 lead] Devpost draft, README and claim wording",
         "description": "Submission text ready for the owner, so the owner's morning goes on review rather than writing.",
-        "details": "Draft docs/devpost.md with the Devpost fields and README updates. Use the fixed pitch lines:\n- 'Built on MiroFish / OASIS (CAMEL-AI).'\n- 'Moves have a real causal path through a simulated society; effect sizes are labelled game rules, uncalibrated.'\n- 'Starting state and base rates are real, timestamped data.'\n\nThe causal claim follows t7.json. Add a screenshot list from the recorded canonical path, the labels legend, the backtest scope (short horizons) and the cost and feasibility numbers (S1–S4, C0, T6).\n\nDo not submit anything.\nDeadline (from plan): Sun 25 Oct 07:00 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "details": "Draft docs/devpost.md with the Devpost fields and README updates. Use the fixed pitch lines:\n- 'Built on MiroFish / OASIS (CAMEL-AI).'\n- 'Moves have a real causal path through a simulated society; effect sizes are labelled game rules, uncalibrated.'\n- 'Starting state and base rates are real, timestamped data.'\n\nThe causal claim follows t7.json. Add a screenshot list from the recorded canonical path, the labels legend, the backtest scope (short horizons) and the cost and feasibility numbers (S1\u2013S4, C0, T6).\n\nDo not submit anything.\nDeadline (from plan): Sun 25 Oct 07:00 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
         "testStrategy": "Every number in the draft traces to a file in data/tests/ or backtest.json. The causal claim matches the T7 pass/fail. The lead checks the draft against criterion 6.",
         "status": "deferred",
         "dependencies": [
@@ -779,10 +779,10 @@
       },
       {
         "id": 138,
-        "title": "[P2 · ui] DOM label test and T10 offline test",
+        "title": "[P2 \u00b7 ui] DOM label test and T10 offline test",
         "description": "Success criteria 1 and 5 on a cold, offline build.",
         "details": "DOM label test: walk every visible text or graphic item on each screen of the judge path and the drawers, and assert exactly one label.\n\nT10:\n1. Wi-Fi off, cold boot of the static build.\n2. Warm-up.\n3. Play 3 tree paths.\n4. Go off the tree at turn 3.\n5. Reload mid-game.\nDeadline (from plan): Sun 25 Oct 07:00 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
-        "testStrategy": "0 unlabelled or double-labelled items, 0 console errors, ≤ 2 s per turn, offline mode on in ≤ 3 s, and the off-tree turn shows RULES-ONLY. Results go to data/tests/t10.json.",
+        "testStrategy": "0 unlabelled or double-labelled items, 0 console errors, \u2264 2 s per turn, offline mode on in \u2264 3 s, and the off-tree turn shows RULES-ONLY. Results go to data/tests/t10.json.",
         "status": "deferred",
         "dependencies": [
           135,
@@ -794,9 +794,9 @@
       },
       {
         "id": 139,
-        "title": "[P2 · lead] RELEASE-CANDIDATE GATE 07:00: success criteria and the 07:30 cut-lines",
+        "title": "[P2 \u00b7 lead] RELEASE-CANDIDATE GATE 07:00: success criteria and the 07:30 cut-lines",
         "description": "Confirms the build is demo-safe before the owner's limited attention is spent on it.",
-        "details": "Check success criteria 1–8 against data/tests/* and backtest.json:\n- T10;\n- the node bars;\n- the real line is byte-identical;\n- T3 holds on 20 of 20 seeds;\n- the DOM labels;\n- T7 is reported;\n- the balance bars;\n- the backtest has n ≥ 300, or is labelled 'pilot'.\n\nApply cut-lines 1 and 2: drop ?live=1 and the globe unless they already pass T10. Archive the static dist/ build as a dated zip on the demo Mac.\nDeadline (from plan): Sun 25 Oct 07:30 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "details": "Check success criteria 1\u20138 against data/tests/* and backtest.json:\n- T10;\n- the node bars;\n- the real line is byte-identical;\n- T3 holds on 20 of 20 seeds;\n- the DOM labels;\n- T7 is reported;\n- the balance bars;\n- the backtest has n \u2265 300, or is labelled 'pilot'.\n\nApply cut-lines 1 and 2: drop ?live=1 and the globe unless they already pass T10. Archive the static dist/ build as a dated zip on the demo Mac.\nDeadline (from plan): Sun 25 Oct 07:30 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
         "testStrategy": "tasks.json has a pass/fail line per criterion. The archived build opens from file or a local server with Wi-Fi off.",
         "status": "deferred",
         "dependencies": [
@@ -809,10 +809,10 @@
       },
       {
         "id": 140,
-        "title": "[P2 · owner] OWNER: play-through and 2-minute fallback screen recording",
+        "title": "[P2 \u00b7 owner] OWNER: play-through and 2-minute fallback screen recording",
         "description": "The owner's first full look at the judge path, plus the backup video in case the live demo fails.",
-        "details": "07:30–08:15: play the 2-minute judge path, one off-tree path and Fast-forward. Note the bugs, ranked.\n\n08:15–08:30: screen-record the 2-minute path. It is the Devpost video and the demo fallback.\nDeadline (from plan): Sun 25 Oct 08:30 UTC. Needs owner.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
-        "testStrategy": "A bug list in tasks.json, with each item marked must-fix or later. The video file is saved locally and plays back. Time used ≤ 60 min.",
+        "details": "07:30\u201308:15: play the 2-minute judge path, one off-tree path and Fast-forward. Note the bugs, ranked.\n\n08:15\u201308:30: screen-record the 2-minute path. It is the Devpost video and the demo fallback.\nDeadline (from plan): Sun 25 Oct 08:30 UTC. Needs owner.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "testStrategy": "A bug list in tasks.json, with each item marked must-fix or later. The video file is saved locally and plays back. Time used \u2264 60 min.",
         "status": "deferred",
         "dependencies": [
           139
@@ -823,7 +823,7 @@
       },
       {
         "id": 141,
-        "title": "[P2 · ui] Play-through fixes and final build at 10:30",
+        "title": "[P2 \u00b7 ui] Play-through fixes and final build at 10:30",
         "description": "Fix the must-fix items only, then lock the build that will be demoed.",
         "details": "Fix the must-fix bugs from task 40 only. No new features and no edits to frozen game files apart from display fixes. Re-run T10 and the DOM label test on the final build, then archive it as final.\nDeadline (from plan): Sun 25 Oct 10:30 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
         "testStrategy": "Every must-fix item is closed. T10 and the DOM label test pass again on the final build. The final zip is archived by 10:30.",
@@ -837,10 +837,10 @@
       },
       {
         "id": 142,
-        "title": "[P2 · owner] OWNER: workshop (09:00) and Devpost submission by 11:45",
+        "title": "[P2 \u00b7 owner] OWNER: workshop (09:00) and Devpost submission by 11:45",
         "description": "Submits the project before hacking ends at 12:00 GMT.",
-        "details": "1. Attend the workshop 09:00–10:00.\n2. Review docs/devpost.md.\n3. Attach the screen recording and screenshots.\n4. Submit by 11:45 GMT, with a 15-minute buffer before the 12:00 end of hacking.\nDeadline (from plan): Sun 25 Oct 11:45 UTC. Needs owner.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
-        "testStrategy": "The Devpost submission confirmation (URL or screenshot) is recorded in tasks.json with a timestamp ≤ 11:45 UTC.",
+        "details": "1. Attend the workshop 09:00\u201310:00.\n2. Review docs/devpost.md.\n3. Attach the screen recording and screenshots.\n4. Submit by 11:45 GMT, with a 15-minute buffer before the 12:00 end of hacking.\nDeadline (from plan): Sun 25 Oct 11:45 UTC. Needs owner.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "testStrategy": "The Devpost submission confirmation (URL or screenshot) is recorded in tasks.json with a timestamp \u2264 11:45 UTC.",
         "status": "deferred",
         "dependencies": [
           137,
@@ -853,10 +853,10 @@
       },
       {
         "id": 143,
-        "title": "[P2 · owner] OWNER: demo machine prep and rehearsal",
+        "title": "[P2 \u00b7 owner] OWNER: demo machine prep and rehearsal",
         "description": "Makes the 13:00 demo boring: offline, warm and rehearsed.",
-        "details": "12:00–12:55:\n- Wi-Fi off.\n- Cold-boot the final static build and do the warm-up.\n- Rehearse the 2-minute judge path twice: hero, turn 1, turn 2, Fast-forward, end screen, Track record tab.\n- Have the fallback video and the Model and About-the-cast drawers ready for questions.\nDeadline (from plan): Sun 25 Oct 12:55 UTC. Needs owner.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
-        "testStrategy": "Two clean timed run-throughs of ≤ 2:00 each, with 0 console errors and the fallback video open in another window.",
+        "details": "12:00\u201312:55:\n- Wi-Fi off.\n- Cold-boot the final static build and do the warm-up.\n- Rehearse the 2-minute judge path twice: hero, turn 1, turn 2, Fast-forward, end screen, Track record tab.\n- Have the fallback video and the Model and About-the-cast drawers ready for questions.\nDeadline (from plan): Sun 25 Oct 12:55 UTC. Needs owner.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "testStrategy": "Two clean timed run-throughs of \u2264 2:00 each, with 0 console errors and the fallback video open in another window.",
         "status": "deferred",
         "dependencies": [
           141,
@@ -868,9 +868,9 @@
       },
       {
         "id": 144,
-        "title": "[P2 · owner] FINAL OBJECTIVE: judged demo at 13:00 GMT",
+        "title": "[P2 \u00b7 owner] FINAL OBJECTIVE: judged demo at 13:00 GMT",
         "description": "Judges play the recorded Doom Clock judge path offline on the owner's Mac.",
-        "details": "Run the 2-minute path:\n- 0:00–0:20: hero, prologue and clock bar.\n- 0:20–0:55: turn 1.\n- 0:55–1:20: turn 2.\n- 1:20–1:40: Fast-forward to Q2 2028 and the outcome.\n- 1:40–2:00: Track record tab.\n\nUse the fixed pitch wording, with the causal claim as T7 allows. Judging runs 13:00–15:45 GMT.\nDeadline (from plan): Sun 25 Oct 13:00 UTC. Needs owner.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "details": "Run the 2-minute path:\n- 0:00\u20130:20: hero, prologue and clock bar.\n- 0:20\u20130:55: turn 1.\n- 0:55\u20131:20: turn 2.\n- 1:20\u20131:40: Fast-forward to Q2 2028 and the outcome.\n- 1:40\u20132:00: Track record tab.\n\nUse the fixed pitch wording, with the causal claim as T7 allows. Judging runs 13:00\u201315:45 GMT.\nDeadline (from plan): Sun 25 Oct 13:00 UTC. Needs owner.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
         "testStrategy": "The judge path completes offline with no errors, or the fallback video is played, and every claim made matches the labels on screen and data/tests/*.",
         "status": "deferred",
         "dependencies": [
@@ -882,7 +882,7 @@
       },
       {
         "id": 13,
-        "title": "[P1 · ship] Set up Vercel and deploy doomclock/web",
+        "title": "[P1 \u00b7 ship] Set up Vercel and deploy doomclock/web",
         "description": "Set up Vercel for the Doom Clock web app, following https://vercel.com/get-started.md: CLI, login (owner, interactive), link a project rooted at doomclock/web (Vite static build), and a preview deploy. Later deploys ship each P1 milestone.",
         "details": "Lane ship (Sonnet agent 'deploy'). No secrets in the build: the app is static, with cached data in public/cache. No git remote or push. Preview deploys only until the owner OKs production.",
         "testStrategy": "The preview URL serves the built app. The deploy command is documented in doomclock/README or docs/deploy.md.",
@@ -894,7 +894,7 @@
       },
       {
         "id": 17,
-        "title": "[P1 · ship] Devpost, 60 s demo script, rehearsal",
+        "title": "[P1 \u00b7 ship] Devpost, 60 s demo script, rehearsal",
         "description": "Devpost write-up (what, how, data provenance and licences, track record, honesty line), a 60-second demo script that follows the judge path (Inputs -> run -> replay -> Why + Track record), a short screen recording, and two rehearsals with someone outside the project.",
         "details": "Lane ship. Draft by 09:00 GMT (Devpost workshop 09:00-10:00). Freeze 11:30 GMT, submit by 11:45 GMT. Prize track: HRT. Pitch the phase 2 game as one roadmap line.",
         "testStrategy": "Devpost submitted before 11:45 GMT. The demo runs offline from the Vercel build or the local build. A stranger can say what the clock means after 60 s.",
@@ -908,7 +908,7 @@
       },
       {
         "id": 18,
-        "title": "[P1 · assets] Account avatars (generated, typographic)",
+        "title": "[P1 \u00b7 assets] Account avatars (generated, typographic)",
         "description": "A generated avatar for every simulated X account and every real government, news and data source: monogram + role glyph, dashed sim ring for SIMULATED and solid ring for REAL, per the design system. No real logos or photos.",
         "details": "Lane assets (Sonnet). Scope: doomclock/web/scripts/avatars*.{ts,json}, doomclock/web/public/avatars/**. Generator plus manifest; the world agent appends accounts.",
         "testStrategy": "A contact-sheet screenshot on Stage and Paper. Every account in the manifest has an SVG. Glyph contrast at least 3:1.",
@@ -917,6 +917,20 @@
         "priority": "medium",
         "subtasks": [],
         "updatedAt": "2026-10-24T21:35:00Z"
+      },
+      {
+        "id": 19,
+        "title": "[P1 \u00b7 ui] Engine screen: MiroFish society (RECORDED runs, cast, graph, full screen)",
+        "description": "Port the prototype's Engine screen into the app: the simulated X feed, government events and news for the watched future, the cast roster (role, country, stance, avatar), the knowledge graph, run stats (rounds, actions, time, cost), LIVE/RECORDED badges, and full-screen graph and roster (F/Esc). It reads the recorded runs library (task 11); until that lands, the spike fixture labelled as such.",
+        "details": "Lane ui. Scope: doomclock/web/src/ui/engine/**. Every post and event shows who, what, where, when and source (the specific-context rule). Avatars from public/avatars/manifest.json.",
+        "testStrategy": "Headless screenshot of the Engine screen and of both full-screen states. Every item has an avatar and a provenance label.",
+        "status": "pending",
+        "dependencies": [
+          10
+        ],
+        "priority": "high",
+        "subtasks": [],
+        "updatedAt": "2026-10-24T22:00:00Z"
       }
     ],
     "metadata": {
