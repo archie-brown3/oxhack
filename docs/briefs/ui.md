@@ -48,6 +48,9 @@ A **Monte Carlo simulation**, not a game.
 3. **Engine: a separate screen** (Archie's pick).
    - The MiroFish society for the watched future: the simulated X feed, government events and news (only these three are simulated), the cast and their roles, the knowledge graph, and run stats (rounds, actions, time, cost).
    - **Two states, clearly marked:** LIVE (a run streaming in, task 16) and RECORDED (from the replay library, with seed and run id, task 11).
+   - **Expand to full screen** (Archie, 22:25): the cast and the knowledge graph can each be expanded to fill the screen, to show the MiroFish engine in full.
+     - It's a maximise toggle on the panel, plus `F` for the panel in focus and `Esc` to close. Use CSS (a fixed panel at `inset: 0`), not a new route.
+     - The graph re-fits to the new size. The cast becomes a full roster: role, country and stance per agent.
 4. **Why this time? (Paper).** Anchors → Monte Carlo fan of 10,000 futures → 1-in-10 date → the hand. Ends with "A prediction, not a prophecy."
 5. **Track record (Paper).** Market Brier against a 50% coin and the base rate, with CIs, a reliability curve and n. The caveats are visible.
 
