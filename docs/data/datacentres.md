@@ -1,0 +1,18 @@
+# AI datacentres (`data/clean/datacentres.jsonl`)
+
+**What / feeds:** the datacentre "houses" on the globe (DS4); region-capacity cross-check.
+
+- **Source:** Epoch AI, "AI data centers" (`https://epoch.ai/data/data_centers/data_centers.zip`, page `https://epoch.ai/data/ai-data-centers`). Uses `data_centers.csv` (95 sites) and `data_center_timelines.csv` (dated satellite/permit observations). Each site lists its own sources (permits, filings, press) in `source_urls`.
+- **Coordinates:** Epoch publishes **no lat/lon**, only a street address for 81 of 95 sites. Coordinates are geocoded from Epoch's address with OpenStreetMap Nominatim (`geo_source`, matched place in `geo_match`). Responses are cached in `data/raw/datacentres/nominatim.json`. If the street address isn't found, the street part is dropped and the town is geocoded (`geo_precision: "locality"`, roughly town-centre, km-level error). Nothing is hand-typed.
+- **Re-run:** `node doomclock/pipeline/derive/datacentres.ts` (needs the system `unzip`; Nominatim is rate-limited to 1 req/s, so a cold run takes about 3 minutes; later runs reuse the cache). Raw zip: `data/raw/datacentres/data_centers.<day>.zip`.
+- **Licence:** Epoch data is CC BY 4.0: credit "Epoch AI, 'AI data centers', epoch.ai/data/ai-data-centers". Geocoding is © OpenStreetMap contributors (ODbL); credit it where coordinates are shown.
+- **Record:** `ts, source:"epoch-datacentres", kind:"datacentre", id` (slug)`, url` (Epoch page)`, name, operator` (Epoch "Owner", confidence tag stripped)`, lat, lon, country, region` (`US|China|rest`)`, status` (`operating|planned`)`, power_mw` (current)`, h100_equivalents` (current)`, address, geo_precision` (`address|locality`)`, geo_source, geo_match, source_urls` (list).
+- **`ts`:** the earliest dated Epoch timeline row for the site (00:00Z). It is when Epoch first observed the site, which is an **upper bound** on when it became public (a campus may have been announced earlier). Sites whose first dated row is after today would be dropped (none were).
+- **`status`:** `operating` if the latest timeline row dated ≤ 2026-10-24 has `Power (MW)` > 0, else `planned`. Epoch's own projections after today are ignored.
+- **Counts:** 77 of 95 sites. Region: US 66, China 3, rest 8. Status: operating 64, planned 13. Precision: address 51, locality 26. `ts` 2018-12-18 → 2025-11-02. Sum of current power: US ~11.0 GW (89%), rest ~0.8 GW (7%), China ~0.6 GW (5%).
+- **Gaps (18 sites dropped):**
+  - 14 have no address in Epoch's data: DayOne Nusajaya, Google Mesa, Google Kansas City East, Google Storey County, Oracle Batam, Nebius Mantsala, Southgate Melbourne, Anthropic Barber Lake, Envision Galaxy Ulanqab, Microsoft Narvik Norway, OpenAI Stargate Michigan / Milam / New Mexico / Wisconsin. Several are large (DayOne Nusajaya 473 MW). Placing them would mean guessing a location, so they are left out.
+  - 4 have an address OSM can't find: Amazon Madison Mega Site, Google Papillion, Alibaba Zhangbei, OpenAI Stargate Shackelford.
+  - Epoch's coverage is thin for China (only 5 sites in the source, 3 placed), so a "China has few houses" picture is a coverage artefact, not a finding. Don't use the houses to argue region shares.
+  - `status` has no "compromised/audited"; those are game states for the UI.
+- **Quirks:** `operator` is Epoch's "Owner" and may differ from the user (e.g. Colossus 2 is owned by SpaceXAI, used by Anthropic). Some Epoch addresses are a company name plus town rather than a street, which is why those land at locality precision.
