@@ -11,3 +11,7 @@ node_modules/
 data/raw/
 # Plague Inc screenshots (© Ndemic): internal reference only
 .lavish/plague/
+# Secrets
+.env
+.env.*
+!.env.example
