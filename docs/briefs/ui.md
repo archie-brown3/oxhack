@@ -51,7 +51,7 @@ A **Monte Carlo simulation**, not a game.
    - **Expand to full screen** (Archie, 22:25): the cast and the knowledge graph can each be expanded to fill the screen, to show the MiroFish engine in full.
      - It's a maximise toggle on the panel, plus `F` for the panel in focus and `Esc` to close. Use CSS (a fixed panel at `inset: 0`), not a new route.
      - The graph re-fits to the new size. The cast becomes a full roster: role, country and stance per agent.
-4. **Why this time? (Paper).** Anchors → Monte Carlo fan of 10,000 futures → 1-in-10 date → the hand. Ends with "A prediction, not a prophecy."
+4. **Why this time? (Paper).** Anchors → the model's catastrophe curve, with the 10,000 sampled futures drawn over it → 1-in-10 date → the hand. Say it accurately: the clock reads the model exactly (`readClock`), and the 10,000 futures agree with it (within 1 pt each quarter, tested). Don't say the futures are counted to get the date. Ends with "A prediction, not a prophecy."
 5. **Track record (Paper).** Market Brier against a 50% coin and the base rate, with CIs, a reliability curve and n. The caveats are visible.
 
 ## Specific context, always (Archie, 22:30: the main problem to solve)
@@ -68,7 +68,7 @@ The experience fails if events happen, or the clock moves, without a specific re
 
 Inputs (with the as-of slider) → **Run live** (the Monte Carlo in the browser, plus one live MiroFish quarter streaming into Engine, with a recorded fallback) → **Replay** recorded futures on the globe → Why this time? + Track record.
 
-## Mockup approved (23:10): Lead rulings on the design-system conflicts
+## Mockup approved (~22:15 BST): Lead rulings on the design-system conflicts
 
 - **Track record:** market vs coin vs base rate, as the brief says. There's no panel at w=0.
 - **Accepted:** land capped at `ink-2`, the 12 px floor, the 48 px dock numeral, Inputs as a third top tab, the why callout to the right of the clock, and monochrome monogram avatars.
