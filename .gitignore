@@ -1,1 +1,13 @@
 .firecrawl/
+.DS_Store
+.taskmaster/
+*.pdf
+swarm/
+.claude/scheduled_tasks.lock
+.tmp/
+.pi/
+node_modules/
+# Raw API cache (~760 MB); data/clean/*.jsonl is the committed form
+data/raw/
+# Plague Inc screenshots (© Ndemic): internal reference only
+.lavish/plague/
