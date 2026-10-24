@@ -1,0 +1,30 @@
+diff --git a/backend/app/api/simulation.py b/backend/app/api/simulation.py
+index aae7678..c4e8985 100644
+--- a/backend/app/api/simulation.py
++++ b/backend/app/api/simulation.py
+@@ -293,12 +293,19 @@ def _check_simulation_prepared(simulation_id: str) -> tuple:
+         return False, {"reason": "模拟目录不存在"}
+     
+     # 必要文件列表（不包括脚本，脚本位于 backend/scripts/）
+-    required_files = [
+-        "state.json",
+-        "simulation_config.json",
+-        "reddit_profiles.json",
+-        "twitter_profiles.csv"
+-    ]
++    required_files = ["state.json", "simulation_config.json"]
++    # Doom Clock patch: only require profile files for the platforms this sim enables
++    # (a Twitter-only sim never writes reddit_profiles.json, which blocked every restart).
++    try:
++        import json as _json
++        with open(os.path.join(simulation_dir, "state.json"), 'r', encoding='utf-8') as _f:
++            _state = _json.load(_f)
++    except Exception:
++        _state = {}
++    if _state.get("enable_reddit", True):
++        required_files.append("reddit_profiles.json")
++    if _state.get("enable_twitter", True):
++        required_files.append("twitter_profiles.csv")
+     
+     # 检查文件是否存在
+     existing_files = []
