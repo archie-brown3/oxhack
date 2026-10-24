@@ -15,3 +15,5 @@ data/raw/
 .env
 .env.*
 !.env.example
+# Spike raw outputs; findings are in docs/research/spikes-2026-10-24.md
+data/spikes/
