@@ -20,7 +20,7 @@
         "id": 17,
         "title": "[ship] Devpost draft, README, 60 s demo script and talk wording",
         "description": "Devpost write-up (what, how, data provenance and licences, track record, honesty line), a 60-second demo script that follows the judge path (Inputs -> run -> replay -> Why + Track record), a short screen recording, and two rehearsals with someone outside the project.",
-        "details": "Lane ship. Draft by 09:00 GMT (Devpost workshop 09:00-10:00). Freeze 11:30 GMT, submit by 11:45 GMT. Prize track: HRT. Pitch the phase 2 game as one roadmap line.\n2026-10-25T02:32:12Z: OVERHAUL: absorbs task 137. Talk follows the vault note 'Oxhack Presentation'. Every number traces to a file (backtest.json, data/world/futures/*, cost logs).\n2026-10-25T02:48:52Z: CLOUD HANDOFF: the Devpost and demo script must describe what is actually on screen at submit time (see the fallback on 139). Every number traces to a file (data/backtest.json, data/world/futures/* if recorded, cost logs).\n2026-10-25T05:35:18Z: Draft only, not submitted. README.md, docs/devpost.md, docs/demo-script.md. Numbers from data/backtest.json: test Brier market 0.0848 (shown 0.085), coin 0.250, n=1186, w=0, 5/5 leakage. Submission stays task 142.",
+        "details": "Lane ship. Draft by 09:00 GMT (Devpost workshop 09:00-10:00). Freeze 11:30 GMT, submit by 11:45 GMT. Prize track: HRT. Pitch the phase 2 game as one roadmap line.\n2026-10-25T02:32:12Z: OVERHAUL: absorbs task 137. Talk follows the vault note 'Oxhack Presentation'. Every number traces to a file (backtest.json, data/world/futures/*, cost logs).\n2026-10-25T02:48:52Z: CLOUD HANDOFF: the Devpost and demo script must describe what is actually on screen at submit time (see the fallback on 139). Every number traces to a file (data/backtest.json, data/world/futures/* if recorded, cost logs).\n2026-10-25T05:35:18Z: Draft only, not submitted. README.md, docs/devpost.md, docs/demo-script.md. Numbers from data/backtest.json: test Brier market 0.0848 (shown 0.085), coin 0.250, n=1186, w=0, 5/5 leakage. Submission stays task 142.\n2026-10-25T11:06:15Z: 11:15 GMT pre-freeze workflow: devpost.md, demo-script.md, README.md refreshed and adversarially checked (numbers vs data/backtest.json, cost-log, step-1 api files; honesty vs AGENTS.md). Tagline no longer claims agent-played futures; MiroFish loop described as designed, with the 25 Oct real runs (graphs 92/83/89 nodes, step-1 posts 136/119, Zep timeout) as next step; base rate 0.183 added beside the coin; blind LLM n=1,170; seed pack 5,189 chars; countdown date = market prices + one labelled game rule (3-year gap). Demo-machine checklist added for 143.",
         "testStrategy": "Devpost submitted before 11:45 GMT. The demo runs offline from the Vercel build or the local build. A stranger can say what the clock means after 60 s.",
         "status": "done",
         "dependencies": [
@@ -28,7 +28,7 @@
         ],
         "priority": "high",
         "subtasks": [],
-        "updatedAt": "2026-10-25T05:35:18Z"
+        "updatedAt": "2026-10-25T11:06:15Z"
       },
       {
         "id": 138,
@@ -661,7 +661,7 @@
       "created": "2026-10-24T19:50:00Z",
       "description": "Doom Clock (OxHack 2026). PLAN as of 25 Oct 02:45 GMT (owner): one forecast, three scenarios. Today's clock reads real prediction-market odds (the backtest scores them: Brier 0.085 vs coin 0.25 on 1,186 later questions). Three futures are played forward on real MiroFish (own Zep graph per future, report agent per 6-month step, 5 rounds); simulated events nudge the 'when' odds and the report's rubric sets 'how dangerous', by labelled game rules; each future's clock moves, the real one never does. The Engine tab is a 1:1 replica of MiroFish's UI on the recordings; the World view has a live news feed with severity-driven legibility. Spec: docs/superpowers/specs/2026-10-25-doom-clock-coupled-loop-design.md (Amendments 2 wins, then Amendments, then the body). Lanes in Herdr workspace 'Doom Clock build': engine (149 done), recorder (150, 152-154, 156), ui (151, 155). Gates (GMT): 03:45 seam, 05:30 loop (step 1 of each future with graph and report), 07:30 release candidate (139), freeze 11:30, submit 11:45. The game layer was dropped on 25 Oct; its tasks are in the 'archive' tag. CLOUD HANDOFF 25 Oct 02:55 GMT: all Herdr lanes stopped and landed; no future has been recorded (future 1's Zep graph build stalled, see 152). Tasks needing Archie's Mac (152-154, 156) are blocked; everything else is finishable in the cloud. Start with docs/HANDOFF.md, then this board.",
       "version": "1.0.0",
-      "lastModified": "2026-10-25T11:05:49Z",
+      "lastModified": "2026-10-25T11:06:15Z",
       "taskCount": 46,
       "completedCount": 38,
       "tags": [
