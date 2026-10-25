@@ -24,7 +24,8 @@ export function simulationCreateBody(p: FutureProject) {
 
 /** `POST /api/simulation/start`. Graph memory stays on so the future's Zep graph keeps the run. */
 export function startBody(simulation_id: string, max_rounds: number) {
-  return { simulation_id, platform: "parallel" as const, max_rounds, enable_graph_memory_update: true as const, force: true }
+  // GRAPH_MEMORY=0 skips Zep ingestion of the posts: on 25 Oct Zep timed out draining them and MiroFish failed the runs.
+  return { simulation_id, platform: "parallel" as const, max_rounds, enable_graph_memory_update: process.env.GRAPH_MEMORY !== "0", force: true }
 }
 
 export type Api = (method: "GET" | "POST", path: string, body?: unknown) => Promise<any>
