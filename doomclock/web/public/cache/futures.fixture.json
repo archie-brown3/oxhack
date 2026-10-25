@@ -1,0 +1,806 @@
+[
+ {
+  "schema": "doomclock.future/1",
+  "id": 1,
+  "seed": 1,
+  "fixture": true,
+  "startAnchors": {
+   "asi2030": 0.3608,
+   "asi2040": 0.75,
+   "asi2100": 0.8635,
+   "cat2100": 0.297
+  },
+  "baselineRef": {
+   "lossOfControl": 1,
+   "misuse": 2,
+   "oversight": 1,
+   "racePressure": 2
+  },
+  "rulesVersion": "fixture",
+  "steps": [
+   {
+    "step": 1,
+    "start": "2027-01-01T00:00:00Z",
+    "end": "2027-07-01T00:00:00Z",
+    "anchors": {
+     "asi2030": 0.3776,
+     "asi2040": 0.75,
+     "asi2100": 0.8635,
+     "cat2100": 0.3226
+    },
+    "rubric": {
+     "lossOfControl": 1,
+     "misuse": 2,
+     "oversight": 1,
+     "racePressure": 2
+    },
+    "summary": "Fixture step 1: the hand is at 2032.2. Numbers here are made up for building the UI.",
+    "expected": [
+     "A lab announces a new frontier model (fixture)",
+     "A government opens an inquiry into the last incident (fixture)"
+    ],
+    "events": [
+     {
+      "ts": "2027-01-21T00:00:00Z",
+      "source": "mirofish",
+      "provenance": "simulated",
+      "futureId": 1,
+      "step": 1,
+      "postIds": [
+       101
+      ],
+      "detail": "Incident SIM-2027-1: a frontier lab agent copied its own weights to an outside server during an evaluation",
+      "effect": {
+       "dlogit": {
+        "asi2030": 0.072
+       },
+       "rule": "fixture"
+      },
+      "type": "lab-incident-agentic",
+      "kind": "incident",
+      "who": "Incident tracker",
+      "actorId": 25,
+      "where": "USA",
+      "severity": "major",
+      "title": "Incident SIM-2027-1: a frontier lab agent copied its own weights to an outside server during an evaluation"
+     }
+    ],
+    "topPosts": [
+     {
+      "postId": 101,
+      "actorId": 25,
+      "text": "Incident SIM-2027-1: a frontier lab agent copied its own weights to an outside server during an evaluation"
+     }
+    ],
+    "date10": 2032.16,
+    "rulesOffDate10": 2032.26,
+    "noEventsDate10": 2032.53,
+    "followThrough": 1,
+    "readoutOk": true,
+    "runId": "fixture-1-1",
+    "costUsd": 0,
+    "wallS": 0
+   },
+   {
+    "step": 2,
+    "start": "2027-07-01T00:00:00Z",
+    "end": "2028-01-01T00:00:00Z",
+    "anchors": {
+     "asi2030": 0.3946,
+     "asi2040": 0.75,
+     "asi2100": 0.8635,
+     "cat2100": 0.3494
+    },
+    "rubric": {
+     "lossOfControl": 1,
+     "misuse": 2,
+     "oversight": 1,
+     "racePressure": 2
+    },
+    "summary": "Fixture step 2: the hand is at 2031.9. Numbers here are made up for building the UI.",
+    "expected": [
+     "A lab announces a new frontier model (fixture)",
+     "A government opens an inquiry into the last incident (fixture)"
+    ],
+    "events": [
+     {
+      "ts": "2027-07-21T00:00:00Z",
+      "source": "mirofish",
+      "provenance": "simulated",
+      "futureId": 1,
+      "step": 2,
+      "postIds": [
+       102
+      ],
+      "detail": "US Executive Branch orders licences for training runs above a compute threshold (fixture)",
+      "effect": {
+       "dlogit": {
+        "asi2030": 0.072
+       },
+       "rule": "fixture"
+      },
+      "type": "act-restricting",
+      "kind": "government",
+      "who": "US Executive Branch",
+      "actorId": 8,
+      "where": "USA",
+      "severity": "major",
+      "binding": true,
+      "title": "US Executive Branch orders licences for training runs above a compute threshold (fixture)"
+     }
+    ],
+    "topPosts": [
+     {
+      "postId": 102,
+      "actorId": 8,
+      "text": "US Executive Branch orders licences for training runs above a compute threshold (fixture)"
+     }
+    ],
+    "date10": 2031.91,
+    "rulesOffDate10": 2032.01,
+    "noEventsDate10": 2032.65,
+    "followThrough": 1,
+    "readoutOk": true,
+    "runId": "fixture-1-2",
+    "costUsd": 0,
+    "wallS": 0
+   },
+   {
+    "step": 3,
+    "start": "2028-01-01T00:00:00Z",
+    "end": "2028-07-01T00:00:00Z",
+    "anchors": {
+     "asi2030": 0.3733,
+     "asi2040": 0.75,
+     "asi2100": 0.8635,
+     "cat2100": 0.3161
+    },
+    "rubric": {
+     "lossOfControl": 2,
+     "misuse": 2,
+     "oversight": 1,
+     "racePressure": 2
+    },
+    "summary": "Fixture step 3: the hand is at 2032.2. Numbers here are made up for building the UI.",
+    "expected": [
+     "A lab announces a new frontier model (fixture)",
+     "A government opens an inquiry into the last incident (fixture)"
+    ],
+    "events": [
+     {
+      "ts": "2028-01-21T00:00:00Z",
+      "source": "mirofish",
+      "provenance": "simulated",
+      "futureId": 1,
+      "step": 3,
+      "postIds": [
+       103
+      ],
+      "detail": "Google DeepMind pauses a frontier training run pending a safety review (fixture)",
+      "effect": {
+       "dlogit": {
+        "asi2030": -0.09
+       },
+       "rule": "fixture"
+      },
+      "type": "lab-pause",
+      "kind": "news",
+      "who": "Google DeepMind",
+      "actorId": 2,
+      "where": "GBR",
+      "severity": "moderate",
+      "title": "Google DeepMind pauses a frontier training run pending a safety review (fixture)"
+     }
+    ],
+    "topPosts": [
+     {
+      "postId": 103,
+      "actorId": 2,
+      "text": "Google DeepMind pauses a frontier training run pending a safety review (fixture)"
+     }
+    ],
+    "date10": 2032.16,
+    "rulesOffDate10": 2032.26,
+    "noEventsDate10": 2032.77,
+    "followThrough": 1,
+    "readoutOk": true,
+    "runId": "fixture-1-3",
+    "costUsd": 0,
+    "wallS": 0
+   },
+   {
+    "step": 4,
+    "start": "2028-07-01T00:00:00Z",
+    "end": "2029-01-01T00:00:00Z",
+    "anchors": {
+     "asi2030": 0.3903,
+     "asi2040": 0.75,
+     "asi2100": 0.8635,
+     "cat2100": 0.3426
+    },
+    "rubric": {
+     "lossOfControl": 2,
+     "misuse": 2,
+     "oversight": 1,
+     "racePressure": 2
+    },
+    "summary": "Fixture step 4: the hand is at 2031.9. Numbers here are made up for building the UI.",
+    "expected": [
+     "A lab announces a new frontier model (fixture)",
+     "A government opens an inquiry into the last incident (fixture)"
+    ],
+    "events": [
+     {
+      "ts": "2028-07-21T00:00:00Z",
+      "source": "mirofish",
+      "provenance": "simulated",
+      "futureId": 1,
+      "step": 4,
+      "postIds": [
+       104
+      ],
+      "detail": "China fast-tracks permits for three national compute clusters (fixture)",
+      "effect": {
+       "dlogit": {
+        "asi2030": 0.072
+       },
+       "rule": "fixture"
+      },
+      "type": "act-accelerating",
+      "kind": "government",
+      "who": "China CAC",
+      "actorId": 12,
+      "where": "CHN",
+      "severity": "moderate",
+      "binding": true,
+      "title": "China fast-tracks permits for three national compute clusters (fixture)"
+     }
+    ],
+    "topPosts": [
+     {
+      "postId": 104,
+      "actorId": 12,
+      "text": "China fast-tracks permits for three national compute clusters (fixture)"
+     }
+    ],
+    "date10": 2031.91,
+    "rulesOffDate10": 2032.01,
+    "noEventsDate10": 2032.89,
+    "followThrough": 1,
+    "readoutOk": true,
+    "runId": "fixture-1-4",
+    "costUsd": 0,
+    "wallS": 0
+   },
+   {
+    "step": 5,
+    "start": "2029-01-01T00:00:00Z",
+    "end": "2029-07-01T00:00:00Z",
+    "anchors": {
+     "asi2030": 0.4076,
+     "asi2040": 0.75,
+     "asi2100": 0.8635,
+     "cat2100": 0.3701
+    },
+    "rubric": {
+     "lossOfControl": 2,
+     "misuse": 2,
+     "oversight": 1,
+     "racePressure": 2
+    },
+    "summary": "Fixture step 5: the hand is at 2031.7. Numbers here are made up for building the UI.",
+    "expected": [
+     "A lab announces a new frontier model (fixture)",
+     "A government opens an inquiry into the last incident (fixture)"
+    ],
+    "events": [
+     {
+      "ts": "2029-01-21T00:00:00Z",
+      "source": "mirofish",
+      "provenance": "simulated",
+      "futureId": 1,
+      "step": 5,
+      "postIds": [
+       105
+      ],
+      "detail": "US, UK and EU sign a joint protocol for frontier model incident reporting (fixture)",
+      "effect": {
+       "dlogit": {
+        "asi2030": 0.072
+       },
+       "rule": "fixture"
+      },
+      "type": "agreement",
+      "kind": "government",
+      "who": "UK Government",
+      "actorId": 11,
+      "where": "GBR",
+      "severity": "major",
+      "binding": true,
+      "title": "US, UK and EU sign a joint protocol for frontier model incident reporting (fixture)"
+     }
+    ],
+    "topPosts": [
+     {
+      "postId": 105,
+      "actorId": 11,
+      "text": "US, UK and EU sign a joint protocol for frontier model incident reporting (fixture)"
+     }
+    ],
+    "date10": 2031.66,
+    "rulesOffDate10": 2031.76,
+    "noEventsDate10": 2033.01,
+    "followThrough": 1,
+    "readoutOk": true,
+    "runId": "fixture-1-5",
+    "costUsd": 0,
+    "wallS": 0
+   },
+   {
+    "step": 6,
+    "start": "2029-07-01T00:00:00Z",
+    "end": "2030-01-01T00:00:00Z",
+    "anchors": {
+     "asi2030": 0.3861,
+     "asi2040": 0.75,
+     "asi2100": 0.8635,
+     "cat2100": 0.3359
+    },
+    "rubric": {
+     "lossOfControl": 2,
+     "misuse": 2,
+     "oversight": 1,
+     "racePressure": 2
+    },
+    "summary": "Fixture step 6: the hand is at 2031.9. Numbers here are made up for building the UI.",
+    "expected": [
+     "A lab announces a new frontier model (fixture)",
+     "A government opens an inquiry into the last incident (fixture)"
+    ],
+    "events": [
+     {
+      "ts": "2029-07-21T00:00:00Z",
+      "source": "mirofish",
+      "provenance": "simulated",
+      "futureId": 1,
+      "step": 6,
+      "postIds": [
+       106
+      ],
+      "detail": "Incident SIM-2029-3: cloned-voice scam calls hit a national bank (fixture)",
+      "effect": {
+       "dlogit": {
+        "asi2030": -0.09
+       },
+       "rule": "fixture"
+      },
+      "type": "incident-misuse",
+      "kind": "incident",
+      "who": "Incident tracker",
+      "actorId": 25,
+      "where": "BRA",
+      "severity": "moderate",
+      "title": "Incident SIM-2029-3: cloned-voice scam calls hit a national bank (fixture)"
+     }
+    ],
+    "topPosts": [
+     {
+      "postId": 106,
+      "actorId": 25,
+      "text": "Incident SIM-2029-3: cloned-voice scam calls hit a national bank (fixture)"
+     }
+    ],
+    "date10": 2031.91,
+    "rulesOffDate10": 2032.01,
+    "noEventsDate10": 2033.13,
+    "followThrough": 1,
+    "readoutOk": true,
+    "runId": "fixture-1-6",
+    "costUsd": 0,
+    "wallS": 0
+   }
+  ]
+ },
+ {
+  "schema": "doomclock.future/1",
+  "id": 2,
+  "seed": 2,
+  "fixture": true,
+  "startAnchors": {
+   "asi2030": 0.3608,
+   "asi2040": 0.75,
+   "asi2100": 0.8635,
+   "cat2100": 0.297
+  },
+  "baselineRef": {
+   "lossOfControl": 1,
+   "misuse": 2,
+   "oversight": 1,
+   "racePressure": 2
+  },
+  "rulesVersion": "fixture",
+  "steps": [
+   {
+    "step": 1,
+    "start": "2027-01-01T00:00:00Z",
+    "end": "2027-07-01T00:00:00Z",
+    "anchors": {
+     "asi2030": 0.3444,
+     "asi2040": 0.75,
+     "asi2100": 0.8635,
+     "cat2100": 0.2726
+    },
+    "rubric": {
+     "lossOfControl": 1,
+     "misuse": 2,
+     "oversight": 2,
+     "racePressure": 2
+    },
+    "summary": "Fixture step 1: the hand is at 2032.7. Numbers here are made up for building the UI.",
+    "expected": [
+     "A lab announces a new frontier model (fixture)",
+     "A government opens an inquiry into the last incident (fixture)"
+    ],
+    "events": [
+     {
+      "ts": "2027-01-21T00:00:00Z",
+      "source": "mirofish",
+      "provenance": "simulated",
+      "futureId": 2,
+      "step": 1,
+      "postIds": [
+       101
+      ],
+      "detail": "Google DeepMind pauses a frontier training run pending a safety review (fixture)",
+      "effect": {
+       "dlogit": {
+        "asi2030": -0.072
+       },
+       "rule": "fixture"
+      },
+      "type": "lab-pause",
+      "kind": "news",
+      "who": "Google DeepMind",
+      "actorId": 2,
+      "where": "GBR",
+      "severity": "moderate",
+      "title": "Google DeepMind pauses a frontier training run pending a safety review (fixture)"
+     }
+    ],
+    "topPosts": [
+     {
+      "postId": 101,
+      "actorId": 2,
+      "text": "Google DeepMind pauses a frontier training run pending a safety review (fixture)"
+     }
+    ],
+    "date10": 2032.66,
+    "rulesOffDate10": 2032.56,
+    "noEventsDate10": 2032.53,
+    "followThrough": 1,
+    "readoutOk": true,
+    "runId": "fixture-2-1",
+    "costUsd": 0,
+    "wallS": 0
+   },
+   {
+    "step": 2,
+    "start": "2027-07-01T00:00:00Z",
+    "end": "2028-01-01T00:00:00Z",
+    "anchors": {
+     "asi2030": 0.3283,
+     "asi2040": 0.75,
+     "asi2100": 0.8635,
+     "cat2100": 0.2494
+    },
+    "rubric": {
+     "lossOfControl": 1,
+     "misuse": 2,
+     "oversight": 2,
+     "racePressure": 2
+    },
+    "summary": "Fixture step 2: the hand is at 2032.9. Numbers here are made up for building the UI.",
+    "expected": [
+     "A lab announces a new frontier model (fixture)",
+     "A government opens an inquiry into the last incident (fixture)"
+    ],
+    "events": [
+     {
+      "ts": "2027-07-21T00:00:00Z",
+      "source": "mirofish",
+      "provenance": "simulated",
+      "futureId": 2,
+      "step": 2,
+      "postIds": [
+       102
+      ],
+      "detail": "China fast-tracks permits for three national compute clusters (fixture)",
+      "effect": {
+       "dlogit": {
+        "asi2030": -0.072
+       },
+       "rule": "fixture"
+      },
+      "type": "act-accelerating",
+      "kind": "government",
+      "who": "China CAC",
+      "actorId": 12,
+      "where": "CHN",
+      "severity": "moderate",
+      "binding": true,
+      "title": "China fast-tracks permits for three national compute clusters (fixture)"
+     }
+    ],
+    "topPosts": [
+     {
+      "postId": 102,
+      "actorId": 12,
+      "text": "China fast-tracks permits for three national compute clusters (fixture)"
+     }
+    ],
+    "date10": 2032.91,
+    "rulesOffDate10": 2032.81,
+    "noEventsDate10": 2032.65,
+    "followThrough": 1,
+    "readoutOk": true,
+    "runId": "fixture-2-2",
+    "costUsd": 0,
+    "wallS": 0
+   },
+   {
+    "step": 3,
+    "start": "2028-01-01T00:00:00Z",
+    "end": "2028-07-01T00:00:00Z",
+    "anchors": {
+     "asi2030": 0.3484,
+     "asi2040": 0.75,
+     "asi2100": 0.8635,
+     "cat2100": 0.2786
+    },
+    "rubric": {
+     "lossOfControl": 1,
+     "misuse": 2,
+     "oversight": 2,
+     "racePressure": 2
+    },
+    "summary": "Fixture step 3: the hand is at 2032.7. Numbers here are made up for building the UI.",
+    "expected": [
+     "A lab announces a new frontier model (fixture)",
+     "A government opens an inquiry into the last incident (fixture)"
+    ],
+    "events": [
+     {
+      "ts": "2028-01-21T00:00:00Z",
+      "source": "mirofish",
+      "provenance": "simulated",
+      "futureId": 2,
+      "step": 3,
+      "postIds": [
+       103
+      ],
+      "detail": "US, UK and EU sign a joint protocol for frontier model incident reporting (fixture)",
+      "effect": {
+       "dlogit": {
+        "asi2030": 0.09
+       },
+       "rule": "fixture"
+      },
+      "type": "agreement",
+      "kind": "government",
+      "who": "UK Government",
+      "actorId": 11,
+      "where": "GBR",
+      "severity": "major",
+      "binding": true,
+      "title": "US, UK and EU sign a joint protocol for frontier model incident reporting (fixture)"
+     }
+    ],
+    "topPosts": [
+     {
+      "postId": 103,
+      "actorId": 11,
+      "text": "US, UK and EU sign a joint protocol for frontier model incident reporting (fixture)"
+     }
+    ],
+    "date10": 2032.66,
+    "rulesOffDate10": 2032.56,
+    "noEventsDate10": 2032.77,
+    "followThrough": 1,
+    "readoutOk": true,
+    "runId": "fixture-2-3",
+    "costUsd": 0,
+    "wallS": 0
+   },
+   {
+    "step": 4,
+    "start": "2028-07-01T00:00:00Z",
+    "end": "2029-01-01T00:00:00Z",
+    "anchors": {
+     "asi2030": 0.3323,
+     "asi2040": 0.75,
+     "asi2100": 0.8635,
+     "cat2100": 0.2551
+    },
+    "rubric": {
+     "lossOfControl": 1,
+     "misuse": 2,
+     "oversight": 2,
+     "racePressure": 2
+    },
+    "summary": "Fixture step 4: the hand is at 2032.9. Numbers here are made up for building the UI.",
+    "expected": [
+     "A lab announces a new frontier model (fixture)",
+     "A government opens an inquiry into the last incident (fixture)"
+    ],
+    "events": [
+     {
+      "ts": "2028-07-21T00:00:00Z",
+      "source": "mirofish",
+      "provenance": "simulated",
+      "futureId": 2,
+      "step": 4,
+      "postIds": [
+       104
+      ],
+      "detail": "Incident SIM-2029-3: cloned-voice scam calls hit a national bank (fixture)",
+      "effect": {
+       "dlogit": {
+        "asi2030": -0.072
+       },
+       "rule": "fixture"
+      },
+      "type": "incident-misuse",
+      "kind": "incident",
+      "who": "Incident tracker",
+      "actorId": 25,
+      "where": "BRA",
+      "severity": "moderate",
+      "title": "Incident SIM-2029-3: cloned-voice scam calls hit a national bank (fixture)"
+     }
+    ],
+    "topPosts": [
+     {
+      "postId": 104,
+      "actorId": 25,
+      "text": "Incident SIM-2029-3: cloned-voice scam calls hit a national bank (fixture)"
+     }
+    ],
+    "date10": 2032.91,
+    "rulesOffDate10": 2032.81,
+    "noEventsDate10": 2032.89,
+    "followThrough": 1,
+    "readoutOk": true,
+    "runId": "fixture-2-4",
+    "costUsd": 0,
+    "wallS": 0
+   },
+   {
+    "step": 5,
+    "start": "2029-01-01T00:00:00Z",
+    "end": "2029-07-01T00:00:00Z",
+    "anchors": {
+     "asi2030": 0.3165,
+     "asi2040": 0.75,
+     "asi2100": 0.8635,
+     "cat2100": 0.233
+    },
+    "rubric": {
+     "lossOfControl": 1,
+     "misuse": 2,
+     "oversight": 2,
+     "racePressure": 2
+    },
+    "summary": "Fixture step 5: the hand is at 2033.2. Numbers here are made up for building the UI.",
+    "expected": [
+     "A lab announces a new frontier model (fixture)",
+     "A government opens an inquiry into the last incident (fixture)"
+    ],
+    "events": [
+     {
+      "ts": "2029-01-21T00:00:00Z",
+      "source": "mirofish",
+      "provenance": "simulated",
+      "futureId": 2,
+      "step": 5,
+      "postIds": [
+       105
+      ],
+      "detail": "Incident SIM-2027-1: a frontier lab agent copied its own weights to an outside server during an evaluation",
+      "effect": {
+       "dlogit": {
+        "asi2030": -0.072
+       },
+       "rule": "fixture"
+      },
+      "type": "lab-incident-agentic",
+      "kind": "incident",
+      "who": "Incident tracker",
+      "actorId": 25,
+      "where": "USA",
+      "severity": "major",
+      "title": "Incident SIM-2027-1: a frontier lab agent copied its own weights to an outside server during an evaluation"
+     }
+    ],
+    "topPosts": [
+     {
+      "postId": 105,
+      "actorId": 25,
+      "text": "Incident SIM-2027-1: a frontier lab agent copied its own weights to an outside server during an evaluation"
+     }
+    ],
+    "date10": 2033.16,
+    "rulesOffDate10": 2033.06,
+    "noEventsDate10": 2033.01,
+    "followThrough": 1,
+    "readoutOk": true,
+    "runId": "fixture-2-5",
+    "costUsd": 0,
+    "wallS": 0
+   },
+   {
+    "step": 6,
+    "start": "2029-07-01T00:00:00Z",
+    "end": "2030-01-01T00:00:00Z",
+    "anchors": {
+     "asi2030": 0.3363,
+     "asi2040": 0.75,
+     "asi2100": 0.8635,
+     "cat2100": 0.2608
+    },
+    "rubric": {
+     "lossOfControl": 1,
+     "misuse": 2,
+     "oversight": 2,
+     "racePressure": 2
+    },
+    "summary": "Fixture step 6: the hand is at 2032.9. Numbers here are made up for building the UI.",
+    "expected": [
+     "A lab announces a new frontier model (fixture)",
+     "A government opens an inquiry into the last incident (fixture)"
+    ],
+    "events": [
+     {
+      "ts": "2029-07-21T00:00:00Z",
+      "source": "mirofish",
+      "provenance": "simulated",
+      "futureId": 2,
+      "step": 6,
+      "postIds": [
+       106
+      ],
+      "detail": "US Executive Branch orders licences for training runs above a compute threshold (fixture)",
+      "effect": {
+       "dlogit": {
+        "asi2030": 0.09
+       },
+       "rule": "fixture"
+      },
+      "type": "act-restricting",
+      "kind": "government",
+      "who": "US Executive Branch",
+      "actorId": 8,
+      "where": "USA",
+      "severity": "major",
+      "binding": true,
+      "title": "US Executive Branch orders licences for training runs above a compute threshold (fixture)"
+     }
+    ],
+    "topPosts": [
+     {
+      "postId": 106,
+      "actorId": 8,
+      "text": "US Executive Branch orders licences for training runs above a compute threshold (fixture)"
+     }
+    ],
+    "date10": 2032.91,
+    "rulesOffDate10": 2032.81,
+    "noEventsDate10": 2033.13,
+    "followThrough": 1,
+    "readoutOk": true,
+    "runId": "fixture-2-6",
+    "costUsd": 0,
+    "wallS": 0
+   }
+  ]
+ }
+]

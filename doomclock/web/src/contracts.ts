@@ -551,8 +551,9 @@ export type Provenance = 'real' | 'projected' | 'simulated' | 'player'
 
 /**
  * One dated thing that happened in a quarter (incident, government event, news, X post).
- * Events are CONTEXT for a frame, never the cause of a clock move: only market moves (ClockDriver)
- * move the clock, so the UI says "around the same time".
+ * Real events are CONTEXT for a frame, never the cause of a clock move: only market moves
+ * (ClockDriver) move the real clock, so the UI says "around the same time". Simulated events from
+ * the coupled loop move their own future's clock by labelled game rules, never the real one.
  */
 export interface WorldEvent {
   ts: IsoTime
@@ -572,6 +573,73 @@ export interface WorldEvent {
   major?: boolean
   /** One specific sentence: who did what, where, when. Shown verbatim. */
   detail?: string
+  // Simulated events (source 'mirofish', provenance 'simulated') from the coupled loop
+  // (docs/superpowers/specs/2026-10-25-doom-clock-coupled-loop-design.md).
+  futureId?: number
+  step?: number
+  /** cast.json account id of the account that posted it. */
+  actorId?: number
+  /** MiroFish post ids: the event's own post first, then any other reporters. */
+  postIds?: number[]
+  type?: SimEventType
+  binding?: boolean
+  severity?: 'minor' | 'moderate' | 'major'
+  /** The GAME RULE push this event gave the "when" anchors (centred, before clipping). */
+  effect?: { dlogit: Partial<Record<NodeId, Dlogit>>; rule: string }
+}
+
+/** The closed event vocabulary of the read-out. 'soft' and 'other' have zero effect. */
+export type SimEventType =
+  | 'lab-incident-agentic' // agentic or cyber incident at a frontier lab
+  | 'incident-misuse'
+  | 'incident-other'
+  | 'act-accelerating' // binding act that adds compute or removes barriers
+  | 'act-restricting' // export control, ban, licensing, a model pulled
+  | 'lab-pause'
+  | 'agreement' // bilateral or multilateral, by governments
+  | 'soft'
+  | 'other'
+
+/** The situation report's rubric, each item 0..3 (oversight: 3 = strong). */
+export interface Rubric { lossOfControl: number; misuse: number; oversight: number; racePressure: number }
+
+/** One 6-month MiroFish step of one recorded future. */
+export interface RecordedStep {
+  step: number
+  /** The step covers [start, end). */
+  start: IsoTime
+  end: IsoTime
+  /** Anchors after this step's events: quarter 2 of the step reads these. */
+  anchors: Record<NodeId, Prob>
+  rubric: Rubric
+  /** 2-3 sentences quoting only our own numbers. */
+  summary: string
+  /** Plausible next events from the situation report: expectations, not events. */
+  expected: string[]
+  events: WorldEvent[]
+  topPosts: { postId: number; actorId: number; text: string }[]
+  /** 1-in-10 dates (decimal years): this future; same noise with rules off; today's odds, no events. */
+  date10: number
+  rulesOffDate10: number
+  noEventsDate10: number
+  /** How many expected events an account with standing then posted. Logged, not shown. */
+  followThrough?: number
+  readoutOk: boolean
+  runId: string
+  costUsd: number
+  wallS: number
+}
+
+export interface RecordedFuture {
+  schema: 'doomclock.future/1'
+  id: number
+  seed: number
+  /** True for the hand-made fixture the UI builds against before recordings land. */
+  fixture?: boolean
+  startAnchors: Record<NodeId, Prob>
+  baselineRef: Rubric
+  rulesVersion: string
+  steps: RecordedStep[]
 }
 
 /** The world at the start of one quarter. */
