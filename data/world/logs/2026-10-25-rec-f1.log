@@ -1,0 +1,14 @@
+future 1 proj_140bde512ce4 mirofish_65312b733d8c462a
+file:///Users/archiebrown/dev/oxhack/doomclock/pipeline/mirofish/api.ts:16
+  if (!r.ok || j.success === false) throw new Error(`${method} ${path}: HTTP ${r.status} ${j.error ?? ""}`.trim());
+                                          ^
+
+Error: POST /api/report/generate: HTTP 409 Simulation or Zep graph ingestion is still active; wait for a terminal run status before generating a report
+    at call (file:///Users/archiebrown/dev/oxhack/doomclock/pipeline/mirofish/api.ts:16:43)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async fetchReport (file:///Users/archiebrown/dev/oxhack/doomclock/pipeline/world/loop.ts:36:21)
+    at async recordStep (file:///Users/archiebrown/dev/oxhack/doomclock/pipeline/world/record.ts:229:22)
+    at async recordFuture (file:///Users/archiebrown/dev/oxhack/doomclock/pipeline/world/record.ts:283:17)
+    at async file:///Users/archiebrown/dev/oxhack/doomclock/pipeline/world/record.ts:339:7
+
+Node.js v26.11.1

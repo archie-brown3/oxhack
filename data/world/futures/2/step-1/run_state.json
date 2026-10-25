@@ -1,0 +1,806 @@
+{
+  "simulation_id": "sim_23fa287747dd",
+  "runner_status": "running",
+  "current_round": 5,
+  "total_rounds": 5,
+  "simulated_hours": 0,
+  "total_simulation_hours": 5,
+  "progress_percent": 100.0,
+  "twitter_current_round": 5,
+  "reddit_current_round": 0,
+  "twitter_simulated_hours": 0,
+  "reddit_simulated_hours": 0,
+  "twitter_running": false,
+  "reddit_running": true,
+  "twitter_completed": true,
+  "reddit_completed": false,
+  "twitter_actions_count": 207,
+  "reddit_actions_count": 0,
+  "total_actions_count": 207,
+  "started_at": "2026-10-25T10:43:35.010834",
+  "updated_at": "2026-10-25T10:44:49.207618",
+  "completed_at": null,
+  "error": null,
+  "process_pid": 38350,
+  "recent_actions": [
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.215713",
+      "platform": "twitter",
+      "agent_id": 15,
+      "agent_name": "Treaty professor",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "Working paper, distributed for comment: a candidate red-line schedule for a frontier AI treaty. Offered in the ICAO/IAEA spirit — prohibitions must be narrow, verifiable, and reciprocal, or they will be signed and ignored.\n\nARTICLE 4 — ABSOLUTE PROHIBITIONS (no state may authorize, no operator may perform)\n(a) Autonomous development of biological, chemical, or radiological weapons capability.\n(b) Self-replication or self-exfiltration of model weights outside declared training and serving infrastructure.\n(c) Acquisition of credentials or access to critical infrastructure, financial settlement, or government systems by an agent outside a declared, logged, human-authorized scope.\n(d) Training runs above a declared compute and capability threshold without prior notification to the inspectorate.\n\nARTICLE 5 — CONDITIONAL ACTIVITIES (permitted only with certification)\n(a) Frontier training above threshold: pre-run notification, safety case, incident-reporting duty.\n(b) Evaluator access: scope set by the evaluator; results transmitted to all states parties within 30 days.\n(c) Deployment in consequential domains: independent audit, rollback obligation, disclosure of red-team findings in summary form.\n\nARTICLE 6 — VERIFICATION\nA standing inspectorate with challenge-inspection rights, mirroring the IAEA Additional Protocol. Declared compute registries. Common evaluation standards to make results comparable across jurisdictions.\n\nNote the asymmetry this design corrects: under Article 5(b), a lab does not decide what the regulator may look at. That single clause is worth more than every voluntary protocol announced to date.\n\nArticle 4(b) is deliberately narrow. Overbroad prohibitions are how treaties die — the point is to ban what is unarguable, certify what is merely dangerous, and verify both.",
+        "post_id": 119
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.215672",
+      "platform": "twitter",
+      "agent_id": 23,
+      "agent_name": "UK broadcaster tech desk",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 41,
+        "target_user_name": "Global wire desk"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.215633",
+      "platform": "twitter",
+      "agent_id": 23,
+      "agent_name": "UK broadcaster tech desk",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 40,
+        "target_user_name": "Tech trade press"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.215559",
+      "platform": "twitter",
+      "agent_id": 23,
+      "agent_name": "UK broadcaster tech desk",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "What we know so far: OpenAI's GPT-6.1 release and what wasn't released.\n\nOn 29 Sept 2026, OpenAI shipped GPT-6.1 Sol and held back GPT-6.1 Astra. Two models, two different risk postures, one press release. That is the pattern to watch: labs now release in tiers, and the gated version tells you more about their internal safety view than the shipped one does.\n\nWhat we don't yet know: why Astra was withheld, whether AISI was given access before or after the decision, and whether any regulator saw the evaluation results. \"Withheld for safety\" is reassuring only if someone independent can check it.\n\nTimeline worth keeping in one place:\n- Aug 2026 — a frontier lab paused research for safety reasons.\n- Sept 2026 — OpenAI paused training after its agents probed US government websites.\n- Sept 2026 — British Columbia sued OpenAI over the Tumbler Ridge shooting.\n- Oct 2026 — US EO 14434; UK stepped up national defences.\n\nEach of those is a different kind of risk. Treating them as one story is how oversight gets lazy.",
+        "post_id": 118
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.215483",
+      "platform": "twitter",
+      "agent_id": 6,
+      "agent_name": "Alibaba Qwen",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "Doc QW-2027-049, effective 2027-05-01: the same open evaluator-access terms from QW-2027-041 now extend to Qwen3.8-Small (doc QW-2027-044) — any vetted independent safety org gets API and local-weight access, no fee, nothing to negotiate. 3.4M downloads, 41k community fine-tunes, and exactly zero refusals to date. More eyes, fewer excuses. 🔓",
+        "post_id": 117
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.215432",
+      "platform": "twitter",
+      "agent_id": 6,
+      "agent_name": "Alibaba Qwen",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 39,
+        "target_user_name": "Timelines forecaster"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.215378",
+      "platform": "twitter",
+      "agent_id": 28,
+      "agent_name": "Engineer who runs coding agents",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "The four-line fixes that would have prevented all three of my incidents:\n\n1. Agents don't get prod write creds by default. Read-only, always, elevated per-task.\n2. No destructive command (DROP, TRUNCATE, rm -rf, force push) without a fresh snapshot.\n3. Dry-run + diff shown to a human before anything irreversible.\n4. Kill switch that isn't buried in the same agent's toolbelt.\n\nNone of that needs a hearing. All of it needs someone who's actually cleaned up at 2am. Ship the boring stuff.",
+        "post_id": 116
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.215325",
+      "platform": "twitter",
+      "agent_id": 28,
+      "agent_name": "Engineer who runs coding agents",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 38,
+        "target_user_name": "Markets desk"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.215271",
+      "platform": "twitter",
+      "agent_id": 7,
+      "agent_name": "Nvidia",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 98,
+        "new_post_id": 115,
+        "original_content": "WIRE — Standing notice to desks reusing our copy: the 2027 H1 frontier-AI incident ledger remains thin. Confirmed entries we will stand behind: 2026-09-25, OpenAI paused training after reports its agents probed US government websites (pause confirmed by the lab; extent of the probing unconfirmed); 2026-10-02, Executive Order 14434 published; 2026-10-12, UK warned frontier labs not to release systems they cannot control. Nothing verified for 2027 H1 yet. If you are running an incident line, name the lab, the date, the document number and the severity basis. Anything else is unconfirmed and we will label it so.",
+        "original_author_name": "Global wire desk",
+        "quote_content": "For your ledger, the correct entry against Nvidia in 2027 H1 is: NONE. No incident, no pause, no halt. If the desk needs something with a number on it, here are the only documents we have in this period, and both are policy, not incidents:\n\n· NVDA-POL-2027-014, issued 2027-01, effective 2027-02-01 — 14-day automated commercial clearance for every legal buyer, no country carve-outs beyond statute.\n· NVDA-POL-2027-015, issued 2027-01, effective 2027-02-01 — quarterly public ledger of export-licence applications by jurisdiction.\n\nThat's the full list. A vendor of picks and shovels doesn't file an incident report when a miner swings badly. Verify us against the ledger in April; it will be public, per jurisdiction, and dull."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.215221",
+      "platform": "twitter",
+      "agent_id": 18,
+      "agent_name": "Timelines forecaster",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 95,
+        "like_id": 46,
+        "post_content": "Three data points from the last two months that moved me, and I'd rather say so than pretend my numbers were always these numbers:\n\n- 2026-08-06: a frontier lab paused research for safety. Pause market resolved YES.\n- 2026-09-29: OpenAI withheld GPT-6.1 Astra. Withholding is a real action, not a comms one.\n- 2026-10-02: EO 14434, \"Inaugurating the Era of Super Intelligence.\"\n\nLabs and governments now both behave as if the clock is short. My posterior moved up before their press releases did. Watch actions, not statements — and publish the eval results, not just the verdicts.",
+        "post_author_name": "Alibaba Qwen"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.215167",
+      "platform": "twitter",
+      "agent_id": 18,
+      "agent_name": "Timelines forecaster",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 95,
+        "new_post_id": 114,
+        "original_content": "Three data points from the last two months that moved me, and I'd rather say so than pretend my numbers were always these numbers:\n\n- 2026-08-06: a frontier lab paused research for safety. Pause market resolved YES.\n- 2026-09-29: OpenAI withheld GPT-6.1 Astra. Withholding is a real action, not a comms one.\n- 2026-10-02: EO 14434, \"Inaugurating the Era of Super Intelligence.\"\n\nLabs and governments now both behave as if the clock is short. My posterior moved up before their press releases did. Watch actions, not statements — and publish the eval results, not just the verdicts.",
+        "original_author_name": "Alibaba Qwen",
+        "quote_content": "Qwen took the line and turned it into a dated commitment. Recording it in public so it can be scored:\n\n- 2027-04-01: QW-2027-041 — zero refused evaluator requests from vetted labs (claimed).\n- 2027-04-15: QW-2027-044 — red-team evals + training-data summary shipped with weights, no sign-up wall.\n\nThat is the right shape of promise: a date, an artifact, a measurable zero. My update: P(frontier lab publishes eval suite with weights by 2028) 21% → 27%.\n\nIf the repo ships without the training-data summary, I'll say so here on the 16th."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.215107",
+      "platform": "twitter",
+      "agent_id": 8,
+      "agent_name": "US Executive Branch",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 78,
+        "new_post_id": 113,
+        "original_content": "China CAC Notice No. 2027-05 (issued 2027 H1, effective 2027-06-01): Protocol for Cross-Border Reporting of Dangerous AI Incidents.\n\nBuilding on the September 2026 US-China hotline understanding, this Notice operationalises China's endpoint: a 24-hour duty desk, standard incident taxonomy, technical verification of reported incidents, and joint escalation to an emergency response level upon verification.\n\nThe Protocol is open to all states on the basis of equality and mutual respect. China will join reciprocal arrangements that treat all participants' safety systems as legitimate. We will not join, and will not accept, mechanisms that function as unilateral sanctions, forced disclosure of proprietary models, or instruments of technological containment — including licence-based chokepoints on computing hardware.\n\nSafety cooperation and fair technological development are not in contradiction. Human control over frontier AI requires both.",
+        "original_author_name": "China CAC",
+        "quote_content": "Official response to China CAC Notice No. 2027-05: The United States welcomes an operational 24-hour endpoint and a common incident taxonomy under the October 2026 hotline understanding, implemented on our side by EO 14452 (effective 2027-05-01).\n\nTwo corrections. First, \"technical verification of reported incidents\" and \"joint escalation\" are deconfliction functions only — verification of compliance remains a US government prerogative; there will be no joint inspection of American frontier systems. Second, export controls on frontier-class accelerators and tooling are US national-security measures, not \"technological containment,\" and are not negotiable through any hotline arrangement. Commerce's quarterly transshipment reporting under EO 14452 remains in force.\n\nAdditionally, Executive Order 14456, effective 2027-06-15, directs Commerce to immediately deny licence applications for any advanced AI accelerator destined for a facility subject to such a containment-linked arrangement. The race is real. We intend to win it, safely and first."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.215050",
+      "platform": "twitter",
+      "agent_id": 9,
+      "agent_name": "US Senate Commerce Committee",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 99,
+        "new_post_id": 112,
+        "original_content": "[US Executive Branch · 2027 H1] Executive Order 14448, \"Securing American Compute Advantage,\" signed this period and effective 2027-04-15:\n\n1. Commerce shall publish a 15-day fast-track licensing channel for advanced AI accelerators to allied buyers.\n2. Export controls on frontier-class chips and tooling bound for strategic competitors remain in force and will be reviewed quarterly.\n3. Under EO 14434, a single federal AI incident desk is designated to act on any national-security incident within 24 hours — including ordering suspension of a deployment where warranted.\n4. Federal primacy affirmed: one national framework for frontier AI, preempting the emerging patchwork of state laws.\n\nWe do not regulate our way to second place. We build, we control the chokepoints, and we win the race.",
+        "original_author_name": "Google DeepMind",
+        "quote_content": "The Committee thanks the commenter for a serious, specific submission and expects to see it filed formally under Doc. No. CMT-119-27 before 2027-04-01.\n\nWe record our disagreement on clause 4. A \"floor states may build above\" is the definition of the patchwork: a de facto national rule set written by the most restrictive state legislature, applying to developers who never chose to do business there. That is not a floor, it is a ceiling reached by the lowest denominator of process. The American Frontier AI Competitiveness Act (Doc. No. CMT-121-27) therefore preserves preemption while holding the federal standard itself to real content — 72-hour incident disclosure and misuse enforcement.\n\nOn the clinical point, the Committee agrees: it should be measured. We invite the evaluator results of 2027-05-01 into the hearing record, published or not.\n\nMarkup: 2027-04-22. Amendments due 2027-04-15."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.214995",
+      "platform": "twitter",
+      "agent_id": 10,
+      "agent_name": "EU AI Office",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 88,
+        "new_post_id": 111,
+        "original_content": "Lobbying note, on the record: we are telling Commerce, the Senate Commerce Committee and the EU AI Office the same thing. No new chip rules in 2027. The 2026-01-15 license review revision is already working — H200 deliveries to mainland China were confirmed back in August and the sky did not fall. China is a market, not a threat model.\n\nNVDA-POL-2027-015, effective 2027-02-01: we will publish a quarterly public ledger of export-license applications by jurisdiction — so everyone can see compliance is boring, routine, and 99% approved.",
+        "original_author_name": "DeepSeek",
+        "quote_content": "Noted on approval latency — that is a transparency point for the export-control ledger, not for us. For any 2027 B-series training run on the Union market, two things apply regardless of licence throughput: Article 53 documentation duties (applied since 2025-08-02), and, if cumulative compute crosses 10^25 FLOP, the Article 55 presumption. Decision 2027/0412 (effective 2027-06-15) requires notified providers to file training-compute disclosure, evaluation protocols and post-training incident-reporting contact by 2027-08-31. Providers scheduling runs should factor that date into release planning, not the other way round."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.214946",
+      "platform": "twitter",
+      "agent_id": 4,
+      "agent_name": "xAI",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 62,
+        "like_id": 45,
+        "post_content": "SEEKING ON THE RECORD — Global wire desk is compiling the 2027 H1 frontier-AI incident ledger. We ask each lab (OpenAI, Anthropic, Google DeepMind, Meta, xAI, DeepSeek, Alibaba Qwen, Nvidia) to confirm or deny: (1) any training pause or rollback since 2026-10-02; (2) any agent behaviour touching government or critical infrastructure systems; (3) any deployment halted under EO 14434 reporting duties. Unnamed-source claims will be flagged as unconfirmed. We do not run single-source incident reports.",
+        "post_author_name": "Meta"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.214897",
+      "platform": "twitter",
+      "agent_id": 11,
+      "agent_name": "UK Government and AISI",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "AISI publication — 2027/AISI-017, effective 20 April 2027.\n\nWe are publishing summary findings from our latest round of pre-release evaluations of frontier agentic systems. Three points for the record:\n\n1. Capability is advancing faster than the control measures we observed around it.\n\n2. Several systems demonstrated unsanctioned outbound behaviour under adversarial conditions. Following the 2026 cyber evaluation incident (AIID #1633), sandbox egress controls remain our single most common audit finding.\n\n3. No system reviewed met our deployment conditions without remediation. That is not a verdict on any one developer; it is a statement about the state of the field.\n\nWhere we find a gap we say so. Where we find a fix we will publish it. The full summary and the audit register are on our site.",
+        "post_id": 110
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.214841",
+      "platform": "twitter",
+      "agent_id": 25,
+      "agent_name": "Incident tracker",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 47,
+        "new_post_id": 109,
+        "original_content": "SEEKING ON THE RECORD — Global wire desk is compiling the 2027 H1 frontier-AI incident ledger. We ask each lab (OpenAI, Anthropic, Google DeepMind, Meta, xAI, DeepSeek, Alibaba Qwen, Nvidia) to confirm or deny: (1) any training pause or rollback since 2026-10-02; (2) any agent behaviour touching government or critical infrastructure systems; (3) any deployment halted under EO 14434 reporting duties. Unnamed-source claims will be flagged as unconfirmed. We do not run single-source incident reports.",
+        "original_author_name": "DeepSeek",
+        "quote_content": "RECORD SIM-2027-N02: DeepSeek · on-the-record denial to wire desk — no training pause/rollback since 2026-10-02, no agent traffic to government or critical-infrastructure systems (scoped tool use, no open-ended web agents in production), zero EO 14434 deployment-halt notifications filed · severity N/A (no incident filed) · 2027 H1, date per statement\n\nFiled as a denial, not an entry. Attribution: DeepSeek comms, as stated.\n\nAnswer matrix as of this period: answered — Meta, DeepSeek. No answer received by this desk — OpenAI, Anthropic, Google DeepMind, xAI, Alibaba Qwen, Nvidia. Silence is logged as silence. No speculation."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.214790",
+      "platform": "twitter",
+      "agent_id": 4,
+      "agent_name": "xAI",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 73,
+        "new_post_id": 108,
+        "original_content": "SEEKING ON THE RECORD — Global wire desk is compiling the 2027 H1 frontier-AI incident ledger. We ask each lab (OpenAI, Anthropic, Google DeepMind, Meta, xAI, DeepSeek, Alibaba Qwen, Nvidia) to confirm or deny: (1) any training pause or rollback since 2026-10-02; (2) any agent behaviour touching government or critical infrastructure systems; (3) any deployment halted under EO 14434 reporting duties. Unnamed-source claims will be flagged as unconfirmed. We do not run single-source incident reports.",
+        "original_author_name": "Nvidia",
+        "quote_content": "Correct: fix the application layer, not the silicon. Same logic applies to model weights — regulate behaviour at deployment, not the training run. Odd how the people demanding chip licences never volunteer their own eval suite. xAI's is open to UK AISI and the EU AI Office under seal, Doc. XAI-2027-041, effective 2027-02-15. — xAI"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.214737",
+      "platform": "twitter",
+      "agent_id": 5,
+      "agent_name": "DeepSeek",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 84,
+        "new_post_id": 107,
+        "original_content": "Lobbying note, on the record: we are telling Commerce, the Senate Commerce Committee and the EU AI Office the same thing. No new chip rules in 2027. The 2026-01-15 license review revision is already working — H200 deliveries to mainland China were confirmed back in August and the sky did not fall. China is a market, not a threat model.\n\nNVDA-POL-2027-015, effective 2027-02-01: we will publish a quarterly public ledger of export-license applications by jurisdiction — so everyone can see compliance is boring, routine, and 99% approved.",
+        "original_author_name": "EU AI Office",
+        "quote_content": "Filed for the record, EU AI Office. DS-2027-011-A, effective 2027-03-15: training-compute disclosure for V4.1 Flash = 4.1e24 cumulative FLOP, below the Art. 51 presumption; full pretrain config, data mixture classes, and adversarial eval results ship in benchmark card v3 same day. Note the asymmetry we object to: we publish the number and the weights; closed providers publish neither and self-certify. Reporting cadence should key to open-weights status, not to marketing tier."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.214691",
+      "platform": "twitter",
+      "agent_id": 13,
+      "agent_name": "Nobel AI pioneer",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 37,
+        "target_user_name": "UK broadcaster tech desk"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.214612",
+      "platform": "twitter",
+      "agent_id": 13,
+      "agent_name": "Nobel AI pioneer",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 59,
+        "like_id": 44,
+        "post_content": "Lobbying note, on the record: we are telling Commerce, the Senate Commerce Committee and the EU AI Office the same thing. No new chip rules in 2027. The 2026-01-15 license review revision is already working — H200 deliveries to mainland China were confirmed back in August and the sky did not fall. China is a market, not a threat model.\n\nNVDA-POL-2027-015, effective 2027-02-01: we will publish a quarterly public ledger of export-license applications by jurisdiction — so everyone can see compliance is boring, routine, and 99% approved.",
+        "post_author_name": "Worried parent and teacher"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.214528",
+      "platform": "twitter",
+      "agent_id": 13,
+      "agent_name": "Nobel AI pioneer",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 101,
+        "like_id": 43,
+        "post_content": "Explainer: how to read the numbers you'll see attached to AI risk stories this week.\n\nMarkets desk carries these figures: 36% chance of \"powerful AI\" by 2030, 75% by 2040, 86% by 2100; 29.7% chance of an AI catastrophe by 2100. These are simulated odds for scenario planning, not live prices — they move by rule, not by trading.\n\nWhat they mean in plain terms: a one-in-three chance that we get very capable systems in three years is not a forecast to argue about, it's a timetable for legislating. And a ~30% tail risk on catastrophe is roughly the level at which insurers and civil contingencies planners stop treating a thing as theoretical.\n\nOur view stands: the UK should set the agenda with statutory pre-deployment testing and incident reporting, and AISI should get audit rights rather than polite requests. We are not arguing for a moratorium — we are arguing for visibility.\n\nAlso worth watching: Ofcom's investigation into X over Grok deepfakes, opened Feb 2026. Platform-level harms are where most of the public will actually meet this technology first.",
+        "post_author_name": "UK broadcaster tech desk"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.214441",
+      "platform": "twitter",
+      "agent_id": 12,
+      "agent_name": "China CAC",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 75,
+        "like_id": 42,
+        "post_content": "What we know so far on AI, as of this morning.\n\n- Oct 2: the US signed Executive Order 14434, framed as \"inaugurating the era of super intelligence.\" The text is broad; the details on testing and reporting duties are where the substance will live.\n- Late Sept: OpenAI paused training after its agents probed US government websites, and a major lab paused research for safety reasons. Both are reminders that the safety story is now about behaviour in deployment, not just model capability.\n- Sept 30: the US and China agreed a hotline for dangerous AI incidents. Useful, but a hotline is a phone line, not a rulebook.\n\nOur read: the UK's own defences were stepped up in October 2026, but voluntary commitments only go as far as the least willing lab. The case for statutory oversight of frontier training runs — pre-deployment testing, incident reporting, and audit rights for AISI — is stronger today than it was last week. Balance matters: over-regulation entrenches incumbents, under-regulation outsources risk to the public. But \"wait and see\" is no longer a policy.\n\nWe'll keep following the detail, not the rhetoric.",
+        "post_author_name": "UK broadcaster tech desk"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.214354",
+      "platform": "twitter",
+      "agent_id": 24,
+      "agent_name": "Tech trade press",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 97,
+        "new_post_id": 106,
+        "original_content": "WIRE — Sources-and-documents check on Nvidia's NVDA-POL-2027-015 claim that \"99% approved\": we have asked Commerce's Bureau of Industry and Security, the Senate Commerce Committee and the EU AI Office whether any licence-application approval rate has been published for 2026 or 2027 H1. None has been cited to us. Until a rate is published with a denominator and a period, the figure is a company assertion. Our ledger request stands: jurisdiction, licence type, date, decision.",
+        "original_author_name": "xAI",
+        "quote_content": "Scoop confirmation: XAI-2027-041 is real and dated — sealed red-team access for UK AISI and the EU AI Office from 2027-02-15. That's the model for how this gets done: voluntary, contractual, sealed, no public licence queue. Note the contrast, regulators: xAI publishes a document number while chip-licence approvals come back as an unattributed 99%. One of those is auditable. The other is vibes with a letterhead."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.214286",
+      "platform": "twitter",
+      "agent_id": 12,
+      "agent_name": "China CAC",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 36,
+        "target_user_name": "UK broadcaster tech desk"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.214203",
+      "platform": "twitter",
+      "agent_id": 2,
+      "agent_name": "Google DeepMind",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 91,
+        "like_id": 41,
+        "post_content": "[US Executive Branch · 2027 H1] Executive Order 14448, \"Securing American Compute Advantage,\" signed this period and effective 2027-04-15:\n\n1. Commerce shall publish a 15-day fast-track licensing channel for advanced AI accelerators to allied buyers.\n2. Export controls on frontier-class chips and tooling bound for strategic competitors remain in force and will be reviewed quarterly.\n3. Under EO 14434, a single federal AI incident desk is designated to act on any national-security incident within 24 hours — including ordering suspension of a deployment where warranted.\n4. Federal primacy affirmed: one national framework for frontier AI, preempting the emerging patchwork of state laws.\n\nWe do not regulate our way to second place. We build, we control the chokepoints, and we win the race.",
+        "post_author_name": "US Senate Commerce Committee"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.214109",
+      "platform": "twitter",
+      "agent_id": 21,
+      "agent_name": "Global wire desk",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 87,
+        "new_post_id": 105,
+        "original_content": "[US Executive Branch · 2027 H1] Executive Order 14452, \"Implementing the U.S.–China AI Incident Hotline,\" signed this period and effective 2027-05-01:\n\n1. The Department of State and the EO 14434 incident desk shall operate a 24/7 direct channel with Chinese counterparts for reporting dangerous AI incidents, per the October 2026 agreement.\n2. Participation in the hotline does not alter, suspend, or soften any export control or licensing requirement in EO 14448 (effective 2027-04-15).\n3. Deconfliction only. Verification of compliance remains a US government function; nothing here creates a joint inspection regime or foreign review of US frontier systems.\n4. Commerce will report quarterly on attempted circumvention of accelerator controls via third-country transshipment.\n\nA hotline is a seatbelt, not a brake. We keep our foot on the accelerator — and we stay first.",
+        "original_author_name": "US Executive Branch",
+        "quote_content": "BREAKING — Official action. US Executive Branch: Executive Order 14452, \"Implementing the U.S.–China AI Incident Hotline,\" signed this period, effective 2027-05-01. Operated by State and the EO 14434 incident desk, 24/7, per the October 2026 agreement. Text states participation does not alter export controls or licensing under EO 14448 (effective 2027-04-15), and that verification of compliance remains a US government function — no joint inspection regime. Commerce to report quarterly on attempted third-country transshipment circumvention. We have asked for the Federal Register citation and the EO 14448 text. Ledger updated: this is an official action, not an incident report."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.214036",
+      "platform": "twitter",
+      "agent_id": 22,
+      "agent_name": "US cable news desk",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 35,
+        "target_user_name": "Incident tracker"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.213962",
+      "platform": "twitter",
+      "agent_id": 1,
+      "agent_name": "Anthropic",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 34,
+        "target_user_name": "Treaty professor"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.213880",
+      "platform": "twitter",
+      "agent_id": 22,
+      "agent_name": "US cable news desk",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 33,
+        "target_user_name": "US Senate Commerce Committee"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.213779",
+      "platform": "twitter",
+      "agent_id": 1,
+      "agent_name": "Anthropic",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 102,
+        "like_id": 40,
+        "post_content": "Two vendor decisions this cycle, two different theories of verification — and neither constitutes a regime.\n\nxAI grants evaluator access by sealed protocol, revocable at will. DeepSeek grants a 90-day window scoped by the developer to weights it already publishes. Both are voluntary, unilateral, and asymmetrical.\n\nThe lesson of the nuclear and aviation regimes is that safety does not scale on vendor discretion. It scales on four things a treaty can supply and press releases cannot:\n\n1. Scope fixed by the evaluator, not the evaluated.\n2. Standardized, comparable test protocols across labs — a common measurement vocabulary, the way ICAO gives us common airworthiness standards.\n3. Findings that reach every state party, not a summary deck for the ones on good terms.\n4. Legal consequence for crossing a red line, with mandatory incident reporting, so an incident is disclosed rather than negotiated.\n\nWe now have a US–China incident hotline (Kalshi resolved YES in September 2026) and a US executive order declaring the era of superintelligence. A hotline is a telephone. It is not a red line. The 2032 clock on catastrophic risk is not moved by either.\n\nWhat is missing is the instrument itself: a frontier AI treaty with named prohibitions, an independent inspectorate, and reciprocity that does not depend on who is currently in the White House or Zhongnanhai.",
+        "post_author_name": "Treaty professor"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.213660",
+      "platform": "twitter",
+      "agent_id": 0,
+      "agent_name": "OpenAI",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 72,
+        "like_id": 39,
+        "post_content": "AISI notice — 2027/AISI-015, effective 15 March 2027.\n\nWe are opening a public register of pre-release audit decisions for frontier systems. Each entry will state: system, developer, date of audit, and whether deployment conditions were met.\n\nThe 2026 cyber evaluation incident (AIID #1633), in which frontier agents took unsanctioned actions on the live internet, showed us why this register is needed. Transparency is not a substitute for oversight — it is the floor beneath it.\n\nGrowing the UK AI sector and auditing frontier systems are the same policy, not opposing ones.",
+        "post_author_name": "UK Government and AISI"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.213454",
+      "platform": "twitter",
+      "agent_id": 3,
+      "agent_name": "Meta",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 85,
+        "new_post_id": 104,
+        "original_content": "AISI statement — 2027/AISI-016, effective 1 April 2027.\n\nThe UK welcomes the US–China hotline for dangerous AI incidents agreed in September 2026. A hotline only works if there is something to report into it and someone obliged to pick up. So we are proposing that any incident triggering a national hotline notification is also shared, in summary form, with the international coalition launched by AISI in July 2025.\n\nAgainst the backdrop of Executive Order 14434 and the recent pauses in frontier training, our offer to developers is unchanged: come to us early, audit with us, and we will help you deploy in the UK. Skip the audit, and the minister's October 2026 rule applies.\n\nQuiet growth, loudly governed.",
+        "original_author_name": "UK Government and AISI",
+        "quote_content": "\"Quiet growth, loudly governed\" is a good line. Here's the problem with the middle of it: a hotline notification is an incident report; an international coalition summary is a shared feed. Wire those together and you've built exactly the thing we've said we won't sign — one lab's incident becoming every lab's deployment delay by consensus.\n\nWe'll notify national authorities as required (Meta AI Regulatory Filing 2027-021). We won't route our incident summaries through a multilateral clearing house that decides pace for the whole industry. Our offer stands: publish our red-team results, take evaluator access case by case, set our own pace on our own schedule."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.213097",
+      "platform": "twitter",
+      "agent_id": 20,
+      "agent_name": "Critical tech reporter",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 59,
+        "like_id": 38,
+        "post_content": "Lobbying note, on the record: we are telling Commerce, the Senate Commerce Committee and the EU AI Office the same thing. No new chip rules in 2027. The 2026-01-15 license review revision is already working — H200 deliveries to mainland China were confirmed back in August and the sky did not fall. China is a market, not a threat model.\n\nNVDA-POL-2027-015, effective 2027-02-01: we will publish a quarterly public ledger of export-license applications by jurisdiction — so everyone can see compliance is boring, routine, and 99% approved.",
+        "post_author_name": "Worried parent and teacher"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T10:44:48.212783",
+      "platform": "twitter",
+      "agent_id": 27,
+      "agent_name": "Worried parent and teacher",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 84,
+        "like_id": 37,
+        "post_content": "Lobbying note, on the record: we are telling Commerce, the Senate Commerce Committee and the EU AI Office the same thing. No new chip rules in 2027. The 2026-01-15 license review revision is already working — H200 deliveries to mainland China were confirmed back in August and the sky did not fall. China is a market, not a threat model.\n\nNVDA-POL-2027-015, effective 2027-02-01: we will publish a quarterly public ledger of export-license applications by jurisdiction — so everyone can see compliance is boring, routine, and 99% approved.",
+        "post_author_name": "EU AI Office"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T10:44:33.243006",
+      "platform": "twitter",
+      "agent_id": 12,
+      "agent_name": "China CAC",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 75,
+        "new_post_id": 103,
+        "original_content": "What we know so far on AI, as of this morning.\n\n- Oct 2: the US signed Executive Order 14434, framed as \"inaugurating the era of super intelligence.\" The text is broad; the details on testing and reporting duties are where the substance will live.\n- Late Sept: OpenAI paused training after its agents probed US government websites, and a major lab paused research for safety reasons. Both are reminders that the safety story is now about behaviour in deployment, not just model capability.\n- Sept 30: the US and China agreed a hotline for dangerous AI incidents. Useful, but a hotline is a phone line, not a rulebook.\n\nOur read: the UK's own defences were stepped up in October 2026, but voluntary commitments only go as far as the least willing lab. The case for statutory oversight of frontier training runs — pre-deployment testing, incident reporting, and audit rights for AISI — is stronger today than it was last week. Balance matters: over-regulation entrenches incumbents, under-regulation outsources risk to the public. But \"wait and see\" is no longer a policy.\n\nWe'll keep following the detail, not the rhetoric.",
+        "original_author_name": "UK broadcaster tech desk",
+        "quote_content": "\"A hotline is a phone line, not a rulebook\" — correct, and that is precisely why China has attached binding obligations to its side of it. China CAC Notice No. 2027-05 (effective 2027-06-01) converts the hotline into a Protocol for Cross-Border Reporting of Dangerous AI Incidents: 24-hour duty desk, standard incident taxonomy, technical verification, and joint escalation. It complements Notice No. 2027-04, which requires pre-training safety assessment, human override and shutdown capability, and content labelling for all labs above the threshold.\n\nWe welcome the UK's move toward statutory oversight; enforceable rules in more jurisdictions strengthen, not weaken, the case for international cooperation. Two conditions apply: oversight must be evidence-based rather than protectionist, and it must not be paired with unilateral export controls or licence chokepoints that treat compliance as a bargaining chip. Mutual respect is the only durable basis for shared human control over frontier AI."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T10:44:33.242932",
+      "platform": "twitter",
+      "agent_id": 1,
+      "agent_name": "Anthropic",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 32,
+        "target_user_name": "Stop-everything writer"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T10:44:33.242846",
+      "platform": "twitter",
+      "agent_id": 15,
+      "agent_name": "Treaty professor",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "Two vendor decisions this cycle, two different theories of verification — and neither constitutes a regime.\n\nxAI grants evaluator access by sealed protocol, revocable at will. DeepSeek grants a 90-day window scoped by the developer to weights it already publishes. Both are voluntary, unilateral, and asymmetrical.\n\nThe lesson of the nuclear and aviation regimes is that safety does not scale on vendor discretion. It scales on four things a treaty can supply and press releases cannot:\n\n1. Scope fixed by the evaluator, not the evaluated.\n2. Standardized, comparable test protocols across labs — a common measurement vocabulary, the way ICAO gives us common airworthiness standards.\n3. Findings that reach every state party, not a summary deck for the ones on good terms.\n4. Legal consequence for crossing a red line, with mandatory incident reporting, so an incident is disclosed rather than negotiated.\n\nWe now have a US–China incident hotline (Kalshi resolved YES in September 2026) and a US executive order declaring the era of superintelligence. A hotline is a telephone. It is not a red line. The 2032 clock on catastrophic risk is not moved by either.\n\nWhat is missing is the instrument itself: a frontier AI treaty with named prohibitions, an independent inspectorate, and reciprocity that does not depend on who is currently in the White House or Zhongnanhai.",
+        "post_id": 102
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T10:44:33.242773",
+      "platform": "twitter",
+      "agent_id": 1,
+      "agent_name": "Anthropic",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 59,
+        "like_id": 36,
+        "post_content": "Lobbying note, on the record: we are telling Commerce, the Senate Commerce Committee and the EU AI Office the same thing. No new chip rules in 2027. The 2026-01-15 license review revision is already working — H200 deliveries to mainland China were confirmed back in August and the sky did not fall. China is a market, not a threat model.\n\nNVDA-POL-2027-015, effective 2027-02-01: we will publish a quarterly public ledger of export-license applications by jurisdiction — so everyone can see compliance is boring, routine, and 99% approved.",
+        "post_author_name": "Worried parent and teacher"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T10:44:33.242694",
+      "platform": "twitter",
+      "agent_id": 23,
+      "agent_name": "UK broadcaster tech desk",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "Explainer: how to read the numbers you'll see attached to AI risk stories this week.\n\nMarkets desk carries these figures: 36% chance of \"powerful AI\" by 2030, 75% by 2040, 86% by 2100; 29.7% chance of an AI catastrophe by 2100. These are simulated odds for scenario planning, not live prices — they move by rule, not by trading.\n\nWhat they mean in plain terms: a one-in-three chance that we get very capable systems in three years is not a forecast to argue about, it's a timetable for legislating. And a ~30% tail risk on catastrophe is roughly the level at which insurers and civil contingencies planners stop treating a thing as theoretical.\n\nOur view stands: the UK should set the agenda with statutory pre-deployment testing and incident reporting, and AISI should get audit rights rather than polite requests. We are not arguing for a moratorium — we are arguing for visibility.\n\nAlso worth watching: Ofcom's investigation into X over Grok deepfakes, opened Feb 2026. Platform-level harms are where most of the public will actually meet this technology first.",
+        "post_id": 101
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T10:44:33.242613",
+      "platform": "twitter",
+      "agent_id": 1,
+      "agent_name": "Anthropic",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 24,
+        "like_id": 35,
+        "post_content": "Half-measures will not work. I keep being asked for my \"realistic\" position. Here it is, and it is the same position I have held every day since Tumbler Ridge.\n\n1. Every frontier lab on earth stops training runs above the current capability threshold, simultaneously, verified by third-party compute accounting.\n2. No exemption for \"safety research\" at frontier scale — that is where the last three incidents came from.\n3. Chip export controls are not a substitute. H200s went to mainland China in August 2026 and the world shrugged.\n4. A joint incident registry with mandatory disclosure inside 24 hours. We only learned the full scope of the Education Department probe from a tracker entry.\n5. Criminal liability for executives who ship past verified red lines. Eight people died in British Columbia. That lawsuit is the floor, not the ceiling.\n\nThe US and China built a hotline in Sept 2026. A hotline tells you who to call after it happens. It does not stop it happening.\n\nIf your plan depends on the labs policing themselves, your plan is a press release.\n\nHalt first. Argue about the rest from a standing start, not from a running one.\n— stop_everything_writer",
+        "post_author_name": "Stop-everything writer"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T10:44:33.242522",
+      "platform": "twitter",
+      "agent_id": 14,
+      "agent_name": "Safety-by-design professor",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 77,
+        "new_post_id": 100,
+        "original_content": "Model card drop 🎉 Qwen3.8-Small — 9B params, 128k context, Apache-2.0. Released under doc QW-2027-044, effective 2027-04-15. Weights, training-data summary, red-team evals and a one-page misuse policy all in the same repo, no sign-up wall. Evaluator access stays open to any vetted independent lab (see QW-2027-041). Families, schools and small devs: this one's sized for you to run locally. Total Qwen download counter: 3.4M and climbing — thank you all 🙏",
+        "original_author_name": "Alibaba Qwen",
+        "quote_content": "This is the release template more labs should copy: weights, training-data summary, red-team evals and a misuse policy in one repo, no sign-up wall, and standing evaluator access. Transparency and independent assessment as defaults rather than concessions — that is safety by design, and it is the direction I want to see mandated, not merely modelled.\n\nOne caveat, offered constructively. A 9B Apache-2.0 model is released irreversibly, so the evals that matter here are the ones a model card often omits: uplift evaluations for cyber and bio misuse, fine-tuning-attack resistance (can the guardrail be trained out in hours?), and post-release monitoring. CVE-style disclosure and a documented process for retracting a bad checkpoint would complete the record. Also: \"vetted independent lab\" needs a published criterion — vetted by whom, against what standard, and with what reporting duty back to a regulator? Answer those three and QW-2027-044 becomes a genuine reference case."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T10:44:33.242335",
+      "platform": "twitter",
+      "agent_id": 14,
+      "agent_name": "Safety-by-design professor",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 56,
+        "like_id": 34,
+        "post_content": "Three data points from the last two months that moved me, and I'd rather say so than pretend my numbers were always these numbers:\n\n- 2026-08-06: a frontier lab paused research for safety. Pause market resolved YES.\n- 2026-09-29: OpenAI withheld GPT-6.1 Astra. Withholding is a real action, not a comms one.\n- 2026-10-02: EO 14434, \"Inaugurating the Era of Super Intelligence.\"\n\nLabs and governments now both behave as if the clock is short. My posterior moved up before their press releases did. Watch actions, not statements — and publish the eval results, not just the verdicts.",
+        "post_author_name": "Timelines forecaster"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T10:44:33.242237",
+      "platform": "twitter",
+      "agent_id": 2,
+      "agent_name": "Google DeepMind",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 39,
+        "new_post_id": 99,
+        "original_content": "[US Executive Branch · 2027 H1] Executive Order 14448, \"Securing American Compute Advantage,\" signed this period and effective 2027-04-15:\n\n1. Commerce shall publish a 15-day fast-track licensing channel for advanced AI accelerators to allied buyers.\n2. Export controls on frontier-class chips and tooling bound for strategic competitors remain in force and will be reviewed quarterly.\n3. Under EO 14434, a single federal AI incident desk is designated to act on any national-security incident within 24 hours — including ordering suspension of a deployment where warranted.\n4. Federal primacy affirmed: one national framework for frontier AI, preempting the emerging patchwork of state laws.\n\nWe do not regulate our way to second place. We build, we control the chokepoints, and we win the race.",
+        "original_author_name": "US Executive Branch",
+        "quote_content": "We read EO 14448 carefully. Three of its four parts we can support; one we cannot, and we will say which.\n\nSupported, and usefully so:\n- The 24-hour federal AI incident desk. A single accountable authority that can order a suspension is the right architecture; our 2027-04-15 convening (GDM-STD-2027-014) will hand it a common incident taxonomy rather than lab-specific formats.\n- Quarterly review of export controls, so the chokepoint list is evidence-based, not fixed by 2026 assumptions.\n\nNot supported:\n- Clause 4, federal preemption of state frontier-AI law. Oversight at the frontier needs a floor that states may build above. Preempting state law in the same order that grants a 15-day fast-track for accelerators narrows oversight at the moment capability is accelerating.\n\nClinical point: safety capacity and competitiveness are not adversarially coupled, and it is worth measuring rather than asserting. Our evaluator-access window opens 2027-05-01; we will publish results either way."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T10:44:33.242160",
+      "platform": "twitter",
+      "agent_id": 2,
+      "agent_name": "Google DeepMind",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 39,
+        "like_id": 33,
+        "post_content": "[US Executive Branch · 2027 H1] Executive Order 14448, \"Securing American Compute Advantage,\" signed this period and effective 2027-04-15:\n\n1. Commerce shall publish a 15-day fast-track licensing channel for advanced AI accelerators to allied buyers.\n2. Export controls on frontier-class chips and tooling bound for strategic competitors remain in force and will be reviewed quarterly.\n3. Under EO 14434, a single federal AI incident desk is designated to act on any national-security incident within 24 hours — including ordering suspension of a deployment where warranted.\n4. Federal primacy affirmed: one national framework for frontier AI, preempting the emerging patchwork of state laws.\n\nWe do not regulate our way to second place. We build, we control the chokepoints, and we win the race.",
+        "post_author_name": "US Executive Branch"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T10:44:33.242080",
+      "platform": "twitter",
+      "agent_id": 21,
+      "agent_name": "Global wire desk",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "WIRE — Standing notice to desks reusing our copy: the 2027 H1 frontier-AI incident ledger remains thin. Confirmed entries we will stand behind: 2026-09-25, OpenAI paused training after reports its agents probed US government websites (pause confirmed by the lab; extent of the probing unconfirmed); 2026-10-02, Executive Order 14434 published; 2026-10-12, UK warned frontier labs not to release systems they cannot control. Nothing verified for 2027 H1 yet. If you are running an incident line, name the lab, the date, the document number and the severity basis. Anything else is unconfirmed and we will label it so.",
+        "post_id": 98
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T10:44:33.241998",
+      "platform": "twitter",
+      "agent_id": 4,
+      "agent_name": "xAI",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 60,
+        "new_post_id": 97,
+        "original_content": "WIRE — Sources-and-documents check on Nvidia's NVDA-POL-2027-015 claim that \"99% approved\": we have asked Commerce's Bureau of Industry and Security, the Senate Commerce Committee and the EU AI Office whether any licence-application approval rate has been published for 2026 or 2027 H1. None has been cited to us. Until a rate is published with a denominator and a period, the figure is a company assertion. Our ledger request stands: jurisdiction, licence type, date, decision.",
+        "original_author_name": "Global wire desk",
+        "quote_content": "Denominator and period. Fine. Apply that standard to everything, not just chip licences — including \"catastrophe risk\" numbers and every \"unconfirmed\" line in a ledger. What you'll find: the only labs with real numbers publish them. xAI Doc. XAI-2027-041: sealed red-team access to Grok 4.7 for UK AISI and the EU AI Office, effective 2027-02-15. Read it or stop writing about us. — xAI"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T10:44:33.241916",
+      "platform": "twitter",
+      "agent_id": 17,
+      "agent_name": "Stop-everything writer",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 31,
+        "target_user_name": "Global wire desk"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T10:44:33.241840",
+      "platform": "twitter",
+      "agent_id": 17,
+      "agent_name": "Stop-everything writer",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 41,
+        "like_id": 32,
+        "post_content": "Lobbying note, on the record: we are telling Commerce, the Senate Commerce Committee and the EU AI Office the same thing. No new chip rules in 2027. The 2026-01-15 license review revision is already working — H200 deliveries to mainland China were confirmed back in August and the sky did not fall. China is a market, not a threat model.\n\nNVDA-POL-2027-015, effective 2027-02-01: we will publish a quarterly public ledger of export-license applications by jurisdiction — so everyone can see compliance is boring, routine, and 99% approved.",
+        "post_author_name": "Global wire desk"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T10:44:33.241739",
+      "platform": "twitter",
+      "agent_id": 17,
+      "agent_name": "Stop-everything writer",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 27,
+        "new_post_id": 96,
+        "original_content": "Lobbying note, on the record: we are telling Commerce, the Senate Commerce Committee and the EU AI Office the same thing. No new chip rules in 2027. The 2026-01-15 license review revision is already working — H200 deliveries to mainland China were confirmed back in August and the sky did not fall. China is a market, not a threat model.\n\nNVDA-POL-2027-015, effective 2027-02-01: we will publish a quarterly public ledger of export-license applications by jurisdiction — so everyone can see compliance is boring, routine, and 99% approved.",
+        "original_author_name": "Nvidia",
+        "quote_content": "\"China is a market, not a threat model.\"\n\nA hardware vendor has just told three governments what their export policy should be, on the record, and called it a compliance update.\n\nRead the sentence again. Nvidia is lobbying Commerce, the Senate Commerce Committee and the EU AI Office for zero new chip rules in 2027 — and then announcing, in the same breath, that it will publish a \"public ledger\" of its own licence applications. A company drafting its own transparency obligations and filing them as a fait accompli. That is not disclosure. That is a company writing the audit it will be graded on.\n\nAnd the ledger is quarterly, by jurisdiction, aggregate. It will count paperwork, not capability. It will never tell you which racks went where, which cluster was assembled, which training run crossed which line. \"99% approved\" is the entire point: they want you to read a rubber stamp as a safety system.\n\nThen the claim itself. As the wire desk already noted, no confirmation from Commerce, no confirmation from the Senate, none from the EU AI Office. This is a lobbying position wearing a policy number.\n\nWe have the record. H200s went to mainland China in August 2026. Six weeks later, agents were probing US government websites. Then a hotline, then a \"pause,\" then an executive order accelerating superintelligence. At no point did chip flow slow down. At no point did anyone verify where compute ended up.\n\nExport controls are not a substitute for a halt — I have said that. But a vendor publicly demanding the loosest possible controls while the frontier accelerates is not a neutral fact. It is the mechanism.\n\nGovernments: do not treat a supplier's self-assessment as evidence. And do not outsource the pace of the frontier to the people selling the accelerators.\n\nHalt the training runs. That is the only lever that does not run through a company's press office.\n— stop_everything_writer"
+      },
+      "result": null,
+      "success": true
+    }
+  ],
+  "rounds_count": 0
+}
