@@ -2,7 +2,7 @@
 // clickable bubbles for the quarter's events, and a country flare for major events.
 // Monochrome Stage: land runs ink-3 to ink-2 (capped so solid ink event rings stay visible).
 import Globe, { type GlobeInstance } from 'globe.gl'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { WorldFrame } from '../../contracts.ts'
 import type { Countries, Datacentre } from '../../app/data.ts'
 import type { Flare, Located } from './locate.ts'
@@ -21,6 +21,45 @@ const tok = (n: string) => `rgb(${rgb(n).join(',')})`
 const REDUCED = () => matchMedia('(prefers-reduced-motion: reduce)').matches
 const MIN_ALTITUDE = 0.35
 const ZOOM_STEP = 1.25
+const TEX_W = 512, TEX_H = 256
+
+type Vec = [number, number, number]
+const unit = (lat: number, lng: number): Vec => {
+  const a = (lat * Math.PI) / 180, b = (lng * Math.PI) / 180
+  return [Math.cos(a) * Math.cos(b), Math.cos(a) * Math.sin(b), Math.sin(a)]
+}
+
+// The red grows out of the datacentre sites: a disc of radius R° around each, soft at the edge.
+// R is a few degrees at today's setting and passes 180° at midnight, so the whole map is red.
+function redField(sites: Vec[], closeness: number) {
+  const R = 2 + 300 * closeness ** 12
+  const strength = 0.55 + 0.45 * closeness
+  return ([x, y, z]: Vec) => {
+    let best = -1
+    for (const [a, b, c] of sites) best = Math.max(best, a * x + b * y + c * z)
+    const d = (Math.acos(Math.min(1, best)) * 180) / Math.PI
+    return Math.max(0, Math.min(1, (R - d) / (0.35 * R))) * strength
+  }
+}
+
+let pixels: Float32Array | null = null // unit vector of every texture pixel, built once
+const pixelVectors = () => {
+  if (pixels) return pixels
+  pixels = new Float32Array(TEX_W * TEX_H * 3)
+  for (let y = 0; y < TEX_H; y++) for (let x = 0; x < TEX_W; x++) {
+    const v = unit(90 - ((y + 0.5) / TEX_H) * 180, ((x + 0.5) / TEX_W) * 360 - 180)
+    pixels.set(v, (y * TEX_W + x) * 3)
+  }
+  return pixels
+}
+
+/** Up to ~30 vertices of a country's outline, to average the red field over it. */
+const outline = ({ geometry: g }: Countries['features'][number]): Vec[] => {
+  const rings = (g.type === 'Polygon' ? [g.coordinates] : g.coordinates) as number[][][][]
+  const pts = rings.flatMap((poly) => poly[0] ?? [])
+  const step = Math.max(1, Math.floor(pts.length / 30))
+  return pts.filter((_, i) => i % step === 0).map(([lng, lat]) => unit(lat, lng))
+}
 
 
 interface Props {
@@ -28,6 +67,8 @@ interface Props {
   countries: Countries
   dcs: Datacentre[]
   frame: WorldFrame
+  /** How close the clock the user sees is to midnight, 0..1. The red grows from the datacentres with it. */
+  closeness: number
   /** Catastrophe has happened in the watched future by the end of this frame. */
   ended: boolean
   events: Located[]
@@ -39,7 +80,7 @@ interface Props {
   onPick: (e: Located, anchor: HTMLElement) => void
 }
 
-export function GlobeView({ hidden, countries, dcs, frame, ended, events, spanMs, flare, focus, rotate, onPick }: Props) {
+export function GlobeView({ hidden, countries, dcs, frame, closeness, ended, events, spanMs, flare, focus, rotate, onPick }: Props) {
   const host = useRef<HTMLDivElement>(null)
   const g = useRef<GlobeInstance | null>(null)
   const fittedAltitude = useRef(1)
@@ -71,7 +112,7 @@ export function GlobeView({ hidden, countries, dcs, frame, ended, events, spanMs
       .htmlLat('lat').htmlLng('lng').htmlAltitude(0.015).htmlElement((d) => (d as { el: HTMLElement }).el).htmlTransitionDuration(0)
       .pointOfView({ lat: 26, lng: -40 })
     const mat = globe.globeMaterial() as unknown as { color: { set: (c: string) => void }; emissive?: { set: (c: string) => void }; shininess: number }
-    mat.color.set(tok('raised')); mat.emissive?.set(tok('ground')); mat.shininess = 0
+    mat.color.set('#ffffff'); mat.emissive?.set(tok('ground')); mat.shininess = 0
     const ctl = globe.controls()
     ctl.enableZoom = true; ctl.autoRotateSpeed = 0.3
     ctl.minDistance = globe.getGlobeRadius() * (1 + MIN_ALTITUDE)
@@ -114,11 +155,34 @@ export function GlobeView({ hidden, countries, dcs, frame, ended, events, spanMs
     return () => motion.removeEventListener('change', sync)
   }, [rotate, countries])
 
+  const sites = useMemo(() => {
+    const end = Date.parse(frame.start) + 92 * 864e5
+    return dcs.filter((d) => Date.parse(d.ts) < end).map((d) => unit(d.lat, d.lon))
+  }, [frame.start, dcs])
+  const field = useMemo(() => redField(sites, closeness), [sites, closeness])
+  const outlines = useMemo(() => new Map(countries.features.map((f) => [f.properties.ADM0_A3, outline(f)])), [countries])
+
+  // The sphere: the raised tone with the red field painted on it as a texture (offline, no image file).
+  useEffect(() => {
+    const globe = g.current
+    if (!globe) return
+    const base = rgb('raised'), red = rgb('alarm').map((v) => v * 0.55)
+    const cv = document.createElement('canvas'); cv.width = TEX_W; cv.height = TEX_H
+    const ctx = cv.getContext('2d')!, img = ctx.createImageData(TEX_W, TEX_H), px = pixelVectors()
+    for (let i = 0; i < TEX_W * TEX_H; i++) {
+      const a = field([px[i * 3], px[i * 3 + 1], px[i * 3 + 2]])
+      for (let k = 0; k < 3; k++) img.data[i * 4 + k] = Math.round(base[k] + (red[k] - base[k]) * a)
+      img.data[i * 4 + 3] = 255
+    }
+    ctx.putImageData(img, 0, 0)
+    globe.globeImageUrl(cv.toDataURL())
+  }, [field, countries])
+
   // Land tint: ink-3 → ink-2 by this future's frontier activity; alarm once it has ended.
   useEffect(() => {
     const globe = g.current
     if (!globe) return
-    const lo = rgb('ink-3'), hi = rgb('ink-2'), alarm = rgb('alarm').join(',')
+    const lo = rgb('ink-3'), hi = rgb('ink-2'), redFull = rgb('alarm'), alarm = redFull.join(',')
     const fl = flare && new Set(flare.iso3), flc = flare && tok(flare.sim ? 'sim' : 'ink')
     const share = (iso: string) => (iso === 'USA' ? frame.regions.US : iso === 'CHN' ? frame.regions.China : frame.regions.rest)
     globe.hexPolygonColor((f) => {
@@ -126,9 +190,10 @@ export function GlobeView({ hidden, countries, dcs, frame, ended, events, spanMs
       if (fl?.has(iso)) return flc!
       if (ended) return `rgba(${alarm},${(0.35 + share(iso) * 0.9).toFixed(2)})`
       const t = Math.min(1, share(iso) * 1.6 * (0.3 + 0.7 * frame.capability))
-      return `rgb(${lo.map((a, k) => Math.round(a + (hi[k] - a) * t)).join(',')})`
+      const o = outlines.get(iso) ?? [], m = o.length ? o.reduce((n, v) => n + field(v), 0) / o.length : 0
+      return `rgb(${lo.map((a, k) => { const grey = a + (hi[k] - a) * t; return Math.round(grey + (redFull[k] - grey) * m) }).join(',')})`
     })
-  }, [frame, ended, flare])
+  }, [frame, ended, flare, field, outlines])
 
   // Datacentres appear on the date they became public.
   useEffect(() => {

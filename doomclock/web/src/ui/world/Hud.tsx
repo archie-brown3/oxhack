@@ -148,6 +148,7 @@ export function MapKey() {
         <div className="dc-mark"><svg viewBox="0 0 40 28"><circle className="k-sim" cx="20" cy="14" r="9" /></svg><span><b>Dashed ring</b>: simulated or projected after today. Click to read it</span></div>
         <div className="dc-mark"><svg viewBox="0 0 40 28"><circle className="k-dot0" cx="20" cy="14" r="3" style={{ fill: 'var(--ink-2)' }} /></svg><span><b>Grey dot</b>: a publicly mapped datacentre site (Epoch AI), not compute share</span></div>
         <div className="dc-mark"><svg viewBox="0 0 40 28"><rect className="k-cat" x="14" y="8" width="12" height="12" transform="rotate(45 20 14)" /></svg><span><b>Red</b>: catastrophe, in this one future</span></div>
+        <div className="dc-mark"><svg viewBox="0 0 40 28"><circle className="k-cat" cx="20" cy="14" r="8" style={{ opacity: 0.5 }} /></svg><span><b>Red glow</b> around datacentres shows how close the clock is to midnight, not where harm happens</span></div>
       </div>
     </div>
   )

@@ -44,3 +44,6 @@ export function scaleOf(timeline: Timeline, bulletin: BulletinSetting[]) {
     daysPerSecond: k > 0 ? 365.25 / k : null,
   }
 }
+
+/** How close the hand is to midnight on the face, 0 (a full face away) to 1 (midnight). */
+export const closeness = (h: Hand) => Math.max(0, Math.min(1, 1 - h.seconds / FACE_SECONDS))

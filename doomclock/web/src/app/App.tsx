@@ -4,7 +4,7 @@ import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } fro
 import type { WorldEvent, WorldFrame } from '../contracts.ts'
 import { buildTimeline, PICKS, type Pick } from '../engine/timeline.ts'
 import { Clock } from '../ui/clock/Clock.tsx'
-import { bulletinAt, scaleOf } from '../ui/clock/scale.ts'
+import { bulletinAt, closeness, scaleOf } from '../ui/clock/scale.ts'
 import { dmy, monthYear, qName, sourceName } from '../ui/format.ts'
 import { InputsSheet } from '../ui/inputs/InputsSheet.tsx'
 import { WhySheet, type WhyTab } from '../ui/why/WhySheet.tsx'
@@ -167,7 +167,7 @@ function World({ data }: { data: Data }) {
   return (
     <div className={`${ended ? 'ended' : ''} ${view}`} onClick={() => { setPop(null); setKeyOpen(false) }}>
       <Suspense fallback={<div id="globe" />}>
-        <GlobeView hidden={view === 'engine'} countries={countries} dcs={data.dcs} frame={frame} ended={ended} events={located} spanMs={live && playing ? QMS / speed : null} flare={flare} focus={focus} rotate={!sheet && view === 'world'} onPick={(e, anchor) => setPop({ e, anchor })} />
+        <GlobeView hidden={view === 'engine'} countries={countries} dcs={data.dcs} frame={frame} closeness={ended ? 1 : closeness(hand)} ended={ended} events={located} spanMs={live && playing ? QMS / speed : null} flare={flare} focus={focus} rotate={!sheet && view === 'world'} onPick={(e, anchor) => setPop({ e, anchor })} />
       </Suspense>
       <div id="vignette" />
       <Clock hand={hand} pin={scale.pin} daysPerSecond={scale.daysPerSecond} today={timeline.clock} isToday={isToday} frame={frame} prev={frames[cur - 1] ?? null} onWhy={() => setSheet('why')} />
