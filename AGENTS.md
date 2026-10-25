@@ -111,6 +111,18 @@ that future's clock by labelled game rules; nothing moves the real clock. Spec:
   - Backtest: the price-at-T lookup and the Brier maths, checked on a fixture.
   - Panel: bad JSON gives a zero nudge.
 
+## Cursor Cloud specific instructions
+
+The app to run is `doomclock/web` (Vite + React). From the repo root:
+
+- Install: `npm ci --prefix doomclock/web`
+- Dev server: `npm run dev -- --host 0.0.0.0 --port 5173` in `doomclock/web` (http://127.0.0.1:5173)
+- Checks: `npm test` and `npm run build` in `doomclock/web`
+
+`npm test` passes directories to `node --test`. Node.js 26 discovers the TypeScript tests in those directories. Node.js 22 and 24 try to execute the directories and the run fails. Cloud Agents install Node.js 26.12.1 under `/usr/local/lib/node-v26.12.1` and symlink `node`, `npm`, `npx`, and `corepack` into `/usr/local/cargo/bin`, which is ahead of the image's Node 22 on `PATH`.
+
+The web app reads the committed JSON in `doomclock/web/public/cache`. It needs no API keys. Pipeline scripts are plain Node with no extra packages. The MiroFish submodule (`vendor/mirofish`) is optional and is not started; the Engine view uses the recorded cache. Run commands are also in `docs/HANDOFF.md`.
+
 ## Deadline
 
 Hacking runs until Sun 25 Oct 12:00. The clocks go back at 02:00 Sunday, which gives us 25
