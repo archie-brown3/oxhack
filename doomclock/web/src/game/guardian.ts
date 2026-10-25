@@ -1,10 +1,8 @@
 // The Guardian's side (task 116, plan §5): the deterministic offer, auto-targets, the auto-policy
 // used for continuations and balance runs, and the Guardian's view of the state. Pure.
 import { CARDS, M, guardianCard } from './cards.ts'
-import { LABS, QUARTERS, STANCES, TURN_START, weightOf, type Stances } from './rules.ts'
+import { LABS, QUARTERS, RULES, STANCES, TURN_START, weightOf, type Stances } from './rules.ts'
 import type { AgentId, GameState, GuardianCardId, GuardianView, Word } from './types.ts'
-
-const REPEATABLE: GuardianCardId[] = ['G7'] // a second revealed foothold needs a second order
 
 export function expired(card: GuardianCardId, turn: number): boolean {
   const e = guardianCard(card).expires
@@ -22,7 +20,7 @@ export function tellCount(s: GameState): Record<AgentId, number> {
 
 function available(s: GameState, c: GuardianCardId, banned: GuardianCardId[]): boolean {
   if (banned.includes(c) || expired(c, s.turn + 1)) return false
-  if (s.played.includes(c) && !REPEATABLE.includes(c)) return false
+  if (s.played.includes(c) && !RULES.repeatable.includes(c)) return false
   return s.bits >= guardianCard(c).price.bits
 }
 
@@ -84,7 +82,7 @@ export function autoGuardian(s: GameState, banned: GuardianCardId[] = [], stance
   const o = offer(s, banned)
   if (o.includes('G7') && s.bits >= 2) return { card: 'G7', target: autoTarget(s, 'G7') }
   const tells = tellCount(s)
-  const suspect = pick(LABS.map((l) => l.id).filter((l) => (tells[l] ?? 0) >= 2), s)
+  const suspect = pick(LABS.map((l) => l.id).filter((l) => (tells[l] ?? 0) >= RULES.auditTells), s)
   if (o.includes('G2') && suspect !== undefined) return { card: 'G2', target: suspect }
   const scored = o.map((c) => ({ c, v: throttlePerBit(s, c, stances) })).filter((x) => x.v > 0).sort((a, b) => b.v - a.v)
   if (scored.length) return { card: scored[0].c }

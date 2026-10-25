@@ -11,7 +11,7 @@ import { autoTurn, endCheck, newGame, playTurn } from './reducer.ts'
 import { autoGuardian, offer } from './guardian.ts'
 import { legalRogueMoves, roguePrompt, rogueView, validateRogue } from './rogue.ts'
 import { recommend } from './recommend.ts'
-import { DC_BASE, RULES } from './rules.ts'
+import { DC_BASE, RULES, constantsHash, weightOf, type Stances } from './rules.ts'
 import type { GameState, GuardianCardId, NodeFile } from './types.ts'
 
 const world: World = JSON.parse(readFileSync(new URL('../engine/fixtures/world.fixture.json', import.meta.url), 'utf8'))
@@ -115,17 +115,21 @@ test('end checks run in order: contained, public turned, Skynet, time bought', (
 const quiet = { events: false, rogue: { moves: [], label: 'HEURISTIC' as const, rationale: 'pass' } }
 
 test('the AND-gate and the share follow the plan examples; GO FURTHER gives T = 0.5', () => {
-  const g1 = playTurn(newGame(1), 'G1', quiet).state
-  // Labs 0-4 at DELAY, COMPLY, COMPLY, RESIST, DELAY, weighted .34 .12 .17 .06 .05; Senate ENFORCE.
-  const share = (0.34 * 0.5 + 0.12 + 0.17 + 0.05 * 0.5) / 0.74
+  // Labs 0-4 at DELAY, COMPLY, COMPLY, RESIST, DELAY, weighted by Epoch share; the Senate gates.
+  const st = { 0: { G1: 'DELAY' }, 1: { G1: 'COMPLY' }, 2: { G1: 'COMPLY' }, 3: { G1: 'RESIST' }, 4: { G1: 'DELAY' } } as Stances
+  const w = [0, 1, 2, 3, 4].map(weightOf)
+  const share = (w[0] * 0.5 + w[1] + w[2] + w[4] * 0.5) / w.reduce((a, b) => a + b, 0)
+  const g1 = playTurn(newGame(1), 'G1', { ...quiet, stances: { ...st, 9: { G1: 'ENFORCE' } } }).state
   assert.ok(Math.abs(g1.oversight - Math.round(20 * share * 10) / 10) < 1e-9, `${g1.oversight}`)
   assert.equal(g1.flags.licence![0], 0.8)
+  const weakSenate = playTurn(newGame(1), 'G1', { ...quiet, stances: { ...st, 9: { G1: 'WEAKEN' } } }).state
+  assert.ok(Math.abs(weakSenate.flags.licence![1] - (1 - 0.4 * 0.4)) < 1e-9) // gate = min(m) = 0.4
   const fur = playTurn(newGame(1), 'G1', { ...quiet, stances: { 9: { G1: 'ENFORCE' }, 0: { G1: 'GO FURTHER' } } }).state
   assert.equal(fur.flags.licence![0], 0.5)
   // G4 needs the US Executive AND China: WEAKEN caps the gate at 0.4; DECLINE closes it.
   let s = newGame(1)
   s = { ...s, bits: 9, played: ['G1', 'G2', 'G6'] as GuardianCardId[] }
-  const weak = playTurn(s, 'G4', quiet).state
+  const weak = playTurn(s, 'G4', { ...quiet, stances: { 8: { G4: 'WEAKEN' }, 12: { G4: 'JOIN' }, 1: { G4: 'COMPLY' } } }).state
   assert.ok(Math.abs(weak.flags.pause!.throttle[1] - (1 - 0.4 * 0.4)) < 1e-9)
   const shut = playTurn(s, 'G4', { ...quiet, stances: { 8: { G4: 'ENFORCE' }, 12: { G4: 'DECLINE' }, 1: { G4: 'COMPLY' } } }).state
   assert.equal(shut.flags.pause!.throttle[1], 1)
@@ -167,8 +171,9 @@ test('a recorded node folds: its decisions drive the effect; a RULES-ONLY node f
   const rec = playTurn(newGame(1), 'G1', { ...quiet, node: example() })
   assert.equal(rec.report.society.label, 'RECORDED')
   assert.equal(rec.report.society.decisions[0], 'DELAY')
-  // Only labs 0 and 1 answered: share = (.34 × .5 + .12) / .46; the Senate (#9) answered ENFORCE.
-  assert.ok(Math.abs(rec.state.oversight - Math.round(20 * ((0.34 * 0.5 + 0.12) / 0.46) * 10) / 10) < 1e-9)
+  // Only labs 0 and 1 answered (DELAY, COMPLY); the Senate (#9) answered ENFORCE, so the gate is 1.
+  const share = (weightOf(0) * 0.5 + weightOf(1)) / (weightOf(0) + weightOf(1))
+  assert.ok(Math.abs(rec.state.oversight - Math.round(20 * share * 10) / 10) < 1e-9)
   assert.equal(rec.state.support, 0.75)
   const ro = playTurn(newGame(1), 'G1', { ...quiet, node: { ...example(), status: 'rules-only' } })
   assert.equal(ro.report.society.label, 'RULES-ONLY')
@@ -240,4 +245,11 @@ test('the market-paced clock matches the KXAGICO cummax curve in data/market-inp
   const q: number[] = labels.map((l) => mi.capabilityCurve.quarters.find((x: { q: string }) => x.q === l).p)
   assert.equal(Math.round(100 * q[0]), 6)
   assert.deepEqual(q.slice(1).map((p, i) => Math.round(100 * (p - q[i]))), DC_BASE)
+})
+
+test('the frozen constants are the ones data/tests/balance.json measured, and every bar passed', () => {
+  const b = JSON.parse(readFileSync(new URL('../../../../data/tests/balance.json', import.meta.url), 'utf8'))
+  assert.equal(b.constantsHash, constantsHash(), 'rules.ts changed since balance.ts ran: re-run it')
+  assert.equal(b.games, 1000)
+  assert.ok(b.allPass, JSON.stringify(b.bars))
 })

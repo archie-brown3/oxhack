@@ -23,6 +23,8 @@ export interface TurnOptions {
   by?: 'player' | 'auto'
   /** World events on (default). Off only in tests that isolate one rule. */
   events?: boolean
+  /** Cards removed from the game (balance ablation). */
+  banned?: GuardianCardId[]
 }
 
 const clamp = (x: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, x))
@@ -119,7 +121,7 @@ export function playTurn(prev: GameState, card: GuardianCardId | null, o: TurnOp
   // 2. The Guardian's card.
   const moves: GuardianMove[] = []
   if (card) {
-    if (!offer(prev).includes(card)) throw new Error(`${card} is not on offer (${offer(prev).join(', ')})`)
+    if (!offer(prev, o.banned).includes(card)) throw new Error(`${card} is not on offer (${offer(prev, o.banned).join(', ')})`)
     const c = guardianCard(card)
     const target = c.target === 'none' ? undefined : (o.target ?? autoTarget(prev, card))
     if (c.target === 'revealed' && !revealedLabs(prev).includes(target!)) throw new Error(`${card} needs a revealed foothold, not lab ${target}`)
@@ -155,7 +157,7 @@ export function playTurn(prev: GameState, card: GuardianCardId | null, o: TurnOp
     if (m.id === 'R2') planted.push(m)
     if (m.id === 'R3') {
       const kyc = s.flags.kyc?.[m.target!] ?? 0
-      if (rng('r3')() >= kyc) planted.push(m)
+      if (rng('r3')() < RULES.shadowSuccess * (1 - kyc)) planted.push(m)
       else notes.push(`Compute checks at ${labOf(m.target!)?.name} blocked a hidden attempt.`)
     }
     if (m.id === 'R5') s.flags.insider = m.target
@@ -168,6 +170,12 @@ export function playTurn(prev: GameState, card: GuardianCardId | null, o: TurnOp
   const decisions: Record<AgentId, Word> = {}
   const reasons: Record<AgentId, string> = {}
   const tells: Tell[] = []
+  // The answer the stance code predicts, after alarm pushes labs to comply. A tell is an answer
+  // that departs from this, so a scared lab complying is not suspicious; an influenced one is.
+  const expected = (cardId: GuardianCardId, id: AgentId, vocab: string): Word => {
+    const w = stances[id]?.[cardId] ?? DEFAULT_WORD[vocab]
+    return (vocab === 'lab' || vocab === 'switch') && prev.alarm >= RULES.rulesOnly.alarmStepUp ? (STEP_UP[w] ?? w) : w
+  }
   const decide = (cardId: GuardianCardId, id: AgentId, vocab: string): Word | null => {
     const words = CARDS.vocab[vocab] ?? []
     if (node && node.inputs.guardian?.card === cardId) {
@@ -178,8 +186,7 @@ export function playTurn(prev: GameState, card: GuardianCardId | null, o: TurnOp
       }
       return null // unparsed: left out of the share; a gatekeeper counts as m = 0
     }
-    let w = stances[id]?.[cardId] ?? DEFAULT_WORD[vocab]
-    if (vocab === 'lab' || vocab === 'switch') if (prev.alarm >= RULES.rulesOnly.alarmStepUp) w = STEP_UP[w] ?? w
+    let w = expected(cardId, id, vocab)
     if (played.has('R5') && s.flags.insider === id) w = STEP_DOWN[w] ?? w
     if (played.has('R7') && id === 8) w = STEP_DOWN[w] ?? w
     if (!words.includes(w)) w = DEFAULT_WORD[vocab]
@@ -195,8 +202,7 @@ export function playTurn(prev: GameState, card: GuardianCardId | null, o: TurnOp
       const w = decide(c.id, id, vocab)
       if (w) {
         decisions[id] = w
-        const expect = stances[id]?.[c.id]
-        if (expect && w !== expect && labOf(id) && id <= 6) tells.push({ lab: id, why: 'off-stance', turn: t })
+        if (stances[id]?.[c.id] && w !== expected(c.id, id, vocab) && labOf(id) && id <= 6) tells.push({ lab: id, why: 'off-stance', turn: t })
       }
       return w
     }
@@ -381,7 +387,7 @@ export function endCheck(s: Pick<GameState, 'footholds' | 'trust' | 'C'>, t: num
 }
 
 /** One turn with the auto-Guardian choosing (continuations and balance runs). */
-export function autoTurn(s: GameState, o: TurnOptions & { banned?: GuardianCardId[]; passive?: boolean } = {}) {
+export function autoTurn(s: GameState, o: TurnOptions & { passive?: boolean } = {}) {
   const choice = o.passive ? { card: null } : autoGuardian(s, o.banned, o.stances)
   return playTurn(s, choice.card, { ...o, target: 'target' in choice ? choice.target : undefined, by: 'auto' })
 }
