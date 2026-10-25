@@ -1,136 +1,98 @@
-# Doom Clock: team handoff
+# Doom Clock: handoff to the cloud session (25 Oct 2026, 02:55 GMT)
 
-## Part 1: Read this first
+Hacking ends **12:00 GMT**. Freeze **11:30**, Devpost submission by **11:45** (owner). The clocks
+have gone back; use GMT/UTC (`date -u`). The previous handoff is in git history.
 
-### What we are building
+## 1. Start here: the task board is the source of truth
 
-Doom Clock shows how AI risk could change over time. It uses real data, including bets on when powerful AI will arrive and how much harm it could cause.
+**Read `.taskmaster/tasks/tasks.json` before anything else.** Every remaining task is there, with
+its scope, dependencies, checks, and, in its latest dated notes, exactly what landed (commit shas),
+what is half-done (file paths) and the precise next step. **The latest notes beat the description
+and the status.** This handoff only orients you; when it and the board disagree, the board wins.
 
-The model calculates a risk curve. It also runs 10,000 possible futures. The app lets you watch one future on a globe and see the data behind it. These futures are examples, not facts.
+- Read it with `tasks --once` (CLI) or directly. Update it with
+  `node scripts/board.mjs <id> --status <pending|in-progress|done|blocked> --note "<what, checks, numbers>"`,
+  in the same commit as the work. Commit and push board changes with the work.
+- `master` holds the live tasks. The `archive` tag holds the cancelled ones (the dropped game,
+  old scopes). Don't work on archived tasks.
+- Work order: unblocked tasks first, in the order below, following each task's notes.
 
-The clock shows time left until the model's risk of AI catastrophe reaches 10%. This is a model result, not a known date. The current display starts at the Bulletin's 85 seconds to midnight. The forecast sets how fast the hand moves. See the latest notes in tasks 1 and 5 for the clock rules.
+## 2. What to read next (referenced, not repeated)
 
-The demo has four main views:
+- `AGENTS.md` (CLAUDE.md links to it): rules for data, labels, leakage, tests. Its intro has the
+  current plan.
+- **Spec:** `docs/superpowers/specs/2026-10-25-doom-clock-coupled-loop-design.md`. Three layers:
+  body → Amendments → Amendments 2; **the later layer wins** on any conflict.
+- Scoping evidence behind the spec: `docs/research/scoping-2026-10-25/`.
+- The brief the overnight lanes followed (landing protocol, seams between engine / recorder / ui):
+  `docs/lanes-brief.md`.
+- Brief and decisions: Notion "⏰ Doom Clock",
+  https://app.notion.com/p/45a9a3b74a37472884408f8b9eafd39b. The talk lives in Archie's Obsidian
+  vault (note "Oxhack Presentation", only on his Mac); the deck is in `docs/presentation/`.
+- Design system before any UI work: `context/design-system/README.md`.
 
-- **Inputs:** See the source data. Move the date slider to see what was known at that time.
-- **World:** Watch a possible future on the globe. See why the clock moves.
-- **Engine:** See simulated posts on X, government events and news from MiroFish.
-- **Why this time?:** Check the model's inputs, assumptions and past prediction scores.
+## 3. Where things stand
 
-The hackathon build is a simulation. The Guardian versus Rogue AI game is for later. Do not build the game now.
+The product: one forecast, three scenarios. Today's clock reads real prediction-market odds; the
+backtest scores them (Brier 0.085 vs coin 0.250 on 1,186 later questions, w = 0 for a blind LLM,
+5/5 leakage checks; `data/backtest.json`). Three futures are meant to be played forward on real
+MiroFish; their events nudge the "when" odds and MiroFish's report sets "how dangerous", by
+labelled GAME RULE effects. Nothing moves the real clock. The Engine tab is a 1:1 replica of
+MiroFish's UI; the World view has a live news feed with severity-driven legibility.
 
-### Start work with the task board
+- **Done and on `main`:** the engine for the loop (task 149), the World view on recorded futures
+  with the simulated clock, switcher, feed and severity tiers (151, mostly), the replica's five
+  cut-order items (155, on stand-in data), the recorder's persona renderer, read-out, rubric,
+  baseline and Step 1 script (150/152, partly), the real backtest, Track record, walkthrough,
+  globe, offline build, iframe embedding. `npm test` (125) and `npm run build` pass.
+- **No future has been recorded.** Future 1's Zep graph build stalled (task 152 note has the
+  diagnosis and the fix). The app runs on **labelled stand-in data**:
+  `doomclock/web/public/cache/futures.fixture.json` (2 hand-made futures) and
+  `public/cache/replica/spike` (the 24 Oct spike run). It loads real data automatically once
+  `public/cache/futures.json` and `public/cache/replica/<future>/` exist.
+- **Blocked in the cloud (need Archie's Mac):** 152, 153, 154, 156. They need the local MiroFish
+  backend (Herdr pane `wR:pC`, `:5001`, `sh doomclock/pipeline/mirofish/backend.sh`), the
+  OpenRouter and Zep keys, and `data/raw`. Their notes say how to resume there.
 
-**The most important file is [`.taskmaster/tasks/tasks.json`](../.taskmaster/tasks/tasks.json).**
+## 4. What the cloud session can do now (check each task's notes first)
 
-It tells you what remains, what comes first, what each task needs, and how to check the result. Read the whole task, including its latest notes. Some titles, descriptions and status fields lag behind those notes.
+1. **151** World view: the next steps in its wrap-up note (re-screenshot the judge path, show the
+   report prose labelled SIMULATED in Why → How dangerous).
+2. **155** replica: items (b)–(e) in its wrap-up note; headless screenshots of Graph, Split and
+   Workbench for Steps 1–4.
+3. **150** recorder: the code half of the Amendments 2 rework can be written and unit-tested
+   against saved fixtures; running it needs the Mac.
+4. **139** release-candidate gate: apply the **fallback** recorded there if no real futures exist
+   (stand-in data labelled ILLUSTRATIVE, claims adjusted; never present fixture numbers as
+   results). That fallback is a Lead default for Archie to confirm.
+5. **17** Devpost draft, README, 60-second demo script: describe what is actually on screen at
+   submit time; every number traces to a file. Don't submit (owner, 142).
+6. **138** label and offline tests, **9** demo-able gate, **141** play-through fixes by 10:30.
+7. Owner-only: 140, 142, 143, 144. Prepare everything they need; leave them to Archie.
 
-Every code change must follow a task. Use an active task with no unmet dependencies. Do not work on deferred or cancelled tasks. If the team changes the scope, update the board first. Keep task status and check results current. Commit and push task updates with the related work.
+## 5. Rules that bit us overnight
 
-Archie is stepping away. **The team can make decisions.** The Lead agent continues to assign work, review changes, commit and push. Tell the Lead before changing another agent's files. Do not wait for Archie to make routine decisions.
+- **Every push to `main` deploys production (Vercel).** Never push unless
+  `cd doomclock/web && npm test && npm run build` passes. Never run `vercel deploy`.
+- Rebase before pushing. If `tasks.json` conflicts during a rebase, take upstream
+  (`git checkout --ours`), re-run your `board.mjs` command, continue; never drop another task's
+  notes.
+- Labels: REAL, SIMULATED, RECORDED, PROJECTED, GAME RULE. Fixture and spike data must say so on
+  screen. Nothing after today copies a real story. The backtest scores 30-day market calibration
+  only, never the loop or the countdown date. The replica must never call
+  `/api/simulation/start`.
+- Unverified partial work from stopped workflows is on `wip/*` branches (`wip/remove-game`,
+  `wip/society-cast-move`, `wip/rogue-llm`, `wip/society-first-salvage`, `wip/strays`). It is not
+  on main on purpose; use it only as reference.
+- Archie's preferences: short status reports; decide routine things and mark them as defaults;
+  check big framing changes with him before building (he stopped two overnight workflows that
+  built the wrong thing).
 
-At this handoff, the existing Lead and UI Claude sessions have hit their usage limits. If they cannot respond, use a fresh agent to take over coordination. Check the board and unfinished file changes first.
+## 6. Suggested skills
 
-### What is done, and what needs work
-
-This is a snapshot. Check the board and ask the Lead for changes before you start.
-
-- Real market and event data are in the repo. The approved mockup is in `.lavish/prototype/`.
-- The Engine page is built (task **19**): feed, government/news, cast, graph, run stats and full-screen views. It uses recorded test data until task **11** supplies the run library. It does not run MiroFish live.
-- Globe zoom is built (task **145**). The graph also has zoom in, zoom out and reset controls, including full screen.
-- Replay now takes eight seconds per quarter at normal speed. News stays still. Use the arrows to read other events; this pauses replay (task **146**).
-- The World map uses `!` for incidents, `§` for government actions, `≋` for news and `@` for simulated X posts. Open **Map key** for these icons, real/simulated rings, datacentre dots and catastrophe marks.
-- Some engine work is still in files that are not yet committed. Do not replace it or start a second copy.
-- Tasks **14 and 3** cover data at a chosen date and the engine timeline.
-- Tasks **4, 5 and 15** cover the globe, clock, explanations and Inputs view.
-- Tasks **6 and 7** cover past prediction scores and their display. A sample display is not proof that the backtest works.
-- Task **11** covers recorded MiroFish runs: three futures, four quarters each.
-- Tasks **8, 9, 13 and 17** cover integration, offline use, review, deployment and submission.
-- Task **16**, live MiroFish, is optional. Tasks **101–144**, the game, are deferred.
-
-Known issues to check first:
-
-- The Kalshi data cleaner misses some price fields. Fix this for task 6, or leave that source out and state the limit.
-- The MiroFish seed still needs to use the current event data instead of Hacker News.
-- The catastrophe market has few traders. Show that limit beside its result.
-- The public site is [doomclock-web.vercel.app](https://doomclock-web.vercel.app). Pushes to `main` auto-deploy through Vercel. Check that the build succeeds before saying changes are live. See [deployment steps](deploy.md).
-- Track record has no measured result yet. The UI hides the sample scores. Finishing task **6** is a key remaining task for the HRT pitch.
-
-Latest checks for this handoff: 37 tests passed in the commit snapshot; four checks skipped because their data files do not exist yet. The web build passed with a large-bundle warning. Engine, graph, roster and news were checked in Chrome, including mobile layout. These checks do not prove prediction accuracy.
-
-Aim to freeze changes at **11:30 GMT on Sunday 25 October** and submit by **11:45 GMT**. Hacking ends at noon. The clocks go back overnight; use GMT for these deadlines.
-
-### Read the project docs
-
-Start with the board. Then use this guide. The repo is <https://github.com/archie-brown3/oxhack>.
-
-| Document | What it is for |
-| --- | --- |
-| [AGENTS.md](../AGENTS.md) | Rules for agents, data, tests and shared work. `CLAUDE.md` links to it. |
-| [UI brief](briefs/ui.md) | Screens, demo flow and required context for each event and clock move. |
-| [Design system](../context/design-system/README.md) | Visual rules. Read before UI work. Includes tokens, screen rules and component guides. |
-| [Reference index](../context/README.md) | Links to the source research, data notes and hackathon material. |
-| [Data docs](data/) | Source formats, public dates, filters and build steps. |
-| [MiroFish spike results](research/spikes-2026-10-24.md) | Measured run times and costs. |
-| [MiroFish docs](mirofish/README.md) and [patches](../patches/README.md) | Setup, API, seed data and local changes. Some setup notes are old. |
-| [Demo reviews](superpowers/plans/2026-10-24-doom-clock-demo-reviews.md) | Demo risks and scope cuts. |
-| [Feasibility review](superpowers/plans/2026-10-24-doom-clock-feasibility.md) | Why we cut the scope. |
-| [Full game plan](superpowers/plans/2026-10-24-doom-clock-game-plan-full.md) | Future work. Do not use it as the current task list. |
-| [Plans](superpowers/plans/), [specs](superpowers/specs/) and [research](research/) | Other agent documents and design background. Check their date and scope. |
-| [Judging review skill](../.claude/skills/judging-criteria-review/) | Check the demo against the judging criteria. |
-
-**Some older docs conflict with current decisions.** The latest task notes record the clock change to 85 seconds. Older docs say one minute equals one year. Hacker News and the LLM panel are out of the current build. MiroFish uses X only, in English. The game is deferred. If documents disagree, check the latest owner decision with the Lead and correct the board.
-
-### Keep these rules
-
-- Use only data that was public before the chosen date. Keep source dates and links.
-- Keep real events, model results and simulated content clearly labelled.
-- News gives context. Do not claim that a news event caused a market or clock move.
-- Score past market predictions honestly. Do not claim that the countdown date has been proved correct.
-- New app code goes in `doomclock/`. The old `web/` app is frozen.
-- Do not put keys in Git or in the handoff. Use the existing local environment setup.
-
-### Run the app
-
-From the repo root:
-
-```sh
-cd doomclock/web
-npm run dev
-```
-
-Checks and offline build:
-
-```sh
-# From the repo root
-node --test doomclock/web/src/engine/ doomclock/pipeline/lib/
-cd doomclock/web
-npm test
-npm run publish:cache
-npm run build
-npm run preview
-```
-
-These are run commands, not a claim that the latest work passes. Ask the Lead for the latest results. The configured MiroFish checkout is separate, at `~/dev/MiroFish`; check its setup before starting a run.
-
-## Part 2: Paste this into your agent
-
-```text
-I am taking over work on OxHack Doom Clock while Archie is away. The team owns decisions. Help me finish the current hackathon demo.
-
-First read docs/HANDOFF.md for the product and handover.
-
-CRITICAL: Read .taskmaster/tasks/tasks.json before any coding. This is the shared source of truth for remaining work, priorities, dependencies, acceptance checks and review gates. Read each task's latest notes as well as its description and status. Every code change must follow an active, unblocked task. Do not implement deferred or cancelled work. Update the board before implementing a new scope. Keep task status and verification notes current, and commit and push task updates with related work.
-
-Read AGENTS.md (CLAUDE.md links to it). Read docs/briefs/ui.md and context/README.md. For UI work, also read context/design-system/README.md and the relevant component guides. Use docs/data/ for source schemas and date rules. Use the handoff's document guide to find the other plans, specs, research and MiroFish docs. Older documents contain superseded scope; do not blindly follow them.
-
-The current build is a simulation, not the Guardian versus Rogue AI game. It uses real market data, a model risk curve and 10,000 sampled futures. The latest owner notes in tasks 1 and 5 set today's clock display to the Bulletin's 85 seconds; the forecast sets its pace. Hacker News and the LLM panel are out of this phase. MiroFish uses X only, in English. Clearly label simulations and disclose limits in the data.
-
-Before editing, inspect git status and the running agents. If Herdr is available, use herdr agent list and herdr tab list to find the Lead. Ask the Lead for current ownership, work in progress, blockers and recent check results. Do not overwrite another agent's work. The Lead continues to assign work, review changes, commit and push. Coordinate the task and file scope with it. Do not stage unrelated files.
-
-If Herdr is not available, use the task board and Git state to identify what is safe to work on. Ask the team about unclear ownership before editing files with existing changes.
-
-Give me a short report: what works, what remains, which active task you recommend next, and why. Then carry out the agreed task, run its required checks, and record the results on the board. Verify UI changes by viewing them. Keep the implementation small. The team can settle routine decisions without waiting for Archie.
-
-Freeze target: Sunday 25 October 2026, 11:30 GMT. Submission target: 11:45 GMT. Cut optional scope before risking the demo.
-```
+- `superpowers:verification-before-completion` before any "done", gate PASS or claim.
+- `judging-criteria-review` for the pre-freeze review against the HRT and Delta criteria.
+- `ponytail` to cut scope late (Archie uses it).
+- `superpowers:systematic-debugging` if the build, tests or replica break.
+- `artifact-design` only if a shareable page is asked for.
+- `herdr` and `brain` only work on Archie's Mac (Herdr panes, the Obsidian vault).
