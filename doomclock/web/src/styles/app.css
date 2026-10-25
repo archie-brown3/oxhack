@@ -81,7 +81,7 @@ body.engine #future { display: none; }
 .movedline { display: block; text-align: left; margin-top: var(--space-1); font-size: 12px; line-height: 16px; color: var(--ink-2); }
 .movedline b { color: var(--alarm); font-weight: 600; }
 .movedline:hover { color: var(--ink); }
-#moved { position: fixed; left: 292px; top: var(--space-5); width: 340px; z-index: 59; display: none; gap: var(--space-2); font-size: 12px; line-height: 16px; }
+#moved { position: fixed; left: 292px; top: 80px; width: 340px; max-height: calc(100vh - 290px); overflow: auto; z-index: 59; display: none; gap: var(--space-2); font-size: 12px; line-height: 16px; }
 #moved.on { display: grid; animation: rise .2s cubic-bezier(.2, .8, .2, 1); }
 #moved .mh { display: flex; justify-content: space-between; align-items: center; }
 #moved .mh button { color: var(--ink-3); font-size: 16px; line-height: 1; }
