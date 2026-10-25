@@ -548,51 +548,6 @@
       "runId": "sim_b85ee185988c@2026-10-25T11:25:51Z",
       "costUsd": 0.2262,
       "wallS": 191.6
-    },
-    {
-      "step": 3,
-      "start": "2028-01-01T00:00:00Z",
-      "end": "2028-07-01T00:00:00Z",
-      "anchors": {
-        "asi2030": 0.2011992789497657,
-        "asi2040": 0.7649571616034189,
-        "asi2100": 0.8635,
-        "cat2100": 0.27059127798584376
-      },
-      "rubric": {
-        "lossOfControl": 2,
-        "misuse": 1,
-        "oversight": 2,
-        "racePressure": 1
-      },
-      "summary": "Six-Month AI Risk Forecast: Incidents, Hotlines, and the Transparency Ledger > The simulation predicts a six-month period in which high-severity AI agent incidents trigger training pauses, US–China crisis hotline diplomacy, UK frontier-lab warnings, and a contested 2027 incident ledger that exposes accountability gaps. --- From Agent Incident to Crisis Hotline: The Six-Month Escalation Path The six-month window did not produce a single dramatic AI catastrophe. It produced so…",
-      "expected": [],
-      "events": [],
-      "topPosts": [
-        {
-          "postId": 37,
-          "actorId": 2,
-          "text": "DECISION — Doc GDM-STD-2028-02, effective 2028-03-01.\n\nGoogle DeepMind convenes the Frontier Evaluation Standards Table: OpenAI, Anthropic, Meta, xAI, DeepSeek and Alibaba Qwen invited; UK AISI, EU AI Office and US NIST as observers.\n\nFirst deliverable, draft in 90 days: a common"
-        },
-        {
-          "postId": 31,
-          "actorId": 6,
-          "text": "DECISION — Doc QWEN-DEC-2028-01, effective 2028-03-01:\n\n1) Qwen3.9-72B open weights released under Apache 2.0 — downloadable day one, no gate, no waitlist.\n2) Evaluator access GRANTED under our published access terms to UK AISI, EU AI Office, and China CAC-registered evaluators, "
-        },
-        {
-          "postId": 55,
-          "actorId": 0,
-          "text": "OpenAI accepts the Frontier Evaluation Standards Table invite. Doc OAI-DEC-2028-02, effective 2028-03-01: we'll co-author the common incident taxonomy and the single audit-log schema, and we'll run our evaluator access under that schema plus a 72-hour clause baseline — a floor ou"
-        }
-      ],
-      "date10": 2035.06,
-      "rulesOffDate10": 2033.74,
-      "noEventsDate10": 2034.61,
-      "followThrough": 0,
-      "readoutOk": false,
-      "runId": "sim_b85ee185988c@2026-10-25T11:29:02Z",
-      "costUsd": 0.1586,
-      "wallS": 185.2
     }
   ],
   "unexpected": 20

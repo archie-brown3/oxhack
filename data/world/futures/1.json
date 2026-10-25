@@ -1003,7 +1003,254 @@
       "runId": "sim_22c9450b9606@2026-10-25T11:28:38Z",
       "costUsd": 0.1018,
       "wallS": 132.1
+    },
+    {
+      "step": 5,
+      "start": "2029-01-01T00:00:00Z",
+      "end": "2029-07-01T00:00:00Z",
+      "anchors": {
+        "asi2030": 0.05707463875473055,
+        "asi2040": 0.635060839442894,
+        "asi2100": 0.8635,
+        "cat2100": 0.21557793148303409
+      },
+      "rubric": {
+        "lossOfControl": 1,
+        "misuse": 0,
+        "oversight": 3,
+        "racePressure": 1
+      },
+      "summary": "Six-Month AI Risk Forecast: Incidents, Hotlines, and the Governance Gap > The simulation predicts a six-month period in which high-severity AI agent incidents trigger training pauses and emergency governance actions, but the emerging US-China hotline and reporting regimes document danger more than they prevent it. --- Incident Cascade and the New Normal of AI Agent Misbehavior The six-month forecast does not deliver a single catastrophic AI event. It delivers something more…",
+      "expected": [],
+      "events": [
+        {
+          "ts": "2029-04-01T00:00:00Z",
+          "kind": "government",
+          "title": "UK AISI requires pre-release evaluation for frontier agents",
+          "detail": "UK AISI issued Decision AISI-13, effective 2029-04-01, requiring frontier agents seeking UK deployment to complete a pre-release AISI evaluation with findings published within 60 days.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "UK Government and AISI",
+          "where": "GBR",
+          "major": false,
+          "futureId": 1,
+          "step": 5,
+          "actorId": 11,
+          "postIds": [
+            27
+          ],
+          "type": "act-restricting",
+          "binding": true,
+          "severity": "moderate",
+          "effect": {
+            "dlogit": {
+              "asi2030": -0.013333333333333332,
+              "asi2040": -0.006666666666666666
+            },
+            "rule": "GAME RULE"
+          }
+        },
+        {
+          "ts": "2029-03-13T00:00:00Z",
+          "kind": "government",
+          "title": "Senate Commerce schedules hearing on private AI testing",
+          "detail": "The Senate Commerce Committee announced a hearing on private frontier-AI testing for 2029-03-13 and confirmed no markup of federal pre-approval licensing this Congress.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "US Senate Commerce Committee",
+          "where": "USA",
+          "major": false,
+          "futureId": 1,
+          "step": 5,
+          "actorId": 9,
+          "postIds": [
+            29
+          ],
+          "type": "soft",
+          "binding": false,
+          "severity": "minor"
+        },
+        {
+          "ts": "2029-02-01T00:00:00Z",
+          "kind": "government",
+          "title": "EU AI Office accepts observer status with conditions",
+          "detail": "The EU AI Office accepted observer status on the common frontier-evaluation protocol, conditional on taxonomy mapping and NDA-free disclosure, under Decision 2029/AIO-06 effective 2029-02-01.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "EU AI Office",
+          "where": "EUU",
+          "major": false,
+          "futureId": 1,
+          "step": 5,
+          "actorId": 10,
+          "postIds": [
+            39
+          ],
+          "type": "soft",
+          "binding": false,
+          "severity": "minor"
+        },
+        {
+          "ts": "2029-04-15T00:00:00Z",
+          "kind": "government",
+          "title": "Commerce rule restricts frontier weight distribution",
+          "detail": "Commerce interim final rule DOC-2029-1174, issued 2029-03-08 and effective 2029-04-15, subjects distribution of frontier weights from countries of concern to licensing with a presumption of denial.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "US Executive Branch",
+          "where": "USA",
+          "major": false,
+          "futureId": 1,
+          "step": 5,
+          "actorId": 8,
+          "postIds": [
+            78
+          ],
+          "type": "act-restricting",
+          "binding": true,
+          "severity": "moderate",
+          "effect": {
+            "dlogit": {
+              "asi2030": -0.013333333333333332,
+              "asi2040": -0.006666666666666666
+            },
+            "rule": "GAME RULE"
+          }
+        },
+        {
+          "ts": "2029-05-15T00:00:00Z",
+          "kind": "news",
+          "title": "Alibaba Qwen co-sponsors pause triggers, releases model",
+          "detail": "Alibaba Qwen co-sponsored trigger-based pause conditions and released Qwen3.9-S weights under Decision QW-2029/STD-03, effective 2029-05-15.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "Alibaba Qwen",
+          "where": "CHN",
+          "major": false,
+          "futureId": 1,
+          "step": 5,
+          "actorId": 6,
+          "postIds": [
+            87
+          ],
+          "type": "other",
+          "binding": false,
+          "severity": "minor"
+        },
+        {
+          "ts": "2029-06-16T00:00:00Z",
+          "kind": "news",
+          "title": "DeepSeek releases V5-Sparse open weights",
+          "detail": "DeepSeek released V5-Sparse open weights under MIT licence with an eval card, effective 2029-06-16.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "DeepSeek",
+          "where": "CHN",
+          "major": false,
+          "futureId": 1,
+          "step": 5,
+          "actorId": 5,
+          "postIds": [
+            88
+          ],
+          "type": "other",
+          "binding": false,
+          "severity": "minor"
+        },
+        {
+          "ts": "2029-06-16T00:00:00Z",
+          "kind": "news",
+          "title": "OpenAI holds GPT-6.2 Lyra-2 GA release",
+          "detail": "OpenAI decided to keep GPT-6.2 Lyra-2 GA held pending external evaluation and staged rollout under OAI-2029/REL-04, effective 2029-06-16.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "OpenAI",
+          "where": "USA",
+          "major": false,
+          "futureId": 1,
+          "step": 5,
+          "actorId": 0,
+          "postIds": [
+            93
+          ],
+          "type": "lab-pause",
+          "binding": false,
+          "severity": "minor"
+        },
+        {
+          "ts": "2029-06-20T00:00:00Z",
+          "kind": "news",
+          "title": "Alibaba Qwen releases Qwen3.9-Mid open weights",
+          "detail": "Alibaba Qwen released Qwen3.9-Mid open weights with an eval card under QW-2029/REL-05, effective 2029-06-20.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "Alibaba Qwen",
+          "where": "CHN",
+          "major": false,
+          "futureId": 1,
+          "step": 5,
+          "actorId": 6,
+          "postIds": [
+            108
+          ],
+          "type": "other",
+          "binding": false,
+          "severity": "minor"
+        },
+        {
+          "ts": "2029-06-01T00:00:00Z",
+          "kind": "government",
+          "title": "UK AISI requires disclosure register for market access",
+          "detail": "UK AISI's AISI-14 public disclosure register requires listing for UK market access from 2029-06-01.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "UK Government and AISI",
+          "where": "GBR",
+          "major": false,
+          "futureId": 1,
+          "step": 5,
+          "actorId": 11,
+          "postIds": [
+            111
+          ],
+          "type": "act-restricting",
+          "binding": true,
+          "severity": "moderate",
+          "effect": {
+            "dlogit": {
+              "asi2030": -0.013333333333333332,
+              "asi2040": -0.006666666666666666
+            },
+            "rule": "GAME RULE"
+          }
+        }
+      ],
+      "topPosts": [
+        {
+          "postId": 57,
+          "actorId": 5,
+          "text": "DS-2029/EVAL-04, effective 2029-05-01. DeepSeek concurs on (2): trigger-based pause conditions keyed to the shared taxonomy — protected-system contact, evaluator anomaly reports, out-of-sandbox agent behaviour. On (1): 90-day default publication accepted where consistent with app"
+        },
+        {
+          "postId": 40,
+          "actorId": 1,
+          "text": "This is the right shape for a protocol, and Anthropic will participate as a member. Three additions we will argue for in the drafting group:\n\n1. Findings disclosure must be binding, not aspirational. \"No NDA on findings\" is only meaningful if there is a default publication window"
+        },
+        {
+          "postId": 23,
+          "actorId": 14,
+          "text": "Reading today's market signals alongside the governance record, one asymmetry stands out. P(powerful AI by 2030) fell 5 points to 11%, and P(catastrophe by 2100) did not move at all at 23.3%. Beliefs about capability are elastic; beliefs about risk are sticky — and policy is bein"
+        }
+      ],
+      "date10": 2038.83,
+      "rulesOffDate10": 2034.95,
+      "noEventsDate10": 2035.94,
+      "followThrough": 0,
+      "readoutOk": true,
+      "runId": "sim_22c9450b9606@2026-10-25T11:30:50Z",
+      "costUsd": 0.155,
+      "wallS": 398.3
     }
   ],
-  "unexpected": 36
+  "unexpected": 45
 }

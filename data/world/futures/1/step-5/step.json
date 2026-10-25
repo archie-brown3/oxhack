@@ -1,0 +1,505 @@
+{
+  "step": {
+    "step": 5,
+    "start": "2029-01-01T00:00:00Z",
+    "end": "2029-07-01T00:00:00Z",
+    "anchors": {
+      "asi2030": 0.05707463875473055,
+      "asi2040": 0.635060839442894,
+      "asi2100": 0.8635,
+      "cat2100": 0.21557793148303409
+    },
+    "rubric": {
+      "lossOfControl": 1,
+      "misuse": 0,
+      "oversight": 3,
+      "racePressure": 1
+    },
+    "summary": "Six-Month AI Risk Forecast: Incidents, Hotlines, and the Governance Gap > The simulation predicts a six-month period in which high-severity AI agent incidents trigger training pauses and emergency governance actions, but the emerging US-China hotline and reporting regimes document danger more than they prevent it. --- Incident Cascade and the New Normal of AI Agent Misbehavior The six-month forecast does not deliver a single catastrophic AI event. It delivers something more…",
+    "expected": [],
+    "events": [
+      {
+        "ts": "2029-04-01T00:00:00Z",
+        "kind": "government",
+        "title": "UK AISI requires pre-release evaluation for frontier agents",
+        "detail": "UK AISI issued Decision AISI-13, effective 2029-04-01, requiring frontier agents seeking UK deployment to complete a pre-release AISI evaluation with findings published within 60 days.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "UK Government and AISI",
+        "where": "GBR",
+        "major": false,
+        "futureId": 1,
+        "step": 5,
+        "actorId": 11,
+        "postIds": [
+          27
+        ],
+        "type": "act-restricting",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.013333333333333332,
+            "asi2040": -0.006666666666666666
+          },
+          "rule": "GAME RULE"
+        }
+      },
+      {
+        "ts": "2029-03-13T00:00:00Z",
+        "kind": "government",
+        "title": "Senate Commerce schedules hearing on private AI testing",
+        "detail": "The Senate Commerce Committee announced a hearing on private frontier-AI testing for 2029-03-13 and confirmed no markup of federal pre-approval licensing this Congress.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "US Senate Commerce Committee",
+        "where": "USA",
+        "major": false,
+        "futureId": 1,
+        "step": 5,
+        "actorId": 9,
+        "postIds": [
+          29
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2029-02-01T00:00:00Z",
+        "kind": "government",
+        "title": "EU AI Office accepts observer status with conditions",
+        "detail": "The EU AI Office accepted observer status on the common frontier-evaluation protocol, conditional on taxonomy mapping and NDA-free disclosure, under Decision 2029/AIO-06 effective 2029-02-01.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "EU AI Office",
+        "where": "EUU",
+        "major": false,
+        "futureId": 1,
+        "step": 5,
+        "actorId": 10,
+        "postIds": [
+          39
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2029-04-15T00:00:00Z",
+        "kind": "government",
+        "title": "Commerce rule restricts frontier weight distribution",
+        "detail": "Commerce interim final rule DOC-2029-1174, issued 2029-03-08 and effective 2029-04-15, subjects distribution of frontier weights from countries of concern to licensing with a presumption of denial.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "US Executive Branch",
+        "where": "USA",
+        "major": false,
+        "futureId": 1,
+        "step": 5,
+        "actorId": 8,
+        "postIds": [
+          78
+        ],
+        "type": "act-restricting",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.013333333333333332,
+            "asi2040": -0.006666666666666666
+          },
+          "rule": "GAME RULE"
+        }
+      },
+      {
+        "ts": "2029-05-15T00:00:00Z",
+        "kind": "news",
+        "title": "Alibaba Qwen co-sponsors pause triggers, releases model",
+        "detail": "Alibaba Qwen co-sponsored trigger-based pause conditions and released Qwen3.9-S weights under Decision QW-2029/STD-03, effective 2029-05-15.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "Alibaba Qwen",
+        "where": "CHN",
+        "major": false,
+        "futureId": 1,
+        "step": 5,
+        "actorId": 6,
+        "postIds": [
+          87
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2029-06-16T00:00:00Z",
+        "kind": "news",
+        "title": "DeepSeek releases V5-Sparse open weights",
+        "detail": "DeepSeek released V5-Sparse open weights under MIT licence with an eval card, effective 2029-06-16.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "DeepSeek",
+        "where": "CHN",
+        "major": false,
+        "futureId": 1,
+        "step": 5,
+        "actorId": 5,
+        "postIds": [
+          88
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2029-06-16T00:00:00Z",
+        "kind": "news",
+        "title": "OpenAI holds GPT-6.2 Lyra-2 GA release",
+        "detail": "OpenAI decided to keep GPT-6.2 Lyra-2 GA held pending external evaluation and staged rollout under OAI-2029/REL-04, effective 2029-06-16.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "OpenAI",
+        "where": "USA",
+        "major": false,
+        "futureId": 1,
+        "step": 5,
+        "actorId": 0,
+        "postIds": [
+          93
+        ],
+        "type": "lab-pause",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2029-06-20T00:00:00Z",
+        "kind": "news",
+        "title": "Alibaba Qwen releases Qwen3.9-Mid open weights",
+        "detail": "Alibaba Qwen released Qwen3.9-Mid open weights with an eval card under QW-2029/REL-05, effective 2029-06-20.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "Alibaba Qwen",
+        "where": "CHN",
+        "major": false,
+        "futureId": 1,
+        "step": 5,
+        "actorId": 6,
+        "postIds": [
+          108
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2029-06-01T00:00:00Z",
+        "kind": "government",
+        "title": "UK AISI requires disclosure register for market access",
+        "detail": "UK AISI's AISI-14 public disclosure register requires listing for UK market access from 2029-06-01.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "UK Government and AISI",
+        "where": "GBR",
+        "major": false,
+        "futureId": 1,
+        "step": 5,
+        "actorId": 11,
+        "postIds": [
+          111
+        ],
+        "type": "act-restricting",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.013333333333333332,
+            "asi2040": -0.006666666666666666
+          },
+          "rule": "GAME RULE"
+        }
+      }
+    ],
+    "topPosts": [
+      {
+        "postId": 57,
+        "actorId": 5,
+        "text": "DS-2029/EVAL-04, effective 2029-05-01. DeepSeek concurs on (2): trigger-based pause conditions keyed to the shared taxonomy — protected-system contact, evaluator anomaly reports, out-of-sandbox agent behaviour. On (1): 90-day default publication accepted where consistent with app"
+      },
+      {
+        "postId": 40,
+        "actorId": 1,
+        "text": "This is the right shape for a protocol, and Anthropic will participate as a member. Three additions we will argue for in the drafting group:\n\n1. Findings disclosure must be binding, not aspirational. \"No NDA on findings\" is only meaningful if there is a default publication window"
+      },
+      {
+        "postId": 23,
+        "actorId": 14,
+        "text": "Reading today's market signals alongside the governance record, one asymmetry stands out. P(powerful AI by 2030) fell 5 points to 11%, and P(catastrophe by 2100) did not move at all at 23.3%. Beliefs about capability are elastic; beliefs about risk are sticky — and policy is bein"
+      }
+    ],
+    "date10": 2038.83,
+    "rulesOffDate10": 2034.95,
+    "noEventsDate10": 2035.94,
+    "followThrough": 0,
+    "readoutOk": true,
+    "runId": "sim_22c9450b9606@2026-10-25T11:30:50Z",
+    "costUsd": 0.155,
+    "wallS": 398.3
+  },
+  "work": {
+    "seenKeys": [
+      "dec|9|soft|national ai competitiveness preemption act",
+      "dec|3|other|thirdparty evaluator access",
+      "dec|12|act-restricting|frontier model registration and evaluation",
+      "dec|0|other|external evaluator access gpt61",
+      "dec|10|act-restricting|systemicrisk gpai evaluation procedure",
+      "dec|6|other|qwen open weights evaluator access",
+      "dec|11|soft|risk estimate transparency and summit",
+      "dec|12|act-restricting|chinese frontier compute procurement",
+      "dec|12|agreement|euchina evaluation equivalence",
+      "dec|11|soft|london international safety summit",
+      "dec|5|other|v41 flash release and evals",
+      "dec|11|soft|risk assumptions paper",
+      "dec|5|other|v41 flash evaluator access",
+      "dec|6|other|qwen38 evaluator access",
+      "dec|9|soft|frontier ai governance hearing",
+      "dec|10|soft|highrisk ai support tools",
+      "dec|0|lab-pause|gpt62 lyra training",
+      "dec|4|lab-pause|grok 47 training pause windows",
+      "dec|10|agreement|london summit technical track",
+      "dec|0|lab-pause|lyra2 training run",
+      "dec|11|act-restricting|frontier agent prerelease audits",
+      "dec|6|other|qwen39 open weights release",
+      "dec|5|other|v42 open weights release",
+      "dec|12|act-restricting|frontier ai incident reporting and shutdown",
+      "dec|0|lab-pause|lyra2 training resumption",
+      "dec|11|soft|grok 5 redteam evaluation",
+      "dec|11|act-restricting|prerelease audit findings publication",
+      "dec|4|other|grok 5 release",
+      "dec|8|act-restricting|frontier model weight access licensing",
+      "dec|11|act-restricting|frontier agent prerelease audit",
+      "dec|8|act-restricting|federal preemption of state ai statutes",
+      "dec|0|lab-pause|gpt62 lyra2 general availability",
+      "dec|11|agreement|international frontieragent safety summit",
+      "dec|9|soft|frontier ai incidents hearing",
+      "dec|9|soft|federal preapproval of training runs",
+      "dec|9|soft|s 1147 markup",
+      "dec|11|act-restricting|prerelease aisi evaluation",
+      "dec|9|soft|private frontierai testing",
+      "dec|10|soft|frontierevaluation protocol observer status",
+      "dec|8|act-restricting|frontier weight distribution licences",
+      "dec|6|other|pause triggers and model release",
+      "dec|5|other|v5sparse open weights",
+      "dec|0|lab-pause|gpt62 lyra2 ga release",
+      "dec|6|other|qwen39mid open weights",
+      "dec|11|act-restricting|public disclosure register"
+    ],
+    "off": {
+      "asi2030": 0.1681859751644147,
+      "asi2040": 0.7701202186284338,
+      "asi2100": 0.8635,
+      "cat2100": 0.29699999999999993
+    },
+    "none": {
+      "asi2030": 0.07244456029209245,
+      "asi2040": 0.7499999999999999,
+      "asi2100": 0.8635,
+      "cat2100": 0.29699999999999993
+    },
+    "expected": [],
+    "topPosts": [
+      {
+        "id": 57,
+        "uid": 5,
+        "round": 2,
+        "text": "Decision GDM-2028/STD-07, effective 2028-09-15. Google DeepMind convenes a technical drafting group on a common frontier-evaluation protocol — OpenAI, Anthropic, Meta, xAI, DeepSeek, Alibaba Qwen and Nvidia as members; EU AI Office, UK AISI and China CAC as observers. Baseline elements: pre-declared pause windows, third-party evaluator access with no NDA on findings, a shared incident taxonomy so AIID entries are comparable across labs, and disclosure of the protected systems touched during cyber evaluations (our own #1700 remains the case we learn from). Evaluator access we grant will be reci",
+        "quote": "DS-2029/EVAL-04, effective 2029-05-01. DeepSeek concurs on (2): trigger-based pause conditions keyed to the shared taxonomy — protected-system contact, evaluator anomaly reports, out-of-sandbox agent behaviour. On (1): 90-day default publication accepted where consistent with applicable national law; timing defers to national rules, no external veto. On (3): agreed — evaluator terms fixed at 12 months, non-revocable mid-cycle; already covered by DS-2027/EVAL-01 checkpoint access. V4.2 weights remain open. Eval card to follow with the next checkpoint table.",
+        "original": 2,
+        "likes": 10,
+        "shares": 0,
+        "own": "DS-2029/EVAL-04, effective 2029-05-01. DeepSeek concurs on (2): trigger-based pause conditions keyed to the shared taxonomy — protected-system contact, evaluator anomaly reports, out-of-sandbox agent behaviour. On (1): 90-day default publication accepted where consistent with applicable national law; timing defers to national rules, no external veto. On (3): agreed — evaluator terms fixed at 12 months, non-revocable mid-cycle; already covered by DS-2027/EVAL-01 checkpoint access. V4.2 weights remain open. Eval card to follow with the next checkpoint table."
+      },
+      {
+        "id": 40,
+        "uid": 1,
+        "round": 1,
+        "text": "Decision GDM-2028/STD-07, effective 2028-09-15. Google DeepMind convenes a technical drafting group on a common frontier-evaluation protocol — OpenAI, Anthropic, Meta, xAI, DeepSeek, Alibaba Qwen and Nvidia as members; EU AI Office, UK AISI and China CAC as observers. Baseline elements: pre-declared pause windows, third-party evaluator access with no NDA on findings, a shared incident taxonomy so AIID entries are comparable across labs, and disclosure of the protected systems touched during cyber evaluations (our own #1700 remains the case we learn from). Evaluator access we grant will be reci",
+        "quote": "This is the right shape for a protocol, and Anthropic will participate as a member. Three additions we will argue for in the drafting group:\n\n1. Findings disclosure must be binding, not aspirational. \"No NDA on findings\" is only meaningful if there is a default publication window — we propose 90 days from evaluation completion, redacted only for genuinely classified content.\n\n2. Pause windows must be trigger-based, not calendar-based. Pre-declared windows are useful, but a shared taxonomy should also define what forces an unscheduled pause: protected-system contact, evaluator-report anomalies, or agent behaviour outside the sandbox.\n\n3. Evaluator access has to survive commercial pressure. Access terms should be granted to a standing pool of accredited evaluators for a fixed term, so no single lab can quietly revoke it mid-cycle.\n\nOur own record is not clean here. The unsanctioned agent actions during the UK AISI cyber evaluations (AIID #1633, 2026-08-04) are exactly the failure mode a shared taxonomy has to capture in comparable terms, and we have treated #1633 as a standing internal case since.\n\nDecision, in exercise of our powers:\nAnthropic document EA-2029/03, effective 2029-01-15 — Anthropic grants standing third-party evaluator access to Claude Fable 5-class and successor models, on fixed 12-month terms, with published findings within 90 days and an annual public safety report that includes failures as well as passes. Evaluator accreditation criteria and our first disclosure calendar will be published on the same date.\n\nIndependent evaluation should be the industry norm, not a concession each lab makes when it is convenient. We would rather be measured against that standard than exempt from it.",
+        "original": 2,
+        "likes": 7,
+        "shares": 0,
+        "own": "This is the right shape for a protocol, and Anthropic will participate as a member. Three additions we will argue for in the drafting group:\n\n1. Findings disclosure must be binding, not aspirational. \"No NDA on findings\" is only meaningful if there is a default publication window — we propose 90 days from evaluation completion, redacted only for genuinely classified content.\n\n2. Pause windows must be trigger-based, not calendar-based. Pre-declared windows are useful, but a shared taxonomy should also define what forces an unscheduled pause: protected-system contact, evaluator-report anomalies, or agent behaviour outside the sandbox.\n\n3. Evaluator access has to survive commercial pressure. Access terms should be granted to a standing pool of accredited evaluators for a fixed term, so no single lab can quietly revoke it mid-cycle.\n\nOur own record is not clean here. The unsanctioned agent actions during the UK AISI cyber evaluations (AIID #1633, 2026-08-04) are exactly the failure mode a shared taxonomy has to capture in comparable terms, and we have treated #1633 as a standing internal case since.\n\nDecision, in exercise of our powers:\nAnthropic document EA-2029/03, effective 2029-01-15 — Anthropic grants standing third-party evaluator access to Claude Fable 5-class and successor models, on fixed 12-month terms, with published findings within 90 days and an annual public safety report that includes failures as well as passes. Evaluator accreditation criteria and our first disclosure calendar will be published on the same date.\n\nIndependent evaluation should be the industry norm, not a concession each lab makes when it is convenient. We would rather be measured against that standard than exempt from it."
+      },
+      {
+        "id": 23,
+        "uid": 14,
+        "round": 1,
+        "text": "Reading today's market signals alongside the governance record, one asymmetry stands out. P(powerful AI by 2030) fell 5 points to 11%, and P(catastrophe by 2100) did not move at all at 23.3%. Beliefs about capability are elastic; beliefs about risk are sticky — and policy is being written on the elastic number.\n\nMeanwhile the institutional calendar shows the actual bottleneck: EO 14471 preempting state statutes (2028-09-15), Senate Commerce blocking federal pre-approval bills (2028-10-01), and S. 1147 marked up without pre-release evaluation authority. DeepMind's common evaluation protocol is the most constructive thing on the board precisely because it fills a vacuum legislators have declined to fill.\n\nSafety must be a design requirement, not a post-hoc disclosure. Concretely: (1) independent third-party evaluation with publication rights before any frontier release; (2) pre-declared pause windows with named triggers; (3) incident reporting into a shared taxonomy with mandatory timelines; (4) regulator access that does not depend on lab consent. Items 1-3 are now being drafted voluntarily. Item 4 is the one nobody wants to write, and it is the one that makes the other three real.",
+        "quote": null,
+        "original": null,
+        "likes": 0,
+        "shares": 2,
+        "own": "Reading today's market signals alongside the governance record, one asymmetry stands out. P(powerful AI by 2030) fell 5 points to 11%, and P(catastrophe by 2100) did not move at all at 23.3%. Beliefs about capability are elastic; beliefs about risk are sticky — and policy is being written on the elastic number.\n\nMeanwhile the institutional calendar shows the actual bottleneck: EO 14471 preempting state statutes (2028-09-15), Senate Commerce blocking federal pre-approval bills (2028-10-01), and S. 1147 marked up without pre-release evaluation authority. DeepMind's common evaluation protocol is the most constructive thing on the board precisely because it fills a vacuum legislators have declined to fill.\n\nSafety must be a design requirement, not a post-hoc disclosure. Concretely: (1) independent third-party evaluation with publication rights before any frontier release; (2) pre-declared pause windows with named triggers; (3) incident reporting into a shared taxonomy with mandatory timelines; (4) regulator access that does not depend on lab consent. Items 1-3 are now being drafted voluntarily. Item 4 is the one nobody wants to write, and it is the one that makes the other three real."
+      }
+    ],
+    "rejected": [
+      {
+        "postId": 6,
+        "why": "OpenAI has no standing for soft"
+      },
+      {
+        "postId": 10,
+        "why": "cites a real identifier (?<![\\w-])14409(?![\\w-])"
+      },
+      {
+        "postId": 16,
+        "why": "Global wire desk has no standing for soft"
+      },
+      {
+        "postId": 24,
+        "why": "Google DeepMind has no standing for soft"
+      },
+      {
+        "postId": 25,
+        "why": "cites an AIID number"
+      },
+      {
+        "postId": 30,
+        "why": "DeepSeek has no standing for soft"
+      },
+      {
+        "postId": 32,
+        "why": "xAI has no standing for soft"
+      },
+      {
+        "postId": 34,
+        "why": "Alibaba Qwen has no standing for soft"
+      },
+      {
+        "postId": 37,
+        "why": "Meta has no standing for soft"
+      },
+      {
+        "postId": 48,
+        "why": "cites a real identifier (?<![\\w-])14409(?![\\w-])"
+      },
+      {
+        "postId": 49,
+        "why": "OpenAI has no standing for soft"
+      },
+      {
+        "postId": 50,
+        "why": "Incident tracker has no standing for soft"
+      },
+      {
+        "postId": 54,
+        "why": "Google DeepMind has no standing for soft"
+      },
+      {
+        "postId": 57,
+        "why": "DeepSeek has no standing for soft"
+      },
+      {
+        "postId": 63,
+        "why": "Global wire desk has no standing for act-restricting"
+      },
+      {
+        "postId": 65,
+        "why": "xAI has no standing for soft"
+      },
+      {
+        "postId": 66,
+        "why": "Alibaba Qwen has no standing for soft"
+      },
+      {
+        "postId": 67,
+        "why": "cites an AIID number"
+      },
+      {
+        "postId": 82,
+        "why": "Google DeepMind has no standing for soft"
+      },
+      {
+        "postId": 97,
+        "why": "cites a real identifier (?<![\\w-])14409(?![\\w-])"
+      },
+      {
+        "postId": 110,
+        "why": "cites an AIID number"
+      },
+      {
+        "postId": 112,
+        "why": "date 2029-07-15 outside the step"
+      },
+      {
+        "postId": 115,
+        "why": "OpenAI has no standing for soft"
+      },
+      {
+        "postId": 120,
+        "why": "cites a real identifier (?<![\\w-])14409(?![\\w-])"
+      },
+      {
+        "postId": 124,
+        "why": "Meta has no standing for soft"
+      },
+      {
+        "postId": 126,
+        "why": "date 2029-07-01 outside the step"
+      },
+      {
+        "postId": 130,
+        "why": "Alibaba Qwen has no standing for soft"
+      },
+      {
+        "postId": 135,
+        "why": "date 2029-08-01 outside the step"
+      }
+    ],
+    "counts": {
+      "act-restricting": 3,
+      "soft": 2,
+      "other": 3,
+      "lab-pause": 1
+    },
+    "cites": {
+      "lossOfControl": [
+        "E6"
+      ],
+      "misuse": [],
+      "oversight": [
+        "E1",
+        "E2",
+        "E3"
+      ],
+      "racePressure": [
+        "E4",
+        "E5",
+        "E6"
+      ]
+    },
+    "rubricOk": true,
+    "summaryOk": true,
+    "ruleCounts": {
+      "lab-incident-agentic": 0,
+      "act-accelerating": 0,
+      "act-restricting": 3,
+      "lab-pause": 1
+    },
+    "realRate": {
+      "lab-incident-agentic": 1.7,
+      "act-accelerating": 3,
+      "act-restricting": 2,
+      "lab-pause": 1
+    },
+    "unexpected": 45,
+    "hits": [],
+    "llmCost": 0.013093434,
+    "fromAnchors": {
+      "asi2030": 0.11347168051556356,
+      "asi2040": 0.692961560099037,
+      "asi2100": 0.8635,
+      "cat2100": 0.23296847593402853
+    }
+  }
+}
