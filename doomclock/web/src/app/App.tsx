@@ -3,7 +3,7 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from 'react'
 import type { WorldEvent, WorldFrame } from '../contracts.ts'
 import { buildTimeline } from '../engine/index.ts'
-import { isSecondQuarter, luckShare, moveOf, simTimeline, stepAt } from './futures.ts'
+import { isSecondQuarter, luckShare, moveOf, stepAt, truncate } from './futures.ts'
 import { Clock } from '../ui/clock/Clock.tsx'
 import { bulletinAt, closeness, scaleOf } from '../ui/clock/scale.ts'
 import { dmy, qName, sourceName } from '../ui/format.ts'
@@ -41,8 +41,7 @@ export function App() {
 function World({ data }: { data: Data }) {
   const { world, bulletin, countries, centroids, futures } = data
   const [fi, setFi] = useState(() => { const f = +(params.get('fut') ?? 1); return Number.isInteger(f) && f >= 1 && f <= futures.length ? f - 1 : 0 })
-  const base = useMemo(() => buildTimeline(world, { percentile: 0.5 }), [world])
-  const timeline = useMemo(() => simTimeline(base, futures[fi], fi, futures.length), [base, futures, fi])
+  const timeline = useMemo(() => truncate(buildTimeline(world, { percentile: 0.5 }, futures[fi])), [world, futures, fi])
   const frames = timeline.frames
   const today = frames.findLastIndex((f) => f.provenance === 'real')
   const scale = useMemo(() => scaleOf(timeline, bulletin), [timeline, bulletin])
@@ -68,12 +67,14 @@ function World({ data }: { data: Data }) {
   const ensemble = useMemo<Member[]>(() => futures.map((f, i) => { const q = PCTS[Math.round((i / Math.max(1, futures.length - 1)) * 4)]; return { k: i + 1, q, future: { id: f.id, percentile: q, asiDate: null, catDate: null } } }), [futures])
 
   const frame = frames[cur]
-  const isToday = cur === today
-  const hand = scale.hand(frame, isToday)
-  const located = useMemo(() => frame.events.map((e) => locate(e, centroids)).filter((e): e is Located => !!e), [frame, centroids])
   const future = futures[fi]
   const step = frame.provenance === 'simulated' ? stepAt(future, frame.start) : null
-  const move = useMemo(() => (step ? moveOf(world, future, step, base.clock.date10) : null), [world, future, step, base])
+  const isToday = cur === today
+  const hand = scale.hand(frame, isToday)
+  // A step lands as a whole: its events ping and read together, whichever of its two quarters is shown.
+  const shown = step ? step.events : frame.events
+  const located = useMemo(() => shown.map((e) => locate(e, centroids)).filter((e): e is Located => !!e), [shown, centroids])
+  const move = useMemo(() => (step ? moveOf(world, future, step, timeline.clock.date10) : null), [world, future, step, timeline])
   const luck = useMemo(() => luckShare(futures), [futures])
 
   // The feed: real events up to this quarter (never past today), then each simulated step that has landed.
@@ -162,7 +163,7 @@ function World({ data }: { data: Data }) {
       </Suspense>
       <div id="vignette" />
       <Clock hand={hand} pin={scale.pin} daysPerSecond={scale.daysPerSecond} today={timeline.clock} isToday={isToday} frame={frame} prev={frames[cur - 1] ?? null}
-        sim={step ? { n: fi + 1, of: futures.length, step, move, live } : null} onWhy={() => setSheet('why')} />
+        sim={step ? { n: fi + 1, of: futures.length, step, move: sheet ? null : move, live: live && !sheet } : null} onWhy={() => setSheet('why')} />
       <nav id="viewseg" className="dc-panel" aria-label="View">
         <div className="dc-tabs">
           <button aria-pressed={sheet === 'inputs'} onClick={() => setSheet('inputs')}>Inputs</button>
@@ -177,7 +178,7 @@ function World({ data }: { data: Data }) {
       <NewsFeed events={feed.events} playing={playing} freshFrom={Date.parse(frame.start)} onExpand={() => setFeedOpen(true)} />
       {feedOpen && <FeedPage events={feed.events} posts={feed.posts} onClose={() => setFeedOpen(false)} />}
       <footer id="dock" className="dc-panel">
-        <Ticker key={frame.quarter + fi} events={frame.events} real={frame.provenance === 'real'} onRead={() => setPlaying(false)} />
+        <Ticker key={frame.quarter + fi} events={shown} real={frame.provenance === 'real'} onRead={() => setPlaying(false)} />
         <div className="dc-timebar">
           <button className="dc-play" aria-label={playing ? 'Pause' : 'Play'} onClick={(e) => { e.stopPropagation(); if (playing) setPlaying(false); else play() }}>
             <svg viewBox="0 0 14 14">{playing ? <path d="M3 1.5h3v11H3zM8 1.5h3v11H8z" /> : <path d="M3 1.5v11l9-5.5z" />}</svg>

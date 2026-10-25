@@ -1,9 +1,11 @@
-// Severity drives legibility. Simulated events carry `severity`; real ones are major when flagged
-// `major`, else moderate (events.json has no AIID report count yet, so none is minor).
+// Severity drives legibility. Simulated events carry `severity`. Real ones: major when flagged
+// `major` (10+ press reports, docs/data/events.md); an AIID incident with a single press report is
+// minor (45% of them); the rest are moderate. The count is read from the detail sentence.
 import type { WorldEvent } from '../../contracts.ts'
 
 export type Severity = 'major' | 'moderate' | 'minor'
-export const severityOf = (e: WorldEvent): Severity => e.severity ?? (e.major ? 'major' : 'moderate')
+export const severityOf = (e: WorldEvent): Severity =>
+  e.severity ?? (e.major ? 'major' : e.source === 'aiid' && /Covered in 1 press report\b/.test(e.detail ?? '') ? 'minor' : 'moderate')
 export const RANK: Record<Severity, number> = { major: 0, moderate: 1, minor: 2 }
 
 /** Majors first, then moderate, then minor; newest first within each. */

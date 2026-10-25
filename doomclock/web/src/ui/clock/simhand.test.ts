@@ -3,7 +3,7 @@ import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { buildTimeline } from '../../engine/index.ts'
-import { moveOf, simTimeline, stepAt } from '../../app/futures.ts'
+import { moveOf, stepAt, truncate } from '../../app/futures.ts'
 import type { RecordedFuture, World } from '../../contracts.ts'
 import { scaleOf, type BulletinSetting } from './scale.ts'
 
@@ -11,8 +11,7 @@ const read = (p: string) => JSON.parse(readFileSync(new URL(p, import.meta.url),
 const world: World = read('../../engine/fixtures/world.fixture.json')
 const bulletin: BulletinSetting[] = read('../../../public/cache/bulletin.json')
 const futures: RecordedFuture[] = read('../../../public/cache/futures.fixture.json')
-const base = buildTimeline(world, { percentile: 0.5 })
-const tl = simTimeline(base, futures[0], 0, futures.length)
+const tl = truncate(buildTimeline(world, { percentile: 0.5 }, futures[0]))
 
 test('the timeline stops at 2029Q4 and frames after today are simulated', () => {
   assert.equal(tl.frames.at(-1)!.quarter, '2029Q4')
@@ -32,7 +31,7 @@ test('a simulated hand is k x years from the frame start to the step date, with 
 
 test('events, report, luck and time add up to the step total', () => {
   for (const s of futures[0].steps) {
-    const m = moveOf(world, futures[0], s, base.clock.date10)
+    const m = moveOf(world, futures[0], s, tl.clock.date10)
     assert.ok(Math.abs(m.rows.reduce((a, r) => a + r.months, 0) - m.months) < 1e-6, `step ${s.step}`)
     assert.equal(stepAt(futures[0], s.start), s)
   }
