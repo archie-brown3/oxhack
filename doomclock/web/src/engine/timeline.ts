@@ -30,7 +30,7 @@ export type Pick = { seed: number } | { percentile: number };
 
 const MC_SEED = 1; // the 10,000 futures are fixed; a pick only chooses among them
 const P10 = 0.1; // the clock reads the date P(catastrophe) passes 1 in 10
-const LAG_RANGE = [1, 10] as const; // years: the date10 arc
+export const LAG_RANGE = [1, 10] as const; // years: the date10 arc
 const FRAMES = 45; // 2024Q4 .. 2035Q4
 const NODES: NodeId[] = ["asi2030", "asi2040", "asi2100", "cat2100"];
 const DAY = 864e5;
@@ -134,7 +134,7 @@ function simStep(sim: RecordedFuture, ms: number) {
 // ---------- the clock ----------
 
 // ASI knots sit at the market deadlines (1 Jan 2030 / 2040 / 2100).
-function simInput(a: Anchors, startYear: number, lagMeanYears: number): SimInput {
+export function simInput(a: Anchors, startYear: number, lagMeanYears: number): SimInput {
   return {
     startYear,
     asi: [
