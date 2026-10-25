@@ -9,3 +9,4 @@
 {"ts":"2026-10-25T00:39:14.605Z","event":"check","label":"task 11 early 2029Q1","usage":0.391215817,"laneSpent":0.130723,"CAP_USD":10,"LANE_CAP_USD":1}
 {"ts":"2026-10-25T00:40:12.780Z","event":"run","label":"task 11 early 2029Q1","sim":"sim_c0d244b2642a","cost_usd":0.042583,"wall_s":34}
 {"ts":"2026-10-25T00:40:12.808Z","event":"check","label":"task 11 early 2032Q1","usage":0.433798421,"laneSpent":0.173306,"CAP_USD":10,"LANE_CAP_USD":1}
+{"ts":"2026-10-25T02:21:22.067Z","event":"run","label":"llm smoke","cost_usd":0.00000765,"wall_s":0}

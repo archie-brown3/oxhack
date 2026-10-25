@@ -3,7 +3,7 @@
 import assert from 'node:assert/strict'
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { test } from 'node:test'
-import { agentConfigs, MAX_CHARS, profilesCsv, renderSim, roster, userChar, type Cast, type Memory } from './cast.ts'
+import { agentConfigs, loopCast, MAX_CHARS, profilesCsv, renderSim, roster, userChar, type Cast, type Memory } from './cast.ts'
 
 const cast = JSON.parse(readFileSync(new URL('./data/cast.json', import.meta.url), 'utf8')) as Cast
 const golden = new URL('./cast.golden.csv', import.meta.url)
@@ -11,7 +11,7 @@ const epoch = new URL('../../../../data/clean/epoch.jsonl', import.meta.url)
 const weights = new URL('../../../pipeline/world/cast-weights.ts', import.meta.url).href
 
 const STUB: Memory = {
-  quarter: '2027Q1',
+  quarter: '2027 H1',
   world: Array.from({ length: 10 }, (_, i) => `[2026Q${(i % 4) + 1}] World line ${i}: a dated event with an issuer, a document number and a date.`),
   decisions: { 0: ['[2026Q4] You decided DELAY: "We need more time to assess the licence terms."', '[2027Q1] You decided COMPLY: "We will apply for the licence."'] },
   notices: { 8: ['[OFFICIAL NOTICE] US Senate Commerce Committee S.2027-14, issued 2027-01-15: frontier licence bill reported out of committee.'] },
@@ -135,7 +135,7 @@ test('cast.ts: every user_char is within 3,000 characters, has the roster, and l
   assert.doesNotMatch(userChar(cast, cast.accounts[2], STUB), /PRIVATE/)
   assert.match(userChar(cast, cast.accounts[0], STUB), /YOUR DECISIONS SO FAR:[\s\S]*COMPLY/)
   const world = userChar(cast, cast.accounts[1], STUB)
-  assert.ok(world.includes('World line 9') && world.includes('World line 2') && !world.includes('World line 1:'), 'WORLD SO FAR keeps the last 8 lines')
+  assert.ok(world.includes('World line 9') && world.includes('World line 4') && !world.includes('World line 3:'), 'WORLD SO FAR keeps the last 6 lines')
 })
 
 test('cast.ts: time_config, agent_configs and state.json match the spec', () => {
@@ -157,4 +157,37 @@ test('cast.ts: the CSV matches the golden file', () => {
   const csv = profilesCsv(cast, STUB)
   if (process.env.UPDATE_GOLDEN || !existsSync(golden)) writeFileSync(golden, csv)
   assert.equal(csv, readFileSync(golden, 'utf8'))
+})
+
+test('cast.ts: at a step-6 memory every lab and government keeps MARKETS NOW and at least 4 events', () => {
+  const loop = loopCast(cast)
+  const mem: Memory = {
+    quarter: '2029 H2',
+    world: Array.from({ length: 12 }, (_, i) => `[2029-0${(i % 9) + 1}-1${i % 9}] ${'Event '.repeat(30)}${i}`),
+    markets: 'P(powerful AI by 2030) 41% (+2 pts since last step); by 2040 77%; AI catastrophe by 2100 8.1% (+0.3). Rule-driven, not live prices.',
+    expected: Array.from({ length: 5 }, (_, i) => `The US may license frontier training runs in 2030 H${i}, because incidents keep rising and Congress has asked for it.`.slice(0, 120)),
+    decisions: { 0: Array.from({ length: 4 }, (_, i) => `[2028-0${i + 1}-01] You paused a release: ${'detail '.repeat(25)}`) },
+    notices: { 8: ['x'.repeat(250)] },
+  }
+  for (const a of loop.accounts.filter((x) => x.group === 'lab' || x.group === 'government')) {
+    const u = userChar(loop, a, mem)
+    assert.ok(u.length <= MAX_CHARS, `${a.name}: ${u.length} characters`)
+    assert.ok(u.includes('MARKETS NOW:') && u.includes('WHAT PEOPLE EXPECT NEXT:'), `${a.name}: fixed blocks missing`)
+    const events = u.split('WORLD SO FAR:')[1]?.split('\n').filter((l) => l.startsWith('- [2029')).length ?? 0
+    assert.ok(events >= 4, `${a.name}: only ${events} events survive`)
+  }
+})
+
+test('loopCast: tracker and institutions act at 1.0, tracker posts SIM- incidents, OpenAI pause and resume goal are gone, iso3 set', () => {
+  const loop = loopCast(cast)
+  for (const id of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 25]) assert.equal(loop.accounts[id].activity, 1, `account ${id}`)
+  const t = userChar(loop, loop.accounts[25], STUB)
+  assert.match(t, /Incident SIM-/)
+  assert.doesNotMatch(t, /AIID #\d/)
+  assert.equal(loop.accounts[25].facts.length, 0)
+  const o = userChar(loop, loop.accounts[0], STUB)
+  assert.doesNotMatch(o, /paused|Resume the|AIID/)
+  assert.match(o, /announce one decision/)
+  assert.equal(loop.accounts[5].iso3, 'CHN')
+  assert.equal(cast.accounts[25].activity, 0.5, 'cast.json itself is untouched')
 })

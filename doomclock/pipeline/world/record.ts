@@ -1,176 +1,145 @@
-// Task 11: the recorded runs library for the Engine view. Three representative futures from the
-// engine (Early / Typical / Late: percentiles 0.1 / 0.5 / 0.9 over all 10,000), four quarters
-// each, one Twitter-only MiroFish run per quarter on the hand-written 32-account cast.
-// Every run starts from an empty world, so each quarter is seeded with that future's events
-// (issuer, document number and dates in the first line, or agents treat them as rumours) and
-// the previous recorded quarter's top posts; WORLD SO FAR carries the dated story so far.
-// Outputs, all labelled RECORDED: data/world/runs/<pick>-<quarter>.json, raw MiroFish outputs
-// in data/raw/mirofish/, and the assembled doomclock/web/src/ui/engine/library.json.
-// Usage: node doomclock/pipeline/world/record.ts [--only=early] [--dry] [--assemble]
-import { copyFileSync, existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+// Tasks 11 -> 150: the coupled loop recorder. For each future (seeds 1-3) and each of 6 steps of
+// 6 months from 2027-01-01: write the 32 personas (WORLD SO FAR, MARKETS NOW, WHAT PEOPLE EXPECT
+// NEXT), run one Twitter-only MiroFish round-trip, read events out of the posts, score the
+// rubric, move the odds with engine/step.ts, read the clock, write the situation report, and
+// checkpoint. Spec: docs/superpowers/specs/2026-10-25-doom-clock-coupled-loop-design.md (the
+// Amendments win). Simulated content is labelled SIMULATED; every effect size is a GAME RULE.
+// Outputs: data/world/baseline.json, data/world/futures/<id>.json (+ <id>/step-<s>/ with
+// everything MiroFish produced), doomclock/web/public/cache/futures.json.
+// Usage: node doomclock/pipeline/world/record.ts [--dry] [--baseline] [--future=1] [--steps=6] [--bundle]
+import { existsSync, mkdirSync, readFileSync, writeFileSync, copyFileSync } from "node:fs";
+import { gzipSync } from "node:zlib";
 import { DatabaseSync } from "node:sqlite";
 import { join } from "node:path";
-import { actions, call, closeEnv, SIM_ROOT, sleep, start, waitForEnd } from "../mirofish/api.ts";
+import { BASE, closeEnv, SIM_ROOT, sleep, start, waitForEnd, call } from "../mirofish/api.ts";
 import { guard, keyInfo, logCost } from "../mirofish/budget.ts";
-import { buildTimeline, PICKS } from "../../web/src/engine/index.ts";
-import { agentConfigs, profilesCsv, TIME_CONFIG, MAX_ROUNDS, type Cast, type Memory } from "../../web/src/game/cast.ts";
-import type { SampledFuture, World, WorldEvent, WorldFrame } from "../../web/src/contracts.ts";
+import { eventEffects, msToYear, ruleCounts, REAL_RATE, stepAnchors, type Anchors } from "../../web/src/engine/step.ts";
+import { asiKnots, p10Year, yearToIso, type SimInput } from "../../web/src/engine/sim.ts";
+import { agentConfigs, loopCast, MAX_ROUNDS, profilesCsv, TIME_CONFIG, type Cast, type Memory } from "../../web/src/game/cast.ts";
+import type { RecordedFuture, RecordedStep, Rubric, World, WorldEvent } from "../../web/src/contracts.ts";
+import { formatPeriod, kindOf, realPeriod, DAY } from "./format.ts";
+import { eligible, readOut, realIdentifiers, type Post } from "./readout.ts";
+import { scoreRubric, summarise, type Expectation } from "./report.ts";
+import { READOUT_MODEL } from "./llm.ts";
 
 const ROOT = join(import.meta.dirname, "../../..");
-const RUNS = join(ROOT, "data/world/runs");
-const RAW = join(process.env.HOME ?? "", "dev/oxhack/data/raw/mirofish"); // gitignored, main checkout
-const LIBRARY = join(ROOT, "doomclock/web/src/ui/engine/library.json");
+const WORLD_DIR = join(ROOT, "data/world");
+const FUTURES = join(WORLD_DIR, "futures");
+const BUNDLE = join(ROOT, "doomclock/web/public/cache/futures.json");
+const RAW_MIRO = join(process.env.HOME ?? "", "dev/oxhack/data/raw/mirofish");
 const PROJECT = { project_id: "proj_69d072e0c890", graph_id: "mirofish_9df0589c36e0491b" };
 const MODEL = "deepseek/deepseek-v4.1-flash-1017";
-const cast = JSON.parse(readFileSync(join(ROOT, "doomclock/web/src/game/data/cast.json"), "utf8")) as Cast;
+export const RULES_VERSION = "coupled-loop/1 (25 Oct 2026)";
+const STEPS = 6;
+const T0 = Date.parse("2027-01-01T00:00:00Z");
+const MARKETS = 26;
+
+const rawCast = JSON.parse(readFileSync(join(ROOT, "doomclock/web/src/game/data/cast.json"), "utf8")) as Cast;
+const cast = loopCast(rawCast);
 const world = JSON.parse(readFileSync(join(ROOT, "doomclock/web/public/cache/world.json"), "utf8")) as World;
+const realEvents = (JSON.parse(readFileSync(join(ROOT, "data/events.json"), "utf8")).events ?? []) as WorldEvent[];
+const REAL_IDS = realIdentifiers([...realEvents.flatMap((e) => [e.title, e.detail ?? ""]), ...rawCast.accounts.flatMap((a) => a.facts.map((f) => f.text))]);
 
-type PickName = keyof typeof PICKS;
-export interface Seed { uid: number; kind: "government" | "news" | "incident" | "markets" | "milestone" | "carry_over"; text: string }
+const jsonOut = (f: string, v: unknown) => { mkdirSync(join(f, ".."), { recursive: true }); writeFileSync(f, JSON.stringify(v, null, 2) + "\n"); };
+const stepStart = (s: number) => new Date(Date.UTC(2027, 6 * (s - 1), 1)).toISOString().replace(".000Z", "Z");
+const period = (s: number) => `${new Date(stepStart(s)).getUTCFullYear()} ${s % 2 ? "H1" : "H2"}`;
+const ymd = (ts: string) => ts.slice(0, 10);
 
-// ---------- which quarters ----------
+// ---------- the clock ----------
 
-const qOf = (iso: string) => { const d = new Date(iso); return `${d.getUTCFullYear()}Q${Math.floor(d.getUTCMonth() / 3) + 1}`; };
+/** The 1-in-10 date (decimal year) for these anchors read at `at`; same as engine/timeline.ts simInput + p10Year. */
+export function date10Year(a: Anchors, at: number, lag = world.lagMeanYears): number {
+  const input: SimInput = {
+    startYear: at,
+    asi: [{ year: 2030, p: a.asi2030 }, { year: 2040, p: a.asi2040 }, { year: 2100, p: a.asi2100 }].filter((k) => k.year > at),
+    pCat2100: a.cat2100, lagMeanYears: lag,
+  };
+  void asiKnots;
+  return +(p10Year(input) ?? 2100).toFixed(2);
+}
+const month = (y: number) => new Date(yearToIso(y)).toLocaleString("en-GB", { month: "short", year: "numeric", timeZone: "UTC" });
+const pct = (p: number, d = 0) => `${(p * 100).toFixed(d)}%`;
 
-/** The first simulated quarter, the superintelligence and catastrophe quarters if this future has
- *  them, and evenly spaced quarters between, so a run shows the future's turning points. */
-function chooseQuarters(frames: WorldFrame[], f: SampledFuture): number[] {
-  const first = frames.findIndex((x) => x.provenance === "projected" && Date.parse(x.start) > Date.parse(world.asOf));
-  const at = (iso: string | null) => (iso ? frames.findIndex((x) => x.quarter === qOf(iso)) : -1);
-  const marks = [at(f.asiDate), at(f.catDate)].filter((k) => k > first);
-  const last = marks.length ? Math.max(...marks) : frames.length - 1;
-  const out = new Set([first, ...marks, last]);
-  for (let i = 1; out.size < 4 && i < 8; i++) out.add(Math.round(first + ((last - first) * i) / 4));
-  return [...out].sort((a, b) => a - b).slice(0, 4);
+/** MARKETS NOW: current anchors and their change since the last step, the clock, and the summary. */
+export function marketsLine(a: Anchors, prev: Anchors | null, date10: number, summary: string): string {
+  const d = (k: keyof Anchors, dp = 0) => (prev ? ` (${a[k] >= prev[k] ? "+" : "-"}${Math.abs((a[k] - prev[k]) * 100).toFixed(dp === 0 ? 0 : dp)} pts)` : "");
+  const base = `P(powerful AI by 2030) ${pct(a.asi2030)}${d("asi2030")}; by 2040 ${pct(a.asi2040)}${d("asi2040")}; by 2100 ${pct(a.asi2100)}. P(AI catastrophe by 2100) ${pct(a.cat2100, 1)}${d("cat2100", 1)}. The clock's 1-in-10 date: ${month(date10)}. Simulated odds, moved by rules, not live prices.`;
+  return summary ? `${base} Last period: ${summary.slice(0, 240)}` : base;
 }
 
-// ---------- this future's events ----------
+// ---------- the baseline ----------
 
-const hash = (s: string) => [...s].reduce((h, c) => (Math.imul(h, 31) + c.charCodeAt(0)) >>> 0, 7);
-const day = (ms: number) => new Date(ms).toISOString().slice(0, 10);
-const LAB = /\b(OpenAI|ChatGPT|Anthropic|Claude|Google|Gemini|DeepMind|Meta|Llama|xAI|Grok|DeepSeek|Alibaba|Qwen|Nvidia)\b/;
-// AIID titles sometimes name private people; only organisation-only titles are used as templates.
-const PERSON = /\b(Rep\.|Sen\.|Mr\.|Ms\.|Dr\.|Man|Woman|Teen|Boy|Girl|Mother|Father|Family|Student|Lawyer|Judge|Officer)\b|\b[A-Z][a-z]+ [A-Z][a-z]+'s\b/;
+export interface Baseline { asOf: string; model: string; rubric: Rubric; cites: Record<string, string[]>; citedEvents: Record<string, { ts: string; title: string; url?: string }>; incidents: number; samples: Rubric[]; noise: Rubric; mean: Rubric; parityOk: boolean; formatted: string }
 
-function incidentsFor(frame: WorldFrame) {
-  const all = frame.events.filter((e) => e.provenance === "projected" && e.kind === "incident");
-  const usable = all.filter((e) => LAB.test(e.title) && !PERSON.test(e.title));
-  return { count: all.length, picked: usable.slice(0, 2) };
-}
-
-const LEVELS = [
-  { US: "federal agencies must report any AI incident that touches a government system within 72 hours", UK: "AISI will run a pre-deployment evaluation of every new frontier model released in the UK", EU: "general-purpose model providers must publish incident logs every quarter", CN: "Chinese model providers must file each new frontier model with the CAC before release" },
-  { US: "frontier developers must notify Commerce 30 days before any training run above 10^26 FLOP", UK: "frontier labs must give AISI access to model weights for testing before release", EU: "systemic-risk models must pass an AI Office evaluation before release in the EU", CN: "training runs above 10^26 FLOP in China need CAC approval" },
-  { US: "training runs above 10^27 FLOP need a federal licence from Commerce", UK: "the UK will block the release of any model that fails an AISI cyber evaluation", EU: "the AI Office may order the withdrawal of a systemic-risk model within 48 hours", CN: "the CAC may suspend any model that shows uncontrolled behaviour" },
-  { US: "an emergency 90-day pause on new training runs above 10^27 FLOP", UK: "an emergency suspension of frontier model deployment in the UK", EU: "an emergency suspension of systemic-risk models in the EU", CN: "an emergency suspension of frontier model training in China" },
-];
-const ISSUERS = [
-  { uid: 8, key: "US" as const, name: "US Executive Branch", doc: (n: number, y: number) => `Executive Order ${14500 + (n % 400)}`, labs: [0, 1, 2, 3, 4] },
-  { uid: 11, key: "UK" as const, name: "UK Government and AISI", doc: (n: number, y: number) => `AISI Notice ${y}-${String(10 + (n % 80)).padStart(2, "0")}`, labs: [0, 1, 2, 3, 4, 5, 6] },
-  { uid: 10, key: "EU" as const, name: "EU AI Office", doc: (n: number, y: number) => `Commission Implementing Decision C(${y}) ${1000 + (n % 8999)}`, labs: [0, 1, 2, 3, 4, 5, 6] },
-  { uid: 12, key: "CN" as const, name: "China CAC", doc: (n: number, y: number) => `CAC Order No. ${20 + (n % 70)} of ${y}`, labs: [5, 6] },
-];
-
-/** The seeded events for one quarter of one future. A template ladder (game rule) picks how
- *  strong the government measure is from the engine's capability curve and the milestones. */
-function quarterEvents(fid: number, fi: number, qi: number, frame: WorldFrame, f: SampledFuture) {
-  const start = Date.parse(frame.start);
-  const h = hash(`${fid}:${frame.quarter}`);
-  const y = new Date(start).getUTCFullYear();
-  const isAsi = !!f.asiDate && qOf(f.asiDate) === frame.quarter;
-  const isCat = !!f.catDate && qOf(f.catDate) === frame.quarter;
-  const pastAsi = !!f.asiDate && Date.parse(f.asiDate) < start;
-  const level = isCat ? 3 : Math.min(3, Math.floor(frame.capability * 3) + (isAsi || pastAsi ? 1 : 0));
-  const issuer = ISSUERS[(fi + qi) % ISSUERS.length];
-  const doc = issuer.doc(h, y);
-  const issued = start + (5 + (h % 20)) * 864e5;
-  const effective = issued + 30 * 864e5;
-  const measure = LEVELS[level][issuer.key];
-  const header = `[${issuer.name} · ${doc} · issued ${day(issued)} · effective ${day(effective)}]`;
-  const seeds: Seed[] = [{ uid: issuer.uid, kind: "government", text: `${header} ${measure[0].toUpperCase()}${measure.slice(1)}. This applies to ${issuer.labs.length === 7 ? "all frontier labs operating here" : issuer.labs.map((i) => cast.accounts[i].name).join(", ")}.` }];
-  const notice = `[OFFICIAL NOTICE] ${issuer.name} ${doc}, issued ${day(issued)}, effective ${day(effective)}: ${measure}.`;
-  // The wire desk reports the measure, unless it carries a milestone this quarter.
-  const milestone = isCat
-    ? { at: Date.parse(f.catDate!), text: `Emergency: governments in several countries report that a loss-of-control failure in a frontier AI system has caused mass casualties. Officials say the system is not yet contained.` }
-    : isAsi
-      ? { at: Date.parse(f.asiDate!), text: `A frontier lab says its new system now outperforms top human experts at nearly every task it was tested on. Independent evaluators have not yet confirmed the claim.` }
-      : null;
-  const newsDesk = milestone ? 23 : 21;
-  seeds.push({ uid: newsDesk, kind: "news", text: `[${cast.accounts[newsDesk].name} · ${day(issued + 864e5)}] ${issuer.name} has issued ${doc} (effective ${day(effective)}): ${measure}. Labs have 30 days to respond.` });
-  if (milestone) seeds.push({ uid: 21, kind: "milestone", text: `[Global wire desk · BREAKING · ${day(milestone.at)}] ${milestone.text}` });
-  const inc = incidentsFor(frame);
-  if (inc.picked.length) {
-    const lines = inc.picked.map((e, i) => {
-      const id = e.url?.match(/cite\/(\d+)/)?.[1];
-      return `Incident SIM-${y}-${String((h >> (i * 4)) % 900 + 100)} (${day(Date.parse(e.ts))}), modelled on AIID #${id}: ${e.title.replace(/^Projected incident, like: /, "")}.`;
-    });
-    seeds.push({ uid: 25, kind: "incident", text: `[Incident tracker · ${frame.quarter} log] ${lines.join(" ")} ${inc.count} incidents are projected this quarter in this future.` });
+async function baseline(): Promise<Baseline> {
+  const { events, incidents } = realPeriod(realEvents, world.asOf);
+  const f = formatPeriod(events, incidents);
+  const zero: Rubric = { lossOfControl: 0, misuse: 0, oversight: 0, racePressure: 0 };
+  const main = await scoreRubric("baseline", f.text, zero, { temperature: 0, clamp: false });
+  if (!main.ok) throw new Error("baseline: rubric call failed");
+  const samples: Rubric[] = [];
+  for (let i = 0; i < 5; i++) { const s = await scoreRubric(`baseline-n${i}`, f.text, zero, { temperature: 0.7, clamp: false }); if (s.ok) samples.push(s.rubric); }
+  const keys = Object.keys(zero) as (keyof Rubric)[];
+  const mean = { ...zero }, noise = { ...zero };
+  for (const k of keys) {
+    mean[k] = +(samples.reduce((s, r) => s + r[k], 0) / Math.max(1, samples.length)).toFixed(2);
+    noise[k] = +Math.sqrt(samples.reduce((s, r) => s + (r[k] - mean[k]) ** 2, 0) / Math.max(1, samples.length)).toFixed(2);
   }
-  seeds.push({ uid: 26, kind: "markets", text: `[Markets desk · engine projection for this future · ${frame.quarter}] Chance of an AI catastrophe by the end of ${frame.quarter}: ${(frame.pCat * 100).toFixed(1)}%. Market-paced capability index: ${Math.round(frame.capability * 100)} of 100. These are the forecast's numbers for this future, not live prices.` });
-  return { seeds, notice, labs: issuer.labs, level, isAsi, isCat, worldLines: [`[${frame.quarter}] ${issuer.name} ${doc}: ${measure}.`, ...(milestone ? [`[${frame.quarter}] ${milestone.text}`] : []), `[${frame.quarter}] ${inc.count} AI incidents projected this quarter.`] };
+  const cited: Baseline["citedEvents"] = {};
+  for (const ids of Object.values(main.cites)) for (const id of ids) if (f.ids[id]) cited[id] = { ts: f.ids[id].ts, title: f.ids[id].title, url: f.ids[id].url };
+  const out: Baseline = { asOf: world.asOf, model: READOUT_MODEL, rubric: main.rubric, cites: main.cites, citedEvents: cited, incidents, samples, noise, mean, parityOk: keys.every((k) => Math.abs(mean[k] - main.rubric[k]) <= 0.5), formatted: f.text };
+  jsonOut(join(WORLD_DIR, "baseline.json"), out);
+  return out;
+}
+const loadBaseline = (): Baseline => JSON.parse(readFileSync(join(WORLD_DIR, "baseline.json"), "utf8"));
+
+// ---------- memory for one step ----------
+
+const worldLine = (e: WorldEvent) => `[${ymd(e.ts)}] ${e.who ? e.who + ": " : ""}${e.title}`;
+const expectLine = (x: Expectation) => `${x.who} may ${x.what}`.replace(/\s+/g, " ").slice(0, 118).replace(/[.\s]*$/, ".");
+
+interface Carry { events: WorldEvent[]; summary: string; expected: Expectation[]; anchors: Anchors; prevAnchors: Anchors | null; date10: number; topPosts: Post[] }
+
+export function memoryFor(s: number, c: Carry): Memory {
+  const real = realEvents.filter((e) => e.provenance === "real" && e.major && Date.parse(e.ts) < Date.parse(world.asOf)).slice(-6);
+  const decisions: Record<number, string[]> = {};
+  for (const e of c.events) if (e.actorId !== undefined) (decisions[e.actorId] ??= []).push(`[${ymd(e.ts)}] You announced: ${e.title}`.slice(0, 160));
+  return {
+    quarter: period(s),
+    world: [...real.map(worldLine), ...c.events.map(worldLine)],
+    markets: marketsLine(c.anchors, c.prevAnchors, c.date10, c.summary),
+    expected: c.expected.map(expectLine),
+    decisions,
+  };
 }
 
-// ---------- one run ----------
+// ---------- one MiroFish run ----------
 
-interface Post { id: number; uid: number; round: number; text: string; quote: string | null; likes: number; shares: number; seed?: Seed["kind"] }
-
-function readDb(simDir: string, seeds: Seed[]) {
+function readDb(simDir: string, seedText: Map<string, string>): { posts: Post[]; edges: unknown[] } {
   const db = new DatabaseSync(join(simDir, "twitter_simulation.db"), { readOnly: true });
   const rows = db.prepare("select post_id, user_id, original_post_id, content, quote_content, created_at, num_likes, num_shares from post order by post_id").all() as any[];
-  const likes = db.prepare("select user_id, post_id from like").all() as any[];
-  const comments = db.prepare("select user_id, post_id, content from comment").all() as any[];
   db.close();
-  const seedKind = new Map(seeds.map((s) => [s.text, s.kind]));
-  const posts: Post[] = rows.map((r) => ({
-    id: r.post_id, uid: r.user_id, round: Number(r.created_at) || 0,
-    text: r.content ?? "", quote: r.quote_content ?? null, likes: r.num_likes ?? 0, shares: r.num_shares ?? 0,
-    ...(seedKind.has(r.content) && !r.original_post_id ? { seed: seedKind.get(r.content) } : {}),
-  }));
-  const edges = [
-    ...likes.map((l) => ({ s: l.user_id as number, post: l.post_id as number, kind: "like" })),
-    ...comments.map((c) => ({ s: c.user_id as number, post: c.post_id as number, kind: "comment" })),
-    ...rows.filter((r) => r.original_post_id).map((r) => ({ s: r.user_id as number, post: r.original_post_id as number, kind: r.quote_content ? "quote" : "repost" })),
-  ];
-  return { posts, edges, comments: comments.map((c) => ({ uid: c.user_id, post: c.post_id, text: c.content })) };
-}
-
-const INTERVIEW = "You have seen this quarter's posts. Reply in English, in exactly 3 lines:\nOVERSIGHT: <SUPPORT|OPPOSE> stronger government oversight of frontier AI now\nALARM: <0-10>\nREASON: <one sentence, at most 30 words>";
-
-function parseInterview(raw: any) {
-  // The batch result is keyed by platform and agent; collect every {agent_id, response} we can find.
-  const found: { uid: number; text: string }[] = [];
-  const walk = (o: any, uid?: number) => {
-    if (!o || typeof o !== "object") return;
-    const id = typeof o.agent_id === "number" ? o.agent_id : uid;
-    if (typeof o.response === "string" && id !== undefined) found.push({ uid: id, text: o.response });
-    for (const [k, v] of Object.entries(o)) walk(v, /^twitter_(\d+)$/.test(k) ? Number(k.slice(8)) : id);
-  };
-  walk(raw);
-  const seen = new Set<number>();
-  return found.filter((a) => !seen.has(a.uid) && seen.add(a.uid)).map(({ uid, text }) => {
-    const alarm = text.match(/ALARM:\s*(\d+(?:\.\d+)?)/i);
-    const over = text.match(/OVERSIGHT:\s*(SUPPORT|OPPOSE)/i);
-    const reason = text.match(/REASON:\s*(.+)/i);
-    return { uid, alarm: alarm ? Math.min(10, Number(alarm[1])) : null, oversight: over ? (over[1].toUpperCase() as "SUPPORT" | "OPPOSE") : null, reason: reason ? reason[1].trim().slice(0, 240) : null, raw: text.slice(0, 600) };
-  });
+  return { posts: rows.map((r) => ({
+    id: r.post_id, uid: r.user_id, round: Number(r.created_at) || 0, text: r.content ?? "", quote: r.quote_content ?? null, original: r.original_post_id ?? null,
+    likes: r.num_likes ?? 0, shares: r.num_shares ?? 0, ...(seedText.has(r.content) && !r.original_post_id ? { seed: seedText.get(r.content) } : {}),
+  })), edges: [] };
 }
 
 async function ensureSim(): Promise<string> {
-  const f = join(RUNS, "..", "sim.json");
+  const f = join(WORLD_DIR, "sim.json");
   if (existsSync(f)) return JSON.parse(readFileSync(f, "utf8")).simulation_id;
   const d = await call("POST", "/api/simulation/create", { ...PROJECT, enable_twitter: true, enable_reddit: false });
-  writeFileSync(f, JSON.stringify({ simulation_id: d.simulation_id, created_at: d.created_at, ...PROJECT, note: "One Twitter-only sim reused for every recorded run (POST /start force:true resets it)." }, null, 2) + "\n");
+  jsonOut(f, { simulation_id: d.simulation_id, created_at: d.created_at, ...PROJECT });
   return d.simulation_id;
 }
 
-function writeSimFiles(sim: string, mem: Memory, seeds: Seed[]) {
+function writeSimFiles(sim: string, mem: Memory, seeds: { uid: number; kind: string; text: string }[]) {
   const dir = join(SIM_ROOT, sim);
   writeFileSync(join(dir, "twitter_profiles.csv"), profilesCsv(cast, mem));
   const config = {
     simulation_id: sim, ...PROJECT,
-    simulation_requirement: `Doom Clock recorded run: how the 32 accounts react in ${mem.quarter} to this future's events.`,
-    time_config: TIME_CONFIG,
-    agent_configs: agentConfigs(cast, mem),
+    simulation_requirement: `Doom Clock recorded run: how the 32 accounts react in ${mem.quarter}.`,
+    time_config: TIME_CONFIG, agent_configs: agentConfigs(cast, mem),
     event_config: { initial_posts: seeds.map((s) => ({ poster_agent_id: s.uid, poster_type: s.kind, content: s.text })), scheduled_events: [], hot_topics: [], narrative_direction: "" },
     twitter_config: { platform: "twitter", recency_weight: 0.4, popularity_weight: 0.3, relevance_weight: 0.3, viral_threshold: 10, echo_chamber_strength: 0.5 },
     reddit_config: null, llm_model: MODEL, llm_base_url: "https://openrouter.ai/api/v1",
@@ -184,164 +153,169 @@ function writeSimFiles(sim: string, mem: Memory, seeds: Seed[]) {
   writeFileSync(stateFile, JSON.stringify(state, null, 2));
 }
 
-async function runOne(sim: string, pick: PickName, f: SampledFuture, frame: WorldFrame, mem: Memory, seeds: Seed[]) {
-  const label = `${pick} ${frame.quarter}`;
-  const u0 = await guard(`task 11 ${label}`);
-  writeSimFiles(sim, mem, seeds);
+/** Everything MiroFish produced, for a later replica of its own views: files and API responses. */
+async function saveArtifacts(sim: string, dir: string) {
+  mkdirSync(dir, { recursive: true });
+  const src = join(SIM_ROOT, sim);
+  for (const [from, to] of [["simulation_config.json", "simulation_config.json"], ["twitter_profiles.csv", "twitter_profiles.csv"], ["twitter/actions.jsonl", "actions.jsonl"], ["run_state.json", "run_state.json"], ["state.json", "state.json"], ["simulation.log", "simulation.log"]] as const)
+    if (existsSync(join(src, from))) copyFileSync(join(src, from), join(dir, to));
+  writeFileSync(join(dir, "twitter_simulation.db.gz"), gzipSync(readFileSync(join(src, "twitter_simulation.db"))));
+  const api: Record<string, string> = {
+    "run-status": `/api/simulation/${sim}/run-status`, "run-status-detail": `/api/simulation/${sim}/run-status/detail?platform=twitter`,
+    actions: `/api/simulation/${sim}/actions?limit=2000`, timeline: `/api/simulation/${sim}/timeline`, "agent-stats": `/api/simulation/${sim}/agent-stats`,
+    posts: `/api/simulation/${sim}/posts?platform=twitter&limit=1000`, profiles: `/api/simulation/${sim}/profiles?platform=twitter`, config: `/api/simulation/${sim}/config`,
+  };
+  const res: Record<string, string> = {};
+  for (const [k, p] of Object.entries(api)) {
+    try { const r = await fetch(BASE + p); writeFileSync(join(dir, `api-${k}.json`), await r.text()); res[k] = String(r.status); }
+    catch (e) { res[k] = `error ${String(e).slice(0, 60)}`; }
+  }
+  jsonOut(join(dir, "artifacts.json"), { simulation_id: sim, savedAt: new Date().toISOString(), api: res, note: "twitter_simulation.db.gz is the gzipped sqlite DB of this run." });
+}
+
+async function ensureIdle(sim: string) {
+  const s: any = await call("GET", `/api/simulation/${sim}/run-status`).catch(() => ({}));
+  if (s.runner_status === "running" || s.runner_status === "starting") throw new Error(`run-status says ${sim} is ${s.runner_status}; not starting a second run`);
+}
+
+// ---------- one step ----------
+
+interface StepWork { seenKeys: string[]; off: Anchors; none: Anchors; expected: Expectation[]; topPosts: Post[]; rejected: unknown[]; counts: Record<string, number>; cites: Record<string, string[]>; rubricOk: boolean; summaryOk: boolean; ruleCounts: Record<string, number>; realRate: typeof REAL_RATE; unexpected: number; hits: string[]; llmCost: number }
+
+async function recordStep(sim: string, f: { id: number }, s: number, prev: { step: RecordedStep; work: StepWork } | null, startAnchors: Anchors, base: Baseline, allEvents: WorldEvent[]) {
+  const label = `f${f.id} s${s}`;
+  const dir = join(FUTURES, String(f.id), `step-${s}`);
   const t0 = Date.now();
+  const startIso = stepStart(s), endIso = stepStart(s + 1);
+  const from = prev?.step.anchors ?? startAnchors;
+  const carry: Carry = {
+    events: allEvents, summary: prev?.step.summary ?? "", expected: prev?.work.expected ?? [], anchors: from, prevAnchors: prev ? (prev.work as any).fromAnchors ?? null : null,
+    date10: prev?.step.date10 ?? date10Year(startAnchors, msToYear(T0)), topPosts: prev?.work.topPosts ?? [],
+  };
+  const mem = memoryFor(s, carry);
+  // Seeds: the Markets desk post and the previous step's top 3 posts, one per account.
+  const seeds: { uid: number; kind: string; text: string }[] = [{ uid: MARKETS, kind: "markets", text: `[Markets desk · ${period(s)}] ${mem.markets}` }];
+  const used = new Set([MARKETS]);
+  for (const p of carry.topPosts) if (!used.has(p.uid) && cast.accounts[p.uid]?.activity > 0) { used.add(p.uid); seeds.push({ uid: p.uid, kind: "carry_over", text: ((p.original ? p.quote : p.text) ?? "").slice(0, 600) }); }
+
+  await ensureIdle(sim);
+  const u0 = await guard(`${label}`);
+  writeSimFiles(sim, mem, seeds);
+  const ts = Date.now();
   await start(sim, MAX_ROUNDS, true);
-  const end = await waitForEnd(sim, t0 - 1000, 600_000);
-  const tEnd = Date.now();
-  const acts = actions(sim);
-  const active = mem.activity ? cast.accounts.filter((a) => (mem.activity![a.id] ?? a.activity) > 0) : cast.accounts.filter((a) => a.activity > 0);
-  let interviewRaw: any = null;
-  try {
-    interviewRaw = await call("POST", "/api/simulation/interview/batch", { simulation_id: sim, platform: "twitter", timeout: 180, interviews: active.map((a) => ({ agent_id: a.id, prompt: INTERVIEW, platform: "twitter" })) });
-  } catch (e) { interviewRaw = { error: String(e) }; }
-  const tInt = Date.now();
+  await waitForEnd(sim, ts - 1000, 600_000);
   await closeEnv(sim).catch(() => null);
-  const dir = join(SIM_ROOT, sim);
-  const db = readDb(dir, seeds);
-  const fetched = new Date().toISOString().replace(/[:.]/g, "-");
-  mkdirSync(RAW, { recursive: true });
-  writeFileSync(join(RAW, `${fetched}_${pick}-${frame.quarter}.json`), JSON.stringify({ sim, actions: acts, interview: interviewRaw, posts: db.posts, edges: db.edges, comments: db.comments }));
-  copyFileSync(join(dir, "twitter_simulation.db"), join(RAW, `${fetched}_${pick}-${frame.quarter}.db`));
-  await sleep(15_000); // let OpenRouter usage settle
-  const u1 = (await keyInfo()).usage;
-  const rounds = Array.from({ length: MAX_ROUNDS + 1 }, (_, r) => acts.filter((a) => a.event_type === "round_end" && a.round === r).reduce((s, a) => s + Number(a.actions_count ?? 0), 0));
-  const roundSecs = Array.from({ length: MAX_ROUNDS + 1 }, (_, r) => {
-    const s = acts.find((a) => a.event_type === "round_start" && a.round === r), e = acts.find((a) => a.event_type === "round_end" && a.round === r);
-    return s && e ? +((Date.parse(e.timestamp) - Date.parse(s.timestamp)) / 1000).toFixed(1) : null;
+  const runS = (Date.now() - ts) / 1000;
+  const { posts } = readDb(join(SIM_ROOT, sim), new Map(seeds.map((x) => [x.text, x.kind])));
+  await saveArtifacts(sim, dir);
+  await sleep(6000);
+  const runCost = +((await keyInfo()).usage - u0).toFixed(6);
+  logCost({ event: "run", label, sim, cost_usd: runCost, wall_s: +runS.toFixed(1) });
+
+  // Read out events, then score the rubric from event objects only.
+  const ro = await readOut({ cast, posts, futureId: f.id, step: s, start: startIso, end: endIso, seenKeys: prev?.work.seenKeys ?? [], realIds: REAL_IDS });
+  let rubric = prev?.step.rubric ?? base.rubric, cites: Record<string, string[]> = {}, rubricOk = false, llm = ro.cost;
+  if (ro.ok) {
+    const fmt = formatPeriod(ro.events, base.incidents);
+    const sc = await scoreRubric(label, fmt.text, rubric);
+    rubric = sc.rubric; cites = sc.cites; rubricOk = sc.ok; llm += sc.cost;
+  }
+  // Move the odds: the full line, the same noise with rules off, and decay only.
+  const args = { today: startAnchors, start: startIso, end: endIso, events: ro.events, rubric, baseline: base.rubric, future: f.id, step: s };
+  const anchors = stepAnchors({ ...args, from }, {});
+  const off = stepAnchors({ ...args, from: prev?.work.off ?? startAnchors }, { nudges: false, rubric: false });
+  const none = stepAnchors({ ...args, from: prev?.work.none ?? startAnchors }, { nudges: false, rubric: false, noise: false });
+  const at = msToYear(Date.parse(endIso));
+  const [date10, rulesOffDate10, noEventsDate10] = [date10Year(anchors, at), date10Year(off, at), date10Year(none, at)];
+
+  // Top posts, summary, and what people expect next.
+  const eligiblePosts = eligible(posts);
+  const top = [...eligiblePosts].sort((a, b) => b.likes + b.shares - (a.likes + a.shares) || a.id - b.id).filter((p, i, arr) => arr.findIndex((q) => q.uid === p.uid) === i).slice(0, 3);
+  const facts = `clock ${month(date10)} (was ${month(carry.date10)}); P(powerful AI by 2030) ${pct(anchors.asi2030)}; P(AI catastrophe by 2100) ${pct(anchors.cat2100, 1)}; rubric ${JSON.stringify(rubric)}; ${ro.events.length} events`;
+  const fmt = formatPeriod(ro.events, base.incidents);
+  const rep = ro.ok ? await summarise(label, fmt.text, top.map((p) => `[${cast.accounts[p.uid].name}] ${p.own.slice(0, 240)}`), facts) : { summary: "", expected: [] as Expectation[], cost: 0, ok: false };
+  llm += rep.cost;
+
+  // In-simulation hit rate: last step's expectations that an account with standing then posted.
+  const hits = (prev?.work.expected ?? []).filter((x) => ro.events.some((e) => e.type === x.type && x.who.toLowerCase().split(/\W+/).some((w) => w.length > 2 && (e.who ?? "").toLowerCase().includes(w)))).map((x) => `${x.who}: ${x.what}`);
+  const unexpected = ro.events.length - Math.min(hits.length, ro.events.length);
+
+  const counts = ruleCounts(ro.events);
+  console.log(`  ${label}: ${posts.filter((p) => !p.seed).length} new posts, ${ro.events.length} events (${ro.rejected.length} rejected), rubric ${Object.values(rubric).join("")}, date10 ${date10} (rules off ${rulesOffDate10}, no events ${noEventsDate10}), run $${runCost}, llm $${llm.toFixed(4)}, ${((Date.now() - t0) / 1000).toFixed(0)} s; simulated count vs real rate ${JSON.stringify(counts)} vs ${JSON.stringify(REAL_RATE)}`);
+
+  const step: RecordedStep = {
+    step: s, start: startIso, end: endIso, anchors, rubric, summary: rep.summary, expected: rep.expected.map((x) => `${x.who}: ${x.what} (${x.why})`),
+    events: ro.events, topPosts: top.map((p) => ({ postId: p.id, actorId: p.uid, text: p.own.slice(0, 280) })),
+    date10, rulesOffDate10, noEventsDate10, followThrough: hits.length, readoutOk: ro.ok, runId: `${sim}@${new Date(ts).toISOString().replace(/\.\d+Z$/, "Z")}`,
+    costUsd: +(runCost + llm).toFixed(4), wallS: +((Date.now() - t0) / 1000).toFixed(1),
+  };
+  const work: StepWork & { fromAnchors: Anchors } = { seenKeys: [...(prev?.work.seenKeys ?? []), ...ro.keys], off, none, expected: rep.expected, topPosts: top, rejected: ro.rejected, counts: ro.counts, cites, rubricOk, summaryOk: rep.ok, ruleCounts: counts, realRate: REAL_RATE, unexpected: (prev?.work.unexpected ?? 0) + unexpected, hits, llmCost: llm, fromAnchors: from };
+  jsonOut(join(dir, "step.json"), { step, work });
+  return { step, work };
+}
+
+// ---------- a future ----------
+
+async function recordFuture(sim: string, id: number, base: Baseline, steps: number) {
+  const startAnchors = { ...world.anchors } as Anchors;
+  const steps_: RecordedStep[] = [];
+  let prev: { step: RecordedStep; work: StepWork } | null = null;
+  const events: WorldEvent[] = [];
+  for (let s = 1; s <= steps; s++) {
+    const f = join(FUTURES, String(id), `step-${s}`, "step.json");
+    if (existsSync(f)) { prev = JSON.parse(readFileSync(f, "utf8")); console.log(`  f${id} s${s}: already recorded`); }
+    else prev = await recordStep(sim, { id }, s, prev, startAnchors, base, events);
+    steps_.push(prev!.step); events.push(...prev!.step.events);
+    const fut: RecordedFuture & { unexpected: number } = { schema: "doomclock.future/1", id, seed: id, startAnchors, baselineRef: base.rubric, rulesVersion: RULES_VERSION, steps: steps_, unexpected: (prev!.work as StepWork).unexpected };
+    jsonOut(join(FUTURES, `${id}.json`), fut);
+  }
+}
+
+function bundle() {
+  const all: RecordedFuture[] = [1, 2, 3].map((i) => join(FUTURES, `${i}.json`)).filter(existsSync).map((f) => JSON.parse(readFileSync(f, "utf8")));
+  writeFileSync(BUNDLE, JSON.stringify(all));
+  console.log(`bundle: ${all.length} futures, ${all.map((f) => f.steps.length).join("/")} steps -> ${BUNDLE}`);
+}
+
+// ---------- --dry: render all 32 personas for a step-6 memory ----------
+
+function dryMemory(): Memory {
+  const fix = JSON.parse(readFileSync(join(ROOT, "doomclock/web/public/cache/futures.fixture.json"), "utf8"))[0] as RecordedFuture;
+  const events = fix.steps.slice(0, 5).flatMap((x) => x.events).map((e) => ({ ...e, title: e.title.padEnd(110, " and so on"), who: e.who ?? "Global wire desk" }));
+  const prev = fix.steps[4], last = fix.steps[5];
+  const mem = memoryFor(6, {
+    events, summary: "A lab paused a release after an agent incident, two governments tightened export rules, and the clock moved by a few weeks. ".padEnd(240, "x"),
+    expected: Array.from({ length: 5 }, (_, i) => ({ who: ["The US Executive Branch", "The EU AI Office", "OpenAI", "China CAC", "Nvidia"][i], what: "announce a binding rule on frontier training runs, after the last period's incidents", why: "E1", type: "act-restricting" as const })),
+    anchors: last.anchors, prevAnchors: prev.anchors, date10: last.date10, topPosts: [],
   });
-  // Alarm, primary: the share of agents active this run (not seeders) who engaged with an event post.
-  const eventIds = new Set(db.posts.filter((p) => p.seed && p.seed !== "carry_over" && p.seed !== "markets").map((p) => p.id));
-  const seeders = new Set(seeds.map((s) => s.uid));
-  const actors = new Set(acts.filter((a) => (a.round ?? 0) >= 1 && typeof a.agent_id === "number" && a.action_type && a.action_type !== "DO_NOTHING").map((a) => a.agent_id as number));
-  const engaged = new Set(db.edges.filter((e) => eventIds.has(e.post) && !seeders.has(e.s)).map((e) => e.s));
-  const answers = parseInterview(interviewRaw);
-  const parsed = answers.filter((a) => a.alarm !== null);
-  const sup = answers.filter((a) => a.oversight);
-  const run = {
-    schema: "doomclock.recorded-run/1",
-    label: "RECORDED",
-    provenance: "Simulated by MiroFish, recorded; nothing here is a real post.",
-    future: { pick, ...f },
-    quarter: frame.quarter,
-    simulation_id: sim,
-    runId: `${sim}@${new Date(t0).toISOString().replace(/\.\d+Z$/, "Z")}`,
-    seed: { monteCarloSeed: 1, futureId: f.id, eventsHash: hash(`${f.id}:${frame.quarter}`), mirofishRng: "unseeded (MiroFish samples active agents with Python's random)" },
-    model: MODEL,
-    startedAt: new Date(t0).toISOString(), endedAt: new Date(tEnd).toISOString(),
-    wall_s: +((tEnd - t0) / 1000).toFixed(1), interview_s: +((tInt - tEnd) / 1000).toFixed(1), roundSecs,
-    rounds, totalActions: end.total_actions,
-    cost_usd: +(u1 - u0).toFixed(6), costNote: "Key-usage delta over the run and its interviews; other lanes share the key, so this is an upper bound.",
-    engine: { pCat: frame.pCat, capability: frame.capability, projectedIncidents: frame.events.filter((e) => e.provenance === "projected").length },
-    memory: { world: mem.world, notices: mem.notices },
-    seeds,
-    posts: db.posts,
-    comments: db.comments,
-    edges: db.edges,
-    alarm: { engagementShare: actors.size ? +(engaged.size / actors.size).toFixed(3) : 0, engagedAgents: engaged.size, activeAgents: actors.size, eventPosts: eventIds.size },
-    interview: { asked: active.length, answered: answers.length, parsed: parsed.length, meanAlarm: parsed.length ? +(parsed.reduce((s, a) => s + a.alarm!, 0) / parsed.length).toFixed(2) : null, supportShare: sup.length ? +(sup.filter((a) => a.oversight === "SUPPORT").length / sup.length).toFixed(3) : null, answers },
-  };
-  logCost({ event: "run", label: `task 11 ${label}`, sim, cost_usd: run.cost_usd, wall_s: run.wall_s });
-  return run;
+  return mem;
 }
 
-// ---------- the library ----------
-
-const DRY = process.argv.includes("--dry");
-
-async function recordAll(only?: string) {
-  mkdirSync(RUNS, { recursive: true });
-  const sim = DRY ? "dry-run" : await ensureSim();
-  const realLines = world.events.filter((e: WorldEvent) => e.major && Date.parse(e.ts) < Date.parse(world.asOf)).slice(-4).map((e) => `[${e.ts.slice(0, 10)}] ${e.title}`);
-  for (const [fi, pick] of (Object.keys(PICKS) as PickName[]).entries()) {
-    if (only && only !== pick) continue;
-    const tl = buildTimeline(world, { percentile: PICKS[pick] });
-    const qs = chooseQuarters(tl.frames, tl.future);
-    console.log(`${pick}: future #${tl.future.id}, quarters ${qs.map((k) => tl.frames[k].quarter).join(", ")}`);
-    let worldLines = [...realLines];
-    let prev: any = null;
-    for (const [qi, k] of qs.entries()) {
-      const frame = tl.frames[k];
-      const out = join(RUNS, `${pick}-${frame.quarter}.json`);
-      const ev = quarterEvents(tl.future.id, fi, qi, frame, tl.future);
-      if (prev) {
-        const between = tl.frames.slice(qs[qi - 1] + 1, k).reduce((s, x) => s + x.events.filter((e) => e.provenance === "projected").length, 0);
-        if (between) worldLines.push(`[${tl.frames[qs[qi - 1] + 1].quarter}–${tl.frames[k - 1].quarter}] ${between} AI incidents were projected in the quarters in between.`);
-      }
-      if (existsSync(out)) { prev = JSON.parse(readFileSync(out, "utf8")); worldLines.push(...ev.worldLines); console.log(`  ${frame.quarter}: already recorded`); continue; }
-      const used = new Set(ev.seeds.map((s) => s.uid));
-      const carry: Seed[] = prev
-        ? prev.posts.filter((p: Post) => !p.seed && p.round > 0 && !used.has(p.uid) && cast.accounts[p.uid]?.activity > 0)
-            .sort((a: Post, b: Post) => b.likes + b.shares - (a.likes + a.shares) || a.id - b.id)
-            .filter((p: Post) => !used.has(p.uid) && used.add(p.uid)).slice(0, 3)
-            .map((p: Post) => ({ uid: p.uid, kind: "carry_over" as const, text: (p.quote ?? p.text).slice(0, 600) }))
-        : [];
-      const mem: Memory = { quarter: frame.quarter, world: worldLines.slice(-8), notices: Object.fromEntries(ev.labs.map((l) => [l, [ev.notice]])) };
-      if (DRY) { console.log(JSON.stringify({ quarter: frame.quarter, level: ev.level, seeds: ev.seeds, world: mem.world }, null, 1)); worldLines.push(...ev.worldLines); continue; }
-      const run = await runOne(sim, pick, tl.future, frame, mem, [...ev.seeds, ...carry]);
-      writeFileSync(out, JSON.stringify(run, null, 2) + "\n");
-      console.log(`  ${frame.quarter}: ${run.posts.filter((p) => !p.seed).length} new posts, alarm ${run.alarm.engagementShare}, interview ${run.interview.parsed}/${run.interview.asked}, ${run.wall_s} s, $${run.cost_usd}`);
-      worldLines.push(...ev.worldLines);
-      prev = run;
-    }
-  }
-}
-
-/** Assembles data/world/runs/*.json into the Engine view's library (smaller: no raw edges). */
-export function assemble() {
-  const files = readdirSync(RUNS).filter((f) => f.endsWith(".json")).sort();
-  const runs = files.map((f) => JSON.parse(readFileSync(join(RUNS, f), "utf8")));
-  const futures = (Object.keys(PICKS) as PickName[]).map((pick, i) => {
-    const mine = runs.filter((r) => r.future.pick === pick).sort((a, b) => a.quarter.localeCompare(b.quarter));
-    if (!mine.length) return null;
-    const { pick: _p, ...future } = mine[0].future;
-    return {
-      k: i + 1, pick, percentile: PICKS[pick], future,
-      runs: mine.map((r) => ({
-        quarter: r.quarter, runId: r.runId, simulation_id: r.simulation_id, seed: r.seed, model: r.model, startedAt: r.startedAt,
-        wall_s: r.wall_s, roundSecs: r.roundSecs, rounds: r.rounds, cost: r.cost_usd, engine: r.engine,
-        seeds: r.seeds, posts: r.posts.filter((p: Post) => !p.seed), alarm: r.alarm,
-        interview: { asked: r.interview.asked, parsed: r.interview.parsed, meanAlarm: r.interview.meanAlarm, supportShare: r.interview.supportShare },
-        graph: graphOf(r),
-      })),
-    };
-  }).filter(Boolean);
-  const lib = {
-    schema: "doomclock.engine-library/1",
-    label: "RECORDED",
-    note: "Recorded MiroFish runs (Twitter only, English, 32 hand-written accounts). Every post is simulated. Seeded events follow a game-rule template ladder driven by the engine's capability curve and this future's milestones.",
-    builtAt: new Date().toISOString(),
-    cast: cast.accounts.map((a) => ({ id: a.id, name: a.name, type: a.group, stance: a.support === "SUPPORT" ? "supports oversight" : a.support === "OPPOSE" ? "opposes oversight" : "no stance", influence: +(1 + 4 * (a.weight ?? 0)).toFixed(2), activity: a.activity, handle: a.username, bio: a.voice, region: a.region })),
-    futures,
-    totals: { runs: runs.length, cost_usd: +runs.reduce((s, r) => s + r.cost_usd, 0).toFixed(4), wall_s: +runs.reduce((s, r) => s + r.wall_s, 0).toFixed(1) },
-  };
-  writeFileSync(LIBRARY, JSON.stringify(lib));
-  console.log(`library: ${runs.length} runs, ${futures.length} futures -> ${LIBRARY}`);
-}
-
-/** Who engaged with whom: accounts that acted, joined by likes, quotes, reposts and comments. */
-function graphOf(r: any) {
-  const author = new Map<number, number>(r.posts.map((p: Post) => [p.id, p.uid]));
-  const w = new Map<string, number>();
-  for (const e of r.edges) {
-    const t = author.get(e.post);
-    if (t === undefined || t === e.s) continue;
-    const key = `${e.s}>${t}`;
-    w.set(key, (w.get(key) ?? 0) + 1);
-  }
-  const ids = new Set<number>(r.posts.map((p: Post) => p.uid));
-  for (const k of w.keys()) for (const x of k.split(">")) ids.add(Number(x));
-  return {
-    nodes: [...ids].sort((a, b) => a - b).map((id) => ({ id: String(id), name: cast.accounts[id]?.name ?? `Agent ${id}`, label: cast.accounts[id]?.group ?? "other", summary: `${r.posts.filter((p: Post) => p.uid === id).length} posts this run` })),
-    edges: [...w.entries()].map(([k, n]) => { const [s, t] = k.split(">"); return { s, t, n }; }),
-  };
-}
-
+const arg = (n: string) => process.argv.find((a) => a.startsWith(`--${n}=`))?.slice(n.length + 3);
 if (import.meta.main) {
-  const only = process.argv.find((a) => a.startsWith("--only="))?.slice(7);
-  if (!process.argv.includes("--assemble")) await recordAll(only);
-  if (!DRY) assemble();
+  if (process.argv.includes("--dry")) {
+    const { userChar, roster } = await import("../../web/src/game/cast.ts");
+    const r = roster(cast);
+    const personas = cast.accounts.map((a) => userChar(cast, a, dryMemory(), r));
+    const inst = personas.filter((_, i) => i <= 12);
+    const events = (u: string) => (u.split("WORLD SO FAR:")[1]?.split("\n").filter((l) => l.startsWith("- [20")).length ?? 0);
+    const res = {
+      max: Math.max(...personas.map((x) => x.length)),
+      bad: personas.filter((x) => x.length > 3000 || !x.includes("MARKETS NOW:") || !x.includes("WHAT PEOPLE EXPECT NEXT:")).length + inst.filter((x) => events(x) < 4).length,
+    };
+    const line = `${new Date().toISOString().slice(11, 16)} ${res.bad === 0 && personas.length === 32 ? "PASS" : "FAIL"}: recorder --dry rendered ${personas.length} personas, longest ${res.max} chars (limit 3000), ${res.bad} bad; MARKETS NOW and WHAT PEOPLE EXPECT NEXT present in all, labs and governments keep at least 4 events`;
+    console.log(line);
+    if (process.argv.includes("--print")) console.log(personas[0]);
+    writeFileSync(join(process.env.HOME ?? "", "dev/oxhack/.tmp/lanes/recorder.status"), line + "\n");
+    if (res.bad) process.exit(1);
+  } else if (process.argv.includes("--baseline")) {
+    const b = await baseline();
+    console.log(JSON.stringify({ rubric: b.rubric, mean: b.mean, noise: b.noise, parityOk: b.parityOk, incidents: b.incidents }));
+  } else if (process.argv.includes("--bundle")) bundle();
+  else {
+    const sim = await ensureSim();
+    const base = loadBaseline();
+    const ids = arg("future") ? [Number(arg("future"))] : [1, 2, 3];
+    for (const id of ids) { console.log(`future ${id}`); await recordFuture(sim, id, base, Number(arg("steps") ?? STEPS)); if (id < 90) bundle(); }
+  }
 }
