@@ -363,6 +363,8 @@ img.av { object-fit: cover; padding: 0; }
   #clock .to { font-size: 12px; line-height: 16px; } /* keep what the countdown counts to; 12px is the floor */
   .engine #society { top: 390px; }
 }
+/* 1280x720: with the 'until' line and the 3-line caption, a 140px face ran the card 9px into the dock. */
+@media (max-height: 740px) and (min-width: 721px) { #clock .face { width: 120px; } }
 @media (max-width: 720px) {
   #viewseg { top: var(--space-3); bottom: auto; left: auto; right: var(--space-3); transform: none; padding: var(--space-2); }
   #viewseg .dc-tabs { gap: var(--space-2); }
