@@ -2,3 +2,4 @@
 {"ts":"2026-10-25T00:18:16.385Z","event":"check","label":"task 105 force smoke","usage":0.171928288,"laneSpent":0.000119,"CAP_USD":10,"LANE_CAP_USD":1}
 {"ts":"2026-10-25T00:19:17.568Z","event":"run","label":"task 105 force smoke","sim":"sim_908b44137fec","cost_usd":0.058463,"wall_s":15.5}
 {"ts":"2026-10-25T00:20:24.111Z","event":"check","label":"check after 105","usage":0.281307383,"laneSpent":0.058463,"CAP_USD":10,"LANE_CAP_USD":1}
+{"ts":"2026-10-25T00:40:18.886Z","event":"check","label":"rogue-p4","usage":0.451089661,"laneSpent":0.058463,"CAP_USD":10,"LANE_CAP_USD":1}
