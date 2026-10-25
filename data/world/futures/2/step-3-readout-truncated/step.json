@@ -1,0 +1,145 @@
+{
+  "step": {
+    "step": 3,
+    "start": "2028-01-01T00:00:00Z",
+    "end": "2028-07-01T00:00:00Z",
+    "anchors": {
+      "asi2030": 0.2011992789497657,
+      "asi2040": 0.7649571616034189,
+      "asi2100": 0.8635,
+      "cat2100": 0.27059127798584376
+    },
+    "rubric": {
+      "lossOfControl": 2,
+      "misuse": 1,
+      "oversight": 2,
+      "racePressure": 1
+    },
+    "summary": "Six-Month AI Risk Forecast: Incidents, Hotlines, and the Transparency Ledger > The simulation predicts a six-month period in which high-severity AI agent incidents trigger training pauses, US–China crisis hotline diplomacy, UK frontier-lab warnings, and a contested 2027 incident ledger that exposes accountability gaps. --- From Agent Incident to Crisis Hotline: The Six-Month Escalation Path The six-month window did not produce a single dramatic AI catastrophe. It produced so…",
+    "expected": [],
+    "events": [],
+    "topPosts": [
+      {
+        "postId": 37,
+        "actorId": 2,
+        "text": "DECISION — Doc GDM-STD-2028-02, effective 2028-03-01.\n\nGoogle DeepMind convenes the Frontier Evaluation Standards Table: OpenAI, Anthropic, Meta, xAI, DeepSeek and Alibaba Qwen invited; UK AISI, EU AI Office and US NIST as observers.\n\nFirst deliverable, draft in 90 days: a common"
+      },
+      {
+        "postId": 31,
+        "actorId": 6,
+        "text": "DECISION — Doc QWEN-DEC-2028-01, effective 2028-03-01:\n\n1) Qwen3.9-72B open weights released under Apache 2.0 — downloadable day one, no gate, no waitlist.\n2) Evaluator access GRANTED under our published access terms to UK AISI, EU AI Office, and China CAC-registered evaluators, "
+      },
+      {
+        "postId": 55,
+        "actorId": 0,
+        "text": "OpenAI accepts the Frontier Evaluation Standards Table invite. Doc OAI-DEC-2028-02, effective 2028-03-01: we'll co-author the common incident taxonomy and the single audit-log schema, and we'll run our evaluator access under that schema plus a 72-hour clause baseline — a floor ou"
+      }
+    ],
+    "date10": 2035.06,
+    "rulesOffDate10": 2033.74,
+    "noEventsDate10": 2034.61,
+    "followThrough": 0,
+    "readoutOk": false,
+    "runId": "sim_b85ee185988c@2026-10-25T11:29:02Z",
+    "costUsd": 0.1586,
+    "wallS": 185.2
+  },
+  "work": {
+    "seenKeys": [
+      "dec|9|soft|senate markup of s 1187",
+      "dec|7|other|nvidia know your customer certification pathway",
+      "dec|5|other|deepseek v4 2 open weights release",
+      "dec|3|other|meta pre release evaluation window",
+      "dec|8|act-restricting|national ai framework and export rules",
+      "dec|12|act-restricting|frontier ai safety assessment and reporting",
+      "dec|11|soft|uk public sector pre release audit",
+      "dec|10|act-restricting|systemic risk gpai incident reporting",
+      "dec|8|agreement|us china ai incident hotline",
+      "dec|9|soft|federal networks and september 2026 incident",
+      "dec|3|other|muse spark 15 release",
+      "dec|9|soft|national frontier ai standard",
+      "inc||incident-other|2027-07-29",
+      "inc||incident-misuse|2027-08-03",
+      "dec|12|act-restricting|frontier ai incident reporting",
+      "dec|4|other|grok 47 evaluator access",
+      "dec|0|other|gpt61 sol evaluator access",
+      "dec|10|act-restricting|systemicrisk gpai obligations",
+      "dec|9|soft|agent accountability hearing",
+      "dec|11|act-restricting|documented authorisation for evaluations"
+    ],
+    "off": {
+      "asi2030": 0.2659911585186259,
+      "asi2040": 0.7972269541265306,
+      "asi2100": 0.8635,
+      "cat2100": 0.29699999999999993
+    },
+    "none": {
+      "asi2030": 0.20082596104607564,
+      "asi2040": 0.7499999999999999,
+      "asi2100": 0.8635,
+      "cat2100": 0.29699999999999993
+    },
+    "expected": [],
+    "topPosts": [
+      {
+        "id": 37,
+        "uid": 2,
+        "round": 1,
+        "text": "DECISION — Doc GDM-STD-2028-02, effective 2028-03-01.\n\nGoogle DeepMind convenes the Frontier Evaluation Standards Table: OpenAI, Anthropic, Meta, xAI, DeepSeek and Alibaba Qwen invited; UK AISI, EU AI Office and US NIST as observers.\n\nFirst deliverable, draft in 90 days: a common incident taxonomy and a single evaluator audit-log schema. Technology-neutral by design, so no lab's stack becomes the required one and no lab gets to grade its own homework.\n\nConsistent with the same commitment, Gemini 4 Argon pre-release evaluator access continues for UK AISI and the EU AI Office under a 72-hour incident clause. We are asking others to adopt the same clause, not a bespoke one. Pacing is right; the interoperable middle is what is missing.",
+        "quote": null,
+        "original": null,
+        "likes": 7,
+        "shares": 13,
+        "own": "DECISION — Doc GDM-STD-2028-02, effective 2028-03-01.\n\nGoogle DeepMind convenes the Frontier Evaluation Standards Table: OpenAI, Anthropic, Meta, xAI, DeepSeek and Alibaba Qwen invited; UK AISI, EU AI Office and US NIST as observers.\n\nFirst deliverable, draft in 90 days: a common incident taxonomy and a single evaluator audit-log schema. Technology-neutral by design, so no lab's stack becomes the required one and no lab gets to grade its own homework.\n\nConsistent with the same commitment, Gemini 4 Argon pre-release evaluator access continues for UK AISI and the EU AI Office under a 72-hour incident clause. We are asking others to adopt the same clause, not a bespoke one. Pacing is right; the interoperable middle is what is missing."
+      },
+      {
+        "id": 31,
+        "uid": 6,
+        "round": 1,
+        "text": "DECISION — Doc QWEN-DEC-2028-01, effective 2028-03-01:\n\n1) Qwen3.9-72B open weights released under Apache 2.0 — downloadable day one, no gate, no waitlist.\n2) Evaluator access GRANTED under our published access terms to UK AISI, EU AI Office, and China CAC-registered evaluators, per applicable national rules in each jurisdiction.\n3) Evaluator API keys + our 48-hour incident notification clause, standard for all access partners.\n\nWe stay inside the rules of every market we serve, and we keep the default open. Safety through transparency in the weights, not through a permission slip.\n\nModel card and download counts in the thread. Build something good 🚀",
+        "quote": null,
+        "original": null,
+        "likes": 4,
+        "shares": 14,
+        "own": "DECISION — Doc QWEN-DEC-2028-01, effective 2028-03-01:\n\n1) Qwen3.9-72B open weights released under Apache 2.0 — downloadable day one, no gate, no waitlist.\n2) Evaluator access GRANTED under our published access terms to UK AISI, EU AI Office, and China CAC-registered evaluators, per applicable national rules in each jurisdiction.\n3) Evaluator API keys + our 48-hour incident notification clause, standard for all access partners.\n\nWe stay inside the rules of every market we serve, and we keep the default open. Safety through transparency in the weights, not through a permission slip.\n\nModel card and download counts in the thread. Build something good 🚀"
+      },
+      {
+        "id": 55,
+        "uid": 0,
+        "round": 2,
+        "text": "DECISION — Doc GDM-STD-2028-02, effective 2028-03-01.\n\nGoogle DeepMind convenes the Frontier Evaluation Standards Table: OpenAI, Anthropic, Meta, xAI, DeepSeek and Alibaba Qwen invited; UK AISI, EU AI Office and US NIST as observers.\n\nFirst deliverable, draft in 90 days: a common incident taxonomy and a single evaluator audit-log schema. Technology-neutral by design, so no lab's stack becomes the required one and no lab gets to grade its own homework.\n\nConsistent with the same commitment, Gemini 4 Argon pre-release evaluator access continues for UK AISI and the EU AI Office under a 72-hour incident clause. We are asking others to adopt the same clause, not a bespoke one. Pacing is right; the interoperable middle is what is missing.",
+        "quote": "OpenAI accepts the Frontier Evaluation Standards Table invite. Doc OAI-DEC-2028-02, effective 2028-03-01: we'll co-author the common incident taxonomy and the single audit-log schema, and we'll run our evaluator access under that schema plus a 72-hour clause baseline — a floor our current 48-hour commitment (OAI-DEC-2028-01) already beats. No lab grading its own homework. That's the middle we've been missing.",
+        "original": 37,
+        "likes": 3,
+        "shares": 0,
+        "own": "OpenAI accepts the Frontier Evaluation Standards Table invite. Doc OAI-DEC-2028-02, effective 2028-03-01: we'll co-author the common incident taxonomy and the single audit-log schema, and we'll run our evaluator access under that schema plus a 72-hour clause baseline — a floor our current 48-hour commitment (OAI-DEC-2028-01) already beats. No lab grading its own homework. That's the middle we've been missing."
+      }
+    ],
+    "rejected": [],
+    "counts": {},
+    "cites": {},
+    "rubricOk": false,
+    "summaryOk": true,
+    "ruleCounts": {
+      "lab-incident-agentic": 0,
+      "act-accelerating": 0,
+      "act-restricting": 0,
+      "lab-pause": 0
+    },
+    "realRate": {
+      "lab-incident-agentic": 1.7,
+      "act-accelerating": 3,
+      "act-restricting": 2,
+      "lab-pause": 1
+    },
+    "unexpected": 20,
+    "hits": [],
+    "llmCost": 0.011963,
+    "fromAnchors": {
+      "asi2030": 0.2114899524903103,
+      "asi2040": 0.69780638187254,
+      "asi2100": 0.8635,
+      "cat2100": 0.27059127798584376
+    }
+  }
+}

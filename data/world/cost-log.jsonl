@@ -76,3 +76,5 @@
 {"ts":"2026-10-25T11:30:50.637Z","event":"run","label":"llm rubric-f1 s4","cost_usd":0.000141876,"wall_s":0}
 {"ts":"2026-10-25T11:30:50.724Z","event":"check","label":"f1 s5","usage":1.756818386,"laneSpent":1.928418,"CAP_USD":10,"LANE_CAP_USD":6}
 {"ts":"2026-10-25T11:31:16.588Z","event":"run","label":"llm readout-f2-s3","cost_usd":0.0059815,"wall_s":0}
+{"ts":"2026-10-25T11:31:50.249Z","event":"run","label":"llm readout-f2-s3","cost_usd":0.0059815,"wall_s":0}
+{"ts":"2026-10-25T11:32:07.948Z","event":"check","label":"f2 s4","usage":1.801006585,"laneSpent":1.940381,"CAP_USD":10,"LANE_CAP_USD":6}
