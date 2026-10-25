@@ -5,6 +5,7 @@ import { test } from "node:test";
 import { realIdentifiers, eligible, type Post } from "./readout.ts";
 import { formatPeriod, realPeriod } from "./format.ts";
 import { date10Year, marketsLine } from "./record.ts";
+import { fetchGraphWhenDrained, fetchReport, futureProject, graphCounts, rubricPrompt, simulationCreateBody, startBody, summaryFromReport, type Api } from "./loop.ts";
 import type { WorldEvent } from "../../web/src/contracts.ts";
 
 const post = (o: Partial<Post>): Post => ({ id: 1, uid: 8, round: 1, text: "An order was issued today.", quote: null, original: null, likes: 0, shares: 0, ...o });
@@ -42,6 +43,52 @@ test("date10Year: deterministic, later when catastrophe odds fall, no crash afte
   assert.equal(date10Year(a, 2027), date10Year(a, 2027));
   assert.ok(date10Year({ ...a, cat2100: 0.2 }, 2027) > date10Year(a, 2027));
   assert.ok(Number.isFinite(date10Year(a, 2030.1)));
+});
+
+test("Amendments 2: one project per future, graph memory on, report files named", async () => {
+  const p = futureProject({ future: 1, project_id: "proj_a", graph_id: "mirofish_a" }, 1);
+  assert.deepEqual(simulationCreateBody(p), { project_id: "proj_a", graph_id: "mirofish_a", enable_twitter: true, enable_reddit: false });
+  assert.equal(startBody("sim_1", 5).enable_graph_memory_update, true);
+  assert.throws(() => futureProject({ project_id: "proj_a" }, 1));
+  assert.throws(() => futureProject({ future: 2, project_id: "proj_a", graph_id: "g" }, 1));
+
+  const calls: string[] = [];
+  let polls = 0;
+  const api: Api = async (method, path) => {
+    calls.push(`${method} ${path}`);
+    if (path === "/api/report/generate") return { task_id: "t1", status: "generating" };
+    if (path === "/api/report/generate/status") return ++polls >= 2 ? { status: "completed", report_id: "rep_1" } : { status: "processing" };
+    if (path.endsWith("/agent-log")) return { lines: 1 };
+    if (path.endsWith("/console-log")) return { lines: 2 };
+    return { markdown_content: "## Quiet\n\nA lab paused." };
+  };
+  const got = await fetchReport(api, "sim_1", async () => {});
+  assert.equal(got.report_id, "rep_1");
+  assert.deepEqual(calls, [
+    "POST /api/report/generate",
+    "POST /api/report/generate/status",
+    "POST /api/report/generate/status",
+    "GET /api/report/by-simulation/sim_1",
+    "GET /api/report/rep_1/agent-log",
+    "GET /api/report/rep_1/console-log",
+  ]);
+  assert.equal(summaryFromReport(got.report.markdown_content), "Quiet A lab paused.");
+  assert.match(rubricPrompt("Risk is 40%.", "E1 a pause"), /do not treat figures/);
+  assert.match(rubricPrompt("Risk is 40%.", "E1 a pause"), /E1 a pause/);
+});
+
+test("Zep drain: a pending graph is not saved; two settled reads with the same counts are", async () => {
+  const busy = { node_count: 10, edge_count: 4, pending: 3 };
+  const calm = { node_count: 12, edge_count: 5, pending: 0 };
+  assert.equal(graphCounts(busy)?.busy, true);
+  assert.equal(graphCounts(calm)?.busy, false);
+  const seen: unknown[] = [];
+  let n = 0;
+  const api: Api = async () => { const g = [busy, calm, { ...calm }][n++] ?? calm; seen.push(g); return g; };
+  const saved = await fetchGraphWhenDrained(api, "mirofish_a", async () => {}, 5);
+  assert.equal((saved as { node_count: number }).node_count, 12);
+  assert.equal(seen.length, 3);
+  await assert.rejects(() => fetchGraphWhenDrained(async () => busy, "mirofish_a", async () => {}, 2), /still processing/);
 });
 
 test("MARKETS NOW carries the anchors, their change and the clock", () => {

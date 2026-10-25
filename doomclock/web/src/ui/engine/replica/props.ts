@@ -11,6 +11,8 @@ export interface GraphPanelProps {
   isSimulating: boolean
   /** Bumps when the replay adds nodes or edges; the clone may pulse or re-heat. */
   loading?: boolean
+  /** A saved recording. Refresh only rearranges the drawing, and the live "still processing" toast stays off. */
+  recorded?: boolean
   onToggleMaximize: () => void
 }
 export interface Step1Props { project: ReplicaProject; graph: GraphData | null; logs: LogLine[]; onNext: () => void }
@@ -25,4 +27,4 @@ export interface Step3Props {
   onNext: () => void
   onLog: (msg: string) => void
 }
-export interface Step4Props { step: ReplicaStep; project: ReplicaProject; logs: LogLine[]; onBack: () => void; onNext: () => void; onLog: (msg: string) => void }
+export interface Step4Props { step: ReplicaStep; project: ReplicaProject; logs: LogLine[]; spike?: boolean; onBack: () => void; onNext: () => void; onLog: (msg: string) => void }

@@ -104,7 +104,7 @@ interface Draw {
   first: boolean
 }
 
-export function GraphPanel({ graph, currentPhase, isSimulating, loading = false, onToggleMaximize }: GraphPanelProps) {
+export function GraphPanel({ graph, currentPhase, isSimulating, loading = false, recorded = false, onToggleMaximize }: GraphPanelProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const svgRef = useRef<SVGSVGElement>(null)
   const D = useRef<Draw | null>(null)
@@ -131,9 +131,10 @@ export function GraphPanel({ graph, currentPhase, isSimulating, loading = false,
   const getColor = (ty: string) => color.current[ty] || '#999'
 
   useEffect(() => {
+    if (recorded) { setFinishedHint(false); was.current = isSimulating; return }
     if (was.current && !isSimulating) setFinishedHint(true)
     was.current = isSimulating
-  }, [isSimulating])
+  }, [isSimulating, recorded])
 
   // Paint selection, connections and label visibility onto the current elements.
   const paint = () => {
@@ -305,7 +306,7 @@ export function GraphPanel({ graph, currentPhase, isSimulating, loading = false,
       <div className="mf-g-header">
         <span className="mf-g-title">{t('graph.panelTitle')}</span>
         <div className="mf-g-tools">
-          <button className="mf-g-tool" onClick={refresh} disabled={loading} title={t('graph.refreshGraph')}>
+          <button className="mf-g-tool" onClick={refresh} disabled={loading} title={recorded ? 'Rearrange this saved graph' : t('graph.refreshGraph')}>
             <span className={`mf-g-icon-refresh${spin || loading ? ' spinning' : ''}`}>↻</span>
             <span className="mf-g-btn-text">Refresh</span>
           </button>

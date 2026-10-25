@@ -60,8 +60,7 @@ export function EngineScreen({ futureId, step }: Props) {
     return graphAt(data.step.graph, cutoffAt(data.step, r))
   }, [data, mf, round, rounds])
 
-  // The report's three columns need the width: Step 4 opens in Workbench (the panel is narrower than MiroFish's window).
-  const go = (n: number) => { if (n === 4) setMode('workbench'); else if (mf === 4) setMode('split'); setMf(Math.max(1, Math.min(5, n))); log(t('log.enterStep', { step: n, name: tm('main.stepNames')[n - 1] })) }
+  const go = (n: number) => { setMf(Math.max(1, Math.min(5, n))); log(t('log.enterStep', { step: n, name: tm('main.stepNames')[n - 1] })) }
   const toggleMax = () => setMode((m) => (m === 'graph' ? 'split' : 'graph'))
 
   const phase = mf === 3 ? 3 : 2
@@ -84,10 +83,8 @@ export function EngineScreen({ futureId, step }: Props) {
         </div>
         <div className="mf-header-right">
           <div className="mf-workflow-step">
-            <button className="mf-nav" disabled={mf <= 1} onClick={() => go(mf - 1)} aria-label="Previous step">‹</button>
             <span className="mf-step-num">Step {mf}/5</span>
             <span className="mf-step-name">{tm('main.stepNames')[mf - 1]}</span>
-            <button className="mf-nav" disabled={mf >= 5} onClick={() => go(mf + 1)} aria-label="Next step">›</button>
           </div>
           <div className="mf-step-divider" />
           <span className={`mf-status ${status[0]}`}><span className="mf-dot" />{status[1]}</span>
@@ -96,7 +93,7 @@ export function EngineScreen({ futureId, step }: Props) {
 
       <main className="mf-content">
         <div className="mf-panel left" style={left}>
-          <GraphPanel graph={graph} currentPhase={phase} isSimulating={simulating} onToggleMaximize={toggleMax} />
+          <GraphPanel graph={graph} currentPhase={phase} isSimulating={simulating} recorded onToggleMaximize={toggleMax} />
           {mf === 3 && rounds > 0 && (
             <div className="mf-replay" aria-label="Round replay">
               <button className="mf-btn" onClick={() => { if (round >= rounds) setRound(0); setPlaying(!(playing && round < rounds)) }}>{playing && round < rounds ? 'Pause' : round >= rounds ? 'Replay' : 'Play'}</button>
@@ -111,7 +108,7 @@ export function EngineScreen({ futureId, step }: Props) {
           {data && mf === 1 && <Step1GraphBuild project={data.project} graph={graph} logs={logs} onNext={() => go(2)} />}
           {data && mf === 2 && <Step2EnvSetup project={data.project} step={data.step} graph={graph} logs={logs} onBack={() => go(1)} onNext={() => go(3)} onLog={log} />}
           {data && mf === 3 && <Step3Simulation step={data.step} round={round} rounds={rounds} logs={logs} onBack={() => go(2)} onNext={() => go(4)} onLog={log} />}
-          {data && mf === 4 && <Step4Report step={data.step} project={data.project} logs={logs} onBack={() => go(3)} onNext={() => go(5)} onLog={log} />}
+          {data && mf === 4 && <Step4Report step={data.step} project={data.project} logs={logs} spike={data.spike} onBack={() => go(3)} onNext={() => go(5)} onLog={log} />}
           {data && mf === 5 && <Step5Interaction onBack={() => go(4)} />}
         </div>
       </main>

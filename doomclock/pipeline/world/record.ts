@@ -1,9 +1,10 @@
 // Tasks 11 -> 150: the coupled loop recorder. For each future (seeds 1-3) and each of 6 steps of
 // 6 months from 2027-01-01: write the 32 personas (WORLD SO FAR, MARKETS NOW, WHAT PEOPLE EXPECT
-// NEXT), run one Twitter-only MiroFish round-trip, read events out of the posts, score the
-// rubric, move the odds with engine/step.ts, read the clock, write the situation report, and
-// checkpoint. Spec: docs/superpowers/specs/2026-10-25-doom-clock-coupled-loop-design.md (the
-// Amendments win). Simulated content is labelled SIMULATED; every effect size is a GAME RULE.
+// NEXT), run one Twitter-only MiroFish round-trip on that future's own project and Zep graph,
+// read events out of the posts, wait for the Zep drain, run MiroFish's report agent, score the
+// rubric from the report plus the events, move the odds with engine/step.ts, and checkpoint.
+// Spec: docs/superpowers/specs/2026-10-25-doom-clock-coupled-loop-design.md (Amendments 2 win).
+// Simulated content is labelled SIMULATED; every effect size is a GAME RULE.
 // Outputs: data/world/baseline.json, data/world/futures/<id>.json (+ <id>/step-<s>/ with
 // everything MiroFish produced), doomclock/web/public/cache/futures.json.
 // Usage: node doomclock/pipeline/world/record.ts [--dry] [--baseline] [--future=1] [--steps=6] [--bundle]
@@ -11,7 +12,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync, copyFileSync } from
 import { gzipSync } from "node:zlib";
 import { DatabaseSync } from "node:sqlite";
 import { join } from "node:path";
-import { BASE, closeEnv, SIM_ROOT, sleep, start, waitForEnd, call } from "../mirofish/api.ts";
+import { BASE, closeEnv, SIM_ROOT, sleep, waitForEnd, call } from "../mirofish/api.ts";
 import { guard, keyInfo, logCost } from "../mirofish/budget.ts";
 import { eventEffects, msToYear, ruleCounts, REAL_RATE, stepAnchors, type Anchors } from "../../web/src/engine/step.ts";
 import { asiKnots, p10Year, yearToIso, type SimInput } from "../../web/src/engine/sim.ts";
@@ -19,7 +20,8 @@ import { agentConfigs, loopCast, MAX_ROUNDS, profilesCsv, TIME_CONFIG, type Cast
 import type { RecordedFuture, RecordedStep, Rubric, World, WorldEvent } from "../../web/src/contracts.ts";
 import { formatPeriod, kindOf, realPeriod, DAY } from "./format.ts";
 import { eligible, readOut, realIdentifiers, type Post } from "./readout.ts";
-import { scoreRubric, summarise, type Expectation } from "./report.ts";
+import { scoreRubric, type Expectation } from "./report.ts";
+import { fetchGraphWhenDrained, fetchReport, futureProject, rubricPrompt, simulationCreateBody, startBody, summaryFromReport, type FutureProject } from "./loop.ts";
 import { READOUT_MODEL } from "./llm.ts";
 
 const ROOT = join(import.meta.dirname, "../../..");
@@ -27,7 +29,6 @@ const WORLD_DIR = join(ROOT, "data/world");
 const FUTURES = join(WORLD_DIR, "futures");
 const BUNDLE = join(ROOT, "doomclock/web/public/cache/futures.json");
 const RAW_MIRO = join(process.env.HOME ?? "", "dev/oxhack/data/raw/mirofish");
-const PROJECT = { project_id: "proj_69d072e0c890", graph_id: "mirofish_9df0589c36e0491b" };
 const MODEL = "deepseek/deepseek-v4.1-flash-1017";
 export const RULES_VERSION = "coupled-loop/1 (25 Oct 2026)";
 const STEPS = 6;
@@ -125,19 +126,19 @@ function readDb(simDir: string, seedText: Map<string, string>): { posts: Post[];
   })), edges: [] };
 }
 
-async function ensureSim(): Promise<string> {
-  const f = join(WORLD_DIR, "sim.json");
+async function ensureSim(p: FutureProject): Promise<string> {
+  const f = join(FUTURES, String(p.future), "sim.json");
   if (existsSync(f)) return JSON.parse(readFileSync(f, "utf8")).simulation_id;
-  const d = await call("POST", "/api/simulation/create", { ...PROJECT, enable_twitter: true, enable_reddit: false });
-  jsonOut(f, { simulation_id: d.simulation_id, created_at: d.created_at, ...PROJECT });
+  const d = await call("POST", "/api/simulation/create", simulationCreateBody(p));
+  jsonOut(f, { simulation_id: d.simulation_id, created_at: d.created_at, project_id: p.project_id, graph_id: p.graph_id });
   return d.simulation_id;
 }
 
-function writeSimFiles(sim: string, mem: Memory, seeds: { uid: number; kind: string; text: string }[]) {
+function writeSimFiles(sim: string, p: FutureProject, mem: Memory, seeds: { uid: number; kind: string; text: string }[]) {
   const dir = join(SIM_ROOT, sim);
   writeFileSync(join(dir, "twitter_profiles.csv"), profilesCsv(cast, mem));
   const config = {
-    simulation_id: sim, ...PROJECT,
+    simulation_id: sim, project_id: p.project_id, graph_id: p.graph_id,
     simulation_requirement: `Doom Clock recorded run: how the 32 accounts react in ${mem.quarter}.`,
     time_config: TIME_CONFIG, agent_configs: agentConfigs(cast, mem),
     event_config: { initial_posts: seeds.map((s) => ({ poster_agent_id: s.uid, poster_type: s.kind, content: s.text })), scheduled_events: [], hot_topics: [], narrative_direction: "" },
@@ -182,7 +183,7 @@ async function ensureIdle(sim: string) {
 
 interface StepWork { seenKeys: string[]; off: Anchors; none: Anchors; expected: Expectation[]; topPosts: Post[]; rejected: unknown[]; counts: Record<string, number>; cites: Record<string, string[]>; rubricOk: boolean; summaryOk: boolean; ruleCounts: Record<string, number>; realRate: typeof REAL_RATE; unexpected: number; hits: string[]; llmCost: number }
 
-async function recordStep(sim: string, f: { id: number }, s: number, prev: { step: RecordedStep; work: StepWork } | null, startAnchors: Anchors, base: Baseline, allEvents: WorldEvent[]) {
+async function recordStep(sim: string, project: FutureProject, f: { id: number }, s: number, prev: { step: RecordedStep; work: StepWork } | null, startAnchors: Anchors, base: Baseline, allEvents: WorldEvent[]) {
   const label = `f${f.id} s${s}`;
   const dir = join(FUTURES, String(f.id), `step-${s}`);
   const t0 = Date.now();
@@ -200,9 +201,9 @@ async function recordStep(sim: string, f: { id: number }, s: number, prev: { ste
 
   await ensureIdle(sim);
   const u0 = await guard(`${label}`);
-  writeSimFiles(sim, mem, seeds);
+  writeSimFiles(sim, project, mem, seeds);
   const ts = Date.now();
-  await start(sim, MAX_ROUNDS, true);
+  await call("POST", "/api/simulation/start", startBody(sim, MAX_ROUNDS));
   await waitForEnd(sim, ts - 1000, 600_000);
   await closeEnv(sim).catch(() => null);
   const runS = (Date.now() - ts) / 1000;
@@ -212,12 +213,19 @@ async function recordStep(sim: string, f: { id: number }, s: number, prev: { ste
   const runCost = +((await keyInfo()).usage - u0).toFixed(6);
   logCost({ event: "run", label, sim, cost_usd: runCost, wall_s: +runS.toFixed(1) });
 
-  // Read out events, then score the rubric from event objects only.
+  // Read out events, wait until Zep's two settled reads match, then MiroFish's report agent.
   const ro = await readOut({ cast, posts, futureId: f.id, step: s, start: startIso, end: endIso, seenKeys: prev?.work.seenKeys ?? [], realIds: REAL_IDS });
+  const graph = await fetchGraphWhenDrained(call, project.graph_id, () => sleep(4000));
+  jsonOut(join(dir, "graph-data.json"), graph);
+  const reportPack = await fetchReport(call, sim, () => sleep(4000));
+  jsonOut(join(dir, "report.json"), reportPack.report);
+  jsonOut(join(dir, "agent-log.json"), reportPack.agentLog);
+  jsonOut(join(dir, "console-log.json"), reportPack.consoleLog);
+  const reportMd = String(reportPack.report?.markdown_content ?? "");
   let rubric = prev?.step.rubric ?? base.rubric, cites: Record<string, string[]> = {}, rubricOk = false, llm = ro.cost;
+  const fmt = formatPeriod(ro.events, base.incidents);
   if (ro.ok) {
-    const fmt = formatPeriod(ro.events, base.incidents);
-    const sc = await scoreRubric(label, fmt.text, rubric);
+    const sc = await scoreRubric(label, rubricPrompt(reportMd, fmt.text), rubric);
     rubric = sc.rubric; cites = sc.cites; rubricOk = sc.ok; llm += sc.cost;
   }
   // Move the odds: the full line, the same noise with rules off, and decay only.
@@ -231,10 +239,7 @@ async function recordStep(sim: string, f: { id: number }, s: number, prev: { ste
   // Top posts, summary, and what people expect next.
   const eligiblePosts = eligible(posts);
   const top = [...eligiblePosts].sort((a, b) => b.likes + b.shares - (a.likes + a.shares) || a.id - b.id).filter((p, i, arr) => arr.findIndex((q) => q.uid === p.uid) === i).slice(0, 3);
-  const facts = `clock ${month(date10)} (was ${month(carry.date10)}); P(powerful AI by 2030) ${pct(anchors.asi2030)}; P(AI catastrophe by 2100) ${pct(anchors.cat2100, 1)}; rubric ${JSON.stringify(rubric)}; ${ro.events.length} events`;
-  const fmt = formatPeriod(ro.events, base.incidents);
-  const rep = ro.ok ? await summarise(label, fmt.text, top.map((p) => `[${cast.accounts[p.uid].name}] ${p.own.slice(0, 240)}`), facts) : { summary: "", expected: [] as Expectation[], cost: 0, ok: false };
-  llm += rep.cost;
+  const repSummary = summaryFromReport(reportMd);
 
   // In-simulation hit rate: last step's expectations that an account with standing then posted.
   const hits = (prev?.work.expected ?? []).filter((x) => ro.events.some((e) => e.type === x.type && x.who.toLowerCase().split(/\W+/).some((w) => w.length > 2 && (e.who ?? "").toLowerCase().includes(w)))).map((x) => `${x.who}: ${x.what}`);
@@ -244,19 +249,21 @@ async function recordStep(sim: string, f: { id: number }, s: number, prev: { ste
   console.log(`  ${label}: ${posts.filter((p) => !p.seed).length} new posts, ${ro.events.length} events (${ro.rejected.length} rejected), rubric ${Object.values(rubric).join("")}, date10 ${date10} (rules off ${rulesOffDate10}, no events ${noEventsDate10}), run $${runCost}, llm $${llm.toFixed(4)}, ${((Date.now() - t0) / 1000).toFixed(0)} s; simulated count vs real rate ${JSON.stringify(counts)} vs ${JSON.stringify(REAL_RATE)}`);
 
   const step: RecordedStep = {
-    step: s, start: startIso, end: endIso, anchors, rubric, summary: rep.summary, expected: rep.expected.map((x) => `${x.who}: ${x.what} (${x.why})`),
+    step: s, start: startIso, end: endIso, anchors, rubric, summary: repSummary, expected: [],
     events: ro.events, topPosts: top.map((p) => ({ postId: p.id, actorId: p.uid, text: p.own.slice(0, 280) })),
     date10, rulesOffDate10, noEventsDate10, followThrough: hits.length, readoutOk: ro.ok, runId: `${sim}@${new Date(ts).toISOString().replace(/\.\d+Z$/, "Z")}`,
     costUsd: +(runCost + llm).toFixed(4), wallS: +((Date.now() - t0) / 1000).toFixed(1),
   };
-  const work: StepWork & { fromAnchors: Anchors } = { seenKeys: [...(prev?.work.seenKeys ?? []), ...ro.keys], off, none, expected: rep.expected, topPosts: top, rejected: ro.rejected, counts: ro.counts, cites, rubricOk, summaryOk: rep.ok, ruleCounts: counts, realRate: REAL_RATE, unexpected: (prev?.work.unexpected ?? 0) + unexpected, hits, llmCost: llm, fromAnchors: from };
+  const work: StepWork & { fromAnchors: Anchors } = { seenKeys: [...(prev?.work.seenKeys ?? []), ...ro.keys], off, none, expected: [] as Expectation[], topPosts: top, rejected: ro.rejected, counts: ro.counts, cites, rubricOk, summaryOk: reportMd.length > 0, ruleCounts: counts, realRate: REAL_RATE, unexpected: (prev?.work.unexpected ?? 0) + unexpected, hits, llmCost: llm, fromAnchors: from };
   jsonOut(join(dir, "step.json"), { step, work });
   return { step, work };
 }
 
 // ---------- a future ----------
 
-async function recordFuture(sim: string, id: number, base: Baseline, steps: number) {
+async function recordFuture(project: FutureProject, base: Baseline, steps: number) {
+  const sim = await ensureSim(project);
+  const id = project.future;
   const startAnchors = { ...world.anchors } as Anchors;
   const steps_: RecordedStep[] = [];
   let prev: { step: RecordedStep; work: StepWork } | null = null;
@@ -264,7 +271,7 @@ async function recordFuture(sim: string, id: number, base: Baseline, steps: numb
   for (let s = 1; s <= steps; s++) {
     const f = join(FUTURES, String(id), `step-${s}`, "step.json");
     if (existsSync(f)) { prev = JSON.parse(readFileSync(f, "utf8")); console.log(`  f${id} s${s}: already recorded`); }
-    else prev = await recordStep(sim, { id }, s, prev, startAnchors, base, events);
+    else prev = await recordStep(sim, project, { id }, s, prev, startAnchors, base, events);
     steps_.push(prev!.step); events.push(...prev!.step.events);
     const fut: RecordedFuture & { unexpected: number } = { schema: "doomclock.future/1", id, seed: id, startAnchors, baselineRef: base.rubric, rulesVersion: RULES_VERSION, steps: steps_, unexpected: (prev!.work as StepWork).unexpected };
     jsonOut(join(FUTURES, `${id}.json`), fut);
@@ -313,9 +320,15 @@ if (import.meta.main) {
     console.log(JSON.stringify({ rubric: b.rubric, mean: b.mean, noise: b.noise, parityOk: b.parityOk, incidents: b.incidents }));
   } else if (process.argv.includes("--bundle")) bundle();
   else {
-    const sim = await ensureSim();
     const base = loadBaseline();
     const ids = arg("future") ? [Number(arg("future"))] : [1, 2, 3];
-    for (const id of ids) { console.log(`future ${id}`); await recordFuture(sim, id, base, Number(arg("steps") ?? STEPS)); if (id < 90) bundle(); }
+    for (const id of ids) {
+      const file = join(FUTURES, String(id), "step1", "project.json");
+      if (!existsSync(file)) throw new Error(`future ${id}: no ${file}. Run node doomclock/pipeline/world/step1.ts --future=${id} on the Mac first.`);
+      const project = futureProject(JSON.parse(readFileSync(file, "utf8")), id);
+      console.log(`future ${id} ${project.project_id} ${project.graph_id}`);
+      await recordFuture(project, base, Number(arg("steps") ?? STEPS));
+      bundle();
+    }
   }
 }

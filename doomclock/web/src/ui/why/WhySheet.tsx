@@ -40,7 +40,7 @@ export function WhySheet({ world, timeline, hand, pin, backtest, future, step, l
       {next('danger', 'Next: how dangerous')}
     </>,
     danger: <>
-      <div className="lede"><Label kind="simulated" />{future && <span className="dc-data">Future {future.id}{step ? `, step ${step.step}` : ''}</span>}</div>
+      <div className="lede"><Label kind="simulated" />{future && <span className="dc-data">Future {future.id}{step ? `, step ${step.step}` : ''}{future.fixture ? ' · illustrative stand-in, not a recorded run' : ''}</span>}</div>
       <h3>The simulated world says how dangerous</h3>
       <p>MiroFish plays the world forward six months at a time. After each step a report scores it from 0 to 3. The scores move the catastrophe odds by labelled rules <Label kind="game-rule" />, not data. A scenario, not a prediction.</p>
       {!future || !step ? <p className="dc-dim">Press play on a future. Its first step lands here.</p> : <>
@@ -54,7 +54,7 @@ export function WhySheet({ world, timeline, hand, pin, backtest, future, step, l
         {step.events.length ? step.events.map((e) => <div className="irow" key={e.ts + e.title}><span className="dc-data">{dmy(e.ts)}</span><div>{e.title}<span className="src dc-data">{e.who ?? 'MiroFish'}</span></div></div>) : <p className="dc-dim">No event passed the checks this step.</p>}
         <h4>Three lines</h4>
         <ThreeLines future={future} step={step.step} />
-        {luck != null && <p className="dc-dim">About {Math.round(luck * 100)}% of the recorded moves are luck, the gap between the dotted and dashed lines.</p>}
+        {luck != null && <p className="dc-dim">{future.fixture ? 'The gap between the dotted and dashed lines is the game rules on this stand-in. It is not a recorded result.' : `About ${Math.round(luck * 100)}% of the recorded moves are luck, the gap between the dotted and dashed lines.`}</p>}
       </>}
       {next('track', 'Next: track record')}
     </>,

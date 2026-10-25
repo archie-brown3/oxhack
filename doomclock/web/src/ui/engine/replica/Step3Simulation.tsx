@@ -125,7 +125,7 @@ export function Step3Simulation({ step, round, rounds, logs, onBack, onNext }: S
           <Platform kind="reddit" name="Topic Community" round={0} rounds={rounds} mpr={mpr} acts={rd} done={false} tip={['POST', 'COMMENT', 'LIKE', 'DISLIKE', 'SEARCH', 'TREND', 'FOLLOW', 'MUTE', 'REFRESH', 'IDLE']} />
         </div>
         <div className={c('action-controls')}>
-          <button className={c('back')} onClick={onBack}>←</button>
+          <button className={c('back')} onClick={onBack}>{t('common.back')}</button>
           <button className={c('action-btn', 'primary')} disabled={!done} onClick={onNext}>
             {t('step3.startGenerateReportBtn')}<span className={c('arrow-icon')}>→</span>
           </button>

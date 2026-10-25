@@ -48,7 +48,7 @@ const d = (log: AgentLogEntry) => log.details as Record<string, any> // eslint-d
 interface OutlineSection { title: string; description?: string }
 interface Step { key: string; noLabel: string; title: string; status: 'done' | 'active' | 'todo'; meta: string }
 
-export function Step4Report({ step, onNext, onLog }: Step4Props) {
+export function Step4Report({ step, spike, onNext, onLog }: Step4Props) {
   const logs = step.agentLog
   const consoleLogs = step.consoleLog
   const reportId = step.report.report_id
@@ -182,6 +182,7 @@ export function Step4Report({ step, onNext, onLog }: Step4Props) {
                 </div>
                 <h1 className={c('main-title')}>{outline.title}</h1>
                 <p className={c('sub-title')}>{outline.summary}</p>
+                {spike && <p className={c('sub-title')}>Stand-in from the 24 Oct spike. Interview text is that run's saved output. Empty or non-English fields are that recording, not this future.</p>}
                 <div className={c('header-divider')} />
               </div>
               <div className={c('sections-list')}>
