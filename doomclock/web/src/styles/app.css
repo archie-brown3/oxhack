@@ -305,6 +305,7 @@ body.ov #engine .pane > h3 { display: none; }
   #viewseg { top: auto; bottom: 160px; }
   .dc-timebar > .dc-btn, .dc-timebar > .dc-tabs { display: none; }
   .sheet { left: var(--space-2); right: var(--space-2); }
+  .dc-sheet .title { font: var(--type-display-2); grid-template-columns: minmax(0, 1fr); } /* 56px serif clipped "What the engine knows" at 390px */
   .scrim { z-index: 61; } /* full-width sheet sits above the clock, which would cover its heading */
   .dc-sheet .split, .trackgrid { grid-template-columns: minmax(0, 1fr); }
   #flash { left: var(--space-4); right: var(--space-4); top: auto; bottom: 200px; }

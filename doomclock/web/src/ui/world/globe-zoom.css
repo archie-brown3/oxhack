@@ -1,7 +1,7 @@
 .globe-zoom {
   position: fixed;
   right: calc(var(--space-5) + 326px);
-  top: 50%;
+  bottom: 232px; /* level with the news panel's bottom edge (#feed), not floating mid-globe */
   z-index: 24;
   display: flex;
   background: var(--scrim);
@@ -27,7 +27,7 @@
 .globe-zoom button:disabled { color: var(--ink-3); cursor: default; }
 
 @media (max-width: 720px) {
-  .globe-zoom { right: var(--space-3); top: calc(var(--space-8) * 2); flex-direction: column; }
+  .globe-zoom { right: var(--space-3); top: calc(var(--space-8) * 2); bottom: auto; flex-direction: column; }
   .globe-zoom button + button { border-left: 0; border-top: 1px solid var(--rule-strong); }
 }
 @media (max-width: 720px) { .globe-zoom { right: var(--space-5); } }
