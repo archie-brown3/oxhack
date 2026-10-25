@@ -1,6 +1,9 @@
 // Why this time? as a Paper sheet over the dimmed globe: Anchors → the Monte Carlo fan → the date
 // → the hand, then the Track record tab. It explains the real forecast only, never game state.
+import { useEffect, useState } from 'react'
 import type { BacktestFile, NodeId, RecordedFuture, RecordedStep, Rubric, Timeline, World } from '../../contracts.ts'
+import { loadReplica } from '../engine/replica/load.ts'
+import { renderMarkdown } from '../engine/replica/Step4Parse.ts'
 import { clockFace } from '../clock/Clock.tsx'
 import type { Hand } from '../clock/scale.ts'
 import { dmy, longDate, pct } from '../format.ts'
@@ -42,6 +45,7 @@ export function WhySheet({ world, timeline, hand, pin, backtest, future, step, l
       <p>MiroFish plays the world forward six months at a time. After each step a report scores it from 0 to 3. The scores move the catastrophe odds by labelled rules <Label kind="game-rule" />, not data. A scenario, not a prediction.</p>
       {!future || !step ? <p className="dc-dim">Press play on a future. Its first step lands here.</p> : <>
         <p>{step.summary}</p>
+        <ReportProse futureId={future.id} step={step.step} />
         <div className="rubric">{RUBRIC.map(([k, name, hint]) => (
           <div className="rub" key={k}><span>{name}<small>{hint}</small></span>
             <span className="bars" aria-label={`${name}: ${step.rubric[k]} of 3, today ${future.baselineRef[k]}`}>{[1, 2, 3].map((n) => <i key={n} className={n <= step.rubric[k] ? 'on' : ''} />)}</span>
@@ -70,6 +74,33 @@ export function WhySheet({ world, timeline, hand, pin, backtest, future, step, l
         </div>
       </div>
     </div>
+  )
+}
+
+/** MiroFish's report, as written. Numbers in it stay inside the prose; they are not our figures. */
+function ReportProse({ futureId, step }: { futureId: number; step: number }) {
+  const [html, setHtml] = useState<string | null>(null)
+  const [spike, setSpike] = useState(false)
+  const [miss, setMiss] = useState(false)
+  useEffect(() => {
+    let live = true
+    setHtml(null); setMiss(false)
+    loadReplica(futureId, step).then((d) => {
+      if (!live) return
+      const md = d?.step.report.markdown_content?.trim()
+      if (!d || !md) { setMiss(true); return }
+      setSpike(d.spike)
+      setHtml(renderMarkdown(md))
+    })
+    return () => { live = false }
+  }, [futureId, step])
+  if (miss) return null
+  return (
+    <section className="report-prose" aria-label="MiroFish report">
+      <div className="lede"><Label kind="simulated" />{spike && <span className="dc-data">Stand-in report from the 24 Oct spike, not this future.</span>}</div>
+      <h4>Report, as written</h4>
+      {html ? <div className="report-body" dangerouslySetInnerHTML={{ __html: html }} /> : <p className="dc-dim">Loading the report…</p>}
+    </section>
   )
 }
 

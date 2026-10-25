@@ -29,7 +29,7 @@ interface Props {
   prev: WorldFrame | null
   compact?: boolean
   /** Simulated frames: which future, the step, and why its hand moved. */
-  sim?: { n: number; of: number; step: RecordedStep; move: Move | null; live: boolean } | null
+  sim?: { n: number; of: number; step: RecordedStep; move: Move | null; live: boolean; standIn?: boolean } | null
   onWhy: () => void
 }
 
@@ -75,7 +75,7 @@ export function Clock({ hand, pin, daysPerSecond, today, isToday, frame, prev, c
       <section id="clock" className={`dc-panel dc-clock${compact ? ' compact' : ''}`} role="button" tabIndex={0} aria-label={sim ? 'Doom Clock, simulated future. Open: why this time?' : 'Doom Clock, real forecast. Open: why this time?'}
         onClick={onWhy} onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), onWhy())}>
         <div className="cap">
-          {sim ? <Label kind="simulated">Future {sim.n} of {sim.of} · simulated · {half(frame.start)}</Label>
+          {sim ? <Label kind="simulated">Future {sim.n} of {sim.of} · {sim.standIn ? 'illustrative stand-in' : 'simulated'} · {half(frame.start)}</Label>
             : hand.source === 'bulletin' && !isToday ? <Label kind="real">Bulletin, {qName(frame.quarter)}</Label> : <Label kind="real">Real forecast</Label>}
           <span className="dc-faint">{sim || (hand.source === 'bulletin' && !isToday) ? '' : daysPerSecond ? `1 s ≈ ${Math.round(daysPerSecond)} days` : ''}</span>
         </div>

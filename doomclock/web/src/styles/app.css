@@ -394,6 +394,9 @@ img.av { object-fit: cover; padding: 0; }
 .rub .bars { display: flex; gap: 3px; }
 .rub .bars i { flex: 1; height: 8px; border: 1px solid var(--ink-3); border-radius: 2px; }
 .rub .bars i.on { background: var(--ink); border-color: var(--ink); }
+.report-prose h4 { margin: 0; font: 700 16px/22px var(--font-sans); }
+.report-prose .report-body { max-height: 280px; overflow: auto; font: 400 15px/22px var(--font-sans); }
+.report-prose .report-body h2, .report-prose .report-body h3, .report-prose .report-body h4 { font: 700 16px/22px var(--font-sans); margin: 12px 0 4px; }
 .engine #legend { display: none; }
 @media (max-width: 720px) { #legend { display: none; } }
 
