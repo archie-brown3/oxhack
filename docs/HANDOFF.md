@@ -70,7 +70,14 @@ MiroFish's UI; the World view has a live news feed with severity-driven legibili
 6. **138** label and offline tests, **9** demo-able gate, **141** play-through fixes by 10:30.
 7. Owner-only: 140, 142, 143, 144. Prepare everything they need; leave them to Archie.
 
-## 5. Rules that bit us overnight
+## 5. Urgent: production deploys are failing
+
+Since about 02:28 GMT the Vercel project's Root Directory is `.` instead of `doomclock/web`, so
+every push to main fails to build and the live site is an older build. See task **13** for the
+cause and the fix (an owner decision in Vercel settings). Until it is fixed, a green
+`npm test && npm run build` locally is the only check; nothing you push reaches production.
+
+## 6. Rules that bit us overnight
 
 - **Every push to `main` deploys production (Vercel).** Never push unless
   `cd doomclock/web && npm test && npm run build` passes. Never run `vercel deploy`.
@@ -88,7 +95,7 @@ MiroFish's UI; the World view has a live news feed with severity-driven legibili
   check big framing changes with him before building (he stopped two overnight workflows that
   built the wrong thing).
 
-## 6. Suggested skills
+## 7. Suggested skills
 
 - `superpowers:verification-before-completion` before any "done", gate PASS or claim.
 - `judging-criteria-review` for the pre-freeze review against the HRT and Delta criteria.
