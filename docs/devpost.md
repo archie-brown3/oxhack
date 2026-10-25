@@ -43,3 +43,59 @@ The real forecast and the Track record are real. The two futures and the Engine 
 ## Built with
 
 TypeScript, Vite, React, globe.gl, MiroFish (replica of a saved run). No scrape of HTML. Live fetches, when they run, save the raw response first.
+
+## Devpost story (the seven form fields)
+
+### Inspiration
+
+Everyone talks about AI risk, and talking about it creates no urgency. The Bulletin's Doomsday Clock works because it turns a committee's judgement into one picture anyone can read. We wanted that picture for AI, set by data rather than a panel: a clock whose hand is placed by what prediction markets, incident databases and government records say today, with a track record you can check.
+
+The theme was TIME. A clock that counts down to a date, with a slider that hides anything not yet public, was the most literal answer we could give.
+
+### What it does
+
+The clock counts down to the first date on which prediction markets put the chance of an AI catastrophe at 1 in 10. Today that is around May 2032, which the face shows as 5.6 minutes to midnight; one minute on the face is one year. The hand reads the market curve exactly, and a Monte Carlo of 10,000 futures drawn from the same model lights up the globe, so the two agree within a point.
+
+Drag the date back and everything on screen, the globe, the news feed and the hand, uses only what was public by then. The Track record tab shows how good the inputs are: thirty days before 1,186 recent AI questions resolved, the markets scored a Brier of 0.085, against 0.25 for a coin flip.
+
+Beside today's clock, three futures play forward from 2027 to 2029. Each is a simulated society on MiroFish: 30 agents built from real labs, regulators and news desks, with their own memories and a knowledge graph per future, reacting to the news and the current odds on a simulated X. When an account with the power to act does something, a government passing a rule, a lab pausing, the incident tracker logging a new case, it becomes an event on the globe and nudges that future's clock by a labelled game rule. At the end of each six-month step MiroFish's report agent scores that world on loss of control, misuse, oversight and race pressure. Nothing a simulation does moves the real clock.
+
+### How we built it
+
+Data first. We call APIs only, never scrape, and save every raw response before parsing it. Prices come from Manifold, Polymarket and Kalshi, pinned by market ID; incidents from the AI Incident Database; government actions and datacentre records alongside. Every record carries the time it became public and the files are sorted by it, so point-in-time code filters on that timestamp and nothing from the future leaks in.
+
+The engine is TypeScript in the browser: Vite and React, the clock and the Monte Carlo as pure functions with a seeded random number generator, and a globe.gl sphere on Natural Earth GeoJSON that works offline. A small Node pipeline fetches, cleans, runs the backtest and writes the JSON the app reads.
+
+The backtest is out of sample. We take the market price 30 days before each question resolved, on questions dated after the blind model's training cutoff. The earlier half of the questions picks the blend weight between the markets and a blind LLM; the later half reports the score. The markets won on their own, so the weight is zero and today's clock is the markets alone.
+
+The futures run on MiroFish, an open-source "predict anything" engine. For each future we build a knowledge graph in Zep from a seed pack of today's news and odds, turn the entities into agents with personas and memory, and run them in parallel on the OASIS social engine for five rounds per six-month step. We patched MiroFish to run Twitter-only, write its Zep episodes in English and restart cleanly, and wrote a recorder that saves every round, so the Engine tab replays the real screens of a saved run rather than launching a simulation live during the demo.
+
+### Challenges we ran into
+
+Leakage. A backtest of forecasting data is easy to cheat by accident, so we wrote the rules before the code: pick the date without looking at the outcome, count a question only when the model's cutoff plus a month is before it, split by date, and report the result even if the clever part loses. It did lose: the blind LLM added nothing, and we say so on screen.
+
+The catastrophe market itself is thin, play money with 19 traders and only a handful of trading days in two years, so we show the trader count next to the price and never claim the countdown date is scored. The backtest scores the inputs, not the date.
+
+MiroFish was built for one run from one seed. We needed three futures with continuity across six steps, each on its own graph, in English. The Zep graph builds stalled on our first 38 KB seed pack of 115 episodes; shrinking it to 12 KB got a build through, and the first real recording ran in the final hour before submission. Where a recording is not yet in the build, the screen shows a hand-made future and says so. We dropped a whole game layer, cards and a rogue AI, in the small hours of Sunday to protect the forecast and the labelling.
+
+### Accomplishments that we're proud of
+
+The clock reads real data and you can see how good that data is without leaving the app: a measured Brier score with a confidence interval, a coin and a blind model for comparison, and five leakage checks, all beside the hand. Every number on screen traces to a file in the repo.
+
+Everything is labelled by its standing: REAL, SIMULATED, RECORDED or GAME RULE. When a rule moves a future's clock, the screen says it is our rule and not a measurement, and each future shows three lines so you can see how much is the simulation and how much is dice.
+
+And it runs offline, from committed JSON, with no API keys, which is how a demo should run.
+
+### What we learned
+
+Honest forecasting is mostly plumbing. Timestamps, a raw-response archive and a date split did more for credibility than any model. Reporting a weight of zero was uncomfortable and right: thirty days out, the markets beat a model reasoning blind.
+
+Agent societies are a storytelling tool, not a forecaster. MiroFish gives you a vivid, coherent world and a report on it, but how far any event should move the odds is a judgement, so the right design keeps two dials apart: the markets say when, the simulated world says how dangerous, and the labels keep them separate.
+
+Cutting scope is the feature. Dropping the game layer at 3am bought the time to get the backtest and the labelling right.
+
+### What's next for Doomsday Clock
+
+Finish recording the three futures end to end, six steps each, and hand-check every event before it lands on the globe. Then a live mode on a machine running the MiroFish backend, so a judge can press Run and watch the graph grow round by round.
+
+On the forecast side: more catastrophe-relevant markets and a daily refresh, so the clock moves as the odds move; a calibration curve on the Track record page; and a news source to replace Hacker News, probably the Guardian and NYT archives or GDELT. Then a public page that posts the reading every morning, with the date and the data behind it.
