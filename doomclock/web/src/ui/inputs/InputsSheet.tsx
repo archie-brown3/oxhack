@@ -13,9 +13,9 @@ const D0 = Date.UTC(2024, 9, 24)
 type Src = 'markets' | 'incident' | 'government' | 'news' | 'datacentres'
 const SOURCES: [Src, string][] = [['markets', 'Markets'], ['incident', 'Incidents'], ['government', 'Government'], ['news', 'News'], ['datacentres', 'Datacentres']]
 
-interface Props { world: World; dcs: Datacentre[]; worldSource: 'cache' | 'fixture'; onRun: () => void; onClose: () => void }
+interface Props { world: World; dcs: Datacentre[]; worldSource: 'cache' | 'fixture'; onClose: () => void }
 
-export function InputsSheet({ world, dcs, worldSource, onRun, onClose }: Props) {
+export function InputsSheet({ world, dcs, worldSource, onClose }: Props) {
   const asOf = Date.parse(world.asOf)
   const last = Math.floor((asOf - D0) / DAY)
   const [day, setDay] = useState(last)
@@ -34,7 +34,7 @@ export function InputsSheet({ world, dcs, worldSource, onRun, onClose }: Props) 
   const head = (h: string, srcLine: string, note?: string) => <><div className="lede"><Label kind="real" /><span className="dc-data">{srcLine}</span></div><h3>{h}</h3>{note && <p>{note}</p>}</>
   return (
     <div className="scrim on" onClick={(e) => e.target === e.currentTarget && onClose()}>
-      <div className="sheet dc-sheet" data-theme="paper" role="dialog" aria-modal="true" aria-labelledby="inputs-h" onKeyDown={(e) => e.key === 'Enter' && !(e.target as HTMLElement).closest('a,button,input') && onRun()}>
+      <div className="sheet dc-sheet" data-theme="paper" role="dialog" aria-modal="true" aria-labelledby="inputs-h">
         <button className="x" aria-label="Close" onClick={onClose}>×</button>
         <h2 className="title" id="inputs-h">What the engine knows</h2>
         <div className="asof">
@@ -64,8 +64,7 @@ export function InputsSheet({ world, dcs, worldSource, onRun, onClose }: Props) 
             </>}
           </article>
         </div>
-        <div className="infoot"><p>Sample 10,000 futures in your browser, then replay the real record to today. The Engine shows recorded MiroFish posts.</p>
-          <button className="dc-btn dc-btn--primary" onClick={onRun}>Run simulation <kbd>⏎</kbd></button></div>
+        <div className="infoot"><p>Slide the date back to see what the clock would have read then. Nothing published later can leak in.</p></div>
       </div>
     </div>
   )

@@ -1,21 +1,21 @@
 // Phase 1: the World screen with the clock, Inputs and Why this time? (with Track record).
 // Renders the engine's Timeline and ClockReading (contracts.ts); never game state.
-import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from 'react'
 import type { WorldEvent, WorldFrame } from '../contracts.ts'
-import { buildTimeline, PICKS, type Pick } from '../engine/timeline.ts'
+import { buildTimeline } from '../engine/index.ts'
+import { isSecondQuarter, luckShare, moveOf, simTimeline, stepAt } from './futures.ts'
 import { Clock } from '../ui/clock/Clock.tsx'
 import { bulletinAt, closeness, scaleOf } from '../ui/clock/scale.ts'
-import { dmy, monthYear, qName, sourceName } from '../ui/format.ts'
+import { dmy, qName, sourceName } from '../ui/format.ts'
 import { InputsSheet } from '../ui/inputs/InputsSheet.tsx'
 import { WhySheet, type WhyTab } from '../ui/why/WhySheet.tsx'
 import type { Member } from '../ui/engine/EngineScreen.tsx'
 import { locate, type Flare, type Located } from '../ui/world/locate.ts'
-import { EventPop, FutureChip, MapKey, Newsflash, Spine, Ticker, type Flash } from '../ui/world/Hud.tsx'
+import { EventPop, FutureSwitcher, Legend, Newsflash, Spine, Ticker, type Flash } from '../ui/world/Hud.tsx'
 import { backtest } from '../fixtures/backtest.ts'
 import { countryAt, countryName, load, loadTrack, type Data } from './data.ts'
 import { Tour, tourDone } from './Tour.tsx'
 import { tourSteps } from './tourSteps.tsx'
-import { forecastLine } from '../ui/chart/TwoLine.tsx'
 
 // The globe (three.js) and the Engine screen load in their own chunks, so the clock paints first.
 // The globe chunk starts downloading at once, alongside the data.
@@ -24,8 +24,9 @@ const GlobeView = lazy(() => globeChunk.then((m) => ({ default: m.GlobeView })))
 const EngineScreen = lazy(() => import('../ui/engine/EngineScreen.tsx').then((m) => ({ default: m.EngineScreen })))
 
 const params = new URLSearchParams(location.search)
-const QMS = 8000 // one quarter at 1x: time to read the event before the next quarter
-const initialPick = (): Pick => { const f = params.get('fut'); return f && /^\d+$/.test(f) ? { seed: +f } : { percentile: PICKS[f as keyof typeof PICKS] ?? PICKS.early } }
+const STEP_MS = 5000 // one simulated step (6 months): time to read its events before the next
+const FIRST_MS = 1200 // today to the first step, so the first step lands at once
+const PCTS = [0.05, 0.1, 0.25, 0.5, 0.9] // the Engine's society list is keyed by these
 
 export function App() {
   const [data, setData] = useState<Data | null>(null)
@@ -37,15 +38,15 @@ export function App() {
 }
 
 function World({ data }: { data: Data }) {
-  const { world, bulletin, countries, centroids } = data
-  const [pick, setPick] = useState<Pick>(initialPick)
-  const timeline = useMemo(() => buildTimeline(world, pick), [world, pick])
+  const { world, bulletin, countries, centroids, futures } = data
+  const [fi, setFi] = useState(() => { const f = +(params.get('fut') ?? 1); return Number.isInteger(f) && f >= 1 && f <= futures.length ? f - 1 : 0 })
+  const base = useMemo(() => buildTimeline(world, { percentile: 0.5 }), [world])
+  const timeline = useMemo(() => simTimeline(base, futures[fi], fi, futures.length), [base, futures, fi])
   const frames = timeline.frames
   const today = frames.findLastIndex((f) => f.provenance === 'real')
   const scale = useMemo(() => scaleOf(timeline, bulletin), [timeline, bulletin])
-  const [cur, setCur] = useState(() => (params.has('q') ? +params.get('q')! : today))
+  const [cur, setCur] = useState(() => (params.has('q') ? Math.min(+params.get('q')!, frames.length - 1) : today))
   const [playing, setPlaying] = useState(false)
-  const [speed, setSpeed] = useState(1)
   const [live, setLive] = useState(false) // quarters advance by play or step: ping and flash
   // The globe and clock come first; the walkthrough opens Inputs as its second step.
   const [sheet, setSheet] = useState<null | 'inputs' | 'why'>(() => (['inputs', 'why'] as const).find((s) => s === params.get('sheet')) ?? null)
@@ -54,48 +55,41 @@ function World({ data }: { data: Data }) {
   // The walkthrough's last step quotes the backtest's headline once it has loaded.
   const [trackHeadline, setTrackHeadline] = useState<string | null>(null)
   useEffect(() => { if (touring) loadTrack().then((t) => setTrackHeadline(t.bt?.headline.text ?? null)) }, [touring])
-  const [whyTab, setWhyTab] = useState<WhyTab>((params.get('tab') as WhyTab) ?? 'anchors')
+  const [whyTab, setWhyTab] = useState<WhyTab>((['when', 'danger', 'track'] as const).find((t) => t === params.get('tab')) ?? 'when')
   const [flashes, setFlashes] = useState<Flash[]>([])
   const [flare, setFlare] = useState<Flare | null>(null)
   const [focus, setFocus] = useState<[number, number] | null>(null)
   const [pop, setPop] = useState<{ e: Located; anchor: HTMLElement } | null>(null)
-  const [keyOpen, setKeyOpen] = useState(false)
-  const [coach, setCoach] = useState<{ text: string; skip?: boolean } | null>(null)
-  const intro = useRef(false)
   const [view, setView] = useState<'world' | 'engine'>(params.get('view') === 'engine' ? 'engine' : 'world')
   const [maxed, setMaxed] = useState<'graph' | 'cast' | null>(null)
-  const [liveRun, setLiveRun] = useState<{ t0: number; shown: number } | null>(() => (params.has('live') ? { t0: Date.now(), shown: +params.get('live')! || 0 } : null))
-  // The five representative futures MiroFish runs a society for (task 11).
-  const ensemble = useMemo<Member[]>(() => [0.05, 0.1, 0.25, 0.5, 0.9].map((q, i) => ({ k: i + 1, q, future: buildTimeline(world, { percentile: q }).future })), [world])
-  // Recorded replay: one quarter's posts stream in, about one post a second (task 19).
-  useEffect(() => {
-    if (!liveRun || liveRun.shown >= 30) return
-    const t = setTimeout(() => setLiveRun((l) => l && { ...l, shown: l.shown + 1 }), 1100)
-    return () => clearTimeout(t)
-  }, [liveRun])
+  // The Engine screen (owner redesign in progress) still takes its old props.
+  const ensemble = useMemo<Member[]>(() => futures.map((f, i) => { const q = PCTS[Math.round((i / Math.max(1, futures.length - 1)) * 4)]; return { k: i + 1, q, future: { id: f.id, percentile: q, asiDate: null, catDate: null } } }), [futures])
 
   const frame = frames[cur]
   const isToday = cur === today
   const hand = scale.hand(frame, isToday)
-  const frameEnd = Date.parse(frame.start) + 92 * 864e5
-  const catT = timeline.future.catDate ? Date.parse(timeline.future.catDate) : Infinity
-  const ended = cur > today && catT < frameEnd
-  const afterEnd = cur > today && catT < Date.parse(frame.start)
   const located = useMemo(() => frame.events.map((e) => locate(e, centroids)).filter((e): e is Located => !!e), [frame, centroids])
+  const future = futures[fi]
+  const step = frame.provenance === 'simulated' ? stepAt(future, frame.start) : null
+  const move = useMemo(() => (step ? moveOf(world, future, step, base.clock.date10) : null), [world, future, step, base])
+  const luck = useMemo(() => luckShare(futures), [futures])
 
-  // Turning points for a quarter: the Bulletin's settings, major events, today, and this future's milestones.
+  // Turning points for a quarter: the Bulletin's settings, major real events, today, and one simulated event per step.
   const flashesFor = useCallback((f: WorldFrame, k: number): Flash[] => {
     const out: Flash[] = [], s = Date.parse(f.start), e = s + 92 * 864e5, q = qName(f.quarter)
     for (const b of bulletin) if (Date.parse(b.ts) >= s && Date.parse(b.ts) < e && k <= today)
       out.push({ sim: false, band: 'On the record', quarter: q, title: `The Doomsday Clock moves to ${b.seconds_to_midnight} seconds`, detail: `Bulletin of the Atomic Scientists, Chicago · ${dmy(b.ts)}. ${b.reason.split('.')[0]}.`, source: { name: 'thebulletin.org', url: b.url }, label: 'real' })
     for (const ev of f.events) if (ev.major && ev.provenance === 'real' && ev.source !== 'bulletin' && !/Doomsday Clock/.test(ev.title))
       out.push({ sim: false, band: 'Major event', quarter: q, title: ev.title.length > 90 ? ev.title.slice(0, 88) + '…' : ev.title, detail: ev.detail ?? `${ev.who ?? sourceName(ev.source)} · ${dmy(ev.ts)}`, source: { name: sourceName(ev.source), url: ev.url }, label: 'real' })
-    if (k === today) out.push({ sim: false, band: 'Today', quarter: q, title: 'The real record ends here', detail: 'From here on you are watching one of 10,000 simulated futures. The clock is the real forecast, and no future moves it.', label: null })
-    const fut = timeline.future, inF = (t: string | null) => t != null && Date.parse(t) >= s && Date.parse(t) < e
-    if (k > today && inF(fut.asiDate)) out.push({ sim: true, band: 'Turning point', quarter: q, title: `A lab builds superintelligence, ${monthYear(fut.asiDate!)}`, detail: 'In this future. The date is drawn from the market curve behind the clock.', source: { name: `sim.ts · seed 1 · path ${fut.id}` }, label: 'sim' })
-    if (k > today && inF(fut.catDate)) out.push({ sim: true, band: 'Catastrophe · this future', quarter: q, title: `AI catastrophe, ${monthYear(fut.catDate!)}`, detail: `One sampled future, not the forecast: by this quarter ${Math.round(f.pCat * 100)}% of all 10,000 futures have gone wrong.`, source: { name: `sim.ts · seed 1 · path ${fut.id}` }, label: 'sim' })
+    if (k === today) out.push({ sim: false, band: 'Today', quarter: q, title: 'The real record ends here', detail: 'From here on you are watching a simulated future, a scenario and not a prediction. Nothing moves the real clock.', label: null })
+    const st = f.provenance === 'simulated' ? stepAt(future, f.start) : null
+    if (st && isSecondQuarter(st, f.start)) {
+      const size = (x: WorldEvent) => Object.values(x.effect?.dlogit ?? {}).reduce((a, v) => a + Math.abs(v ?? 0), 0)
+      const top = [...st.events].sort((a, b) => size(b) - size(a))[0]
+      if (top) out.push({ sim: true, band: `Simulated · step ${st.step}`, quarter: q, title: top.title.length > 90 ? top.title.slice(0, 88) + '…' : top.title, detail: top.detail ?? `${top.who ?? 'MiroFish'} · ${dmy(top.ts)}`, source: { name: `MiroFish · future ${fi + 1}` }, label: 'sim' })
+    }
     return out
-  }, [bulletin, today, timeline])
+  }, [bulletin, today, future, fi])
 
   const go = useCallback((k: number, isLive: boolean) => {
     const i = Math.max(0, Math.min(frames.length - 1, k))
@@ -107,48 +101,35 @@ function World({ data }: { data: Data }) {
   const flash = flashes[0] ?? null
   useEffect(() => {
     if (!flash) return
-    const ev = frame.events.find((e) => e.major && flash.title.startsWith(e.title.slice(0, 40)))
+    const ev = frame.events.find((e) => (e.major || e.source === 'mirofish') && flash.title.startsWith(e.title.slice(0, 40)))
     if (ev?.where) { setFlare({ iso3: [ev.where], sim: flash.sim }); const c = centroids.get(ev.where); if (c) setFocus(c) }
     else if (/Doomsday/.test(flash.title)) setFocus([41.9, -87.6])
     const t = setTimeout(() => setFlare(null), 2600)
     return () => clearTimeout(t)
   }, [flash]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Play: one quarter per QMS / speed. Stops at today in the opening replay and at this future's end.
+  // Play: one simulated step (two quarters) per STEP_MS, the first step at once. Stops at 2029Q4.
   useEffect(() => {
     if (!playing) return
-    const t = setInterval(() => setCur((c) => {
-      const n = c + 1
-      if (n >= frames.length) { setPlaying(false); return c }
-      setLive(true); setPop(null); setFlashes(flashesFor(frames[n], n))
-      if (n === today && intro.current) { intro.current = false; setPlaying(false); setCoach(null); setTimeout(() => setCoach({ text: 'Press Space to play this future, or E to watch its recorded society replay' }), 4300) }
-      if (n > today && catT >= Date.parse(frames[n].start) && catT < Date.parse(frames[n].start) + 92 * 864e5) setPlaying(false)
-      return n
-    }), QMS / speed)
-    return () => clearInterval(t)
-  }, [playing, speed, frames, today, catT, flashesFor])
+    const next = cur + 1
+    if (next >= frames.length) { setPlaying(false); return }
+    const nf = frames[next], st = nf.provenance === 'simulated' ? stepAt(future, nf.start) : null
+    const n = st && !isSecondQuarter(st, nf.start) && next + 1 < frames.length ? next + 1 : next
+    const t = setTimeout(() => go(n, true), cur === today ? FIRST_MS : st ? STEP_MS : 1500)
+    return () => clearTimeout(t)
+  }, [playing, cur, frames, future, today, go])
 
-  const play = () => { if (cur >= frames.length - 1 || afterEnd) go(today, false); setCoach(null); setPlaying(true) }
-  const runLive = () => {
-    const t0 = performance.now(); buildTimeline(world, pick); const ms = Math.max(1, Math.round(performance.now() - t0))
-    setSheet(null); setView('world'); setLiveRun({ t0: Date.now(), shown: 0 }); intro.current = true; go(0, true); setSpeed(1); setPlaying(true)
-    setCoach({ text: `Sampled 10,000 futures in ${ms} ms, in your browser. Replaying the real record to today.`, skip: true })
-  }
-  const skip = () => { intro.current = false; setPlaying(false); setCoach(null); go(today, true) }
-  const choose = (p: Pick) => { setPick(p); setPlaying(false); setCoach(null); go(Math.min(cur, today), false) }
-  const roll = () => choose({ seed: (Math.random() * 2 ** 31) | 0 })
+  const play = () => { if (cur >= frames.length - 1) go(today, false); setPlaying(true) }
+  const choose = (i: number) => { setFi(i); setPop(null) }
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.metaKey || e.ctrlKey || e.altKey || (e.target as HTMLElement).closest('input,textarea')) return
-      if (e.key === 'Escape') { if (maxed) return setMaxed(null); setSheet(null); setPop(null); setKeyOpen(false); return }
+      if (e.key === 'Escape') { if (maxed) return setMaxed(null); setSheet(null); setPop(null); return }
       if (sheet) return
       const k = e.key.toLowerCase()
-      if (k === 'i') setSheet('inputs')
-      else if (k === 'e') setView(view === 'engine' ? 'world' : 'engine')
-      else if (k === 'w') setView('world')
+      if (k === 'e') setView(view === 'engine' ? 'world' : 'engine')
       else if (k === 'f' && view === 'engine') setMaxed(maxed ? null : 'graph')
-      else if (k === 'r') roll()
       else if (e.key === '?') setTouring(true)
       else if (e.key === ' ' && !(e.target as HTMLElement).closest('button,[role=button],[role=slider]')) { e.preventDefault(); if (playing) setPlaying(false); else play() }
       else if (e.key === 'ArrowRight' && !(e.target as HTMLElement).closest('[role=slider]')) { setPlaying(false); go(cur + 1, true) }
@@ -161,47 +142,47 @@ function World({ data }: { data: Data }) {
   useEffect(() => { if (params.has('flash')) setFlashes(flashesFor(frame, cur)) }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const whereOf = (e: WorldEvent & { lat: number; lng: number }) => countryName(countries, e.where) ?? (e.where || e.region !== 'rest' ? countryAt(countries, e.lat, e.lng) ?? 'location not stated' : 'location not stated')
-  const tickerNote = afterEnd ? `This future ended in ${monthYear(timeline.future.catDate!)}. Roll another to watch a different one.` : undefined
   const setting = bulletinAt(bulletin, Date.parse(world.asOf))
+  const postOf = (e: WorldEvent) => step?.topPosts.find((p) => e.postIds?.includes(p.postId))?.text
 
   return (
-    <div className={`${ended ? 'ended' : ''} ${view}`} onClick={() => { setPop(null); setKeyOpen(false) }}>
+    <div className={view} onClick={() => setPop(null)}>
       <Suspense fallback={<div id="globe" />}>
-        <GlobeView hidden={view === 'engine'} countries={countries} dcs={data.dcs} frame={frame} closeness={ended ? 1 : closeness(hand)} ended={ended} events={located} spanMs={live && playing ? QMS / speed : null} flare={flare} focus={focus} rotate={!sheet && view === 'world'} onPick={(e, anchor) => setPop({ e, anchor })} />
+        <GlobeView hidden={view === 'engine'} countries={countries} dcs={data.dcs} frame={frame} closeness={closeness(hand)} ended={false} events={located} spanMs={live && playing ? STEP_MS : null} flare={flare} focus={focus} rotate={!sheet && view === 'world'} onPick={(e, anchor) => setPop({ e, anchor })} />
       </Suspense>
       <div id="vignette" />
-      <Clock hand={hand} pin={scale.pin} daysPerSecond={scale.daysPerSecond} today={timeline.clock} isToday={isToday} frame={frame} prev={frames[cur - 1] ?? null} onWhy={() => setSheet('why')} />
+      <Clock hand={hand} pin={scale.pin} daysPerSecond={scale.daysPerSecond} today={timeline.clock} isToday={isToday} frame={frame} prev={frames[cur - 1] ?? null}
+        sim={step ? { n: fi + 1, of: futures.length, step, move, live } : null} onWhy={() => setSheet('why')} />
       <nav id="viewseg" className="dc-panel" aria-label="View">
         <div className="dc-tabs">
-          <button aria-pressed={sheet === 'inputs'} onClick={() => setSheet('inputs')}>Inputs<kbd>I</kbd></button>
-          <button aria-pressed={sheet !== 'inputs' && view === 'world'} onClick={() => { setSheet(null); setView('world') }}>World<kbd>W</kbd></button>
+          <button aria-pressed={sheet === 'inputs'} onClick={() => setSheet('inputs')}>Inputs</button>
+          <button aria-pressed={sheet !== 'inputs' && view === 'world'} onClick={() => { setSheet(null); setView('world') }}>World</button>
           <button aria-pressed={sheet !== 'inputs' && view === 'engine'} onClick={() => { setSheet(null); setView('engine') }}>Engine<kbd>E</kbd></button>
         </div>
       </nav>
-      {view === 'engine' && <Suspense fallback={null}><EngineScreen future={timeline.future} ensemble={ensemble} quarter={frame.quarter} firstSim={frames[today + 1].quarter} live={liveRun} avatars={data.avatars} maxed={maxed} onMax={setMaxed}
-        onWatch={(m) => choose({ percentile: m.q })} /></Suspense>}
-      <FutureChip future={timeline.future} onPick={(q) => choose({ percentile: q })} onRoll={roll} />
+      {view === 'engine' && <Suspense fallback={null}><EngineScreen future={timeline.future} ensemble={ensemble} quarter={frame.quarter} firstSim={frames[today + 1].quarter} live={null} avatars={data.avatars} maxed={maxed} onMax={setMaxed}
+        onWatch={(m) => choose(Math.min(futures.length - 1, m.k - 1))} /></Suspense>}
+      <FutureSwitcher futures={futures} current={fi} endDate={frames.at(-1)?.clock?.date10 ?? null} onPick={choose} />
+      {view === 'world' && <Legend />}
       <footer id="dock" className="dc-panel">
-        <Ticker key={frame.quarter} events={afterEnd ? [] : frame.events} real={frame.provenance === 'real'} note={tickerNote} onRead={() => setPlaying(false)} />
+        <Ticker key={frame.quarter + fi} events={frame.events} real={frame.provenance === 'real'} onRead={() => setPlaying(false)} />
         <div className="dc-timebar">
           <button className="dc-play" aria-label={playing ? 'Pause' : 'Play'} onClick={(e) => { e.stopPropagation(); if (playing) setPlaying(false); else play() }}>
             <svg viewBox="0 0 14 14">{playing ? <path d="M3 1.5h3v11H3zM8 1.5h3v11H8z" /> : <path d="M3 1.5v11l9-5.5z" />}</svg>
           </button>
-          <div className="dc-tabs">{[1, 2, 4].map((s) => <button key={s} aria-pressed={speed === s} onClick={() => setSpeed(s)}>{s}×</button>)}</div>
-          <Spine frames={frames} cur={cur} today={today} future={timeline.future} onScrub={(i) => { setPlaying(false); setCoach(null); go(i, false) }} />
-          <button className="dc-btn" onClick={(e) => { e.stopPropagation(); setKeyOpen(!keyOpen) }}>Map key</button>
+          <Spine frames={frames} cur={cur} today={today} future={timeline.future} onScrub={(i) => { setPlaying(false); go(i, false) }} />
           <button className="dc-btn dc-btn--quiet tour-again" onClick={(e) => { e.stopPropagation(); setTouring(true) }}>Show me around <kbd>?</kbd></button>
         </div>
       </footer>
-      {keyOpen && <MapKey />}
-      {coach && <div id="coach" className="dc-panel">{coach.text}{coach.skip && <button className="dc-btn dc-btn--sm coach-skip" onClick={skip}>Skip</button>}</div>}
       <Newsflash flash={flash} onDone={() => setFlashes((f) => f.slice(1))} />
-      {pop && <EventPop e={pop.e} anchor={pop.anchor} where={whereOf(pop.e)} avatars={data.avatars} onClose={() => setPop(null)} />}
-      {sheet === 'inputs' && <InputsSheet world={world} dcs={data.dcs} worldSource={data.worldSource} onRun={runLive} onClose={() => setSheet(null)} />}
-      {sheet === 'why' && <WhySheet world={world} timeline={timeline} hand={scale.hand(frames[today], true)} pin={scale.pin} daysPerSecond={scale.daysPerSecond} backtest={backtest} tab={whyTab} onTab={setWhyTab} onClose={() => setSheet(null)} />}
-      {touring && <Tour steps={tourSteps({ date10: timeline.clock.date10, daysPerSecond: scale.daysPerSecond, real: forecastLine(timeline),
+      {pop && <EventPop e={pop.e} anchor={pop.anchor} where={whereOf(pop.e)} avatars={data.avatars} post={postOf(pop.e)} onClose={() => setPop(null)} />}
+      {sheet === 'inputs' && <InputsSheet world={world} dcs={data.dcs} worldSource={data.worldSource} onClose={() => setSheet(null)} />}
+      {sheet === 'why' && <WhySheet world={world} timeline={timeline} hand={scale.hand(frames[today], true)} pin={scale.pin} daysPerSecond={scale.daysPerSecond} backtest={backtest}
+        future={future} step={step} luck={luck} tab={whyTab} onTab={setWhyTab} onClose={() => setSheet(null)} />}
+      {touring && <Tour steps={tourSteps({ date10: timeline.clock.date10, daysPerSecond: scale.daysPerSecond, landed: cur > today,
         trackHeadline,
-        openInputs: () => { setPlaying(false); setSheet('inputs') }, closeSheets: () => setSheet(null), openTrack: () => { setWhyTab('track'); setSheet('why') } })}
+        openInputs: () => { setPlaying(false); setSheet('inputs') }, closeSheets: () => setSheet(null),
+        openDanger: () => { setWhyTab('danger'); setSheet('why') }, openTrack: () => { setWhyTab('track'); setSheet('why') } })}
         onEnd={() => setTouring(false)} />}
       <span className="sr-only" aria-live="polite">{setting ? `The Bulletin stands at ${setting.seconds_to_midnight} seconds.` : ''}</span>
     </div>

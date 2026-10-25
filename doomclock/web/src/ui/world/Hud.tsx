@@ -2,7 +2,7 @@
 // (bottom), the newsflash for turning points, the event popover and the map key.
 import { useRef, useState } from 'react'
 import type { SampledFuture, WorldEvent, WorldFrame } from '../../contracts.ts'
-import { dmy, fmt, monthYear, qName, sourceName } from '../format.ts'
+import { dmy, monthYear, qName, sourceName } from '../format.ts'
 import type { Located } from './locate.ts'
 import { Label, labelOf } from '../Label.tsx'
 
@@ -13,25 +13,14 @@ const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(
 const avatarFor = (e: WorldEvent, avatars: AvatarRef[]) =>
   avatars.find((a) => (e.who && a.aliases?.includes(e.who)) || a.id === slug(sourceName(e.source)))
 
-export const PICKS = [['Early', 0.1], ['Typical', 0.5], ['Late', 0.9]] as const
-
-export function FutureChip({ future, onPick, onRoll }: { future: SampledFuture; onPick: (q: number) => void; onRoll: () => void }) {
-  const later = Math.round((1 - future.percentile - 1e-4) * 100)
+/** One switcher for the recorded futures: "Future 3 of 3: 1 in 10 by Mar 2031". The count comes from the data. */
+export function FutureSwitcher({ futures, current, endDate, onPick }: { futures: { id: number }[]; current: number; endDate: string | null; onPick: (i: number) => void }) {
   return (
-    <section id="future" className="dc-panel" aria-label="Watched future">
-      <div className="t"><b>Future #{fmt(future.id)}</b><span className="dc-faint">of 10,000</span></div>
-      <div className="dc-dim">{future.catDate ? `Earlier than ${later}% of futures.` : 'No catastrophe by 2100, like most futures.'}</div>
-      <div className="ms">
-        <div><span className="dc-dim">Superintelligence</span><b>{future.asiDate ? monthYear(future.asiDate) : 'not by 2100'}</b></div>
-        <div className={future.catDate ? '' : 'none'}><span style={future.catDate ? { color: 'var(--alarm)' } : undefined}>✕ Catastrophe</span><b>{future.catDate ? monthYear(future.catDate) : 'none by 2100'}</b></div>
-      </div>
-      <div className="row">
-        <div className="dc-tabs">
-          {PICKS.map(([t, q]) => <button key={t} aria-pressed={Math.abs(future.percentile - q) < 1e-4} onClick={() => onPick(q)}>{t}</button>)}
-        </div>
-        <button className="dc-btn dc-btn--outline" aria-label="Roll another future" onClick={onRoll}>Roll <kbd>R</kbd></button>
-      </div>
-      <span className="dc-data">sim.ts · seed 1 · path {future.id}</span>
+    <section id="future" className="dc-panel" aria-label="Simulated futures">
+      <div className="t"><b>Future {current + 1} of {futures.length}</b></div>
+      <div className="dc-dim">{endDate ? `1 in 10 by ${monthYear(endDate)} at the end of this future.` : 'A scenario, not a prediction.'}</div>
+      <div className="row"><div className="dc-tabs">{futures.map((f, i) => <button key={f.id} aria-pressed={i === current} onClick={() => onPick(i)}>Future {i + 1}</button>)}</div></div>
+      <span className="dc-data">Simulated by MiroFish. Nothing here moves the real clock.</span>
     </section>
   )
 }
@@ -116,7 +105,9 @@ export function Newsflash({ flash, onDone }: { flash: Flash | null; onDone: () =
 }
 
 /** Who, what, where, when, source and label for one event on the map. */
-export function EventPop({ e, anchor, where, avatars = [], onClose }: { e: Located; anchor: HTMLElement; where: string; avatars?: AvatarRef[]; onClose: () => void }) {
+const NODE_WORDS: Record<string, string> = { asi2030: 'superintelligence by 2030', asi2040: 'superintelligence by 2040', asi2100: 'superintelligence by 2100', cat2100: 'catastrophe by 2100' }
+
+export function EventPop({ e, anchor, where, avatars = [], post, onClose }: { e: Located; anchor: HTMLElement; where: string; avatars?: AvatarRef[]; post?: string; onClose: () => void }) {
   const r = anchor.getBoundingClientRect()
   const real = isReal(e)
   const av = avatarFor(e, avatars)
@@ -130,26 +121,23 @@ export function EventPop({ e, anchor, where, avatars = [], onClose }: { e: Locat
         <dt>When</dt><dd>{dmy(e.ts)}</dd>
         <dt>Source</dt><dd>{e.url ? <a href={e.url} target="_blank" rel="noopener">{sourceName(e.source)} ↗</a> : sourceName(e.source)}</dd>
       </dl>
-      {!real && <div className="dc-faint">{e.source === 'engine' ? 'A projected incident: the engine resampled a real AIID incident at its base rate.' : 'Simulated by MiroFish.'}</div>}
+      {e.source === 'mirofish' && <dl>
+        {post && <><dt>Post</dt><dd>{post}</dd></>}
+        <dt>Effect</dt><dd>{Object.entries(e.effect?.dlogit ?? {}).filter(([, v]) => v).map(([k, v]) => `${v! > 0 ? '+' : '−'}${Math.abs(v!).toFixed(3)} on ${NODE_WORDS[k] ?? k}`).join(', ') || 'None. It changes no odds.'} <Label kind="game-rule" /></dd>
+      </dl>}
+      {!real && <div className="dc-faint">{e.source === 'mirofish' ? 'Simulated by MiroFish. A scenario, not a real event. The effect is our rule (log-odds), not data.' : e.source === 'engine' ? 'A projected incident: the engine resampled a real AIID incident at its base rate.' : 'Simulated by MiroFish.'}</div>}
     </div>
   )
 }
 
-export function MapKey() {
+/** Four items, inline above the dock. */
+export function Legend() {
   return (
-    <div id="keypop" className="pop dc-panel on" role="dialog" aria-label="Map key">
-      <div className="dc-marks">
-        <div className="dc-mark"><span className="event-key kind-incident">!</span><span><b>Incident</b>: a reported AI harm</span></div>
-        <div className="dc-mark"><span className="event-key kind-government">§</span><span><b>Government</b>: a public decision or action</span></div>
-        <div className="dc-mark"><span className="event-key kind-news">≋</span><span><b>News</b>: a dated report or clock statement</span></div>
-        <div className="dc-mark"><span className="event-key kind-post">@</span><span><b>X post</b>: a simulated society post</span></div>
-        <div className="dc-mark"><svg viewBox="0 0 40 28"><circle className="k-land1" cx="5" cy="14" r="3.4" /><circle className="k-land2" cx="20" cy="14" r="3.4" /><circle className="k-land3" cx="35" cy="14" r="3.4" style={{ fill: 'var(--ink-2)' }} /></svg><span><b>Land dots</b>, brighter where this future has more frontier AI activity <span className="dc-mock">mock split</span></span></div>
-        <div className="dc-mark"><svg viewBox="0 0 40 28"><circle className="k-real" cx="20" cy="14" r="9" /></svg><span><b>Solid ring</b>: a real event before today</span></div>
-        <div className="dc-mark"><svg viewBox="0 0 40 28"><circle className="k-sim" cx="20" cy="14" r="9" /></svg><span><b>Dashed ring</b>: simulated or projected after today. Click to read it</span></div>
-        <div className="dc-mark"><svg viewBox="0 0 40 28"><circle className="k-dot0" cx="20" cy="14" r="3" style={{ fill: 'var(--ink-2)' }} /></svg><span><b>Grey dot</b>: a publicly mapped datacentre site (Epoch AI), not compute share</span></div>
-        <div className="dc-mark"><svg viewBox="0 0 40 28"><rect className="k-cat" x="14" y="8" width="12" height="12" transform="rotate(45 20 14)" /></svg><span><b>Red</b>: catastrophe, in this one future</span></div>
-        <div className="dc-mark"><svg viewBox="0 0 40 28"><circle className="k-cat" cx="20" cy="14" r="8" style={{ opacity: 0.5 }} /></svg><span><b>Red glow</b> around datacentres shows how close the clock is to midnight, not where harm happens</span></div>
-      </div>
+    <div id="legend" className="dc-faint" aria-label="Map key">
+      <span><svg viewBox="0 0 20 14"><circle className="k-real" cx="10" cy="7" r="5" /></svg>Solid ring: real event</span>
+      <span><svg viewBox="0 0 20 14"><circle className="k-sim" cx="10" cy="7" r="5" /></svg>Dashed ring: simulated, click to read</span>
+      <span><svg viewBox="0 0 20 14"><circle className="k-dot0" cx="10" cy="7" r="2.5" style={{ fill: 'var(--ink-2)' }} /></svg>Grey dot: datacentre</span>
+      <span><svg viewBox="0 0 20 14"><circle className="k-cat" cx="10" cy="7" r="5" style={{ opacity: 0.5 }} /></svg>Red: spreads from datacentres as the clock nears midnight</span>
     </div>
   )
 }

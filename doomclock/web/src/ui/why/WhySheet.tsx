@@ -1,29 +1,32 @@
 // Why this time? as a Paper sheet over the dimmed globe: Anchors → the Monte Carlo fan → the date
 // → the hand, then the Track record tab. It explains the real forecast only, never game state.
-import { useState } from 'react'
-import type { BacktestFile, NodeId, Timeline, World } from '../../contracts.ts'
-import { clockFace, readingLine } from '../clock/Clock.tsx'
+import type { BacktestFile, NodeId, RecordedFuture, RecordedStep, Rubric, Timeline, World } from '../../contracts.ts'
+import { clockFace } from '../clock/Clock.tsx'
 import type { Hand } from '../clock/scale.ts'
 import { dmy, longDate, pct } from '../format.ts'
 import { TrackRecord } from '../track/TrackRecord.tsx'
 import { Label } from '../Label.tsx'
 
-export type WhyTab = 'anchors' | 'fan' | 'date' | 'hand' | 'track'
-const TABS: [WhyTab, string][] = [['anchors', 'Anchors'], ['fan', 'Fan'], ['date', 'Date'], ['hand', 'Hand'], ['track', 'Track record']]
+export type WhyTab = 'when' | 'danger' | 'track'
+const TABS: [WhyTab, string][] = [['when', 'When'], ['danger', 'How dangerous'], ['track', 'Track record']]
 const NODES: NodeId[] = ['asi2030', 'asi2040', 'asi2100', 'cat2100']
+const RUBRIC: [keyof Rubric, string, string][] = [['lossOfControl', 'Loss of control', 'higher is worse'], ['misuse', 'Misuse', 'higher is worse'], ['oversight', 'Oversight', 'higher is better'], ['racePressure', 'Race pressure', 'higher is worse']]
 
-interface Props { world: World; timeline: Timeline; hand: Hand; pin: number; daysPerSecond: number | null; backtest: BacktestFile; tab: WhyTab; onTab: (t: WhyTab) => void; onClose: () => void }
+interface Props {
+  world: World; timeline: Timeline; hand: Hand; pin: number; daysPerSecond: number | null; backtest: BacktestFile
+  /** The future being watched and its step now (null before the first step). */
+  future: RecordedFuture | null; step: RecordedStep | null; luck: number | null
+  tab: WhyTab; onTab: (t: WhyTab) => void; onClose: () => void
+}
 
-export function WhySheet({ world, timeline, hand, pin, daysPerSecond, backtest, tab, onTab, onClose }: Props) {
-  const c = timeline.clock
-  const years = c.minutesToMidnight ?? 0
-  const real = <Label kind="real">Real forecast</Label>
+export function WhySheet({ world, timeline, hand, pin, backtest, future, step, luck, tab, onTab, onClose }: Props) {
   const next = (t: WhyTab, text: string) => <a className="next" href="#" onClick={(e) => (e.preventDefault(), onTab(t))}>{text}</a>
   const body = {
-    anchors: <>
+    when: <>
       <div className="lede"><Label kind="real" /><span className="dc-data">prices as of {dmy(world.asOf)}</span></div>
-      <h3>Market prices set the anchors</h3>
-      <p>Four Manifold play-money market prices go in. These are real recorded prices, but traders do not stake real money. Thin markets can be unreliable.</p>
+      <h3>Market prices say when</h3>
+      <p>Today's clock reads today's market prices only. The rubric adds zero at today by construction. The backtest checks those prices 30 days out (Brier 0.085 vs coin 0.25); the clock's date is not scored.</p>
+      <p>Four Manifold play-money market prices go in. Traders do not stake real money, and the catastrophe market is thin. The clock reads {timeline.clock.date10 ? longDate(timeline.clock.date10) : 'after 2100'}.</p>
       <div>
         {NODES.map((id) => { const h = world.anchorHistory[id]
           return <div className="anc" key={id}><div><a href={h.url} target="_blank" rel="noopener">{h.question}</a></div><b>{pct(world.anchors[id])}</b>
@@ -31,32 +34,25 @@ export function WhySheet({ world, timeline, hand, pin, daysPerSecond, backtest, 
         <div className="anc"><div>Gap from superintelligence to catastrophe</div><b>{world.lagMeanYears} y</b>
           <span><Label kind="game-rule" /> No market backs it, so the clock shows 1 to 10 years as a range.</span></div>
       </div>
-      {next('fan', 'Next: 10,000 futures')}
+      {next('danger', 'Next: how dangerous')}
     </>,
-    fan: <>
-      <div className="lede">{real}<span className="dc-data">sim.ts · seed 1 · 10,000 paths</span></div>
-      <h3>10,000 futures</h3>
-      <p>Each future draws when superintelligence arrives, whether it goes wrong, and how long the gap is. The line is the share of futures gone wrong by each quarter.</p>
-      <Fan timeline={timeline} />
-      <p className="dc-dim" style={{ font: 'var(--type-body)' }}>By 2100, {pct(c.pCat2100)} of futures go wrong. The globe plays one of these futures at a time.</p>
-      {next('date', 'Next: the date')}
-    </>,
-    date: <>
-      <div className="lede">{real}</div>
-      <h3>{c.date10 ? longDate(c.date10) : 'After 2100'}</h3>
-      <p>The first day on which 1 in 10 futures has gone wrong. Below, 400 squares stand for the 10,000 futures, 25 each. By then, 40 are red.</p>
-      <div className="waffle" role="img" aria-label="40 of 400 squares red">{Array.from({ length: 400 }, (_, i) => <i key={i} className={i < 40 ? 'c' : ''} />)}</div>
-      <p className="dc-dim" style={{ font: 'var(--type-body)' }}>With a gap of 1 year it is {c.date10Range[0] ? dmy(c.date10Range[0]) : 'after 2100'}; with 10 years, {c.date10Range[1] ? dmy(c.date10Range[1]) : 'after 2100'}.</p>
-      {next('hand', 'Next: the hand')}
-    </>,
-    hand: <>
-      <div className="lede">{real}<span className="dc-faint">{daysPerSecond ? `1 s ≈ ${Math.round(daysPerSecond)} days` : ''}</span></div>
-      <div style={{ width: 240 }} dangerouslySetInnerHTML={{ __html: clockFace(hand, pin) }} />
-      <h3>{readingLine(hand)}</h3>
-      <p>The clock starts where the Bulletin of the Atomic Scientists stands today, {pin} seconds to midnight. Our forecast sets the pace: the 1-in-10 date is {years.toFixed(1)} years away, so each second on the face is about {daysPerSecond ? Math.round(daysPerSecond) : '–'} days.</p>
-      <p>Before today the hand shows the Bulletin's own settings. From today, market prices move it; nothing else does. The grey band is the 1 to 10 year range.</p>
-      {next('track', 'See the track record')}
-      <p className="verdict">A prediction, not a prophecy.</p>
+    danger: <>
+      <div className="lede"><Label kind="simulated" />{future && <span className="dc-data">Future {future.id}{step ? `, step ${step.step}` : ''}</span>}</div>
+      <h3>The simulated world says how dangerous</h3>
+      <p>MiroFish plays the world forward six months at a time. After each step a report scores it from 0 to 3. The scores move the catastrophe odds by labelled rules <Label kind="game-rule" />, not data. A scenario, not a prediction.</p>
+      {!future || !step ? <p className="dc-dim">Press play on a future. Its first step lands here.</p> : <>
+        <p>{step.summary}</p>
+        <div className="rubric">{RUBRIC.map(([k, name, hint]) => (
+          <div className="rub" key={k}><span>{name}<small>{hint}</small></span>
+            <span className="bars" aria-label={`${name}: ${step.rubric[k]} of 3, today ${future.baselineRef[k]}`}>{[1, 2, 3].map((n) => <i key={n} className={n <= step.rubric[k] ? 'on' : ''} />)}</span>
+            <b>{step.rubric[k]}<small> today {future.baselineRef[k]}</small></b></div>))}</div>
+        <h4>Events this step</h4>
+        {step.events.length ? step.events.map((e) => <div className="irow" key={e.ts + e.title}><span className="dc-data">{dmy(e.ts)}</span><div>{e.title}<span className="src dc-data">{e.who ?? 'MiroFish'}</span></div></div>) : <p className="dc-dim">No event passed the checks this step.</p>}
+        <h4>Three lines</h4>
+        <ThreeLines future={future} step={step.step} />
+        {luck != null && <p className="dc-dim">About {Math.round(luck * 100)}% of the recorded moves are luck, the gap between the dotted and dashed lines.</p>}
+      </>}
+      {next('track', 'Next: track record')}
     </>,
     track: <TrackRecord bt={backtest} fixture={backtest.leakage.canary.note === 'Fixture.'} />,
   }[tab]
@@ -77,39 +73,26 @@ export function WhySheet({ world, timeline, hand, pin, daysPerSecond, backtest, 
   )
 }
 
-/** Share of futures gone wrong by quarter (today's Monte Carlo), the 1-in-10 line and the date. */
-function Fan({ timeline }: { timeline: Timeline }) {
-  const [hover, setHover] = useState<number | null>(null)
-  const W = 600, H = 250, L = 40, B = 26, T = 14, R = 10
-  const now = Date.parse(timeline.asOf)
-  const pts = timeline.frames.filter((f) => f.provenance === 'projected').map((f) => [Date.parse(f.start) + 91 * 864e5, f.pCat] as const)
-  const all = [[now, 0] as const, ...pts]
-  const x0 = now, x1 = all.at(-1)![0], top = Math.max(0.15, Math.ceil((all.at(-1)![1] + 0.02) * 20) / 20)
-  const x = (t: number) => L + ((t - x0) / (x1 - x0)) * (W - L - R)
-  const y = (p: number) => T + (1 - p / top) * (H - T - B)
-  const d10 = timeline.clock.date10 ? Date.parse(timeline.clock.date10) : null
-  const txt = { fill: 'var(--ink-3)', font: '400 12px var(--font-sans)' }
-  const years = []
-  for (let yr = new Date(x0).getUTCFullYear() + 1; Date.UTC(yr, 0, 1) <= x1; yr += 2) years.push(yr)
-  const h = hover != null ? all[hover] : null
+/** The 1-in-10 date at each step: with events and report (solid), rules off (dashed), today's odds with no events (dotted). */
+function ThreeLines({ future, step }: { future: RecordedFuture; step: number }) {
+  const W = 420, H = 150, L = 40, B = 22, T = 10, R = 10
+  const n = future.steps.length
+  const series: [string, string, string | undefined, (s: RecordedStep) => number][] = [
+    ['With events and report', 'var(--ink)', undefined, (s) => s.date10], ['Rules off', 'var(--ink-2)', '5 3', (s) => s.rulesOffDate10], ['Today\'s odds, no events', 'var(--ink-3)', '1 3', (s) => s.noEventsDate10]]
+  const ys = future.steps.flatMap((s) => series.map(([, , , f]) => f(s)))
+  const lo = Math.floor(Math.min(...ys) * 2) / 2, hi = Math.max(lo + 1, Math.ceil(Math.max(...ys) * 2) / 2)
+  const x = (i: number) => L + (i / Math.max(1, n - 1)) * (W - L - R), y = (v: number) => T + (1 - (v - lo) / (hi - lo)) * (H - T - B)
+  const txt = { fill: 'var(--ink-3)', font: '400 11px var(--font-sans)' }
   return (
-    <div className="fan">
-      <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height: 'auto', display: 'block' }} role="img" aria-label="Share of futures gone wrong by quarter"
-        onPointerMove={(e) => { const r = e.currentTarget.getBoundingClientRect(), px = ((e.clientX - r.left) / r.width) * W
-          let best = 0; all.forEach((p, i) => { if (Math.abs(x(p[0]) - px) < Math.abs(x(all[best][0]) - px)) best = i }); setHover(best) }}
-        onPointerLeave={() => setHover(null)}>
-        {[0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3].filter((p) => p <= top).map((p) => <g key={p}>
-          <line x1={L} x2={W - R} y1={y(p)} y2={y(p)} style={{ stroke: p === 0.1 ? 'var(--ink-3)' : 'var(--rule)' }} strokeDasharray={p === 0.1 ? '4 3' : undefined} />
-          <text x={L - 8} y={y(p) + 4} style={txt} textAnchor="end">{Math.round(p * 100)}%</text></g>)}
-        {years.map((yr) => <text key={yr} x={x(Date.UTC(yr, 0, 1))} y={H - 6} style={txt} textAnchor="middle">{yr}</text>)}
-        <path d={all.map((p, i) => `${i ? 'L' : 'M'}${x(p[0]).toFixed(1)},${y(p[1]).toFixed(1)}`).join('')} style={{ stroke: 'var(--ink)', strokeWidth: 2, fill: 'none' }} />
-        {d10 && d10 <= x1 && <>
-          <line x1={x(d10)} x2={x(d10)} y1={y(0.1)} y2={H - B} style={{ stroke: 'var(--ink-3)' }} strokeDasharray="2 3" />
-          <circle cx={x(d10)} cy={y(0.1)} r={5} style={{ fill: 'var(--ink)', stroke: 'var(--ground)', strokeWidth: 2 }} />
-          <text x={x(d10) - 9} y={y(0.1) - 9} textAnchor="end" style={{ fill: 'var(--ink)', font: '600 12px var(--font-sans)' }}>1 in 10 · {dmy(timeline.clock.date10!)}</text></>}
-        {h && <><line x1={x(h[0])} x2={x(h[0])} y1={T} y2={H - B} style={{ stroke: 'var(--ink-2)' }} /><circle cx={x(h[0])} cy={y(h[1])} r={4} style={{ fill: 'var(--ink)' }} /></>}
+    <div>
+      <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height: 'auto', display: 'block' }} role="img" aria-label="The 1-in-10 date at each step, three lines">
+        {[lo, (lo + hi) / 2, hi].map((v) => <g key={v}><line x1={L} x2={W - R} y1={y(v)} y2={y(v)} style={{ stroke: 'var(--rule)' }} /><text x={L - 6} y={y(v) + 4} textAnchor="end" style={txt}>{v.toFixed(1)}</text></g>)}
+        {future.steps.map((s, i) => <text key={s.step} x={x(i)} y={H - 6} textAnchor="middle" style={{ ...txt, fontWeight: s.step === step ? 700 : 400 }}>{s.end.slice(0, 4)} {+s.end.slice(5, 7) <= 1 ? 'Jan' : 'Jul'}</text>)}
+        {series.map(([name, c, dash, f]) => <path key={name} d={future.steps.map((s, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(f(s)).toFixed(1)}`).join('')} style={{ stroke: c, strokeWidth: 2, fill: 'none' }} strokeDasharray={dash} />)}
+        <circle cx={x(step - 1)} cy={y(future.steps[step - 1].date10)} r={4} style={{ fill: 'var(--ink)' }} />
       </svg>
-      {h && <div className="tip dc-panel" style={{ display: 'block', left: `${Math.min(70, (x(h[0]) / W) * 100)}%` }}><b>{dmy(new Date(h[0]).toISOString())}</b> · {(h[1] * 100).toFixed(1)}% of futures gone wrong</div>}
+      <div className="dc-faint" style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap' }}>{series.map(([name, c, dash]) => <span key={name}><svg width="22" height="8" style={{ verticalAlign: 'middle' }}><line x1="0" x2="22" y1="4" y2="4" style={{ stroke: c, strokeWidth: 2 }} strokeDasharray={dash} /></svg> {name}</span>)}</div>
     </div>
   )
 }
+

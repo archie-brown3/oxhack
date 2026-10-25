@@ -14,6 +14,8 @@ export interface TourStep {
   ask: string
   /** The step completes by itself when this happens (on `selector`, else on `target`). */
   on?: { event: 'click' | 'input'; selector?: string; key?: string }
+  /** The step completes by itself once this turns true (e.g. the first simulated step has landed). */
+  complete?: boolean
   /** The card's button. `run` happens before moving on. Default: "Next". */
   next?: { label: string; run?: () => void }
   /** Runs when the step opens: open or close a sheet, pause the replay. */
@@ -56,6 +58,12 @@ export function Tour({ steps, onEnd }: { steps: TourStep[]; onEnd: () => void })
   // the re-render the action itself causes doesn't cancel the pending advance.
   const advanceRef = useRef(advance)
   advanceRef.current = advance
+  const complete = !!step?.complete
+  useEffect(() => {
+    if (!complete) return
+    const t = setTimeout(() => advanceRef.current(), 1200)
+    return () => clearTimeout(t)
+  }, [complete, i])
   useEffect(() => {
     const on = step?.on
     if (!on) return

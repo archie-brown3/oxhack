@@ -1020,22 +1020,22 @@
         "id": 151,
         "title": "[P1 \u00b7 ui] Coupled loop UI: 5-future switcher, simulated clock, YAGNI cuts, walkthrough",
         "description": "The UI half of the coupled loop and the YAGNI pass: load futures.json (fixture until recordings land), one 5-future switcher, the clock on simulated frames with today's ghost hand, 'why the hand moved' in four rows, Why sheet with When / How dangerous / Track record, Engine per-step panel, the cuts, and the 5-step walkthrough in plain words.",
-        "details": "Spec: docs/superpowers/specs/2026-10-25-doom-clock-coupled-loop-design.md (the Amendments section wins on conflict) (UI section, Amendments 10-12 and the cut order). Scope: doomclock/web/src/app/**, doomclock/web/src/ui/** (not engine/), styles, index.html. Task 148's datacentre red already landed in Globe.tsx: keep it working. Remove '10,000 futures' copy everywhere.",
+        "details": "Spec: docs/superpowers/specs/2026-10-25-doom-clock-coupled-loop-design.md (the Amendments section wins on conflict) (UI section, Amendments 10-12 and the cut order). Scope: doomclock/web/src/app/**, doomclock/web/src/ui/** (not engine/), styles, index.html. Task 148's datacentre red already landed in Globe.tsx: keep it working. Remove '10,000 futures' copy everywhere.\n2026-10-25T02:27:23Z: Chunk 1 landed: futures loader (futures.json, else fixture), clock on simulated frames with ghost hand, 4-row why-the-hand-moved, Why tabs, 5-step walkthrough, copy, YAGNI cuts. npm test and build pass. Engine view untouched per owner.",
         "testStrategy": "Headless screenshots at 1440x900 and 390x844 of the judge path (today, Inputs at two dates, Future 1 playing with the callout, a ping popover, Why tabs, Track record), 0 console errors, npm test and build pass, first render under 2 s.",
-        "status": "pending",
+        "status": "in-progress",
         "dependencies": [
           149
         ],
         "priority": "high",
         "subtasks": [],
-        "updatedAt": "2026-10-25T02:16:46Z"
+        "updatedAt": "2026-10-25T02:27:23Z"
       }
     ],
     "metadata": {
       "created": "2026-10-24T19:50:00Z",
       "description": "Doom Clock. P1 = the Monte Carlo simulation (10,000 futures; the globe plays one sampled future; a MiroFish society ensemble for ~5 representative futures): a Plague Inc-style world view of a quarterly Timeline (real -> projected), with the analog clock in the corner (build now). P2 = the game on the same screen (deferred, gated by task 9). Game plan: docs/superpowers/plans/2026-10-24-doom-clock-game-plan-full.md Demo path: Inputs (seed data, as-of slider) -> live run (Monte Carlo in the browser + one live MiroFish quarter) -> replay recorded futures -> Why this time? + Track record. SCOPE CUT 22:20 BST: checkpoints 00:00 engine+asOf+mockup OK, 03:00 World+clock+Why on real data, 06:00 Inputs+track record+recorded runs, 09:00 polish+Devpost (live run if ahead), freeze 11:30 GMT, submit 11:45 GMT. OVERNIGHT RUN (25 Oct 00:15 GMT, owner instruction): build the whole product as one demo; every task including the former deferred P2 game tasks is now active. Lanes (one workflow, git worktrees, each lane lands on main): core-data (14,3,103,110), backtest (6,106,118), game-core (101,107,108,115,116,117,119,124,125,129), society (102,105,11,112,109 then 113,114,120-123,128,131,132,134), ui (8,15,4,5,18,111 + first-launch walkthrough, then 126,127,133,135,7,136), ship (17,137,138,139). Owner-only tasks (130,140,142,143,144) are prepared but need Archie. SCOPE CHANGE 25 Oct 01:00 GMT (Archie): drop the game layer; MiroFish plays 5 representative futures x 4 quarters. Game tasks are cancelled and their code is removed. Context: Notion page and the vault note 'Oxhack Presentation'.",
       "version": "1.0.0",
-      "lastModified": "2026-10-25T02:27:10Z",
+      "lastModified": "2026-10-25T02:27:23Z",
       "taskCount": 66,
       "completedCount": 28,
       "tags": [

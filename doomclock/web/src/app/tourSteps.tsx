@@ -1,6 +1,4 @@
-// The walkthrough's steps, as data. Each asks for one thing in ordinary words. The game lane
-// replaces the 'game' step (same id) once the Guardian's moves exist.
-import { TwoLine, type LinePoint } from '../ui/chart/TwoLine.tsx'
+// The walkthrough's five steps, as data. Each asks for one thing in ordinary words.
 import { dmy } from '../ui/format.ts'
 import type { TourStep } from './Tour.tsx'
 
@@ -10,7 +8,9 @@ export interface TourContext {
   daysPerSecond: number | null
   /** The backtest's headline, when a real one is loaded (not the fixture). */
   trackHeadline: string | null
-  real: LinePoint[]
+  /** True once the first simulated step has landed. */
+  landed: boolean
+  openDanger: () => void
   openInputs: () => void
   closeSheets: () => void
   openTrack: () => void
@@ -21,7 +21,7 @@ export function tourSteps(c: TourContext): TourStep[] {
     {
       id: 'clock', target: '#clock', enter: c.closeSheets,
       title: 'This clock counts down',
-      body: <p>It counts down to <b>{c.date10 ? dmy(c.date10) : 'after 2100'}</b>, the day the chance of an AI catastrophe passes 1 in 10. The date comes from today's prediction-market prices.{c.daysPerSecond ? ` Each second on the face is about ${Math.round(c.daysPerSecond)} days.` : ''}</p>,
+      body: <p>It counts down to <b>{c.date10 ? dmy(c.date10) : 'after 2100'}</b>, the day the chance of an AI catastrophe passes 1 in 10. The date comes from today's prediction-market prices only.{c.daysPerSecond ? ` Each second on the face is about ${Math.round(c.daysPerSecond)} days.` : ''}</p>,
       ask: 'Look at the hand and the countdown under it.',
       next: { label: 'Got it' },
     },
@@ -33,20 +33,17 @@ export function tourSteps(c: TourContext): TourStep[] {
       on: { event: 'input', selector: '#asof' },
     },
     {
-      id: 'play', target: '.dc-play', enter: c.closeSheets,
-      title: 'Watch one possible future',
-      body: <p>The engine draws 10,000 futures from the same model as the clock. The globe plays one of them, a quarter at a time. Solid rings are real events. Dashed rings are simulated.</p>,
-      ask: 'Press play.',
-      on: { event: 'click', selector: '.dc-play', key: ' ' },
+      id: 'play', target: '.dc-play', enter: c.closeSheets, complete: c.landed,
+      title: 'Watch a simulated future',
+      body: <p>MiroFish plays a made-up world forward six months at a time. Dashed rings are simulated events. Each one nudges the clock by a rule we set. Nothing here moves the real clock.</p>,
+      ask: 'Press play and wait for the first step to land.',
     },
     {
-      id: 'game',
-      title: 'Your move',
-      body: <>
-        <p>In the game you play the Guardian against a Rogue AI. Your moves bend <b>your timeline</b>. The real forecast never moves, so you always see what you changed.</p>
-        <TwoLine real={c.real} yours={null} width={320} height={130} years={10} />
-      </>,
-      ask: 'Find the 1-in-10 line on the chart.',
+      id: 'danger', target: '#clock', enter: c.openDanger,
+      title: 'How dangerous is it?',
+      body: <p>The market says <b>when</b>. After each step a report scores the simulated world from 0 to 3 on loss of control, misuse, oversight and race pressure. That sets <b>how dangerous</b>.</p>,
+      ask: 'Look at the four scores and the three lines.',
+      next: { label: 'Got it', run: c.closeSheets },
     },
     {
       id: 'track', target: '#clock',

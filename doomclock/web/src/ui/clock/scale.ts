@@ -13,7 +13,9 @@ export const bulletinAt = (b: BulletinSetting[], t: number) => b.filter((x) => D
 
 export interface Hand {
   seconds: number
-  source: 'bulletin' | 'forecast'
+  source: 'bulletin' | 'forecast' | 'simulated'
+  /** Simulated frames: today's reading, drawn as a ghost hand. */
+  ghost?: number
   /** Seconds the 1-in-10 date range spans at this scale, for the grey band. */
   range: [number, number] | null
   setting: BulletinSetting | null
@@ -33,6 +35,7 @@ export function scaleOf(timeline: Timeline, bulletin: BulletinSetting[]) {
     /** The hand for a frame: the Bulletin's setting up to today, today pinned, the forecast after. */
     hand(frame: WorldFrame, isToday: boolean): Hand {
       const start = Date.parse(frame.start)
+      if (frame.provenance === 'simulated') return { seconds: frame.clock?.minutesToMidnight == null ? FACE_SECONDS : k * frame.clock.minutesToMidnight, source: 'simulated', range: null, ghost: pin, setting: today }
       if (isToday) return { seconds: pin, source: 'bulletin', range: rangeAt(timeline.clock, now), setting: today }
       if (start < now) {
         const s = bulletinAt(bulletin, start + 92 * 864e5) // the setting in force by the end of the quarter

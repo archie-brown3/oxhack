@@ -378,3 +378,21 @@ img.av { object-fit: cover; padding: 0; }
   #roster { padding: var(--space-4); }
   #roster .rhead { flex-wrap: wrap; }
 }
+
+/* Coupled loop: simulated clock, inline legend, why-sheet rubric */
+#clock .sim-date { font: var(--type-body); color: var(--ink); }
+#legend { position: fixed; left: var(--space-5); right: var(--space-5); bottom: 196px; z-index: 24; display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); pointer-events: none; font-size: 12px; }
+#legend span { display: inline-flex; align-items: center; gap: var(--space-1); }
+#legend svg { width: 20px; height: 14px; }
+#legend .k-real { fill: none; stroke: var(--ink); stroke-width: 2; }
+#legend .k-sim { fill: none; stroke: var(--sim); stroke-width: 2; stroke-dasharray: 3 2.4; }
+#legend .k-cat { fill: var(--alarm); }
+.rubric { display: grid; gap: var(--space-2); margin: var(--space-3) 0; }
+.rub { display: grid; grid-template-columns: minmax(0, 1fr) 64px 90px; align-items: center; gap: var(--space-3); }
+.rub small { display: block; color: var(--ink-3); font-weight: 400; }
+.rub b small { display: inline; }
+.rub .bars { display: flex; gap: 3px; }
+.rub .bars i { flex: 1; height: 8px; border: 1px solid var(--ink-3); border-radius: 2px; }
+.rub .bars i.on { background: var(--ink); border-color: var(--ink); }
+body.engine #legend { display: none; }
+@media (max-width: 720px) { #legend { display: none; } }
