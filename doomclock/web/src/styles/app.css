@@ -412,6 +412,8 @@ img.av { object-fit: cover; padding: 0; }
 
 /* Futures switcher in the top bar */
 #futseg { position: fixed; top: var(--space-5); right: calc(50% + 140px); z-index: 30; padding: var(--space-2) var(--space-4); }
+#futseg .dc-tabs button { min-width: var(--space-6); } /* numbered buttons stay a real tap target (24px; they were 7-9 px wide) */
+@media (min-width: 721px) { #futseg { padding: var(--space-2) var(--space-3); } }
 /* Phones: the numbered switcher fits top-left beside World | Engine, clear of the clock card however tall it runs. */
 @media (max-width: 720px) { #futseg { top: var(--space-3); bottom: auto; right: auto; left: var(--space-3); padding: var(--space-2) var(--space-3); } #futseg .dc-tabs { gap: var(--space-4); } }
 
