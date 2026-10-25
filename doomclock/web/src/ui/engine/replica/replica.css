@@ -2,7 +2,7 @@
    MirFish frontend App.vue and MainView.vue. Component styles live next to their components. */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@100..800&family=Noto+Sans+SC:wght@300;400;500;700;800;900&family=Space+Grotesk:wght@300..700&display=swap');
 
-#engine-replica { position: fixed; z-index: 15; top: 76px; bottom: 150px; left: var(--space-5, 16px); right: var(--space-5, 16px); border-radius: 8px; box-shadow: 0 8px 40px rgba(0,0,0,.45); }
+#engine-replica { position: fixed; z-index: 15; top: 76px; bottom: 150px; left: 300px; /* clear of the Clock card, as the old Engine screen did */ right: var(--space-5, 16px); border-radius: 8px; box-shadow: 0 8px 40px rgba(0,0,0,.45); }
 .mf, .mf * { box-sizing: border-box; }
 .mf { display: flex; flex-direction: column; background: #FFF; color: #000; overflow: hidden; font-family: 'Space Grotesk', 'Noto Sans SC', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
 .mf button { font-family: inherit; }
@@ -38,7 +38,7 @@
 
 .mf-btn { border: 1px solid #000; background: #FFF; padding: 6px 14px; font: 600 12px 'JetBrains Mono', monospace; cursor: pointer; }
 .mf-btn:hover { background: #000; color: #FFF; }
-.mf-replay { position: absolute; left: 16px; bottom: 16px; right: 16px; display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,.94); border: 1px solid #EAEAEA; padding: 8px 12px; z-index: 20; }
+.mf-replay { position: absolute; right: 16px; bottom: 16px; width: 300px; display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,.94); border: 1px solid #EAEAEA; padding: 8px 12px; z-index: 20; }
 .mf-replay input { flex: 1; accent-color: #FF5722; }
 .mf-replay-n { font: 600 12px 'JetBrains Mono', monospace; color: #666; white-space: nowrap; }
 .mf-step5 { display: grid; place-items: center; height: 100%; }
