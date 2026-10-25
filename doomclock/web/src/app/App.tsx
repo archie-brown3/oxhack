@@ -15,6 +15,7 @@ import { EventPop, FutureSwitcher, Legend, Newsflash, Spine, Ticker, type Flash 
 import { backtest } from '../fixtures/backtest.ts'
 import { countryAt, countryName, load, loadTrack, type Data } from './data.ts'
 import { Tour, tourDone } from './Tour.tsx'
+import { Boundary } from './Boundary.tsx'
 import { liveMode } from '../ui/engine/live.ts'
 import { tourSteps } from './tourSteps.tsx'
 
@@ -160,9 +161,11 @@ function World({ data }: { data: Data }) {
 
   return (
     <div className={view} onClick={() => setPop(null)}>
+      <Boundary fallback={<div id="globe" />}>
       <Suspense fallback={<div id="globe" />}>
         <GlobeView hidden={view === 'engine'} countries={countries} dcs={data.dcs} frame={frame} closeness={closeness(hand)} ended={false} events={located} spanMs={live && playing ? STEP_MS : null} flare={flare} focus={focus} rotate={!sheet && view === 'world'} onPick={(e, anchor) => setPop({ e, anchor })} />
       </Suspense>
+      </Boundary>
       <div id="vignette" />
       <Clock hand={hand} pin={scale.pin} daysPerSecond={scale.daysPerSecond} today={timeline.clock} isToday={isToday} frame={frame} prev={frames[cur - 1] ?? null}
         sim={step ? { n: fi + 1, of: futures.length, step, move: sheet ? null : move, live: live && !sheet && view !== 'engine', standIn: !!future.fixture } : null} onWhy={() => setSheet('why')} />
@@ -173,7 +176,7 @@ function World({ data }: { data: Data }) {
           <button aria-pressed={sheet !== 'inputs' && view === 'engine'} onClick={() => { setSheet(null); setView('engine') }}>Engine<kbd>E</kbd></button>
         </div>
       </nav>
-      {view === 'engine' && <Suspense fallback={null}><EngineScreen futureId={futures[fi]?.id ?? 1} step={step?.step ?? 1} live={liveDemo} /></Suspense>}
+      {view === 'engine' && <Boundary><Suspense fallback={null}><EngineScreen futureId={futures[fi]?.id ?? 1} step={step?.step ?? 1} live={liveDemo} /></Suspense></Boundary>}
       <FutureSwitcher futures={futures} current={fi} endDate={frames.at(-1)?.clock?.date10 ?? null} onPick={choose} />
       {view === 'world' && <Legend />}
       <NewsFeed events={feed.events} playing={playing} freshFrom={Date.parse(frame.start)} onExpand={() => setFeedOpen(true)} />
