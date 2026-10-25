@@ -123,7 +123,7 @@ s.addText("doomclock-web.vercel.app", {
   x: px(560), y: px(590), w: px(800), h: px(30), margin: 0, isTextBox: true, objectName: "demo url",
   fontFace: MONO, fontSize: 13, color: C.accent5, align: "center",
 });
-s.addNotes(`LIVE DEMO (20%). Path: Inputs with the as-of slider (prove no leakage) → Run the Monte Carlo in the browser → Replay one future on the globe, read the driver callout under the clock → Engine: the MiroFish society (X feed, government, news - all SIMULATED, recorded run with seed and id) → Why this time?. Replace the centre with screenshots or switch to the browser; the link opens the live site.`);
+s.addNotes(`LIVE DEMO (20%). Path: Inputs with the as-of slider (prove no leakage) → Replay one future on the globe, read the driver callout under the clock → Engine: MiroFish's screens on the 24 Oct spike, labelled stand-in, not a recorded future → Why this time? and Track record. The two futures are an illustrative stand-in. Replace the centre with screenshots or switch to the browser; the link opens the live site, which may be an older build until the Vercel root is doomclock/web.`);
 
 s = S("6 Track record - the cards");
 s.addText("Track record: are the inputs any good?", { placeholder: "title" });

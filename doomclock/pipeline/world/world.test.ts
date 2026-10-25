@@ -5,6 +5,7 @@ import { test } from "node:test";
 import { realIdentifiers, eligible, type Post } from "./readout.ts";
 import { formatPeriod, realPeriod } from "./format.ts";
 import { date10Year, marketsLine } from "./record.ts";
+import { seedPack } from "./step1.ts";
 import { fetchGraphWhenDrained, fetchReport, futureProject, graphCounts, rubricPrompt, simulationCreateBody, startBody, summaryFromReport, type Api } from "./loop.ts";
 import type { WorldEvent } from "../../web/src/contracts.ts";
 
@@ -89,6 +90,21 @@ test("Zep drain: a pending graph is not saved; two settled reads with the same c
   assert.equal((saved as { node_count: number }).node_count, 12);
   assert.equal(seen.length, 3);
   await assert.rejects(() => fetchGraphWhenDrained(async () => busy, "mirofish_a", async () => {}, 2), /still processing/);
+});
+
+test("seed pack: under 12 KB, current odds, and only events from before today", () => {
+  const pack = seedPack();
+  assert.ok(pack.length <= 12_000, `pack is ${pack.length} chars`);
+  assert.ok(pack.length > 2_000);
+  const asOf = pack.match(/before (\d{4}-\d{2}-\d{2})/)?.[1];
+  assert.ok(asOf);
+  const dated = [...pack.matchAll(/^- (\d{4}-\d{2}-\d{2})/gm)].map((m) => m[1]);
+  assert.ok(dated.length >= 10);
+  assert.ok(dated.every((d) => d < asOf!));
+  assert.match(pack, /catastrophe by 2100: \d/);
+  assert.equal(pack.split("## Actors")[1].trim().split("\n").filter((l) => l.startsWith("- ")).length, 32);
+  // The stalled build was 115 episodes from 38,280 chars. This scales under that.
+  assert.ok(Math.round(115 * (pack.length / 38280)) <= 40);
 });
 
 test("MARKETS NOW carries the anchors, their change and the clock", () => {

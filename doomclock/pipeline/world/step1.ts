@@ -19,28 +19,37 @@ const events = (JSON.parse(readFileSync(join(ROOT, "data/events.json"), "utf8"))
 const cast = loopCast(JSON.parse(readFileSync(join(ROOT, "doomclock/web/src/game/data/cast.json"), "utf8")) as Cast);
 
 const day = (ts: string) => ts.slice(0, 10);
-const line = (e: WorldEvent) => `- ${day(e.ts)}: ${e.who ? e.who + " — " : ""}${e.title}.${e.detail ? " " + e.detail.slice(0, 220) : ""}`;
+/** One short line. Detail text is what blew the first pack out to 38 KB and 115 Zep episodes. */
+const line = (e: WorldEvent) => `- ${day(e.ts)}: ${e.who ? e.who + " — " : ""}${e.title}`.slice(0, 180);
+
+/** The first build sent 115 episodes from a 38 KB pack and Zep stalled at 600 s. Keep this under 12 KB. */
+export const SEED_PACK_MAX = 12_000;
 
 /** The "world today" document every future's graph is built from. Real data up to today, nothing after. */
 export function seedPack(): string {
   const { events: period, incidents } = realPeriod(events, world.asOf);
   const a = world.anchors;
-  const incs = period.filter((e) => e.kind === "incident").sort((x, y) => Number(!!y.major) - Number(!!x.major) || Date.parse(y.ts) - Date.parse(x.ts)).slice(0, 40);
-  return [
-    `# The world on ${day(world.asOf)}: AI, risk and the actors`,
-    `This is the starting point of a simulation. Everything below happened on or before ${day(world.asOf)}.`,
-    `## What prediction markets say today`,
-    `- Chance that powerful AI (superintelligence) exists by 2030: ${(a.asi2030 * 100).toFixed(0)}%. By 2040: ${(a.asi2040 * 100).toFixed(0)}%. By 2100: ${(a.asi2100 * 100).toFixed(0)}%.`,
-    `- Chance of an AI catastrophe by 2100: ${(a.cat2100 * 100).toFixed(0)}% (a thin play-money market).`,
-    `## AI incidents in the last six months (${incidents} logged; the most serious and newest ${incs.length} are listed)`,
+  const pick = (kind: WorldEvent["kind"], n: number) => period
+    .filter((e) => e.kind === kind)
+    .sort((x, y) => Number(!!y.major || y.severity === "major") - Number(!!x.major || x.severity === "major") || Date.parse(y.ts) - Date.parse(x.ts))
+    .slice(0, n);
+  const incs = pick("incident", 12);
+  const gov = pick("government", 8);
+  const text = [
+    `# The world on ${day(world.asOf)}`,
+    `Starting point of a simulation. Everything below was public before ${day(world.asOf)}.`,
+    `## Markets`,
+    `- Powerful AI by 2030: ${(a.asi2030 * 100).toFixed(0)}%. By 2040: ${(a.asi2040 * 100).toFixed(0)}%. By 2100: ${(a.asi2100 * 100).toFixed(0)}%.`,
+    `- AI catastrophe by 2100: ${(a.cat2100 * 100).toFixed(1)}% (a thin play-money market).`,
+    `## Incidents in the last six months (${incidents} logged; ${incs.length} listed)`,
     ...incs.map(line),
-    `## Government decisions in the last six months`,
-    ...period.filter((e) => e.kind === "government").map(line),
-    `## Other news in the last six months`,
-    ...period.filter((e) => e.kind === "news").map(line),
-    `## The actors`,
-    ...cast.accounts.map((c) => `### ${c.name} (${c.group}, ${c.region})\nRole: ${c.goals.join("; ")}. Powers: ${c.powers.join("; ")}. ${c.facts.map((f) => f.text).join(" ")}`),
-  ].join("\n\n") + "\n";
+    `## Government acts in the last six months`,
+    ...gov.map(line),
+    `## Actors`,
+    ...cast.accounts.map((c) => `- ${c.name} (${c.group}, ${c.region}): ${(c.goals[0] ?? "").slice(0, 90)}`),
+  ].join("\n") + "\n";
+  if (text.length > SEED_PACK_MAX) throw new Error(`seed pack is ${text.length} chars; the limit is ${SEED_PACK_MAX} so the Zep build can finish`);
+  return text;
 }
 
 async function form(path: string, fd: FormData) {
