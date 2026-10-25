@@ -322,7 +322,7 @@
         "id": 7,
         "title": "[clock] Track record view",
         "description": "One click from the clock: a Brier table (market vs coin vs base rate, with CIs), the reliability curve, n, and caveats.",
-        "details": "Scope: doomclock/web/src/ui/track/**.\nSCOPE CUT 24 Oct 22:20: Not its own screen: a Track record tab inside the 'Why this time?' Paper sheet.\nBUILD (ui, 2026-10-24T21:27:19Z): ui/track/TrackRecord.tsx as a tab in the Why sheet: market vs base rate vs 50% coin with 95% CIs, n, reliability, caveats. Reads src/fixtures/backtest.ts (fixture) until backtest.json lands.\n2026-10-25T00:29:48Z: Landed: ui/track/TrackRecord.tsx now reads the real public/cache/backtest.json via loadTrack() in app/data.ts (the fixture is only a fallback and is never shown as a result). Shows a computed headline, the Brier table with 95% intervals and a small interval strip per row (market 0.085, blind model 0.185, base rate 0.183, coin 0.250), n, per-site scores, the w result, a two-series reliability chart in inline SVG with a calibration-gap sentence (market 2 points, model 11), the five leakage checks and the caveats. Own styles in ui/track/track.css (table headers in plain sans, not eyebrow). Headless check at 1440x900 and 390x844: no horizontal scroll, 0 console errors from the app (the only one is /favicon.ico 404, not this tab); 23 of 23 numbers in the tab match backtest.json exactly.\n2026-10-25T05:49:02Z: The Brier table now states, on the line under the scores, that Manifold questions in the score have at least design.minTradersManifold traders (20 in backtest.json).",
+        "details": "Scope: doomclock/web/src/ui/track/**.\nSCOPE CUT 24 Oct 22:20: Not its own screen: a Track record tab inside the 'Why this time?' Paper sheet.\nBUILD (ui, 2026-10-24T21:27:19Z): ui/track/TrackRecord.tsx as a tab in the Why sheet: market vs base rate vs 50% coin with 95% CIs, n, reliability, caveats. Reads src/fixtures/backtest.ts (fixture) until backtest.json lands.\n2026-10-25T00:29:48Z: Landed: ui/track/TrackRecord.tsx now reads the real public/cache/backtest.json via loadTrack() in app/data.ts (the fixture is only a fallback and is never shown as a result). Shows a computed headline, the Brier table with 95% intervals and a small interval strip per row (market 0.085, blind model 0.185, base rate 0.183, coin 0.250), n, per-site scores, the w result, a two-series reliability chart in inline SVG with a calibration-gap sentence (market 2 points, model 11), the five leakage checks and the caveats. Own styles in ui/track/track.css (table headers in plain sans, not eyebrow). Headless check at 1440x900 and 390x844: no horizontal scroll, 0 console errors from the app (the only one is /favicon.ico 404, not this tab); 23 of 23 numbers in the tab match backtest.json exactly.\n2026-10-25T05:49:02Z: The Brier table now states, on the line under the scores, that Manifold questions in the score have at least design.minTradersManifold traders (20 in backtest.json).\n2026-10-25T06:02:57Z: Why, When reads cache/backtest.json through measuredScore. The fixture (market Brier 0.100) is not quoted. The measured file supplies Brier 0.085 vs coin 0.250 and the 20-trader minimum. whyCopy.test.ts covers both.",
         "testStrategy": "Headless screenshot on fixture, then on the real backtest.json.",
         "status": "done",
         "dependencies": [
@@ -331,7 +331,7 @@
         ],
         "priority": "medium",
         "subtasks": [],
-        "updatedAt": "2026-10-25T05:49:02Z"
+        "updatedAt": "2026-10-25T06:02:57Z"
       },
       {
         "id": 8,
@@ -661,7 +661,7 @@
       "created": "2026-10-24T19:50:00Z",
       "description": "Doom Clock (OxHack 2026). PLAN as of 25 Oct 02:45 GMT (owner): one forecast, three scenarios. Today's clock reads real prediction-market odds (the backtest scores them: Brier 0.085 vs coin 0.25 on 1,186 later questions). Three futures are played forward on real MiroFish (own Zep graph per future, report agent per 6-month step, 5 rounds); simulated events nudge the 'when' odds and the report's rubric sets 'how dangerous', by labelled game rules; each future's clock moves, the real one never does. The Engine tab is a 1:1 replica of MiroFish's UI on the recordings; the World view has a live news feed with severity-driven legibility. Spec: docs/superpowers/specs/2026-10-25-doom-clock-coupled-loop-design.md (Amendments 2 wins, then Amendments, then the body). Lanes in Herdr workspace 'Doom Clock build': engine (149 done), recorder (150, 152-154, 156), ui (151, 155). Gates (GMT): 03:45 seam, 05:30 loop (step 1 of each future with graph and report), 07:30 release candidate (139), freeze 11:30, submit 11:45. The game layer was dropped on 25 Oct; its tasks are in the 'archive' tag. CLOUD HANDOFF 25 Oct 02:55 GMT: all Herdr lanes stopped and landed; no future has been recorded (future 1's Zep graph build stalled, see 152). Tasks needing Archie's Mac (152-154, 156) are blocked; everything else is finishable in the cloud. Start with docs/HANDOFF.md, then this board.",
       "version": "1.0.0",
-      "lastModified": "2026-10-25T05:49:02Z",
+      "lastModified": "2026-10-25T06:02:57Z",
       "taskCount": 46,
       "completedCount": 34,
       "tags": [
