@@ -173,7 +173,7 @@ function SimMoved({ sim, onClose }: { sim: NonNullable<Props['sim']> & { move: M
       ))}
       {!move.split && <div className="drv"><span className="dc-faint">Events and situation report, together</span><span>{move.rows[0].months < 0 ? '−' : '+'}{mths(move.rows[0].months)}</span></div>}
       <div className="ctx">
-        <span>{step.summary}</span>
+        {step.summary && <span>{step.summary}</span>}
         {top.map((e) => <div key={e.ts + e.title}><span className="dc-data">{dmy(e.ts)}</span> {e.title.length > 90 ? e.title.slice(0, 90) + '…' : e.title}</div>)}
         <span className="dc-faint">How much each event moves the odds is our rule, not data <Label kind="game-rule" />. Simulated by MiroFish <Label kind="simulated" /></span>
       </div>

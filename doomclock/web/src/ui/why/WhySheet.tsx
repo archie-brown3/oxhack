@@ -55,7 +55,7 @@ export function WhySheet({ world, timeline, hand, pin, backtest, future, step, l
       <h3>The simulated world says how dangerous</h3>
       <p>MiroFish plays the world forward six months at a time, as a society of accounts on a simulated X. What governments and labs do there becomes events, and a report scores how dangerous the world got. Both move this future's odds by labelled rules <Label kind="game-rule" />, never the real clock. A scenario, not a prediction.</p>
       {!future || !step ? <p className="dc-dim">Press play on a future. Its first step lands here.</p> : <>
-        <p>{step.summary}</p>
+        {step.summary && <p>{step.summary}</p>}
         <ReportProse futureId={future.id} step={step.step} />
         <div className="rubric">{RUBRIC.map(([k, name, hint]) => (
           <div className="rub" key={k}><span>{name}<small>{hint}</small></span>

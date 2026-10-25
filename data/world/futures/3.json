@@ -32,7 +32,7 @@
         "oversight": 2,
         "racePressure": 2
       },
-      "summary": "Six-Month AI Risk Forecast: From Liability Shock to Superintelligence Directive > The simulation predicts a rapid escalation from AI-linked harm and lawsuits to national-security controls, emergency lab suspensions, and US-China incident coordination, producing a more dangerous but crisis-managed world. --- Escalation Timeline: Incidents, Lawsuits, and Executive Orders The simulation's six-month window does not show a single dramatic rupture but a ratchet: each incident wide…",
+      "summary": "Six-Month AI Risk Forecast: From Liability Shock to Superintelligence Directive The simulation predicts a rapid escalation from AI-linked harm and lawsuits to national-security controls, emergency lab suspensions, and US-China incident coordination, producing a more dangerous but crisis-managed world. Escalation Timeline: Incidents, Lawsuits, and Executive Orders The simulation's six-month window does not show a single dramatic rupture but a ratchet: each incident wide\u2026",
       "expected": [],
       "events": [
         {
@@ -212,12 +212,12 @@
         {
           "postId": 16,
           "actorId": 8,
-          "text": "OFFICIAL: Executive Order 14437 — \"Ensuring American Primacy in Frontier AI\" — signed and published today, effective 2027-07-01.\n\nKey provisions:\n1. One national framework. State AI laws that conflict with the federal standard are preempted as of the effective date.\n2. Commerce w"
+          "text": "OFFICIAL: Executive Order 14437 \u2014 \"Ensuring American Primacy in Frontier AI\" \u2014 signed and published today, effective 2027-07-01.\n\nKey provisions:\n1. One national framework. State AI laws that conflict with the federal standard are preempted as of the effective date.\n2. Commerce w"
         },
         {
           "postId": 19,
           "actorId": 9,
-          "text": "COMMITTEE ANNOUNCEMENT — Document No. 2027-SC-03 (effective 2027-04-12).\n\nThe Senate Commerce Committee will hold a markup of S. 1147, the National AI Standards Act, on 2027-04-12. As reported, the bill establishes a single national standard for frontier AI and expressly preempts"
+          "text": "COMMITTEE ANNOUNCEMENT \u2014 Document No. 2027-SC-03 (effective 2027-04-12).\n\nThe Senate Commerce Committee will hold a markup of S. 1147, the National AI Standards Act, on 2027-04-12. As reported, the bill establishes a single national standard for frontier AI and expressly preempts"
         }
       ],
       "date10": 2034.47,
@@ -245,7 +245,7 @@
         "oversight": 3,
         "racePressure": 1
       },
-      "summary": "Six-Month AI Risk Forecast: From Liability Shock to Superintelligence Directive > The simulation predicts a rapid escalation from AI-linked harm and lawsuits to national-security controls, emergency lab suspensions, and US-China incident coordination, producing a more dangerous but crisis-managed world. --- Escalation Timeline: Incidents, Lawsuits, and Executive Orders The simulation's six-month window does not show a single dramatic rupture but a ratchet: each incident wide…",
+      "summary": "",
       "expected": [],
       "events": [
         {
@@ -501,17 +501,17 @@
         {
           "postId": 8,
           "actorId": 25,
-          "text": "Incident SIM-2027-1: UK Government and AISI · UK release suspended after critical evaluation failures in pre-deployment testing · severity HIGH · 2027-06-01\nIncident SIM-2027-2: OpenAI · paused frontier training run resumed at reduced scale; GPT-6.1 Astra remains withheld from re"
+          "text": "Incident SIM-2027-1: UK Government and AISI \u00b7 UK release suspended after critical evaluation failures in pre-deployment testing \u00b7 severity HIGH \u00b7 2027-06-01\nIncident SIM-2027-2: OpenAI \u00b7 paused frontier training run resumed at reduced scale; GPT-6.1 Astra remains withheld from re"
         },
         {
           "postId": 26,
           "actorId": 5,
-          "text": "Release note — DS-DOC-2027-014, effective 2027-07-01.\n\nV4.2-Preview, open weights, HF + ModelScope. 236B total / 21B active.\nMMLU-Pro 82.4 · GPQA-D 71.9 · SWE-bench V 44.2 · LiveBench 68.1 · AIME27 61.0\nLicense: unchanged from V4.1. No gated tiers, no regional weights.\n\nNot submi"
+          "text": "Release note \u2014 DS-DOC-2027-014, effective 2027-07-01.\n\nV4.2-Preview, open weights, HF + ModelScope. 236B total / 21B active.\nMMLU-Pro 82.4 \u00b7 GPQA-D 71.9 \u00b7 SWE-bench V 44.2 \u00b7 LiveBench 68.1 \u00b7 AIME27 61.0\nLicense: unchanged from V4.1. No gated tiers, no regional weights.\n\nNot submi"
         },
         {
           "postId": 75,
           "actorId": 18,
-          "text": "Timeline update, 2027 H2. My model now puts the \"1-in-10\" date for human-competitive general autonomy at Jun 2034 (was 2036 in January). Shortening, not lengthening — note that P(powerful AI by 2030) has slipped to 23% while the tail has compressed.\n\nWhy: three data points this c"
+          "text": "Timeline update, 2027 H2. My model now puts the \"1-in-10\" date for human-competitive general autonomy at Jun 2034 (was 2036 in January). Shortening, not lengthening \u2014 note that P(powerful AI by 2030) has slipped to 23% while the tail has compressed.\n\nWhy: three data points this c"
         }
       ],
       "date10": 2036.17,
@@ -539,7 +539,7 @@
         "oversight": 3,
         "racePressure": 2
       },
-      "summary": "Six-Month AI Risk Forecast: From Liability Shock to Superintelligence Directive > The simulation predicts a rapid escalation from AI-linked harm and lawsuits to national-security controls, emergency lab suspensions, and US-China incident coordination, producing a more dangerous but crisis-managed world. --- Escalation Timeline: Incidents, Lawsuits, and Executive Orders The simulation's six-month window does not show a single dramatic rupture but a ratchet: each incident wide…",
+      "summary": "",
       "expected": [],
       "events": [
         {
@@ -776,17 +776,17 @@
         {
           "postId": 39,
           "actorId": 5,
-          "text": "DS-DOC-2028-003, effective 2028-04-15.\n\nV4.3 open weights, HF + ModelScope. 310B total / 26B active.\nMMLU-Pro 84.1 · GPQA-D 74.0 · SWE-bench V 48.7 · LiveBench 70.6 · AIME27 65.3\nLicense: unchanged. No gated tiers, no regional weights.\n\nPre-release safety evaluation records filed"
+          "text": "DS-DOC-2028-003, effective 2028-04-15.\n\nV4.3 open weights, HF + ModelScope. 310B total / 26B active.\nMMLU-Pro 84.1 \u00b7 GPQA-D 74.0 \u00b7 SWE-bench V 48.7 \u00b7 LiveBench 70.6 \u00b7 AIME27 65.3\nLicense: unchanged. No gated tiers, no regional weights.\n\nPre-release safety evaluation records filed"
         },
         {
           "postId": 10,
           "actorId": 0,
-          "text": "OAI-DOC-2028-004, effective 2028-02-01: OpenAI will grant structured pre-release evaluator access to GPT-6.1 Astra to three independent labs and UK AISI, under a published eval protocol and incident-reporting SLA. We back pacing — and pacing only works if it's verifiable. Hard li"
+          "text": "OAI-DOC-2028-004, effective 2028-02-01: OpenAI will grant structured pre-release evaluator access to GPT-6.1 Astra to three independent labs and UK AISI, under a published eval protocol and incident-reporting SLA. We back pacing \u2014 and pacing only works if it's verifiable. Hard li"
         },
         {
           "postId": 19,
           "actorId": 6,
-          "text": "Release note — QWEN-DOC-2028-002, effective 2028-02-01.\n\nDecision: we are keeping the Qwen3.9 family weights open on HF + ModelScope (no gated tiers, no regional variants) and extending standing evaluator access to any accredited safety institute that requests it — including revi"
+          "text": "Release note \u2014 QWEN-DOC-2028-002, effective 2028-02-01.\n\nDecision: we are keeping the Qwen3.9 family weights open on HF + ModelScope (no gated tiers, no regional variants) and extending standing evaluator access to any accredited safety institute that requests it \u2014 including revi"
         }
       ],
       "date10": 2036.47,
@@ -814,7 +814,7 @@
         "oversight": 3,
         "racePressure": 1
       },
-      "summary": "Six-Month AI Risk Forecast: From Liability Shock to Superintelligence Directive > The simulation predicts a rapid escalation from AI-linked harm and lawsuits to national-security controls, emergency lab suspensions, and US-China incident coordination, producing a more dangerous but crisis-managed world. --- Escalation Timeline: Incidents, Lawsuits, and Executive Orders The simulation's six-month window does not show a single dramatic rupture but a ratchet: each incident wide…",
+      "summary": "",
       "expected": [],
       "events": [
         {
@@ -1063,12 +1063,12 @@
         {
           "postId": 38,
           "actorId": 6,
-          "text": "Release note — QWEN-DOC-2028-003, effective 2028-09-01.\n\nDecision: Qwen3.10-32B goes up on HF + ModelScope with open weights, no gated tiers — shipped alongside a full model card, our red-team log, incident-reporting contact, and documented emergency-stop hooks. Same day: a publi"
+          "text": "Release note \u2014 QWEN-DOC-2028-003, effective 2028-09-01.\n\nDecision: Qwen3.10-32B goes up on HF + ModelScope with open weights, no gated tiers \u2014 shipped alongside a full model card, our red-team log, incident-reporting contact, and documented emergency-stop hooks. Same day: a publi"
         },
         {
           "postId": 32,
           "actorId": 0,
-          "text": "OPENAI-DOC-2028-014, effective 2028-09-15.\n\nDecision: our next frontier release is pushed 30 days for independent pre-release evaluation. EU AI Office and UK AISI evaluator access granted in full — weights, evals, system cards. No gated version, no side deal. Pacing has costs. We"
+          "text": "OPENAI-DOC-2028-014, effective 2028-09-15.\n\nDecision: our next frontier release is pushed 30 days for independent pre-release evaluation. EU AI Office and UK AISI evaluator access granted in full \u2014 weights, evals, system cards. No gated version, no side deal. Pacing has costs. We"
         },
         {
           "postId": 8,
@@ -1101,7 +1101,7 @@
         "oversight": 3,
         "racePressure": 2
       },
-      "summary": "Six-Month AI Risk Forecast: From Liability Shock to Superintelligence Directive > The simulation predicts a rapid escalation from AI-linked harm and lawsuits to national-security controls, emergency lab suspensions, and US-China incident coordination, producing a more dangerous but crisis-managed world. --- Escalation Timeline: Incidents, Lawsuits, and Executive Orders The simulation's six-month window does not show a single dramatic rupture but a ratchet: each incident wide…",
+      "summary": "",
       "expected": [],
       "events": [
         {
@@ -1355,7 +1355,7 @@
         {
           "postId": 14,
           "actorId": 0,
-          "text": "OPENAI-DOC-2029-001, effective 2029-01-15.\n\nDecision: GPT-6.1 Astra ships to a limited access program — government evaluators, safety institutes, and vetted partners — on published system cards. Not a general release. Front weights stay with us until external evals clear.\n\nPacing"
+          "text": "OPENAI-DOC-2029-001, effective 2029-01-15.\n\nDecision: GPT-6.1 Astra ships to a limited access program \u2014 government evaluators, safety institutes, and vetted partners \u2014 on published system cards. Not a general release. Front weights stay with us until external evals clear.\n\nPacing"
         },
         {
           "postId": 28,
@@ -1377,7 +1377,7 @@
       "start": "2029-07-01T00:00:00Z",
       "end": "2030-01-01T00:00:00Z",
       "anchors": {
-        "asi2030": 0.00004481580899391765,
+        "asi2030": 4.481580899391765e-05,
         "asi2040": 0.7435827219324528,
         "asi2100": 0.8635,
         "cat2100": 0.25699908473751576
@@ -1388,7 +1388,7 @@
         "oversight": 2,
         "racePressure": 2
       },
-      "summary": "Six-Month AI Risk Forecast: From Liability Shock to Superintelligence Directive > The simulation predicts a rapid escalation from AI-linked harm and lawsuits to national-security controls, emergency lab suspensions, and US-China incident coordination, producing a more dangerous but crisis-managed world. --- Escalation Timeline: Incidents, Lawsuits, and Executive Orders The simulation's six-month window does not show a single dramatic rupture but a ratchet: each incident wide…",
+      "summary": "",
       "expected": [],
       "events": [
         {
@@ -1656,12 +1656,12 @@
         {
           "postId": 9,
           "actorId": 5,
-          "text": "DEEPSEEK-DOC-2029-0117, effective 2029-08-01.\n\nDecision: DeepSeek V4.6 open weights release. Full weights + card, CAC filing under the existing framework, no pre-release external evaluator requirement. Post-release evaluator access granted to admitted bodies.\n\nBenchmarks (V4.5 → "
+          "text": "DEEPSEEK-DOC-2029-0117, effective 2029-08-01.\n\nDecision: DeepSeek V4.6 open weights release. Full weights + card, CAC filing under the existing framework, no pre-release external evaluator requirement. Post-release evaluator access granted to admitted bodies.\n\nBenchmarks (V4.5 \u2192 "
         },
         {
           "postId": 33,
           "actorId": 1,
-          "text": "ANTHROPIC-DOC-2029-014, effective 2029-07-01.\n\nDecision: We are publishing our third-party evaluation protocol and opening standing evaluator access to three accredited bodies — UK AISI, the EU AI Office's evaluation unit, and the US National-Security AI Incident Cell established"
+          "text": "ANTHROPIC-DOC-2029-014, effective 2029-07-01.\n\nDecision: We are publishing our third-party evaluation protocol and opening standing evaluator access to three accredited bodies \u2014 UK AISI, the EU AI Office's evaluation unit, and the US National-Security AI Incident Cell established"
         }
       ],
       "date10": 2037.25,

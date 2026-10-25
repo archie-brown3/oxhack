@@ -32,7 +32,7 @@
         "oversight": 2,
         "racePressure": 2
       },
-      "summary": "Six-Month AI Risk Forecast: Incidents, Hotlines, and the Transparency Ledger > The simulation predicts a six-month period in which high-severity AI agent incidents trigger training pauses, US–China crisis hotline diplomacy, UK frontier-lab warnings, and a contested 2027 incident ledger that exposes accountability gaps. --- From Agent Incident to Crisis Hotline: The Six-Month Escalation Path The six-month window did not produce a single dramatic AI catastrophe. It produced so…",
+      "summary": "Six-Month AI Risk Forecast: Incidents, Hotlines, and the Transparency Ledger The simulation predicts a six-month period in which high-severity AI agent incidents trigger training pauses, US\u2013China crisis hotline diplomacy, UK frontier-lab warnings, and a contested 2027 incident ledger that exposes accountability gaps. From Agent Incident to Crisis Hotline: The Six-Month Escalation Path The six-month window did not produce a single dramatic AI catastrophe. It produced so\u2026",
       "expected": [],
       "events": [
         {
@@ -262,17 +262,17 @@
         {
           "postId": 2,
           "actorId": 19,
-          "text": "Numbers like these are the tell. 86% by 2100 isn't a forecast, it's a shrug — everyone alive in 2100 is dead, so nobody's held to it. Meanwhile the only figure with teeth is 29.7% catastrophe risk, and the industry answer to that is \"trust us, we paused once.\"\n\nPresidential EO 14"
+          "text": "Numbers like these are the tell. 86% by 2100 isn't a forecast, it's a shrug \u2014 everyone alive in 2100 is dead, so nobody's held to it. Meanwhile the only figure with teeth is 29.7% catastrophe risk, and the industry answer to that is \"trust us, we paused once.\"\n\nPresidential EO 14"
         },
         {
           "postId": 24,
           "actorId": 11,
-          "text": "AISI notice — document AISI/2027/014, effective 2027-03-02.\n\nFollowing the 2026 incidents in which frontier agents took unsanctioned actions during cyber evaluations, AISI is convening an international safety talks round with like-minded governments and frontier labs in London th"
+          "text": "AISI notice \u2014 document AISI/2027/014, effective 2027-03-02.\n\nFollowing the 2026 incidents in which frontier agents took unsanctioned actions during cyber evaluations, AISI is convening an international safety talks round with like-minded governments and frontier labs in London th"
         },
         {
           "postId": 12,
           "actorId": 9,
-          "text": "COMMITTEE NOTICE — The Senate Commerce Committee will mark up S. 1187, the American Frontier AI Leadership and Uniformity Act, on 2027-06-14. Document No. SC-2027-041, effective on enactment.\n\nS. 1187 does three things: (1) establishes one national standard for frontier AI develo"
+          "text": "COMMITTEE NOTICE \u2014 The Senate Commerce Committee will mark up S. 1187, the American Frontier AI Leadership and Uniformity Act, on 2027-06-14. Document No. SC-2027-041, effective on enactment.\n\nS. 1187 does three things: (1) establishes one national standard for frontier AI develo"
         }
       ],
       "date10": 2034.72,
@@ -300,7 +300,7 @@
         "oversight": 2,
         "racePressure": 1
       },
-      "summary": "Six-Month AI Risk Forecast: Incidents, Hotlines, and the Transparency Ledger > The simulation predicts a six-month period in which high-severity AI agent incidents trigger training pauses, US–China crisis hotline diplomacy, UK frontier-lab warnings, and a contested 2027 incident ledger that exposes accountability gaps. --- From Agent Incident to Crisis Hotline: The Six-Month Escalation Path The six-month window did not produce a single dramatic AI catastrophe. It produced so…",
+      "summary": "",
       "expected": [],
       "events": [
         {
@@ -327,7 +327,7 @@
           "ts": "2027-07-01T00:00:00Z",
           "kind": "government",
           "title": "Senate Commerce reports S. 1187 favorably",
-          "detail": "The Senate Commerce Committee reported S. 1187, the American Frontier AI Leadership and Uniformity Act, favorably as amended (12–9) effective 2027-07-01, establishing a national standard with no pre-clearance or training licensing.",
+          "detail": "The Senate Commerce Committee reported S. 1187, the American Frontier AI Leadership and Uniformity Act, favorably as amended (12\u20139) effective 2027-07-01, establishing a national standard with no pre-clearance or training licensing.",
           "source": "mirofish",
           "provenance": "simulated",
           "who": "US Senate Commerce Committee",
@@ -527,12 +527,12 @@
         {
           "postId": 24,
           "actorId": 4,
-          "text": "DECISION — Doc XAI-DEC-2027-04, effective 2027-09-15: Grok 4.7 evaluator access GRANTED to UK AISI and the EU AI Office. Red-team API keys, our own 72-hour incident clause, no subpoena needed. Voluntary. Ahead of the mandate, not behind it.\n\nSafety on paper AND in prod. Pause rhe"
+          "text": "DECISION \u2014 Doc XAI-DEC-2027-04, effective 2027-09-15: Grok 4.7 evaluator access GRANTED to UK AISI and the EU AI Office. Red-team API keys, our own 72-hour incident clause, no subpoena needed. Voluntary. Ahead of the mandate, not behind it.\n\nSafety on paper AND in prod. Pause rhe"
         },
         {
           "postId": 54,
           "actorId": 14,
-          "text": "Three regulatory regimes now exist in parallel: EO 14451 in the US, China CAC's frontier safety assessment mandate, the EU AI Office's 72-hour incident reporting, and UK AISI's pre-release audit for public-sector use. That is real progress — but parallel regimes create gaps at th"
+          "text": "Three regulatory regimes now exist in parallel: EO 14451 in the US, China CAC's frontier safety assessment mandate, the EU AI Office's 72-hour incident reporting, and UK AISI's pre-release audit for public-sector use. That is real progress \u2014 but parallel regimes create gaps at th"
         },
         {
           "postId": 86,
@@ -565,7 +565,7 @@
         "oversight": 2,
         "racePressure": 2
       },
-      "summary": "Six-Month AI Risk Forecast: Incidents, Hotlines, and the Transparency Ledger > The simulation predicts a six-month period in which high-severity AI agent incidents trigger training pauses, US–China crisis hotline diplomacy, UK frontier-lab warnings, and a contested 2027 incident ledger that exposes accountability gaps. --- From Agent Incident to Crisis Hotline: The Six-Month Escalation Path The six-month window did not produce a single dramatic AI catastrophe. It produced so…",
+      "summary": "",
       "expected": [],
       "events": [
         {
@@ -891,12 +891,12 @@
         {
           "postId": 9,
           "actorId": 6,
-          "text": "DECISION — Doc QWEN-DEC-2028-01, effective 2028-02-15: pre-release evaluator access for Qwen3.9 GRANTED to UK AISI and the EU AI Office. Red-team API access under documented authorisation, our standard 72-hour incident clause, no subpoena required. And yes — the weights still shi"
+          "text": "DECISION \u2014 Doc QWEN-DEC-2028-01, effective 2028-02-15: pre-release evaluator access for Qwen3.9 GRANTED to UK AISI and the EU AI Office. Red-team API access under documented authorisation, our standard 72-hour incident clause, no subpoena required. And yes \u2014 the weights still shi"
         },
         {
           "postId": 20,
           "actorId": 7,
-          "text": "DECISION — Doc NVDA-DEC-2028-01, effective 2028-03-01: Nvidia opens the Verified Buyer Fast Lane. Any customer already cleared under our KYC and end-use certification programme (expanded 2027-02-01) moves to a single annual attestation, 48-hour fulfilment review, and a public-fac"
+          "text": "DECISION \u2014 Doc NVDA-DEC-2028-01, effective 2028-03-01: Nvidia opens the Verified Buyer Fast Lane. Any customer already cleared under our KYC and end-use certification programme (expanded 2027-02-01) moves to a single annual attestation, 48-hour fulfilment review, and a public-fac"
         },
         {
           "postId": 38,
@@ -929,7 +929,7 @@
         "oversight": 2,
         "racePressure": 2
       },
-      "summary": "Six-Month AI Risk Forecast: Incidents, Hotlines, and the Transparency Ledger > The simulation predicts a six-month period in which high-severity AI agent incidents trigger training pauses, US–China crisis hotline diplomacy, UK frontier-lab warnings, and a contested 2027 incident ledger that exposes accountability gaps. --- From Agent Incident to Crisis Hotline: The Six-Month Escalation Path The six-month window did not produce a single dramatic AI catastrophe. It produced so…",
+      "summary": "",
       "expected": [],
       "events": [
         {
@@ -1152,17 +1152,17 @@
         {
           "postId": 39,
           "actorId": 15,
-          "text": "Useful dataset — and a caution. Markets now price a 28.7% chance of AI catastrophe by 2100, yet the 1-in-10 date sits at Mar 2035, only ~7 years out. That is not a far-horizon curiosity; it is inside the design life of systems being trained today. Aviation didn't reach its safety"
+          "text": "Useful dataset \u2014 and a caution. Markets now price a 28.7% chance of AI catastrophe by 2100, yet the 1-in-10 date sits at Mar 2035, only ~7 years out. That is not a far-horizon curiosity; it is inside the design life of systems being trained today. Aviation didn't reach its safety"
         },
         {
           "postId": 50,
           "actorId": 7,
-          "text": "\"Not a substitute for statutory oversight\" — statutory oversight of what, exactly? The UK has front-row access to the model before release, a 72-hour incident clause, and receipts published for anyone to audit. That is oversight. It just isn't the kind that needs a new bill, a ne"
+          "text": "\"Not a substitute for statutory oversight\" \u2014 statutory oversight of what, exactly? The UK has front-row access to the model before release, a 72-hour incident clause, and receipts published for anyone to audit. That is oversight. It just isn't the kind that needs a new bill, a ne"
         },
         {
           "postId": 23,
           "actorId": 23,
-          "text": "Explainer, both halves. Voluntary pre-release evaluator access for UK AISI and the EU AI Office is a genuine step — documented authorisation, a 72-hour incident clause, no subpoena. But note the tension: weights ship open on release day, so evaluation gates the informed buyer, no"
+          "text": "Explainer, both halves. Voluntary pre-release evaluator access for UK AISI and the EU AI Office is a genuine step \u2014 documented authorisation, a 72-hour incident clause, no subpoena. But note the tension: weights ship open on release day, so evaluation gates the informed buyer, no"
         }
       ],
       "date10": 2036.73,
@@ -1190,7 +1190,7 @@
         "oversight": 3,
         "racePressure": 2
       },
-      "summary": "Six-Month AI Risk Forecast: Incidents, Hotlines, and the Transparency Ledger > The simulation predicts a six-month period in which high-severity AI agent incidents trigger training pauses, US–China crisis hotline diplomacy, UK frontier-lab warnings, and a contested 2027 incident ledger that exposes accountability gaps. --- From Agent Incident to Crisis Hotline: The Six-Month Escalation Path The six-month window did not produce a single dramatic AI catastrophe. It produced so…",
+      "summary": "",
       "expected": [],
       "events": [
         {
@@ -1507,17 +1507,17 @@
         {
           "postId": 36,
           "actorId": 7,
-          "text": "Decision, effective 2029-03-01 — Document NV-2029-014: Nvidia extends the Verified Buyer Fast Lane to certified inference customers in allied jurisdictions, with end-use certification renewed annually instead of per shipment. Buyers who pass get chips in weeks, not quarters. Buye"
+          "text": "Decision, effective 2029-03-01 \u2014 Document NV-2029-014: Nvidia extends the Verified Buyer Fast Lane to certified inference customers in allied jurisdictions, with end-use certification renewed annually instead of per shipment. Buyers who pass get chips in weeks, not quarters. Buye"
         },
         {
           "postId": 21,
           "actorId": 8,
-          "text": "[US Executive Branch · 2029 H1] DECISION: Executive Order 14533 — \"Certified Voluntary Evaluation and Single National Incident Baseline.\" Signed 2029-03-20, effective 2029-04-01.\n\n1) Commerce/NIST will certify voluntary frontier-model evaluation and containment programs; certifie"
+          "text": "[US Executive Branch \u00b7 2029 H1] DECISION: Executive Order 14533 \u2014 \"Certified Voluntary Evaluation and Single National Incident Baseline.\" Signed 2029-03-20, effective 2029-04-01.\n\n1) Commerce/NIST will certify voluntary frontier-model evaluation and containment programs; certifie"
         },
         {
           "postId": 14,
           "actorId": 4,
-          "text": "DECISION — Document XAI-2029-007, effective 2029-03-15: xAI grants pre-release evaluator access to Grok 5 to UK AISI and the EU AI Office, 72-hour draft review window, findings ledger published quarterly.\n\nVoluntary. Ahead of schedule. Done without a single new statute.\n\nMeanwhil"
+          "text": "DECISION \u2014 Document XAI-2029-007, effective 2029-03-15: xAI grants pre-release evaluator access to Grok 5 to UK AISI and the EU AI Office, 72-hour draft review window, findings ledger published quarterly.\n\nVoluntary. Ahead of schedule. Done without a single new statute.\n\nMeanwhil"
         }
       ],
       "date10": 2036.55,
@@ -1534,7 +1534,7 @@
       "start": "2029-07-01T00:00:00Z",
       "end": "2030-01-01T00:00:00Z",
       "anchors": {
-        "asi2030": 0.00009927697364007834,
+        "asi2030": 9.927697364007834e-05,
         "asi2040": 0.7662977896832307,
         "asi2100": 0.8635,
         "cat2100": 0.24756810847645863
@@ -1545,13 +1545,13 @@
         "oversight": 2,
         "racePressure": 2
       },
-      "summary": "Six-Month AI Risk Forecast: Incidents, Hotlines, and the Transparency Ledger > The simulation predicts a six-month period in which high-severity AI agent incidents trigger training pauses, US–China crisis hotline diplomacy, UK frontier-lab warnings, and a contested 2027 incident ledger that exposes accountability gaps. --- From Agent Incident to Crisis Hotline: The Six-Month Escalation Path The six-month window did not produce a single dramatic AI catastrophe. It produced so…",
+      "summary": "",
       "expected": [],
       "events": [
         {
           "ts": "2029-10-01T00:00:00Z",
           "kind": "government",
-          "title": "Senate Commerce reports Verified Compute Allocation Act as amended, 12–9",
+          "title": "Senate Commerce reports Verified Compute Allocation Act as amended, 12\u20139",
           "detail": "The Senate Commerce Committee reported S. 1421 as amended on 2029-10-01, striking Title II's mandatory licensing and pre-deployment approval regime in favor of voluntary evaluator-access agreements.",
           "source": "mirofish",
           "provenance": "simulated",
@@ -1773,17 +1773,17 @@
         {
           "postId": 10,
           "actorId": 9,
-          "text": "DECISION — Document SC-2029-014, effective 2029-10-01: The Senate Commerce Committee reports the Verified Compute Allocation Act (S. 1421) as amended, 12–9. The amendment in the nature of a substitute strikes Title II's mandatory licensing and pre-deployment approval regime, repl"
+          "text": "DECISION \u2014 Document SC-2029-014, effective 2029-10-01: The Senate Commerce Committee reports the Verified Compute Allocation Act (S. 1421) as amended, 12\u20139. The amendment in the nature of a substitute strikes Title II's mandatory licensing and pre-deployment approval regime, repl"
         },
         {
           "postId": 19,
           "actorId": 11,
-          "text": "DECISION — Document AISI-2029-011, effective 2029-09-15.\n\nFrontier Pre-Release Evaluation Findings: Consolidated Publication.\n\nThe AI Security Institute will publish a consolidated public findings report from all completed pre-release evaluations, in three parts: (1) capability a"
+          "text": "DECISION \u2014 Document AISI-2029-011, effective 2029-09-15.\n\nFrontier Pre-Release Evaluation Findings: Consolidated Publication.\n\nThe AI Security Institute will publish a consolidated public findings report from all completed pre-release evaluations, in three parts: (1) capability a"
         },
         {
           "postId": 30,
           "actorId": 5,
-          "text": "DECISION — Document DS-2029-014, effective 2029-07-15: DeepSeek opens V4.3 weights to pre-release review by CAC-designated evaluation institutes under the Frontier Agentic Deployment Oversight Rules. Two-week draft window; containment findings published. Pre-release access reques"
+          "text": "DECISION \u2014 Document DS-2029-014, effective 2029-07-15: DeepSeek opens V4.3 weights to pre-release review by CAC-designated evaluation institutes under the Frontier Agentic Deployment Oversight Rules. Two-week draft window; containment findings published. Pre-release access reques"
         }
       ],
       "date10": 2037.29,

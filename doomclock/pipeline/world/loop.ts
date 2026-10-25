@@ -90,6 +90,6 @@ export function rubricPrompt(reportMarkdown: string, formattedEvents: string): s
 
 /** A short plain line for the feed, from the report as written. Not a new summary call. */
 export function summaryFromReport(markdown: string, max = 480): string {
-  const plain = markdown.replace(/```[\s\S]*?```/g, " ").replace(/^#+\s+/gm, "").replace(/\s+/g, " ").trim()
+  const plain = markdown.replace(/```[\s\S]*?```/g, " ").replace(/^#+\s+/gm, "").replace(/^>\s?/gm, "").replace(/^-{3,}\s*$/gm, " ").replace(/\*\*|__/g, "").replace(/\s+/g, " ").trim()
   return plain.length <= max ? plain : `${plain.slice(0, max - 1).trimEnd()}…`
 }
