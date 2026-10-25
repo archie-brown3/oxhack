@@ -37,7 +37,7 @@ export function WhySheet({ world, timeline, hand, pin, backtest, future, step, l
       <div className="lede"><Label kind="real" /><span className="dc-data">prices as of {dmy(world.asOf)}</span></div>
       <h3>Market prices say when</h3>
       <MarketCurve anchors={world.anchors} at={msToYear(Date.parse(world.asOf))} lagMeanYears={world.lagMeanYears} date10={timeline.clock.date10} />
-      <p>Today's clock reads today's market prices only. The rubric adds zero at today by construction. The backtest checks those prices 30 days out{score ? ` (Brier ${score.brier} vs coin ${score.coin}). Manifold questions in that score have at least ${score.minTraders} traders.` : '.'} The clock's date is not scored.</p>
+      <p>Today's clock reads today's market prices plus one labelled rule, the {world.lagMeanYears}-year gap <Label kind="game-rule" />. The rubric adds zero at today by construction. The backtest checks those prices 30 days out{score ? ` (Brier ${score.brier} vs coin ${score.coin}). Manifold questions in that score have at least ${score.minTraders} traders.` : '.'} The clock's date is not scored.</p>
       <p>Four Manifold play-money market prices go in. Traders do not stake real money. The catastrophe market is thin play money ({catTraders} traders){score ? `, under that ${score.minTraders}-trader line` : ''}. The clock reads {timeline.clock.date10 ? longDate(timeline.clock.date10) : 'after 2100'}.</p>
       <div>
         {NODES.map((id) => { const h = world.anchorHistory[id]
