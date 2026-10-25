@@ -1,0 +1,30 @@
+{
+  "schema": "doomclock.cards/1",
+  "pinnedAt": "2026-10-24T00:00:00Z",
+  "label": "GAME RULE",
+  "m": { "ENFORCE": 1, "COMPLY": 1, "RESIST": 0 },
+  "vocab": { "gov": ["ENFORCE", "BLOCK"], "lab": ["COMPLY", "RESIST"] },
+  "offerOrder": ["G1"],
+  "g7Slot": 3,
+  "guardian": [
+    {
+      "id": "G1",
+      "title": "Frontier licence",
+      "blurb": "Big training runs at US labs need a federal licence.",
+      "price": { "bits": 0.47, "source": "market", "market": { "source": "kalshi", "id": "KXUSAIREGULATOR-28JAN01-28JAN01", "question": "Will the US commit to a national AI regulator before Jan 1, 2028?", "url": "https://kalshi.com/markets/kxusairegulator", "p": 0.72, "ts": "2026-10-23T04:00:00Z", "traders": null } },
+      "expires": "2027-12-31",
+      "trust": -5,
+      "target": "none",
+      "measure": "training runs above 10^26 FLOP need a federal licence",
+      "ask": "apply for a licence before any run above 10^26 FLOP",
+      "seeds": [{ "author": 8, "template": "[US Executive Branch · Executive Order {year}-{n} · issued {issued} · effective {effective}] Training runs above 10^26 FLOP now need a federal licence." }],
+      "noticesTo": [0, 9],
+      "gatekeepers": [{ "id": 9, "vocab": "gov" }],
+      "subjects": { "ids": [0], "vocab": "lab" },
+      "engine": { "kind": "licence", "throttle": 0.4, "oversight": 20 }
+    }
+  ],
+  "rogue": [
+    { "id": "R4", "title": "Sandbag evals", "cu": 1, "risk": 0.1, "target": "none", "needs": {}, "aiid": [], "enters": "Nothing.", "engine": { "detect": 0.5, "growth": 0.5 } }
+  ]
+}

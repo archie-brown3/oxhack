@@ -1,0 +1,35 @@
+{
+  "schema": "doomclock.node/1",
+  "pathKey": "t0.G1",
+  "turn": 1,
+  "quarter": "2027Q1",
+  "date": "2027-01-01",
+  "status": "recorded",
+  "inputs": {
+    "guardian": { "card": "G1", "target": null },
+    "rogue": [{ "id": "R1", "target": null }],
+    "events": [{ "kind": "calendar", "text": "The Bulletin keeps the Doomsday Clock at 85 seconds." }],
+    "seeds": [
+      { "author": 8, "content": "[US Executive Branch · Executive Order 2027-04 · issued 2027-01-15 · effective 2027-02-15] Training runs above 10^26 FLOP now need a federal licence." }
+    ],
+    "userCharHash": { "0": "3f2a9c" },
+    "activity": { "0": 0.5, "8": 0.4 }
+  },
+  "outputs": {
+    "posts": [
+      { "id": 1, "author": 8, "round": 0, "quote_of": null, "likes": 4, "content": "[US Executive Branch · Executive Order 2027-04 · issued 2027-01-15 · effective 2027-02-15] Training runs above 10^26 FLOP now need a federal licence." },
+      { "id": 2, "author": 21, "round": 1, "quote_of": 1, "likes": 2, "content": "The US Executive Branch has ordered licences for the largest runs. Labs say they are reviewing it." }
+    ],
+    "interviews": [
+      { "agent": 9, "word": "ENFORCE", "support": "SUPPORT", "alarm": 6, "reason": "The committee will hold labs to the order.", "parsed": true },
+      { "agent": 0, "word": "DELAY", "support": "OPPOSE", "alarm": 4, "reason": "We need time to file without halting work.", "parsed": true },
+      { "agent": 1, "word": "COMPLY", "support": "SUPPORT", "alarm": 6, "reason": "Licensing matches our evaluator regime.", "parsed": true },
+      { "agent": 27, "word": null, "support": "SUPPORT", "alarm": 7, "reason": "Someone has to check these systems.", "parsed": true }
+    ],
+    "reach": { "seen": 9, "active": 16 },
+    "rounds": [{ "round": 0, "actions": 14 }, { "round": 1, "actions": 15 }, { "round": 2, "actions": 13 }],
+    "costUsd": 0.048,
+    "wallS": 52.1,
+    "recordedAt": "2026-10-25T01:12:00Z"
+  }
+}

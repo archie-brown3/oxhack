@@ -366,6 +366,14 @@ export interface CardReaction {
 // ---------- game state ----------
 
 /**
+ * Phase 2 (task 101): the game layer's types live in `src/game/types.ts` and its file formats in
+ * `src/game/data/schemas/` (doomclock.cast/1, doomclock.cards/1, doomclock.node/1). The game's own
+ * cards are `src/game/data/cards.json`. `GameState` below and `CardsFile` above are the phase-1
+ * drafts that only the fixtures still use; new code imports from `src/game/`.
+ */
+export type { GameState as GameLayerState, GuardianView, Label, RogueView } from './game/types.ts'
+
+/**
  * Game state, schema `doomclock.game/2`. Owner: game-design (`src/game/**`).
  * ASSUMPTION: the game-layer spec isn't written yet ("defined in the spec"). Fields below come from
  * plan §5's list only; element types are placeholders for game-design to replace.
