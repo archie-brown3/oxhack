@@ -130,6 +130,9 @@ function World({ data }: { data: Data }) {
     return () => clearTimeout(t)
   }, [playing, cur, frames, future, today, go])
 
+  // A sheet or the full feed covers the Play button and swallows Space, so the replay holds while one is open.
+  useEffect(() => { if (sheet || feedOpen) setPlaying(false) }, [sheet, feedOpen])
+
   const play = () => { if (cur >= frames.length - 1) go(today, false); setPlaying(true) }
   const choose = (i: number) => { setFi(i); setPop(null) }
 
