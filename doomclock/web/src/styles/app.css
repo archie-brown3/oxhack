@@ -360,7 +360,7 @@ img.av { object-fit: cover; padding: 0; }
 }
 @media (max-height: 800px) and (min-width: 721px) {
   #clock .face { width: 140px; }
-  #clock .to { display: none; }
+  #clock .to { font-size: 12px; line-height: 16px; } /* keep what the countdown counts to; 12px is the floor */
   .engine #society { top: 390px; }
 }
 @media (max-width: 720px) {
