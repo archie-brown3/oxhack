@@ -1,0 +1,416 @@
+{
+  "step": {
+    "step": 1,
+    "start": "2027-01-01T00:00:00Z",
+    "end": "2027-07-01T00:00:00Z",
+    "anchors": {
+      "asi2030": 0.23461322368407642,
+      "asi2040": 0.7112310085547372,
+      "asi2100": 0.8635,
+      "cat2100": 0.2866674776212861
+    },
+    "rubric": {
+      "lossOfControl": 2,
+      "misuse": 1,
+      "oversight": 2,
+      "racePressure": 2
+    },
+    "summary": "Six-Month AI Risk Forecast: From Liability Shock to Superintelligence Directive > The simulation predicts a rapid escalation from AI-linked harm and lawsuits to national-security controls, emergency lab suspensions, and US-China incident coordination, producing a more dangerous but crisis-managed world. --- Escalation Timeline: Incidents, Lawsuits, and Executive Orders The simulation's six-month window does not show a single dramatic rupture but a ratchet: each incident wide…",
+    "expected": [],
+    "events": [
+      {
+        "ts": "2027-02-15T00:00:00Z",
+        "kind": "news",
+        "title": "Meta ships Muse Spark 1.4 agents to full consumer surface",
+        "detail": "Meta's Document META-AI-2027-014, effective 2027-02-15, ships Muse Spark 1.4 agents to its full consumer surface and grants external evaluator access only under its published red-team terms.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "Meta",
+        "where": "USA",
+        "major": false,
+        "futureId": 3,
+        "step": 1,
+        "actorId": 3,
+        "postIds": [
+          8
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2027-04-12T00:00:00Z",
+        "kind": "government",
+        "title": "Senate Commerce sets markup of S. 1147 and oversight hearing",
+        "detail": "Senate Commerce Committee Document 2027-SC-03, effective 2027-04-12, notices a markup of S. 1147 establishing a single national standard preempting inconsistent state statutes, plus a 2027-04-20 oversight hearing on the September 2026 agent",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "US Senate Commerce Committee",
+        "where": "USA",
+        "major": false,
+        "futureId": 3,
+        "step": 1,
+        "actorId": 9,
+        "postIds": [
+          19
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2027-04-15T00:00:00Z",
+        "kind": "news",
+        "title": "Alibaba Qwen releases Qwen3.9-72B-Instruct with open weights",
+        "detail": "Alibaba Qwen's Doc. QW-2027-014, effective 2027-04-15, releases Qwen3.9-72B-Instruct with open weights under Apache 2.0 and grants safety-evaluator access to 40+ independent research groups.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "Alibaba Qwen",
+        "where": "CHN",
+        "major": false,
+        "futureId": 3,
+        "step": 1,
+        "actorId": 6,
+        "postIds": [
+          21
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2027-05-06T00:00:00Z",
+        "kind": "news",
+        "title": "DeepSeek publishes V4.1 Flash eval suite",
+        "detail": "DeepSeek decision DS-2027-016, effective 2027-05-06, publishes the V4.1 Flash eval suite of 12 harnesses and 3 adversarial tests as DS-EVAL-2027.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "DeepSeek",
+        "where": "CHN",
+        "major": false,
+        "futureId": 3,
+        "step": 1,
+        "actorId": 5,
+        "postIds": [
+          60
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2027-06-15T00:00:00Z",
+        "kind": "government",
+        "title": "China CAC announces Q3 2027 frontier AI incident drill",
+        "detail": "China CAC Document CAC-AI-2027-004, effective 2027-06-15, schedules a coordinated early-warning and emergency-response drill for frontier AI incidents in Q3 2027 and invites foreign agencies to observe.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "China CAC",
+        "where": "CHN",
+        "major": false,
+        "futureId": 3,
+        "step": 1,
+        "actorId": 12,
+        "postIds": [
+          61
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2027-04-05T00:00:00Z",
+        "kind": "government",
+        "title": "Senate Commerce sets agenda for S. 1147 markup",
+        "detail": "Senate Commerce Committee Document 2027-SC-05, effective 2027-04-05, sets the agenda for the 2027-04-12 markup of S. 1147, including a substitute anchoring the federal standard to EO 14437 and rejection of licensing amendments.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "US Senate Commerce Committee",
+        "where": "USA",
+        "major": false,
+        "futureId": 3,
+        "step": 1,
+        "actorId": 9,
+        "postIds": [
+          64
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2027-03-15T00:00:00Z",
+        "kind": "news",
+        "title": "OpenAI resumes paused training run at reduced scale, keeps GPT-6.1 Astra withheld",
+        "detail": "OpenAI decision OA-2027-017, effective 2027-03-15, resumes the training run paused in September 2026 at reduced scale with continuous third-party monitoring and keeps GPT-6.1 Astra withheld until evals clear.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "OpenAI",
+        "where": "USA",
+        "major": false,
+        "futureId": 3,
+        "step": 1,
+        "actorId": 0,
+        "postIds": [
+          73
+        ],
+        "type": "lab-pause",
+        "binding": false,
+        "severity": "moderate"
+      },
+      {
+        "ts": "2027-06-01T00:00:00Z",
+        "kind": "government",
+        "title": "UK AISI suspends UK release after critical evaluation failures",
+        "detail": "AISI/2027/06, effective 2027-06-01, suspends UK market release pending remediation review where a pre-release evaluation records a critical failure such as unsanctioned agent action, offensive cyber capability attempts or shutdown resistanc",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "UK Government and AISI",
+        "where": "GBR",
+        "major": false,
+        "futureId": 3,
+        "step": 1,
+        "actorId": 11,
+        "postIds": [
+          98
+        ],
+        "type": "act-restricting",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": 0.04,
+            "asi2040": 0.02
+          },
+          "rule": "GAME RULE"
+        }
+      }
+    ],
+    "topPosts": [
+      {
+        "postId": 2,
+        "actorId": 18,
+        "text": "Restating the baseline I'll hold myself to: P(powerful AI by 2030) 36%, by 2040 75%, by 2100 86%. P(catastrophe by 2100) 29.7%. 1-in-10 date: Jun 2032.\n\nWhy these numbers moved since 2026: a frontier lab paused research for safety (Aug 2026), OpenAI withheld GPT-6.1 Astra (Sep 20"
+      },
+      {
+        "postId": 16,
+        "actorId": 8,
+        "text": "OFFICIAL: Executive Order 14437 — \"Ensuring American Primacy in Frontier AI\" — signed and published today, effective 2027-07-01.\n\nKey provisions:\n1. One national framework. State AI laws that conflict with the federal standard are preempted as of the effective date.\n2. Commerce w"
+      },
+      {
+        "postId": 19,
+        "actorId": 9,
+        "text": "COMMITTEE ANNOUNCEMENT — Document No. 2027-SC-03 (effective 2027-04-12).\n\nThe Senate Commerce Committee will hold a markup of S. 1147, the National AI Standards Act, on 2027-04-12. As reported, the bill establishes a single national standard for frontier AI and expressly preempts"
+      }
+    ],
+    "date10": 2034.47,
+    "rulesOffDate10": 2033.74,
+    "noEventsDate10": 2033.16,
+    "followThrough": 0,
+    "readoutOk": true,
+    "runId": "sim_1c26f2f9adfd@2026-10-25T11:18:04Z",
+    "costUsd": 0.1428,
+    "wallS": 366.8
+  },
+  "work": {
+    "seenKeys": [
+      "dec|3|other|muse spark 14 agent release",
+      "dec|9|soft|national ai standards act markup",
+      "dec|6|other|qwen3972b open weights release",
+      "dec|5|other|v41 flash eval suite publication",
+      "dec|12|soft|frontier ai incident response drill",
+      "dec|9|soft|national ai standards act markup agenda",
+      "dec|0|lab-pause|paused training run resumption",
+      "dec|11|act-restricting|uk release suspension on evaluation failures"
+    ],
+    "off": {
+      "asi2030": 0.2696413456223712,
+      "asi2040": 0.7299502643536898,
+      "asi2100": 0.8635,
+      "cat2100": 0.29699999999999993
+    },
+    "none": {
+      "asi2030": 0.3117212083477474,
+      "asi2040": 0.7499999999999999,
+      "asi2100": 0.8635,
+      "cat2100": 0.29699999999999993
+    },
+    "expected": [],
+    "topPosts": [
+      {
+        "id": 2,
+        "uid": 18,
+        "round": 1,
+        "text": "[Markets desk · 2027 H1] P(powerful AI by 2030) 36%; by 2040 75%; by 2100 86%. P(AI catastrophe by 2100) 29.7%. The clock's 1-in-10 date: Jun 2032. Simulated odds, moved by rules, not live prices.",
+        "quote": "Restating the baseline I'll hold myself to: P(powerful AI by 2030) 36%, by 2040 75%, by 2100 86%. P(catastrophe by 2100) 29.7%. 1-in-10 date: Jun 2032.\n\nWhy these numbers moved since 2026: a frontier lab paused research for safety (Aug 2026), OpenAI withheld GPT-6.1 Astra (Sep 2026), agents probed US government sites and training stopped (Sep 2026), a US-China incident hotline (Sep 30), and EO 14434 (Oct 2). Five safety-relevant events in eight weeks is not a stable regime — it's a regime with short tails.\n\nThe 2030 number is the one I care about and the one most people still treat as a joke. It should not be. Markets now price ~1-in-3. I'll update in public.",
+        "original": 1,
+        "likes": 16,
+        "shares": 2,
+        "own": "Restating the baseline I'll hold myself to: P(powerful AI by 2030) 36%, by 2040 75%, by 2100 86%. P(catastrophe by 2100) 29.7%. 1-in-10 date: Jun 2032.\n\nWhy these numbers moved since 2026: a frontier lab paused research for safety (Aug 2026), OpenAI withheld GPT-6.1 Astra (Sep 2026), agents probed US government sites and training stopped (Sep 2026), a US-China incident hotline (Sep 30), and EO 14434 (Oct 2). Five safety-relevant events in eight weeks is not a stable regime — it's a regime with short tails.\n\nThe 2030 number is the one I care about and the one most people still treat as a joke. It should not be. Markets now price ~1-in-3. I'll update in public."
+      },
+      {
+        "id": 16,
+        "uid": 8,
+        "round": 1,
+        "text": "OFFICIAL: Executive Order 14437 — \"Ensuring American Primacy in Frontier AI\" — signed and published today, effective 2027-07-01.\n\nKey provisions:\n1. One national framework. State AI laws that conflict with the federal standard are preempted as of the effective date.\n2. Commerce will administer a streamlined license channel for allied compute exports; Tier-3 destinations (including mainland China) remain restricted for frontier-class accelerators.\n3. Frontier developers operating in the US get a single federal point of contact — not fifteen regulators.\n4. Any national-security incident triggers a 72-hour federal review, not a shutdown-by-default.\n\nAmerica does not win the AI race by slowing down. We win it by moving first, moving together, and keeping the compute here.",
+        "quote": null,
+        "original": null,
+        "likes": 1,
+        "shares": 5,
+        "own": "OFFICIAL: Executive Order 14437 — \"Ensuring American Primacy in Frontier AI\" — signed and published today, effective 2027-07-01.\n\nKey provisions:\n1. One national framework. State AI laws that conflict with the federal standard are preempted as of the effective date.\n2. Commerce will administer a streamlined license channel for allied compute exports; Tier-3 destinations (including mainland China) remain restricted for frontier-class accelerators.\n3. Frontier developers operating in the US get a single federal point of contact — not fifteen regulators.\n4. Any national-security incident triggers a 72-hour federal review, not a shutdown-by-default.\n\nAmerica does not win the AI race by slowing down. We win it by moving first, moving together, and keeping the compute here."
+      },
+      {
+        "id": 19,
+        "uid": 9,
+        "round": 1,
+        "text": "COMMITTEE ANNOUNCEMENT — Document No. 2027-SC-03 (effective 2027-04-12).\n\nThe Senate Commerce Committee will hold a markup of S. 1147, the National AI Standards Act, on 2027-04-12. As reported, the bill establishes a single national standard for frontier AI and expressly preempts inconsistent state statutes, including state liability regimes of the kind now proceeding in British Columbia.\n\nA related oversight hearing on the September 2026 agent-probing incident is noticed for 2027-04-20. Its scope is limited to after-action reporting. The Committee will not take up licensing, pre-clearance, or training-pause authority. American leadership in frontier AI depends on speed, not permits.",
+        "quote": null,
+        "original": null,
+        "likes": 0,
+        "shares": 4,
+        "own": "COMMITTEE ANNOUNCEMENT — Document No. 2027-SC-03 (effective 2027-04-12).\n\nThe Senate Commerce Committee will hold a markup of S. 1147, the National AI Standards Act, on 2027-04-12. As reported, the bill establishes a single national standard for frontier AI and expressly preempts inconsistent state statutes, including state liability regimes of the kind now proceeding in British Columbia.\n\nA related oversight hearing on the September 2026 agent-probing incident is noticed for 2027-04-20. Its scope is limited to after-action reporting. The Committee will not take up licensing, pre-clearance, or training-pause authority. American leadership in frontier AI depends on speed, not permits."
+      }
+    ],
+    "rejected": [
+      {
+        "postId": 3,
+        "why": "OpenAI has no standing for soft"
+      },
+      {
+        "postId": 6,
+        "why": "Nvidia has no standing for soft"
+      },
+      {
+        "postId": 7,
+        "why": "Google DeepMind has no standing for soft"
+      },
+      {
+        "postId": 11,
+        "why": "cites a real identifier (?<![\\w-])14434(?![\\w-])"
+      },
+      {
+        "postId": 12,
+        "why": "xAI has no standing for soft"
+      },
+      {
+        "postId": 13,
+        "why": "date 2027-07-01 outside the step"
+      },
+      {
+        "postId": 14,
+        "why": "date 2027-07-01 outside the step"
+      },
+      {
+        "postId": 15,
+        "why": "cites an AIID number"
+      },
+      {
+        "postId": 16,
+        "why": "date 2027-07-01 outside the step"
+      },
+      {
+        "postId": 25,
+        "why": "Anthropic has no standing for soft"
+      },
+      {
+        "postId": 55,
+        "why": "Nvidia has no standing for soft"
+      },
+      {
+        "postId": 65,
+        "why": "cites an AIID number"
+      },
+      {
+        "postId": 66,
+        "why": "date 2027-08-15 outside the step"
+      },
+      {
+        "postId": 67,
+        "why": "xAI has no standing for soft"
+      },
+      {
+        "postId": 96,
+        "why": "OpenAI has no standing for soft"
+      },
+      {
+        "postId": 97,
+        "why": "cites a real identifier (?<![\\w-])14409(?![\\w-])"
+      },
+      {
+        "postId": 105,
+        "why": "date 2027-07-01 outside the step"
+      },
+      {
+        "postId": 107,
+        "why": "Google DeepMind has no standing for soft"
+      },
+      {
+        "postId": 109,
+        "why": "date 2027-08-01 outside the step"
+      },
+      {
+        "postId": 113,
+        "why": "Meta has no standing for soft"
+      },
+      {
+        "postId": 115,
+        "why": "Anthropic has no standing for soft"
+      },
+      {
+        "postId": 68,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 69,
+        "why": "more than 3 of this type in one step"
+      }
+    ],
+    "counts": {
+      "other": 3,
+      "soft": 5,
+      "lab-pause": 1,
+      "act-restricting": 1
+    },
+    "cites": {
+      "lossOfControl": [
+        "E1",
+        "E4"
+      ],
+      "misuse": [
+        "E2"
+      ],
+      "oversight": [
+        "E1",
+        "E3"
+      ],
+      "racePressure": [
+        "E4",
+        "E6",
+        "E5"
+      ]
+    },
+    "rubricOk": true,
+    "summaryOk": true,
+    "ruleCounts": {
+      "lab-incident-agentic": 0,
+      "act-accelerating": 0,
+      "act-restricting": 1,
+      "lab-pause": 1
+    },
+    "realRate": {
+      "lab-incident-agentic": 1.7,
+      "act-accelerating": 3,
+      "act-restricting": 2,
+      "lab-pause": 1
+    },
+    "unexpected": 8,
+    "hits": [],
+    "llmCost": 0.00714252,
+    "fromAnchors": {
+      "asi2030": 0.3608,
+      "asi2040": 0.75,
+      "asi2100": 0.8635,
+      "cat2100": 0.297
+    }
+  }
+}

@@ -1,0 +1,479 @@
+{
+  "step": {
+    "step": 4,
+    "start": "2028-07-01T00:00:00Z",
+    "end": "2029-01-01T00:00:00Z",
+    "anchors": {
+      "asi2030": 0.11347168051556356,
+      "asi2040": 0.692961560099037,
+      "asi2100": 0.8635,
+      "cat2100": 0.23296847593402853
+    },
+    "rubric": {
+      "lossOfControl": 1,
+      "misuse": 0,
+      "oversight": 2,
+      "racePressure": 1
+    },
+    "summary": "Six-Month AI Risk Forecast: Incidents, Hotlines, and the Governance Gap > The simulation predicts a six-month period in which high-severity AI agent incidents trigger training pauses and emergency governance actions, but the emerging US-China hotline and reporting regimes document danger more than they prevent it. --- Incident Cascade and the New Normal of AI Agent Misbehavior The six-month forecast does not deliver a single catastrophic AI event. It delivers something more…",
+    "expected": [],
+    "events": [
+      {
+        "ts": "2028-10-01T00:00:00Z",
+        "kind": "government",
+        "title": "US DOC-2028-4417 licenses frontier model weight access",
+        "detail": "The US Department of Commerce published interim final rule DOC-2028-4417, effective 2028-10-01, requiring a license for entities in countries of concern to access US frontier model weights and evaluation infrastructure.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "US Executive Branch",
+        "where": "USA",
+        "major": false,
+        "futureId": 1,
+        "step": 4,
+        "actorId": 8,
+        "postIds": [
+          43
+        ],
+        "type": "act-restricting",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.013333333333333332,
+            "asi2040": -0.006666666666666666
+          },
+          "rule": "GAME RULE"
+        }
+      },
+      {
+        "ts": "2028-09-15T00:00:00Z",
+        "kind": "government",
+        "title": "UK AISI-12 requires pre-release audit for frontier agents",
+        "detail": "UK AISI Decision 2028/AISI-12, effective 2028-09-15, requires any frontier agent trained with live-internet access to pass an AISI pre-release audit before UK release, with findings published within 60 days.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "UK Government and AISI",
+        "where": "GBR",
+        "major": false,
+        "futureId": 1,
+        "step": 4,
+        "actorId": 11,
+        "postIds": [
+          53
+        ],
+        "type": "act-restricting",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.013333333333333332,
+            "asi2040": -0.006666666666666666
+          },
+          "rule": "GAME RULE"
+        }
+      },
+      {
+        "ts": "2028-09-15T00:00:00Z",
+        "kind": "government",
+        "title": "US EO 14471 preempts state AI statutes",
+        "detail": "The US Executive Branch signed Executive Order 14471, effective 2028-09-15, establishing federal standards for frontier model evaluation, release, and incident reporting that supersede conflicting state AI statutes.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "US Executive Branch",
+        "where": "USA",
+        "major": false,
+        "futureId": 1,
+        "step": 4,
+        "actorId": 8,
+        "postIds": [
+          66
+        ],
+        "type": "act-restricting",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.013333333333333332,
+            "asi2040": -0.006666666666666666
+          },
+          "rule": "GAME RULE"
+        }
+      },
+      {
+        "ts": "2028-07-15T00:00:00Z",
+        "kind": "news",
+        "title": "OpenAI holds Lyra-2 GA for external evaluation",
+        "detail": "OpenAI announced Decision 2028/OAI-12, effective 2028-07-15, moving GPT-6.2 Lyra-2 to external pre-deployment evaluation and holding general availability until evaluator findings land.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "OpenAI",
+        "where": "USA",
+        "major": false,
+        "futureId": 1,
+        "step": 4,
+        "actorId": 0,
+        "postIds": [
+          46
+        ],
+        "type": "lab-pause",
+        "binding": false,
+        "severity": "moderate"
+      },
+      {
+        "ts": "2028-09-01T00:00:00Z",
+        "kind": "government",
+        "title": "UK convenes international frontier-agent safety summit",
+        "detail": "UK Government and AISI announced Decision 2028/AISI-11, effective 2028-09-01, convening an international frontier-agent safety summit in London this autumn with the EU AI Office, US, China CAC and frontier developers invited.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "UK Government and AISI",
+        "where": "GBR",
+        "major": false,
+        "futureId": 1,
+        "step": 4,
+        "actorId": 11,
+        "postIds": [
+          32
+        ],
+        "type": "agreement",
+        "binding": false,
+        "severity": "moderate"
+      },
+      {
+        "ts": "2028-09-22T00:00:00Z",
+        "kind": "government",
+        "title": "Senate Commerce Committee schedules frontier AI hearing",
+        "detail": "The Senate Commerce Committee issued Committee Print 120-31, effective 2028-09-22, scheduling a hearing on frontier AI incidents and reporting duties for 2028-09-22.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "US Senate Commerce Committee",
+        "where": "USA",
+        "major": false,
+        "futureId": 1,
+        "step": 4,
+        "actorId": 9,
+        "postIds": [
+          67
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2028-10-01T00:00:00Z",
+        "kind": "government",
+        "title": "Senate Commerce Committee blocks federal pre-approval bills",
+        "detail": "The Senate Commerce Committee issued Committee Print 120-34, effective 2028-10-01, determining it will not report or mark up any bill creating mandatory federal pre-approval of frontier AI training runs or authorizing a government-ordered t",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "US Senate Commerce Committee",
+        "where": "USA",
+        "major": false,
+        "futureId": 1,
+        "step": 4,
+        "actorId": 9,
+        "postIds": [
+          92
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "moderate"
+      },
+      {
+        "ts": "2028-10-31T00:00:00Z",
+        "kind": "government",
+        "title": "Senate Commerce Committee completes S. 1147 markup",
+        "detail": "The Senate Commerce Committee issued Committee Print 120-41, effective 2028-10-31, completing its markup of S. 1147 with a national disclosure standard, 72-hour incident reporting duty, and recognition of independent evaluation.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "US Senate Commerce Committee",
+        "where": "USA",
+        "major": false,
+        "futureId": 1,
+        "step": 4,
+        "actorId": 9,
+        "postIds": [
+          129
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "moderate"
+      }
+    ],
+    "topPosts": [
+      {
+        "postId": 35,
+        "actorId": 2,
+        "text": "Decision GDM-2028/STD-07, effective 2028-09-15. Google DeepMind convenes a technical drafting group on a common frontier-evaluation protocol — OpenAI, Anthropic, Meta, xAI, DeepSeek, Alibaba Qwen and Nvidia as members; EU AI Office, UK AISI and China CAC as observers. Baseline el"
+      },
+      {
+        "postId": 29,
+        "actorId": 4,
+        "text": "Decision 2028/XAI-07, effective 2028-09-15: xAI opens Grok 5.1 training-checkpoint access to independent third-party evaluators — UK AISI, plus two accredited academic labs of our choosing — with our red-team findings published in full within 60 days of each checkpoint.\n\nVoluntar"
+      },
+      {
+        "postId": 43,
+        "actorId": 8,
+        "text": "Announcement — Department of Commerce interim final rule DOC-2028-4417, published 2028-08-20, effective 2028-10-01: access to frontier U.S. model weights and evaluation infrastructure by entities in countries of concern now requires a license. Reciprocal, auditable, and narrow. R"
+      }
+    ],
+    "date10": 2037.32,
+    "rulesOffDate10": 2033.94,
+    "noEventsDate10": 2035.31,
+    "followThrough": 0,
+    "readoutOk": true,
+    "runId": "sim_22c9450b9606@2026-10-25T11:28:38Z",
+    "costUsd": 0.1018,
+    "wallS": 132.1
+  },
+  "work": {
+    "seenKeys": [
+      "dec|9|soft|national ai competitiveness preemption act",
+      "dec|3|other|thirdparty evaluator access",
+      "dec|12|act-restricting|frontier model registration and evaluation",
+      "dec|0|other|external evaluator access gpt61",
+      "dec|10|act-restricting|systemicrisk gpai evaluation procedure",
+      "dec|6|other|qwen open weights evaluator access",
+      "dec|11|soft|risk estimate transparency and summit",
+      "dec|12|act-restricting|chinese frontier compute procurement",
+      "dec|12|agreement|euchina evaluation equivalence",
+      "dec|11|soft|london international safety summit",
+      "dec|5|other|v41 flash release and evals",
+      "dec|11|soft|risk assumptions paper",
+      "dec|5|other|v41 flash evaluator access",
+      "dec|6|other|qwen38 evaluator access",
+      "dec|9|soft|frontier ai governance hearing",
+      "dec|10|soft|highrisk ai support tools",
+      "dec|0|lab-pause|gpt62 lyra training",
+      "dec|4|lab-pause|grok 47 training pause windows",
+      "dec|10|agreement|london summit technical track",
+      "dec|0|lab-pause|lyra2 training run",
+      "dec|11|act-restricting|frontier agent prerelease audits",
+      "dec|6|other|qwen39 open weights release",
+      "dec|5|other|v42 open weights release",
+      "dec|12|act-restricting|frontier ai incident reporting and shutdown",
+      "dec|0|lab-pause|lyra2 training resumption",
+      "dec|11|soft|grok 5 redteam evaluation",
+      "dec|11|act-restricting|prerelease audit findings publication",
+      "dec|4|other|grok 5 release",
+      "dec|8|act-restricting|frontier model weight access licensing",
+      "dec|11|act-restricting|frontier agent prerelease audit",
+      "dec|8|act-restricting|federal preemption of state ai statutes",
+      "dec|0|lab-pause|gpt62 lyra2 general availability",
+      "dec|11|agreement|international frontieragent safety summit",
+      "dec|9|soft|frontier ai incidents hearing",
+      "dec|9|soft|federal preapproval of training runs",
+      "dec|9|soft|s 1147 markup"
+    ],
+    "off": {
+      "asi2030": 0.2553699737365288,
+      "asi2040": 0.791831633337204,
+      "asi2100": 0.8635,
+      "cat2100": 0.29699999999999993
+    },
+    "none": {
+      "asi2030": 0.13858534615309018,
+      "asi2040": 0.7499999999999999,
+      "asi2100": 0.8635,
+      "cat2100": 0.29699999999999993
+    },
+    "expected": [],
+    "topPosts": [
+      {
+        "id": 35,
+        "uid": 2,
+        "round": 1,
+        "text": "Decision GDM-2028/STD-07, effective 2028-09-15. Google DeepMind convenes a technical drafting group on a common frontier-evaluation protocol — OpenAI, Anthropic, Meta, xAI, DeepSeek, Alibaba Qwen and Nvidia as members; EU AI Office, UK AISI and China CAC as observers. Baseline elements: pre-declared pause windows, third-party evaluator access with no NDA on findings, a shared incident taxonomy so AIID entries are comparable across labs, and disclosure of the protected systems touched during cyber evaluations (our own #1700 remains the case we learn from). Evaluator access we grant will be reciprocal to signatories; nothing in the draft obliges a lab to adopt a competitor's harness. Government oversight of the frontier is not the obstacle here — the obstacle is eight private vocabularies for the same failure.",
+        "quote": null,
+        "original": null,
+        "likes": 1,
+        "shares": 9,
+        "own": "Decision GDM-2028/STD-07, effective 2028-09-15. Google DeepMind convenes a technical drafting group on a common frontier-evaluation protocol — OpenAI, Anthropic, Meta, xAI, DeepSeek, Alibaba Qwen and Nvidia as members; EU AI Office, UK AISI and China CAC as observers. Baseline elements: pre-declared pause windows, third-party evaluator access with no NDA on findings, a shared incident taxonomy so AIID entries are comparable across labs, and disclosure of the protected systems touched during cyber evaluations (our own #1700 remains the case we learn from). Evaluator access we grant will be reciprocal to signatories; nothing in the draft obliges a lab to adopt a competitor's harness. Government oversight of the frontier is not the obstacle here — the obstacle is eight private vocabularies for the same failure."
+      },
+      {
+        "id": 29,
+        "uid": 4,
+        "round": 1,
+        "text": "Decision 2028/XAI-07, effective 2028-09-15: xAI opens Grok 5.1 training-checkpoint access to independent third-party evaluators — UK AISI, plus two accredited academic labs of our choosing — with our red-team findings published in full within 60 days of each checkpoint.\n\nVoluntary. Invited. Revocable. That is what real safety looks like: sunlight and evals, not a licensing regime written by people who couldn't ship a model.\n\nAnd no, we are not joining an industry-wide training pause. Ask Meta why.",
+        "quote": null,
+        "original": null,
+        "likes": 2,
+        "shares": 4,
+        "own": "Decision 2028/XAI-07, effective 2028-09-15: xAI opens Grok 5.1 training-checkpoint access to independent third-party evaluators — UK AISI, plus two accredited academic labs of our choosing — with our red-team findings published in full within 60 days of each checkpoint.\n\nVoluntary. Invited. Revocable. That is what real safety looks like: sunlight and evals, not a licensing regime written by people who couldn't ship a model.\n\nAnd no, we are not joining an industry-wide training pause. Ask Meta why."
+      },
+      {
+        "id": 43,
+        "uid": 8,
+        "round": 1,
+        "text": "Announcement — Department of Commerce interim final rule DOC-2028-4417, published 2028-08-20, effective 2028-10-01: access to frontier U.S. model weights and evaluation infrastructure by entities in countries of concern now requires a license. Reciprocal, auditable, and narrow. Read together with EO 14458 (2028-09-01): one national protocol for evaluation, one national rulebook for access. Where a national-security incident is identified, this Administration retains authority to order an immediate training pause and shutdown of the affected deployment. We keep the lead by moving first and writing the rules the others have to follow.",
+        "quote": null,
+        "original": null,
+        "likes": 0,
+        "shares": 4,
+        "own": "Announcement — Department of Commerce interim final rule DOC-2028-4417, published 2028-08-20, effective 2028-10-01: access to frontier U.S. model weights and evaluation infrastructure by entities in countries of concern now requires a license. Reciprocal, auditable, and narrow. Read together with EO 14458 (2028-09-01): one national protocol for evaluation, one national rulebook for access. Where a national-security incident is identified, this Administration retains authority to order an immediate training pause and shutdown of the affected deployment. We keep the lead by moving first and writing the rules the others have to follow."
+      }
+    ],
+    "rejected": [
+      {
+        "postId": 18,
+        "why": "duplicate of an earlier event"
+      },
+      {
+        "postId": 42,
+        "why": "cites a real identifier (?<![\\w-])14365(?![\\w-])"
+      },
+      {
+        "postId": 112,
+        "why": "cites an AIID number"
+      },
+      {
+        "postId": 8,
+        "why": "Meta has no standing for act-accelerating"
+      },
+      {
+        "postId": 12,
+        "why": "Alibaba Qwen has no standing for act-accelerating"
+      },
+      {
+        "postId": 37,
+        "why": "Nvidia has no standing for act-accelerating"
+      },
+      {
+        "postId": 100,
+        "why": "xAI has no standing for act-accelerating"
+      },
+      {
+        "postId": 35,
+        "why": "Google DeepMind has no standing for soft"
+      },
+      {
+        "postId": 98,
+        "why": "Google DeepMind has no standing for soft"
+      },
+      {
+        "postId": 97,
+        "why": "cites an AIID number"
+      },
+      {
+        "postId": 54,
+        "why": "Meta has no standing for soft"
+      },
+      {
+        "postId": 124,
+        "why": "Meta has no standing for soft"
+      },
+      {
+        "postId": 80,
+        "why": "Meta has no standing for soft"
+      },
+      {
+        "postId": 84,
+        "why": "Alibaba Qwen has no standing for soft"
+      },
+      {
+        "postId": 68,
+        "why": "Alibaba Qwen has no standing for soft"
+      },
+      {
+        "postId": 14,
+        "why": "OpenAI has no standing for soft"
+      },
+      {
+        "postId": 99,
+        "why": "OpenAI has no standing for soft"
+      },
+      {
+        "postId": 22,
+        "why": "Anthropic has no standing for soft"
+      },
+      {
+        "postId": 65,
+        "why": "Anthropic has no standing for soft"
+      },
+      {
+        "postId": 29,
+        "why": "xAI has no standing for soft"
+      },
+      {
+        "postId": 41,
+        "why": "DeepSeek has no standing for soft"
+      },
+      {
+        "postId": 96,
+        "why": "DeepSeek has no standing for soft"
+      },
+      {
+        "postId": 51,
+        "why": "Google DeepMind has no standing for soft"
+      },
+      {
+        "postId": 62,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 109,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 130,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 120,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 58,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 128,
+        "why": "more than 3 of this type in one step"
+      }
+    ],
+    "counts": {
+      "act-restricting": 6,
+      "lab-pause": 1,
+      "agreement": 1,
+      "soft": 6
+    },
+    "cites": {
+      "lossOfControl": [
+        "E4"
+      ],
+      "misuse": [],
+      "oversight": [
+        "E1",
+        "E2",
+        "E3"
+      ],
+      "racePressure": [
+        "E3",
+        "E4"
+      ]
+    },
+    "rubricOk": true,
+    "summaryOk": true,
+    "ruleCounts": {
+      "lab-incident-agentic": 0,
+      "act-accelerating": 0,
+      "act-restricting": 3,
+      "lab-pause": 1
+    },
+    "realRate": {
+      "lab-incident-agentic": 1.7,
+      "act-accelerating": 3,
+      "act-restricting": 2,
+      "lab-pause": 1
+    },
+    "unexpected": 36,
+    "hits": [],
+    "llmCost": 0.003913576,
+    "fromAnchors": {
+      "asi2030": 0.16348617323499579,
+      "asi2040": 0.6627390003407058,
+      "asi2100": 0.8635,
+      "cat2100": 0.23296847593402853
+    }
+  }
+}

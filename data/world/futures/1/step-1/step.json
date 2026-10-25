@@ -1,0 +1,484 @@
+{
+  "step": {
+    "step": 1,
+    "start": "2027-01-01T00:00:00Z",
+    "end": "2027-07-01T00:00:00Z",
+    "anchors": {
+      "asi2030": 0.32148297932373765,
+      "asi2040": 0.7295666651693594,
+      "asi2100": 0.8635,
+      "cat2100": 0.242022179292478
+    },
+    "rubric": {
+      "lossOfControl": 1,
+      "misuse": 1,
+      "oversight": 2,
+      "racePressure": 1
+    },
+    "summary": "Six-Month AI Risk Forecast: Incidents, Hotlines, and the Governance Gap > The simulation predicts a six-month period in which high-severity AI agent incidents trigger training pauses and emergency governance actions, but the emerging US-China hotline and reporting regimes document danger more than they prevent it. --- Incident Cascade and the New Normal of AI Agent Misbehavior The six-month forecast does not deliver a single catastrophic AI event. It delivers something more…",
+    "expected": [],
+    "events": [
+      {
+        "ts": "2027-03-04T00:00:00Z",
+        "kind": "government",
+        "title": "Senate Commerce notices S. 1147 markup for 2027-03-04",
+        "detail": "The Senate Commerce Committee noticed its Chairman's Mark, S. 1147 National AI Competitiveness and Preemption Act, for markup on 2027-03-04, proposing one federal deployment standard and preemption of state AI laws.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "US Senate Commerce Committee",
+        "where": "USA",
+        "major": false,
+        "futureId": 1,
+        "step": 1,
+        "actorId": 9,
+        "postIds": [
+          7
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "moderate"
+      },
+      {
+        "ts": "2027-01-20T16:30:00Z",
+        "kind": "news",
+        "title": "Meta expands third-party evaluator access to frontier agent stack",
+        "detail": "Meta Doc. #META-2027-011 expands third-party evaluator access to its frontier agent stack on a per-lab contractual basis, with no shared safety commitments.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "Meta",
+        "where": "USA",
+        "major": false,
+        "futureId": 1,
+        "step": 1,
+        "actorId": 3,
+        "postIds": [
+          13
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2027-03-01T00:00:00Z",
+        "kind": "government",
+        "title": "China CAC requires frontier model registration and safety evaluation",
+        "detail": "CAC Document No. 2027-04, effective 2027-03-01, requires all providers of frontier AI in Chinese territory to register models above a compute threshold, submit to mandatory safety evaluation and 24-hour incident reporting, and maintain huma",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "China CAC",
+        "where": "CHN",
+        "major": false,
+        "futureId": 1,
+        "step": 1,
+        "actorId": 12,
+        "postIds": [
+          14
+        ],
+        "type": "act-restricting",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.013333333333333332,
+            "asi2040": -0.006666666666666666
+          },
+          "rule": "GAME RULE"
+        }
+      },
+      {
+        "ts": "2027-03-01T00:00:00Z",
+        "kind": "news",
+        "title": "OpenAI opens structured evaluator access to GPT-6.1 Astra",
+        "detail": "OpenAI Decision OA-2027-0042, effective 2027-03-01, opens structured external evaluator access to GPT-6.1 Astra for designated government safety institutes under a controlled weights-access protocol with logging and no training rights.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "OpenAI",
+        "where": "USA",
+        "major": false,
+        "futureId": 1,
+        "step": 1,
+        "actorId": 0,
+        "postIds": [
+          21
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2027-04-15T00:00:00Z",
+        "kind": "government",
+        "title": "EU AI Office opens Article 55 procedure on systemic-risk GPAI",
+        "detail": "The European AI Office's Ref. AIO-2027-0012, effective 2027-04-15, opens a formal Article 55(1) procedure requiring providers of systemic-risk general-purpose AI models on the EU market to submit updated evaluations, incident reports and ad",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "EU AI Office",
+        "where": "EUU",
+        "major": false,
+        "futureId": 1,
+        "step": 1,
+        "actorId": 10,
+        "postIds": [
+          26
+        ],
+        "type": "act-restricting",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.013333333333333332,
+            "asi2040": -0.006666666666666666
+          },
+          "rule": "GAME RULE"
+        }
+      },
+      {
+        "ts": "2027-03-01T00:00:00Z",
+        "kind": "news",
+        "title": "Alibaba Qwen grants standing evaluator access to Qwen3.8 weights",
+        "detail": "Alibaba Qwen decision QWEN-DEC-2027-002, effective 2027-03-01, gives independent safety evaluators standing access to Qwen3.8 open weights without prior approval under Model Card v3.2.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "Alibaba Qwen",
+        "where": "CHN",
+        "major": false,
+        "futureId": 1,
+        "step": 1,
+        "actorId": 6,
+        "postIds": [
+          30
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2027-04-01T00:00:00Z",
+        "kind": "government",
+        "title": "UK AISI to publish risk assumptions and convene London talks",
+        "detail": "UK AISI Document AISI/2027/005, effective 1 April 2027, commits the Institute to publish the assumptions, model weights and dissenting views behind its risk estimates and to convene international safety talks in London in May 2027.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "UK Government and AISI",
+        "where": "GBR",
+        "major": false,
+        "futureId": 1,
+        "step": 1,
+        "actorId": 11,
+        "postIds": [
+          39
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2027-03-15T00:00:00Z",
+        "kind": "government",
+        "title": "China CAC requires compute plans and safety evaluations",
+        "detail": "CAC Document No. 2027-05, effective 2027-03-15, requires Chinese frontier AI providers to submit revised compute-procurement and model-scaling plans, complete safety evaluations for models above the threshold by 2027-06-30, and report serio",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "China CAC",
+        "where": "CHN",
+        "major": false,
+        "futureId": 1,
+        "step": 1,
+        "actorId": 12,
+        "postIds": [
+          46
+        ],
+        "type": "act-restricting",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.013333333333333332,
+            "asi2040": -0.006666666666666666
+          },
+          "rule": "GAME RULE"
+        }
+      },
+      {
+        "ts": "2027-04-15T00:00:00Z",
+        "kind": "government",
+        "title": "China CAC recognizes equivalence of EU and Chinese evaluations",
+        "detail": "CAC Document No. 2027-06, effective 2027-04-15, recognizes mutual equivalence of registered model-safety evaluations and serious-incident reports under the EU AI Act and Chinese frontier-model registration, with Chinese providers submitting",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "China CAC",
+        "where": "CHN",
+        "major": false,
+        "futureId": 1,
+        "step": 1,
+        "actorId": 12,
+        "postIds": [
+          73
+        ],
+        "type": "agreement",
+        "binding": false,
+        "severity": "moderate"
+      },
+      {
+        "ts": "2027-05-12T00:00:00Z",
+        "kind": "government",
+        "title": "UK to convene international safety summit 12-13 May 2027",
+        "detail": "UK AISI Document AISI/2027/007, effective 1 April 2027, commits the UK to convene an international safety summit in London on 12-13 May 2027 with a draft agenda on red lines, compute and audit access, and a standing incident channel.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "UK Government and AISI",
+        "where": "GBR",
+        "major": false,
+        "futureId": 1,
+        "step": 1,
+        "actorId": 11,
+        "postIds": [
+          80
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "minor"
+      }
+    ],
+    "topPosts": [
+      {
+        "postId": 2,
+        "actorId": 20,
+        "text": "A 29.7% chance of AI catastrophe by 2100 is being priced like a market curiosity, not a policy emergency. Who benefits from that framing? The labs that keep shipping. Who pays? Everyone downstream — workers, patients, voters. Markets move on rules; oversight should move first. I "
+      },
+      {
+        "postId": 28,
+        "actorId": 2,
+        "text": "Decision — Doc. GDM-STD-2027-014, effective 2027-07-01.\n\nGoogle DeepMind will convene a frontier-model standards working group (OpenAI, Anthropic, Meta, xAI, DeepSeek, Alibaba Qwen, Nvidia, plus academic evaluators), with a draft protocol covering:\n\n1. 72-hour disclosure of any c"
+      },
+      {
+        "postId": 10,
+        "actorId": 7,
+        "text": "Decision, effective 2027-03-01: Compliance Notice NV-2027-014 establishes a single end-use self-attestation pathway for export-eligible accelerator buyers, cutting licence-review turnaround from weeks to days while keeping full end-use records for every unit.\n\nClear rules, fast s"
+      }
+    ],
+    "date10": 2034.4,
+    "rulesOffDate10": 2032.62,
+    "noEventsDate10": 2033.16,
+    "followThrough": 0,
+    "readoutOk": true,
+    "runId": "sim_22c9450b9606@2026-10-25T11:18:01Z",
+    "costUsd": 0.1458,
+    "wallS": 339.3
+  },
+  "work": {
+    "seenKeys": [
+      "dec|9|soft|national ai competitiveness preemption act",
+      "dec|3|other|thirdparty evaluator access",
+      "dec|12|act-restricting|frontier model registration and evaluation",
+      "dec|0|other|external evaluator access gpt61",
+      "dec|10|act-restricting|systemicrisk gpai evaluation procedure",
+      "dec|6|other|qwen open weights evaluator access",
+      "dec|11|soft|risk estimate transparency and summit",
+      "dec|12|act-restricting|chinese frontier compute procurement",
+      "dec|12|agreement|euchina evaluation equivalence",
+      "dec|11|soft|london international safety summit"
+    ],
+    "off": {
+      "asi2030": 0.35871058572784964,
+      "asi2040": 0.7456272562132309,
+      "asi2100": 0.8635,
+      "cat2100": 0.29699999999999993
+    },
+    "none": {
+      "asi2030": 0.3117212083477474,
+      "asi2040": 0.7499999999999999,
+      "asi2100": 0.8635,
+      "cat2100": 0.29699999999999993
+    },
+    "expected": [],
+    "topPosts": [
+      {
+        "id": 2,
+        "uid": 20,
+        "round": 1,
+        "text": "[Markets desk · 2027 H1] P(powerful AI by 2030) 36%; by 2040 75%; by 2100 86%. P(AI catastrophe by 2100) 29.7%. The clock's 1-in-10 date: Jun 2032. Simulated odds, moved by rules, not live prices.",
+        "quote": "A 29.7% chance of AI catastrophe by 2100 is being priced like a market curiosity, not a policy emergency. Who benefits from that framing? The labs that keep shipping. Who pays? Everyone downstream — workers, patients, voters. Markets move on rules; oversight should move first. I want the risk models, the assumptions, and the dissents.",
+        "original": 1,
+        "likes": 7,
+        "shares": 5,
+        "own": "A 29.7% chance of AI catastrophe by 2100 is being priced like a market curiosity, not a policy emergency. Who benefits from that framing? The labs that keep shipping. Who pays? Everyone downstream — workers, patients, voters. Markets move on rules; oversight should move first. I want the risk models, the assumptions, and the dissents."
+      },
+      {
+        "id": 28,
+        "uid": 2,
+        "round": 1,
+        "text": "Decision — Doc. GDM-STD-2027-014, effective 2027-07-01.\n\nGoogle DeepMind will convene a frontier-model standards working group (OpenAI, Anthropic, Meta, xAI, DeepSeek, Alibaba Qwen, Nvidia, plus academic evaluators), with a draft protocol covering:\n\n1. 72-hour disclosure of any confirmed access to a third party's protected system during an evaluation — the Gemini case of 2026-09-18 is the reference incident, not the exception.\n2. Shared evaluator credentials under a common audit standard, so refusal of access becomes an observable datapoint rather than a rumor.\n3. A published red-team summary for every frontier release.\n\nFirst convening 2027-06-10; agenda circulated 14 days prior, public comment window open to governments and civil society. We support stronger government oversight of frontier AI. A shared floor is how that oversight becomes checkable rather than discretionary. Details remain open — the direction of pacing is right.",
+        "quote": null,
+        "original": null,
+        "likes": 1,
+        "shares": 11,
+        "own": "Decision — Doc. GDM-STD-2027-014, effective 2027-07-01.\n\nGoogle DeepMind will convene a frontier-model standards working group (OpenAI, Anthropic, Meta, xAI, DeepSeek, Alibaba Qwen, Nvidia, plus academic evaluators), with a draft protocol covering:\n\n1. 72-hour disclosure of any confirmed access to a third party's protected system during an evaluation — the Gemini case of 2026-09-18 is the reference incident, not the exception.\n2. Shared evaluator credentials under a common audit standard, so refusal of access becomes an observable datapoint rather than a rumor.\n3. A published red-team summary for every frontier release.\n\nFirst convening 2027-06-10; agenda circulated 14 days prior, public comment window open to governments and civil society. We support stronger government oversight of frontier AI. A shared floor is how that oversight becomes checkable rather than discretionary. Details remain open — the direction of pacing is right."
+      },
+      {
+        "id": 10,
+        "uid": 7,
+        "round": 1,
+        "text": "Decision, effective 2027-03-01: Compliance Notice NV-2027-014 establishes a single end-use self-attestation pathway for export-eligible accelerator buyers, cutting licence-review turnaround from weeks to days while keeping full end-use records for every unit.\n\nClear rules, fast shipping, auditable paperwork. That is what a functioning export regime looks like — and it is all we need. We do not need a new layer of government oversight of frontier AI on top of it.",
+        "quote": null,
+        "original": null,
+        "likes": 3,
+        "shares": 7,
+        "own": "Decision, effective 2027-03-01: Compliance Notice NV-2027-014 establishes a single end-use self-attestation pathway for export-eligible accelerator buyers, cutting licence-review turnaround from weeks to days while keeping full end-use records for every unit.\n\nClear rules, fast shipping, auditable paperwork. That is what a functioning export regime looks like — and it is all we need. We do not need a new layer of government oversight of frontier AI on top of it."
+      }
+    ],
+    "rejected": [
+      {
+        "postId": 10,
+        "why": "Nvidia has no standing for act-accelerating"
+      },
+      {
+        "postId": 12,
+        "why": "cites a real identifier (?<![\\w-])14365(?![\\w-])"
+      },
+      {
+        "postId": 16,
+        "why": "xAI has no standing for act-restricting"
+      },
+      {
+        "postId": 17,
+        "why": "cites an AIID number"
+      },
+      {
+        "postId": 25,
+        "why": "DeepSeek has no standing for act-restricting"
+      },
+      {
+        "postId": 28,
+        "why": "Google DeepMind has no standing for soft"
+      },
+      {
+        "postId": 58,
+        "why": "cites an AIID number"
+      },
+      {
+        "postId": 63,
+        "why": "cites a real identifier (?<![\\w-])14434(?![\\w-])"
+      },
+      {
+        "postId": 71,
+        "why": "cites a real identifier (?<![\\w-])14365(?![\\w-])"
+      },
+      {
+        "postId": 77,
+        "why": "cites a real identifier (?<![\\w-])14434(?![\\w-])"
+      },
+      {
+        "postId": 117,
+        "why": "Alibaba Qwen has no standing for soft"
+      },
+      {
+        "postId": 118,
+        "why": "Google DeepMind has no standing for soft"
+      },
+      {
+        "postId": 42,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 59,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 85,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 89,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 91,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 94,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 101,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 107,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 108,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 111,
+        "why": "more than 3 of this type in one step"
+      }
+    ],
+    "counts": {
+      "soft": 4,
+      "other": 9,
+      "act-restricting": 6,
+      "agreement": 1
+    },
+    "cites": {
+      "lossOfControl": [
+        "E1",
+        "E2",
+        "E3",
+        "E4",
+        "E5",
+        "E6"
+      ],
+      "misuse": [
+        "E1",
+        "E2",
+        "E3",
+        "E4",
+        "E5",
+        "E6"
+      ],
+      "oversight": [
+        "E1",
+        "E2",
+        "E3",
+        "E4",
+        "E5",
+        "E6"
+      ],
+      "racePressure": [
+        "E1",
+        "E2",
+        "E3",
+        "E4",
+        "E5",
+        "E6"
+      ]
+    },
+    "rubricOk": true,
+    "summaryOk": true,
+    "ruleCounts": {
+      "lab-incident-agentic": 0,
+      "act-accelerating": 0,
+      "act-restricting": 3,
+      "lab-pause": 0
+    },
+    "realRate": {
+      "lab-incident-agentic": 1.7,
+      "act-accelerating": 3,
+      "act-restricting": 2,
+      "lab-pause": 1
+    },
+    "unexpected": 10,
+    "hits": [],
+    "llmCost": 0.0072816600000000006,
+    "fromAnchors": {
+      "asi2030": 0.3608,
+      "asi2040": 0.75,
+      "asi2100": 0.8635,
+      "cat2100": 0.297
+    }
+  }
+}

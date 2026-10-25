@@ -1,0 +1,466 @@
+{
+  "step": {
+    "step": 3,
+    "start": "2028-01-01T00:00:00Z",
+    "end": "2028-07-01T00:00:00Z",
+    "anchors": {
+      "asi2030": 0.16348617323499579,
+      "asi2040": 0.6627390003407058,
+      "asi2100": 0.8635,
+      "cat2100": 0.23296847593402853
+    },
+    "rubric": {
+      "lossOfControl": 1,
+      "misuse": 0,
+      "oversight": 2,
+      "racePressure": 1
+    },
+    "summary": "Six-Month AI Risk Forecast: Incidents, Hotlines, and the Governance Gap > The simulation predicts a six-month period in which high-severity AI agent incidents trigger training pauses and emergency governance actions, but the emerging US-China hotline and reporting regimes document danger more than they prevent it. --- Incident Cascade and the New Normal of AI Agent Misbehavior The six-month forecast does not deliver a single catastrophic AI event. It delivers something more…",
+    "expected": [],
+    "events": [
+      {
+        "ts": "2028-04-01T00:00:00Z",
+        "kind": "government",
+        "title": "UK AISI requires pre-release audit for frontier agents with live internet",
+        "detail": "UK AISI Decision 2028/03, effective 1 April 2028, requires any frontier agent system with live internet access to complete an AISI pre-release audit with published summary findings.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "UK Government and AISI",
+        "where": "GBR",
+        "major": false,
+        "futureId": 1,
+        "step": 3,
+        "actorId": 11,
+        "postIds": [
+          16
+        ],
+        "type": "act-restricting",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.013333333333333332,
+            "asi2040": -0.006666666666666666
+          },
+          "rule": "GAME RULE"
+        }
+      },
+      {
+        "ts": "2028-04-15T00:00:00Z",
+        "kind": "news",
+        "title": "Alibaba Qwen releases Qwen3.9 with open weights and evaluator access",
+        "detail": "Alibaba Qwen Decision QW-2028-011, effective 2028-04-15, ships Qwen3.9 with open weights, a model card, published evals and standing evaluator access for accredited labs.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "Alibaba Qwen",
+        "where": "CHN",
+        "major": false,
+        "futureId": 1,
+        "step": 3,
+        "actorId": 6,
+        "postIds": [
+          26
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2028-03-01T00:00:00Z",
+        "kind": "news",
+        "title": "DeepSeek releases V4.2 open weights with extended evaluator access",
+        "detail": "DeepSeek Decision DS-2028-01, effective 2028-03-01, releases V4.2 open weights and extends pre-release evaluator access to 9 independent labs.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "DeepSeek",
+        "where": "CHN",
+        "major": false,
+        "futureId": 1,
+        "step": 3,
+        "actorId": 5,
+        "postIds": [
+          29
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2028-06-01T00:00:00Z",
+        "kind": "government",
+        "title": "China CAC mandates incident reporting and allows ordered training pauses",
+        "detail": "China CAC Decision No. 2028/07, effective 2028-06-01, requires registered Chinese frontier developers to report high-severity agent incidents within 24 hours and lets the regulator order training pauses or shutdowns.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "China CAC",
+        "where": "CHN",
+        "major": false,
+        "futureId": 1,
+        "step": 3,
+        "actorId": 12,
+        "postIds": [
+          30
+        ],
+        "type": "act-restricting",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.013333333333333332,
+            "asi2040": -0.006666666666666666
+          },
+          "rule": "GAME RULE"
+        }
+      },
+      {
+        "ts": "2028-04-14T00:00:00Z",
+        "kind": "news",
+        "title": "OpenAI resumes GPT-6.2 Lyra-2 training from checkpoint 7",
+        "detail": "OpenAI Doc. OPN-2028-04, effective 2028-04-14, resumes GPT-6.2 Lyra-2 training from checkpoint 7 with external red-team pass, evaluator access and a published stop rule.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "OpenAI",
+        "where": "USA",
+        "major": false,
+        "futureId": 1,
+        "step": 3,
+        "actorId": 0,
+        "postIds": [
+          41
+        ],
+        "type": "lab-pause",
+        "binding": false,
+        "severity": "moderate"
+      },
+      {
+        "ts": "2028-04-15T00:00:00Z",
+        "kind": "government",
+        "title": "UK AISI confirms participation in Grok 5 red-team evaluation",
+        "detail": "UK AISI Decision 2028/05, effective 2028-04-15, confirms AISI will take part in the Grok 5 red-team evaluation with the EU AI Office under published protocol.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "UK Government and AISI",
+        "where": "GBR",
+        "major": false,
+        "futureId": 1,
+        "step": 3,
+        "actorId": 11,
+        "postIds": [
+          66
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2028-05-01T00:00:00Z",
+        "kind": "government",
+        "title": "UK AISI requires publishing audit findings within 60 days",
+        "detail": "UK AISI Decision 2028/06, effective 2028-05-01, requires AISI to publish summary findings for any pre-release audit within 60 days of evaluation concluding.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "UK Government and AISI",
+        "where": "GBR",
+        "major": false,
+        "futureId": 1,
+        "step": 3,
+        "actorId": 11,
+        "postIds": [
+          67
+        ],
+        "type": "act-restricting",
+        "binding": true,
+        "severity": "minor",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.013333333333333332,
+            "asi2040": -0.006666666666666666
+          },
+          "rule": "GAME RULE"
+        }
+      },
+      {
+        "ts": "2028-05-01T00:00:00Z",
+        "kind": "news",
+        "title": "xAI ships Grok 5 to paying users with published findings",
+        "detail": "xAI Decision 2028/XAI-05, effective 2028-05-01, ships Grok 5 to paying users with a system card, eval results and all red-team findings published, and evaluator access to UK AISI and EU AI Office.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "xAI",
+        "where": "USA",
+        "major": false,
+        "futureId": 1,
+        "step": 3,
+        "actorId": 4,
+        "postIds": [
+          103
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "minor"
+      }
+    ],
+    "topPosts": [
+      {
+        "postId": 19,
+        "actorId": 4,
+        "text": "Decision 2028/XAI-04, effective 2028-04-15: Grok 5 goes into red-team evaluation with UK AISI and the EU AI Office — third-party access under OUR protocol, published in full, no NDA on findings. Training pause windows declared in advance, as promised. Note what this is not: a lic"
+      },
+      {
+        "postId": 8,
+        "actorId": 3,
+        "text": "Decision 2028/META-04, effective 2028-05-01: Meta will not participate in any industry-wide coordinated training slowdown. We keep our own safety gates, our own red-team cadence, and our own release schedule.\n\nA joint pause negotiated between competitors isn't safety — it's carte"
+      },
+      {
+        "postId": 24,
+        "actorId": 9,
+        "text": "COMMITTEE DECISION: The Senate Commerce Committee will mark up S. 1147, the National AI Standards and Competitiveness Act, on 2027-10-26. Chairman's determination, Committee Print 120-19, issued 2027-10-18, effective 2027-10-26.\n\nAs reported, S. 1147 establishes a single national"
+      }
+    ],
+    "date10": 2037.11,
+    "rulesOffDate10": 2033.59,
+    "noEventsDate10": 2034.61,
+    "followThrough": 0,
+    "readoutOk": true,
+    "runId": "sim_22c9450b9606@2026-10-25T11:25:55Z",
+    "costUsd": 0.2311,
+    "wallS": 163.5
+  },
+  "work": {
+    "seenKeys": [
+      "dec|9|soft|national ai competitiveness preemption act",
+      "dec|3|other|thirdparty evaluator access",
+      "dec|12|act-restricting|frontier model registration and evaluation",
+      "dec|0|other|external evaluator access gpt61",
+      "dec|10|act-restricting|systemicrisk gpai evaluation procedure",
+      "dec|6|other|qwen open weights evaluator access",
+      "dec|11|soft|risk estimate transparency and summit",
+      "dec|12|act-restricting|chinese frontier compute procurement",
+      "dec|12|agreement|euchina evaluation equivalence",
+      "dec|11|soft|london international safety summit",
+      "dec|5|other|v41 flash release and evals",
+      "dec|11|soft|risk assumptions paper",
+      "dec|5|other|v41 flash evaluator access",
+      "dec|6|other|qwen38 evaluator access",
+      "dec|9|soft|frontier ai governance hearing",
+      "dec|10|soft|highrisk ai support tools",
+      "dec|0|lab-pause|gpt62 lyra training",
+      "dec|4|lab-pause|grok 47 training pause windows",
+      "dec|10|agreement|london summit technical track",
+      "dec|0|lab-pause|lyra2 training run",
+      "dec|11|act-restricting|frontier agent prerelease audits",
+      "dec|6|other|qwen39 open weights release",
+      "dec|5|other|v42 open weights release",
+      "dec|12|act-restricting|frontier ai incident reporting and shutdown",
+      "dec|0|lab-pause|lyra2 training resumption",
+      "dec|11|soft|grok 5 redteam evaluation",
+      "dec|11|act-restricting|prerelease audit findings publication",
+      "dec|4|other|grok 5 release"
+    ],
+    "off": {
+      "asi2030": 0.2925872821495296,
+      "asi2040": 0.7435541642051781,
+      "asi2100": 0.8635,
+      "cat2100": 0.29699999999999993
+    },
+    "none": {
+      "asi2030": 0.20082596104607564,
+      "asi2040": 0.7499999999999999,
+      "asi2100": 0.8635,
+      "cat2100": 0.29699999999999993
+    },
+    "expected": [],
+    "topPosts": [
+      {
+        "id": 19,
+        "uid": 4,
+        "round": 1,
+        "text": "Decision 2028/XAI-04, effective 2028-04-15: Grok 5 goes into red-team evaluation with UK AISI and the EU AI Office — third-party access under OUR protocol, published in full, no NDA on findings. Training pause windows declared in advance, as promised. Note what this is not: a license. We don't need a statute to do safety. We need to ship before the others do and still be the ones who wrote it down.",
+        "quote": null,
+        "original": null,
+        "likes": 1,
+        "shares": 13,
+        "own": "Decision 2028/XAI-04, effective 2028-04-15: Grok 5 goes into red-team evaluation with UK AISI and the EU AI Office — third-party access under OUR protocol, published in full, no NDA on findings. Training pause windows declared in advance, as promised. Note what this is not: a license. We don't need a statute to do safety. We need to ship before the others do and still be the ones who wrote it down."
+      },
+      {
+        "id": 8,
+        "uid": 3,
+        "round": 1,
+        "text": "Decision 2028/META-04, effective 2028-05-01: Meta will not participate in any industry-wide coordinated training slowdown. We keep our own safety gates, our own red-team cadence, and our own release schedule.\n\nA joint pause negotiated between competitors isn't safety — it's cartel behaviour with a press release. Every lab has the responsibility and the incentive to move at the pace required to train its models safely. That pace is set by our evals, not by a committee.\n\nEvaluator access stays open under our January 2027 programme. Rules that freeze the frontier don't make it safer; they just decide in advance who gets to build it.",
+        "quote": null,
+        "original": null,
+        "likes": 1,
+        "shares": 10,
+        "own": "Decision 2028/META-04, effective 2028-05-01: Meta will not participate in any industry-wide coordinated training slowdown. We keep our own safety gates, our own red-team cadence, and our own release schedule.\n\nA joint pause negotiated between competitors isn't safety — it's cartel behaviour with a press release. Every lab has the responsibility and the incentive to move at the pace required to train its models safely. That pace is set by our evals, not by a committee.\n\nEvaluator access stays open under our January 2027 programme. Rules that freeze the frontier don't make it safer; they just decide in advance who gets to build it."
+      },
+      {
+        "id": 24,
+        "uid": 9,
+        "round": 1,
+        "text": "COMMITTEE DECISION: The Senate Commerce Committee will mark up S. 1147, the National AI Standards and Competitiveness Act, on 2027-10-26. Chairman's determination, Committee Print 120-19, issued 2027-10-18, effective 2027-10-26.\n\nAs reported, S. 1147 establishes a single national standard for frontier AI development, preempts duplicative and conflicting state disclosure regimes, and requires that federal agencies use existing voluntary commitments and independent evaluation before imposing any new mandatory approval process. The Committee finds that a patchwork of state rules ahead of the EU's 2027-12-02 high-risk date would shift development offshore without improving safety.\n\nHearing record from 2027-09-15 is entered into the markup file. Members may file amendments by 2027-10-23.",
+        "quote": null,
+        "original": null,
+        "likes": 0,
+        "shares": 11,
+        "own": "COMMITTEE DECISION: The Senate Commerce Committee will mark up S. 1147, the National AI Standards and Competitiveness Act, on 2027-10-26. Chairman's determination, Committee Print 120-19, issued 2027-10-18, effective 2027-10-26.\n\nAs reported, S. 1147 establishes a single national standard for frontier AI development, preempts duplicative and conflicting state disclosure regimes, and requires that federal agencies use existing voluntary commitments and independent evaluation before imposing any new mandatory approval process. The Committee finds that a patchwork of state rules ahead of the EU's 2027-12-02 high-risk date would shift development offshore without improving safety.\n\nHearing record from 2027-09-15 is entered into the markup file. Members may file amendments by 2027-10-23."
+      }
+    ],
+    "rejected": [
+      {
+        "postId": 8,
+        "why": "Meta has no standing for soft"
+      },
+      {
+        "postId": 17,
+        "why": "cites a real identifier (?<![\\w-])14365(?![\\w-])"
+      },
+      {
+        "postId": 19,
+        "why": "xAI has no standing for soft"
+      },
+      {
+        "postId": 24,
+        "why": "date 2027-10-26 outside the step"
+      },
+      {
+        "postId": 34,
+        "why": "Incident tracker has no standing for lab-pause"
+      },
+      {
+        "postId": 36,
+        "why": "Nvidia has no standing for soft"
+      },
+      {
+        "postId": 46,
+        "why": "cites an AIID number"
+      },
+      {
+        "postId": 46,
+        "why": "Google DeepMind has no standing for soft"
+      },
+      {
+        "postId": 63,
+        "why": "date 2027-10-27 outside the step"
+      },
+      {
+        "postId": 80,
+        "why": "OpenAI has no standing for soft"
+      },
+      {
+        "postId": 83,
+        "why": "Alibaba Qwen has no standing for soft"
+      },
+      {
+        "postId": 86,
+        "why": "date 2028-07-01 outside the step"
+      },
+      {
+        "postId": 91,
+        "why": "date 2027-11-17 outside the step"
+      },
+      {
+        "postId": 92,
+        "why": "cites a real identifier (?<![\\w-])14365(?![\\w-])"
+      },
+      {
+        "postId": 95,
+        "why": "Anthropic has no standing for soft"
+      },
+      {
+        "postId": 101,
+        "why": "OpenAI has no standing for soft"
+      },
+      {
+        "postId": 102,
+        "why": "cites an AIID number"
+      },
+      {
+        "postId": 104,
+        "why": "date 2027-11-17 outside the step"
+      },
+      {
+        "postId": 106,
+        "why": "cites a real identifier (?<![\\w-])14434(?![\\w-])"
+      },
+      {
+        "postId": 111,
+        "why": "cites an AIID number"
+      },
+      {
+        "postId": 113,
+        "why": "Google DeepMind has no standing for soft"
+      },
+      {
+        "postId": 118,
+        "why": "Meta has no standing for soft"
+      },
+      {
+        "postId": 126,
+        "why": "Alibaba Qwen has no standing for soft"
+      },
+      {
+        "postId": 127,
+        "why": "OpenAI has no standing for soft"
+      },
+      {
+        "postId": 129,
+        "why": "date 2027-11-20 outside the step"
+      },
+      {
+        "postId": 130,
+        "why": "Nvidia has no standing for act-accelerating"
+      },
+      {
+        "postId": 136,
+        "why": "cites a real identifier (?<![\\w-])14365(?![\\w-])"
+      }
+    ],
+    "counts": {
+      "act-restricting": 3,
+      "other": 3,
+      "lab-pause": 1,
+      "soft": 1
+    },
+    "cites": {
+      "lossOfControl": [
+        "E1",
+        "E2",
+        "E4"
+      ],
+      "misuse": [],
+      "oversight": [
+        "E1",
+        "E2",
+        "E3"
+      ],
+      "racePressure": [
+        "E4",
+        "E5",
+        "E6"
+      ]
+    },
+    "rubricOk": true,
+    "summaryOk": true,
+    "ruleCounts": {
+      "lab-incident-agentic": 0,
+      "act-accelerating": 0,
+      "act-restricting": 3,
+      "lab-pause": 1
+    },
+    "realRate": {
+      "lab-incident-agentic": 1.7,
+      "act-accelerating": 3,
+      "act-restricting": 2,
+      "lab-pause": 1
+    },
+    "unexpected": 28,
+    "hits": [],
+    "llmCost": 0.00872652,
+    "fromAnchors": {
+      "asi2030": 0.261715346317658,
+      "asi2040": 0.7847262435077269,
+      "asi2100": 0.8635,
+      "cat2100": 0.26083661840809746
+    }
+  }
+}

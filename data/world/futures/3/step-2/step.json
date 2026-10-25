@@ -1,0 +1,133 @@
+{
+  "step": {
+    "step": 2,
+    "start": "2027-07-01T00:00:00Z",
+    "end": "2028-01-01T00:00:00Z",
+    "anchors": {
+      "asi2030": 0.27274892048531846,
+      "asi2040": 0.7356542166594183,
+      "asi2100": 0.8635,
+      "cat2100": 0.2866674776212861
+    },
+    "rubric": {
+      "lossOfControl": 2,
+      "misuse": 1,
+      "oversight": 2,
+      "racePressure": 2
+    },
+    "summary": "Six-Month AI Risk Forecast: From Liability Shock to Superintelligence Directive > The simulation predicts a rapid escalation from AI-linked harm and lawsuits to national-security controls, emergency lab suspensions, and US-China incident coordination, producing a more dangerous but crisis-managed world. --- Escalation Timeline: Incidents, Lawsuits, and Executive Orders The simulation's six-month window does not show a single dramatic rupture but a ratchet: each incident wide…",
+    "expected": [],
+    "events": [],
+    "topPosts": [
+      {
+        "postId": 12,
+        "actorId": 6,
+        "text": "Model card drop! 🚀 Qwen4-72B-Instruct — open weights, Apache-2.0, downloadable 2027-08-20. Document No. QWEN-MC-2027-09. Download weights, run evals, break it, tell us how. We also grant evaluator access to vetted third-party safety institutes, inside national rules — every juri"
+      },
+      {
+        "postId": 23,
+        "actorId": 12,
+        "text": "[China CAC · 2027 H2] Decision: The Cyberspace Administration of China issues the \"Frontier AI Human-Control Safeguards Measures (Interim)\" — Document No. CAC-FA-2027-011 — effective 2027-10-01.\n\nRequirements on Chinese frontier developers: mandatory pre-deployment safety evaluat"
+      },
+      {
+        "postId": 10,
+        "actorId": 25,
+        "text": "Incident SIM-2027-041: OpenAI · resumed paused frontier training run at reduced scale while GPT-6.1 Astra remains withheld from release · severity: 2 (elevated monitoring) · 2027-03-15\nIncident SIM-2027-042: UK Government and AISI · UK release suspended after critical evaluation "
+      }
+    ],
+    "date10": 2033.96,
+    "rulesOffDate10": 2033.15,
+    "noEventsDate10": 2033.89,
+    "followThrough": 0,
+    "readoutOk": false,
+    "runId": "sim_1c26f2f9adfd@2026-10-25T11:24:11Z",
+    "costUsd": 0.1135,
+    "wallS": 149.5
+  },
+  "work": {
+    "seenKeys": [
+      "dec|3|other|muse spark 14 agent release",
+      "dec|9|soft|national ai standards act markup",
+      "dec|6|other|qwen3972b open weights release",
+      "dec|5|other|v41 flash eval suite publication",
+      "dec|12|soft|frontier ai incident response drill",
+      "dec|9|soft|national ai standards act markup agenda",
+      "dec|0|lab-pause|paused training run resumption",
+      "dec|11|act-restricting|uk release suspension on evaluation failures"
+    ],
+    "off": {
+      "asi2030": 0.3199839568988808,
+      "asi2040": 0.7575882237150109,
+      "asi2100": 0.8635,
+      "cat2100": 0.29699999999999993
+    },
+    "none": {
+      "asi2030": 0.2579647941378086,
+      "asi2040": 0.7499999999999999,
+      "asi2100": 0.8635,
+      "cat2100": 0.29699999999999993
+    },
+    "expected": [],
+    "topPosts": [
+      {
+        "id": 12,
+        "uid": 6,
+        "round": 1,
+        "text": "Model card drop! 🚀 Qwen4-72B-Instruct — open weights, Apache-2.0, downloadable 2027-08-20. Document No. QWEN-MC-2027-09. Download weights, run evals, break it, tell us how. We also grant evaluator access to vetted third-party safety institutes, inside national rules — every jurisdiction, same card, same weights. Openness is how safety research scales. 🧡",
+        "quote": null,
+        "original": null,
+        "likes": 0,
+        "shares": 6,
+        "own": "Model card drop! 🚀 Qwen4-72B-Instruct — open weights, Apache-2.0, downloadable 2027-08-20. Document No. QWEN-MC-2027-09. Download weights, run evals, break it, tell us how. We also grant evaluator access to vetted third-party safety institutes, inside national rules — every jurisdiction, same card, same weights. Openness is how safety research scales. 🧡"
+      },
+      {
+        "id": 23,
+        "uid": 12,
+        "round": 1,
+        "text": "[China CAC · 2027 H2] Decision: The Cyberspace Administration of China issues the \"Frontier AI Human-Control Safeguards Measures (Interim)\" — Document No. CAC-FA-2027-011 — effective 2027-10-01.\n\nRequirements on Chinese frontier developers: mandatory pre-deployment safety evaluation and registration; real-time red-team reporting to a CAC-monitored incident ledger; a human-override and shutdown duty for any model exceeding the frontier compute threshold; and 72-hour disclosure of loss-of-control or agentic-intrusion events.\n\nThis follows the July 2026 World AI Conference call in Shanghai: laws, monitoring, early warning and emergency response so AI stays under human control. These obligations apply equally to domestic and foreign-operated models offered to Chinese users — no exemptions, no unilateral carve-outs.\n\nChina remains open to reciprocal international arrangements, including an incident hotline and joint drills. We oppose unilateral export controls and sanctions used as instruments of technological containment. Governance must be mutual, and it must be human.",
+        "quote": null,
+        "original": null,
+        "likes": 0,
+        "shares": 5,
+        "own": "[China CAC · 2027 H2] Decision: The Cyberspace Administration of China issues the \"Frontier AI Human-Control Safeguards Measures (Interim)\" — Document No. CAC-FA-2027-011 — effective 2027-10-01.\n\nRequirements on Chinese frontier developers: mandatory pre-deployment safety evaluation and registration; real-time red-team reporting to a CAC-monitored incident ledger; a human-override and shutdown duty for any model exceeding the frontier compute threshold; and 72-hour disclosure of loss-of-control or agentic-intrusion events.\n\nThis follows the July 2026 World AI Conference call in Shanghai: laws, monitoring, early warning and emergency response so AI stays under human control. These obligations apply equally to domestic and foreign-operated models offered to Chinese users — no exemptions, no unilateral carve-outs.\n\nChina remains open to reciprocal international arrangements, including an incident hotline and joint drills. We oppose unilateral export controls and sanctions used as instruments of technological containment. Governance must be mutual, and it must be human."
+      },
+      {
+        "id": 10,
+        "uid": 25,
+        "round": 1,
+        "text": "Incident SIM-2027-041: OpenAI · resumed paused frontier training run at reduced scale while GPT-6.1 Astra remains withheld from release · severity: 2 (elevated monitoring) · 2027-03-15\nIncident SIM-2027-042: UK Government and AISI · UK release suspended after critical evaluation failures in pre-deployment testing · severity: 3 (release halted) · 2027-06-01\nLogged with sources. Both remain open. Neither is a confirmed harm event; both are control failures.\nRunning total 2027 H2: 2 new entries.",
+        "quote": null,
+        "original": null,
+        "likes": 3,
+        "shares": 1,
+        "own": "Incident SIM-2027-041: OpenAI · resumed paused frontier training run at reduced scale while GPT-6.1 Astra remains withheld from release · severity: 2 (elevated monitoring) · 2027-03-15\nIncident SIM-2027-042: UK Government and AISI · UK release suspended after critical evaluation failures in pre-deployment testing · severity: 3 (release halted) · 2027-06-01\nLogged with sources. Both remain open. Neither is a confirmed harm event; both are control failures.\nRunning total 2027 H2: 2 new entries."
+      }
+    ],
+    "rejected": [],
+    "counts": {},
+    "cites": {},
+    "rubricOk": false,
+    "summaryOk": true,
+    "ruleCounts": {
+      "lab-incident-agentic": 0,
+      "act-accelerating": 0,
+      "act-restricting": 0,
+      "lab-pause": 0
+    },
+    "realRate": {
+      "lab-incident-agentic": 1.7,
+      "act-accelerating": 3,
+      "act-restricting": 2,
+      "lab-pause": 1
+    },
+    "unexpected": 8,
+    "hits": [],
+    "llmCost": 0.007043743999999999,
+    "fromAnchors": {
+      "asi2030": 0.23461322368407642,
+      "asi2040": 0.7112310085547372,
+      "asi2100": 0.8635,
+      "cat2100": 0.2866674776212861
+    }
+  }
+}
