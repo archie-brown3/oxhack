@@ -1,0 +1,22 @@
+/* The first-launch walkthrough. Above every sheet; the spotlight never takes clicks. */
+.tour-spot { position: fixed; z-index: 89; pointer-events: none; border: 2px solid var(--ink); border-radius: var(--radius-1);
+  box-shadow: 0 0 0 9999px rgba(11, 11, 11, .45); transition: left .2s cubic-bezier(.2, .8, .2, 1), top .2s cubic-bezier(.2, .8, .2, 1), width .2s, height .2s; }
+.tour-card { position: fixed; z-index: 90; width: min(340px, calc(100vw - 32px)); display: grid; gap: var(--space-3); background: var(--raised);
+  animation: tour-in .18s cubic-bezier(.2, .8, .2, 1); }
+.tour-top { display: flex; justify-content: space-between; align-items: center; margin: calc(-1 * var(--space-2)) 0 0; }
+.tour-card h2 { margin: 0; font: var(--type-reading); font-size: 22px; line-height: 26px; }
+.tour-body { font: 400 14px/21px var(--font-sans); color: var(--ink-2); display: grid; gap: var(--space-3); }
+.tour-body p { margin: 0; }
+.tour-body b { color: var(--ink); }
+.tour-ask { margin: 0; font: 600 14px/20px var(--font-sans); color: var(--ink); }
+.tour-ask::before { content: "→ "; color: var(--ink-3); }
+.tour-foot { display: flex; justify-content: space-between; align-items: center; }
+.tour-dots { display: flex; gap: 6px; }
+.tour-dots i { width: 6px; height: 6px; border-radius: var(--radius-round); background: var(--rule-strong); }
+.tour-dots i.past { background: var(--ink-3); }
+.tour-dots i.on { background: var(--ink); }
+.twoline-key { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); margin-bottom: var(--space-2); font-size: 12px; }
+.twoline-key > span { display: inline-flex; align-items: center; gap: var(--space-1); }
+.twoline-key .toward { color: var(--alarm); } .twoline-key .away { color: var(--ward); }
+@keyframes tour-in { from { opacity: 0; transform: translateY(4px); } }
+@media (prefers-reduced-motion: reduce) { .tour-spot { transition: none; } .tour-card { animation: none; } }

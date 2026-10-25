@@ -6,6 +6,7 @@ import { clockFace, readingLine } from '../clock/Clock.tsx'
 import type { Hand } from '../clock/scale.ts'
 import { dmy, longDate, pct } from '../format.ts'
 import { TrackRecord } from '../track/TrackRecord.tsx'
+import { Label } from '../Label.tsx'
 
 export type WhyTab = 'anchors' | 'fan' | 'date' | 'hand' | 'track'
 const TABS: [WhyTab, string][] = [['anchors', 'Anchors'], ['fan', 'Fan'], ['date', 'Date'], ['hand', 'Hand'], ['track', 'Track record']]
@@ -16,11 +17,11 @@ interface Props { world: World; timeline: Timeline; hand: Hand; pin: number; day
 export function WhySheet({ world, timeline, hand, pin, daysPerSecond, backtest, tab, onTab, onClose }: Props) {
   const c = timeline.clock
   const years = c.minutesToMidnight ?? 0
-  const real = <span className="dc-label dc-label--real">Real forecast</span>
+  const real = <Label kind="real">Real forecast</Label>
   const next = (t: WhyTab, text: string) => <a className="next" href="#" onClick={(e) => (e.preventDefault(), onTab(t))}>{text}</a>
   const body = {
     anchors: <>
-      <div className="lede"><span className="dc-label dc-label--real">Real</span><span className="dc-data">prices as of {dmy(world.asOf)}</span></div>
+      <div className="lede"><Label kind="real" /><span className="dc-data">prices as of {dmy(world.asOf)}</span></div>
       <h3>Market prices set the anchors</h3>
       <p>Four Manifold play-money market prices go in. These are real recorded prices, but traders do not stake real money. Thin markets can be unreliable.</p>
       <div>
@@ -28,7 +29,7 @@ export function WhySheet({ world, timeline, hand, pin, daysPerSecond, backtest, 
           return <div className="anc" key={id}><div><a href={h.url} target="_blank" rel="noopener">{h.question}</a></div><b>{pct(world.anchors[id])}</b>
             <span>Manifold · {h.traders} traders · last trade {dmy(h.lastTradeTs)}</span></div> })}
         <div className="anc"><div>Gap from superintelligence to catastrophe</div><b>{world.lagMeanYears} y</b>
-          <span><span className="dc-label dc-label--rule">Game rule</span> No market backs it, so the clock shows 1 to 10 years as a range.</span></div>
+          <span><Label kind="game-rule" /> No market backs it, so the clock shows 1 to 10 years as a range.</span></div>
       </div>
       {next('fan', 'Next: 10,000 futures')}
     </>,

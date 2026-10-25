@@ -2,13 +2,14 @@
 // everything dated on or after T, which shows there's no leakage. Reads the same World the engine
 // reads (point-in-time: ts < T). Demo step 1; Run live closes it and starts the replay.
 import { useMemo, useState } from 'react'
-import type { NodeId, World, WorldEvent } from '../../contracts.ts'
+import type { World, WorldEvent } from '../../contracts.ts'
+import { knownAt, NODES } from './known.ts'
 import type { Datacentre } from '../../app/data.ts'
 import { dmy, fmt, pct, sourceName } from '../format.ts'
+import { Label } from '../Label.tsx'
 
 const DAY = 864e5
 const D0 = Date.UTC(2024, 9, 24)
-const NODES: NodeId[] = ['asi2030', 'asi2040', 'asi2100', 'cat2100']
 type Src = 'markets' | 'incident' | 'government' | 'news' | 'datacentres'
 const SOURCES: [Src, string][] = [['markets', 'Markets'], ['incident', 'Incidents'], ['government', 'Government'], ['news', 'News'], ['datacentres', 'Datacentres']]
 
@@ -20,17 +21,8 @@ export function InputsSheet({ world, dcs, worldSource, onRun, onClose }: Props) 
   const [day, setDay] = useState(last)
   const [src, setSrc] = useState<Src>('markets')
   const T = Math.min(asOf, D0 + (day + 1) * DAY) // the end of the chosen day; read ts < T
-  const known = useMemo(() => {
-    const ev = (k: WorldEvent['kind']) => world.events.filter((e) => e.kind === k && e.provenance === 'real' && Date.parse(e.ts) < T).reverse()
-    return {
-      incident: ev('incident'), government: ev('government'), news: ev('news'),
-      datacentres: dcs.filter((d) => Date.parse(d.ts) < T).sort((a, b) => b.ts.localeCompare(a.ts)),
-      prices: Object.fromEntries(NODES.map((id) => [id, world.anchorHistory[id].history.filter((p) => Date.parse(p.ts ?? p.T) < T)])),
-    }
-  }, [world, dcs, T])
+  const known = useMemo(() => knownAt(world, dcs, T), [world, dcs, T])
   const count = (k: Src) => (k === 'markets' ? NODES.length : known[k].length)
-  const total = world.events.filter((e) => e.provenance === 'real').length + dcs.length + NODES.reduce((n, id) => n + world.anchorHistory[id].history.length, 0)
-  const seen = known.incident.length + known.government.length + known.news.length + known.datacentres.length + NODES.reduce((n, id) => n + known.prices[id].length, 0)
   const rows = <T,>(list: T[], row: (x: T, i: number) => React.ReactNode) => list.length
     ? <>{list.slice(0, 40).map(row)}{list.length > 40 && <p className="dc-faint" style={{ margin: 0 }}>and {fmt(list.length - 40)} earlier items</p>}</>
     : <p className="dc-faint">Nothing yet at this date.</p>
@@ -39,7 +31,7 @@ export function InputsSheet({ world, dcs, worldSource, onRun, onClose }: Props) 
       <div>{e.url ? <a href={e.url} target="_blank" rel="noopener">{e.title}</a> : e.title}
         <span className="src dc-data">{[e.who, sourceName(e.source)].filter(Boolean).join(' · ')}</span></div></div>
   )
-  const head = (h: string, srcLine: string, note?: string) => <><div className="lede"><span className="dc-label dc-label--real">Real</span><span className="dc-data">{srcLine}</span></div><h3>{h}</h3>{note && <p>{note}</p>}</>
+  const head = (h: string, srcLine: string, note?: string) => <><div className="lede"><Label kind="real" /><span className="dc-data">{srcLine}</span></div><h3>{h}</h3>{note && <p>{note}</p>}</>
   return (
     <div className="scrim on" onClick={(e) => e.target === e.currentTarget && onClose()}>
       <div className="sheet dc-sheet" data-theme="paper" role="dialog" aria-modal="true" aria-labelledby="inputs-h" onKeyDown={(e) => e.key === 'Enter' && !(e.target as HTMLElement).closest('a,button,input') && onRun()}>
@@ -47,7 +39,7 @@ export function InputsSheet({ world, dcs, worldSource, onRun, onClose }: Props) 
         <h2 className="title" id="inputs-h">What the engine knows</h2>
         <div className="asof">
           <div className="asof-read"><span className="eyebrow">As of</span><b>{dmy(new Date(D0 + day * DAY).toISOString())}</b>
-            <span className="dc-dim">{day >= last ? `Today. Data frozen ${dmy(world.asOf)}${worldSource === 'fixture' ? ' (engine fixture)' : ''}.` : `${fmt(total - seen)} later items hidden`}</span></div>
+            <span className="dc-dim">{day >= last ? `Today. Data frozen ${dmy(world.asOf)}${worldSource === 'fixture' ? ' (engine fixture)' : ''}.` : `${fmt(known.hidden)} later items hidden`}</span></div>
           <input type="range" id="asof" min={0} max={last} value={day} aria-label="As of date" onChange={(e) => setDay(+e.target.value)} style={{ ['--p' as string]: `${(day / last) * 100}%` }} />
           <div className="asof-ticks"><span>24 Oct 2024</span><span>2025</span><span>2026</span><span>Today</span></div>
         </div>

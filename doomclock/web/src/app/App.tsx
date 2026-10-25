@@ -13,6 +13,9 @@ import type { Member } from '../ui/engine/EngineScreen.tsx'
 import { locate, type Flare, type Located } from '../ui/world/locate.ts'
 import { EventPop, FutureChip, MapKey, Newsflash, Spine, Ticker, type Flash } from '../ui/world/Hud.tsx'
 import { countryAt, countryName, load, type Data } from './data.ts'
+import { Tour, tourDone } from './Tour.tsx'
+import { tourSteps } from './tourSteps.tsx'
+import { forecastLine } from '../ui/chart/TwoLine.tsx'
 
 // The globe (three.js) and the Engine screen load in their own chunks, so the clock paints first.
 // The globe chunk starts downloading at once, alongside the data.
@@ -44,7 +47,10 @@ function World({ data }: { data: Data }) {
   const [playing, setPlaying] = useState(false)
   const [speed, setSpeed] = useState(1)
   const [live, setLive] = useState(false) // quarters advance by play or step: ping and flash
-  const [sheet, setSheet] = useState<null | 'inputs' | 'why'>(() => (params.get('sheet') === 'none' || params.has('q') ? (params.get('sheet') as 'why' | null) ?? null : 'inputs'))
+  // The globe and clock come first; the walkthrough opens Inputs as its second step.
+  const [sheet, setSheet] = useState<null | 'inputs' | 'why'>(() => (['inputs', 'why'] as const).find((s) => s === params.get('sheet')) ?? null)
+  // First launch (no deep link) or ?tour: the walkthrough. "Show me around" replays it.
+  const [touring, setTouring] = useState(() => params.has('tour') || (!params.size && !tourDone()))
   const [whyTab, setWhyTab] = useState<WhyTab>((params.get('tab') as WhyTab) ?? 'anchors')
   const [flashes, setFlashes] = useState<Flash[]>([])
   const [flare, setFlare] = useState<Flare | null>(null)
@@ -140,6 +146,7 @@ function World({ data }: { data: Data }) {
       else if (k === 'w') setView('world')
       else if (k === 'f' && view === 'engine') setMaxed(maxed ? null : 'graph')
       else if (k === 'r') roll()
+      else if (e.key === '?') setTouring(true)
       else if (e.key === ' ' && !(e.target as HTMLElement).closest('button,[role=button],[role=slider]')) { e.preventDefault(); if (playing) setPlaying(false); else play() }
       else if (e.key === 'ArrowRight' && !(e.target as HTMLElement).closest('[role=slider]')) { setPlaying(false); go(cur + 1, true) }
       else if (e.key === 'ArrowLeft' && !(e.target as HTMLElement).closest('[role=slider]')) { setPlaying(false); go(cur - 1, false) }
@@ -180,6 +187,7 @@ function World({ data }: { data: Data }) {
           <div className="dc-tabs">{[1, 2, 4].map((s) => <button key={s} aria-pressed={speed === s} onClick={() => setSpeed(s)}>{s}×</button>)}</div>
           <Spine frames={frames} cur={cur} today={today} future={timeline.future} onScrub={(i) => { setPlaying(false); setCoach(null); go(i, false) }} />
           <button className="dc-btn" onClick={(e) => { e.stopPropagation(); setKeyOpen(!keyOpen) }}>Map key</button>
+          <button className="dc-btn dc-btn--quiet tour-again" onClick={(e) => { e.stopPropagation(); setTouring(true) }}>Show me around <kbd>?</kbd></button>
         </div>
       </footer>
       {keyOpen && <MapKey />}
@@ -188,6 +196,9 @@ function World({ data }: { data: Data }) {
       {pop && <EventPop e={pop.e} anchor={pop.anchor} where={whereOf(pop.e)} onClose={() => setPop(null)} />}
       {sheet === 'inputs' && <InputsSheet world={world} dcs={data.dcs} worldSource={data.worldSource} onRun={runLive} onClose={() => setSheet(null)} />}
       {sheet === 'why' && <WhySheet world={world} timeline={timeline} hand={scale.hand(frames[today], true)} pin={scale.pin} daysPerSecond={scale.daysPerSecond} backtest={backtest} tab={whyTab} onTab={setWhyTab} onClose={() => setSheet(null)} />}
+      {touring && <Tour steps={tourSteps({ date10: timeline.clock.date10, daysPerSecond: scale.daysPerSecond, real: forecastLine(timeline),
+        openInputs: () => { setPlaying(false); setSheet('inputs') }, closeSheets: () => setSheet(null), openTrack: () => { setWhyTab('track'); setSheet('why') } })}
+        onEnd={() => setTouring(false)} />}
       <span className="sr-only" aria-live="polite">{setting ? `The Bulletin stands at ${setting.seconds_to_midnight} seconds.` : ''}</span>
     </div>
   )

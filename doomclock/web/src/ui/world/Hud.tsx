@@ -4,9 +4,8 @@ import { useRef, useState } from 'react'
 import type { SampledFuture, WorldEvent, WorldFrame } from '../../contracts.ts'
 import { dmy, fmt, monthYear, qName, sourceName } from '../format.ts'
 import type { Located } from './locate.ts'
+import { Label, labelOf } from '../Label.tsx'
 
-const Real = () => <span className="dc-label dc-label--real">Real</span>
-const Sim = () => <span className="dc-label dc-label--sim">Simulated</span>
 export const isReal = (e: WorldEvent) => e.provenance === 'real'
 
 export const PICKS = [['Early', 0.1], ['Typical', 0.5], ['Late', 0.9]] as const
@@ -41,7 +40,7 @@ export function Ticker({ events, real, note, onRead }: { events: WorldEvent[]; r
   return (
     <section className="dc-ticker event-reader" id="ticker" aria-label="Quarter events" onClick={onRead}>
       <div className="event-meta">
-        <span className={`dc-label dc-label--${realEvent ? 'real' : 'sim'}`}>{realEvent ? 'Real news' : 'Simulated'}</span>
+        <Label kind={e ? labelOf(e.provenance) : real ? 'real' : 'projected'}>{realEvent ? 'Real news' : undefined}</Label>
         {e && !note && <><time dateTime={e.ts}>{dmy(e.ts)}</time><span>{sourceName(e.source)}{e.where ? ` · ${e.where}` : ''}{e.major ? ' · major event' : ''}</span></>}
       </div>
       <div className="event-headline" aria-live="polite">{note ?? (e ? (e.url ? <a href={e.url} target="_blank" rel="noopener">{e.title} ↗</a> : e.title) : 'No events this quarter')}</div>
@@ -103,7 +102,7 @@ export function Newsflash({ flash, onDone }: { flash: Flash | null; onDone: () =
       <div className="body">
         <h3>{flash.title}</h3>
         <p>{flash.detail}</p>
-        {flash.label && <div className="shift">{flash.label === 'real' ? <Real /> : <Sim />}</div>}
+        {flash.label && <div className="shift"><Label kind={flash.label === 'real' ? 'real' : 'simulated'} /></div>}
         {flash.source && <div className="fsrc dc-data">{flash.source.url ? <a href={flash.source.url} target="_blank" rel="noopener">{flash.source.name} ↗</a> : flash.source.name}</div>}
       </div>
       <div className="timer"><i onAnimationEnd={onDone} /></div>
@@ -117,7 +116,7 @@ export function EventPop({ e, anchor, where, onClose }: { e: Located; anchor: HT
   const real = isReal(e)
   return (
     <div id="pop" className="dc-panel on" role="dialog" style={{ left: Math.min(innerWidth - 316, r.right + 10), top: Math.max(16, Math.min(innerHeight - 380, r.top - 20)) }} onClick={(ev) => ev.stopPropagation()}>
-      <div className="h">{real ? <Real /> : <Sim />}<span className="dc-data">{dmy(e.ts)}</span><button className="x" aria-label="Close" onClick={onClose}>×</button></div>
+      <div className="h"><Label kind={labelOf(e.provenance)} /><span className="dc-data">{dmy(e.ts)}</span><button className="x" aria-label="Close" onClick={onClose}>×</button></div>
       <p>{e.detail ?? e.title}</p>
       <dl>
         {e.who && <><dt>Who</dt><dd>{e.who}</dd></>}

@@ -6,6 +6,7 @@ import type { ClockReading, WorldEvent, WorldFrame } from '../../contracts.ts'
 import { countdown, dmy, monthYear, qName, sourceName } from '../format.ts'
 import { face } from './face.ts'
 import { FACE_SECONDS, type Hand } from './scale.ts'
+import { Label } from '../Label.tsx'
 
 const UNIT = FACE_SECONDS / 15 // seconds per face-minute: the face shows the last 3 minutes
 /** The face for a hand: seconds to midnight on a 3-minute quarter face, the Bulletin's 85 s as a ghost tick. */
@@ -61,7 +62,7 @@ export function Clock({ hand, pin, daysPerSecond, today, isToday, frame, prev, c
       <section id="clock" className={`dc-panel dc-clock${compact ? ' compact' : ''}`} role="button" tabIndex={0} aria-label="Doom Clock, real forecast. Open: why this time?"
         onClick={onWhy} onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), onWhy())}>
         <div className="cap">
-          {hand.source === 'bulletin' && !isToday ? <span className="dc-label dc-label--real">Bulletin, {qName(frame.quarter)}</span> : <span className="dc-label dc-label--real">Real forecast</span>}
+          {hand.source === 'bulletin' && !isToday ? <Label kind="real">Bulletin, {qName(frame.quarter)}</Label> : <Label kind="real">Real forecast</Label>}
           <span className="dc-faint">{hand.source === 'bulletin' && !isToday ? '' : daysPerSecond ? `1 s ≈ ${Math.round(daysPerSecond)} days` : ''}</span>
         </div>
         <div className="face" ref={faceRef} dangerouslySetInnerHTML={{ __html: clockFace(hand, pin) }} />
@@ -131,7 +132,7 @@ function Moved({ prev, frame, days, onClose }: { prev: WorldFrame; frame: WorldF
           {ctx.map((e) => (
             <div key={e.ts + e.title}><span className="dc-data">{dmy(e.ts)}</span> {e.title.length > 100 ? e.title.slice(0, 100) + '…' : e.title} · {e.url ? <a href={e.url} target="_blank" rel="noopener">{sourceName(e.source)} ↗</a> : sourceName(e.source)}</div>
           ))}
-          <span className="dc-faint">Context, not causes. Only market prices move the hand. Effects assume the 3-year gap <span className="dc-label dc-label--rule">Game rule</span></span>
+          <span className="dc-faint">Context, not causes. Only market prices move the hand. Effects assume the 3-year gap <Label kind="game-rule" /></span>
         </div>
       )}
     </section>
