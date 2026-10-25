@@ -137,7 +137,7 @@
         "id": 150,
         "title": "[world] Recorder: the coupled loop on real MiroFish (Zep graph, report agent, read-out, rubric)",
         "description": "Rework the salvaged doomclock/pipeline/world/record.ts into the coupled loop: persona lines, MiroFish run, event read-out (closed vocabulary, standing rules, no-copy by identifiers), situation report (rubric, summary, expected events), step.ts to move the odds, checkpointed RecordedFuture files. Supersedes task 11's 3x4 scope.",
-        "details": "Spec: docs/superpowers/specs/2026-10-25-doom-clock-coupled-loop-design.md (the Amendments section wins on conflict). Scope: doomclock/pipeline/world/**, doomclock/pipeline/mirofish/**, doomclock/web/src/game/cast.ts (renderer changes + cast.test.ts; cast.json and cast.golden.csv stay, overrides in code), data/world/**, data/raw/readout/ (gitignored raw), doomclock/web/public/cache/futures.json. Imports engine/step.ts from the engine lane (task 149); until it lands, stub the price move behind the same signature. Budget LANE_CAP_USD=3 under the $10 key guard. Backend in Herdr pane wR:pC on :5001.\n2026-10-25T02:24:53Z: Persona renderer (MARKETS NOW, WHAT PEOPLE EXPECT NEXT, 6 world lines) and in-code cast overrides done; recorder --dry renders 32 personas, longest 2998 of 3000 chars; read-out and report modules written. 3 futures per owner (seeds 1-3).\n2026-10-25T02:27:10Z: Loop code ready to record: baseline.json scored (rubric 2/2/2/2, 5 noise samples sd <= 0.4), one live warm-up step cost $0.022 and gave 9 events, rubric moved, date10 != rulesOffDate10. 5 rounds per run. Recording on hold until the owner says go.\n2026-10-25T02:32:12Z: OVERHAUL (owner, Amendments 2): 3 futures x 6 steps x 5 rounds; real MiroFish per future (own project and Zep graph, enable_graph_memory_update, English episode templates), MiroFish's report agent after every step, rubric scored from the report plus event objects, everything saved per step for the replica. Recording itself is task 154; patches and Step 1 are 152; the parallel smoke is 153. Lane cap $7. Spec: docs/superpowers/specs/2026-10-25-doom-clock-coupled-loop-design.md (Amendments 2 wins, then Amendments, then the body)",
+        "details": "Spec: docs/superpowers/specs/2026-10-25-doom-clock-coupled-loop-design.md (the Amendments section wins on conflict). Scope: doomclock/pipeline/world/**, doomclock/pipeline/mirofish/**, doomclock/web/src/game/cast.ts (renderer changes + cast.test.ts; cast.json and cast.golden.csv stay, overrides in code), data/world/**, data/raw/readout/ (gitignored raw), doomclock/web/public/cache/futures.json. Imports engine/step.ts from the engine lane (task 149); until it lands, stub the price move behind the same signature. Budget LANE_CAP_USD=3 under the $10 key guard. Backend in Herdr pane wR:pC on :5001.\n2026-10-25T02:24:53Z: Persona renderer (MARKETS NOW, WHAT PEOPLE EXPECT NEXT, 6 world lines) and in-code cast overrides done; recorder --dry renders 32 personas, longest 2998 of 3000 chars; read-out and report modules written. 3 futures per owner (seeds 1-3).\n2026-10-25T02:27:10Z: Loop code ready to record: baseline.json scored (rubric 2/2/2/2, 5 noise samples sd <= 0.4), one live warm-up step cost $0.022 and gave 9 events, rubric moved, date10 != rulesOffDate10. 5 rounds per run. Recording on hold until the owner says go.\n2026-10-25T02:32:12Z: OVERHAUL (owner, Amendments 2): 3 futures x 6 steps x 5 rounds; real MiroFish per future (own project and Zep graph, enable_graph_memory_update, English episode templates), MiroFish's report agent after every step, rubric scored from the report plus event objects, everything saved per step for the replica. Recording itself is task 154; patches and Step 1 are 152; the parallel smoke is 153. Lane cap $7. Spec: docs/superpowers/specs/2026-10-25-doom-clock-coupled-loop-design.md (Amendments 2 wins, then Amendments, then the body)\n2026-10-25T02:47:47Z: WRAP-UP 02:50. Landed: 557bcff (persona renderer, loopCast overrides, read-out, report, --dry), 6b8e453 (baseline.json, 5 rounds), plus the wrap-up commit (step1.ts, world.test.ts). Done: 32 personas <=3000 chars; baseline 2/2/2/2 (noise sd<=0.4); 1 live warm-up step cost $0.022 (9 events, date10 != rulesOff). Half-done: record.ts still uses OUR summarise() and the old shared PROJECT const; per Amendments 2 it must run MiroFish's report agent after each step (POST /api/report/generate, save report, agent-log, console-log), score the rubric from the report plus events (report.ts scoreRubric), start runs with enable_graph_memory_update:true, wait for the Zep drain, save GET /api/graph/data/:graph_id, and use each future's own project_id/graph_id from data/world/futures/<id>/step1/project.json. NEEDS THE LOCAL MACHINE: MiroFish backend (Herdr pane wR:pC, :5001, start with sh doomclock/pipeline/mirofish/backend.sh), OPENROUTER key (~/dev/oxhack/.env), ZEP key (~/dev/MiroFish/.env), data/raw. A cloud session cannot run this. Spend so far $0.20.",
         "testStrategy": "03:45: recorder --dry renders all 32 personas within 3,000 chars with MARKETS NOW. 05:00 loop gate: future 1 recorded end to end with >= 1 read-out event with nonzero effect and date10 != rulesOffDate10 on >= 1 step. Futures 2-5 by 05:45. Cost and wall time logged per step.",
         "status": "in-progress",
         "dependencies": [
@@ -145,7 +145,7 @@
         ],
         "priority": "high",
         "subtasks": [],
-        "updatedAt": "2026-10-25T02:32:12Z"
+        "updatedAt": "2026-10-25T02:47:47Z"
       },
       {
         "id": 151,
@@ -165,21 +165,21 @@
         "id": 152,
         "title": "[world] MiroFish prep: English Zep episode templates, per-future project and Step 1, Zep limits check",
         "description": "Make MiroFish's real graph usable for 3 futures: patch the graph-memory updater's Chinese episode templates to English, create one project per future with the real Step 1 (ontology generation + graph build) from the 'world today' seed pack and the project question, and check Zep's limits before any recording.",
-        "details": "Scope: patches/ (new or extended patch, applied to ~/dev/MiroFish and restarted in Herdr pane wR:pC), doomclock/pipeline/mirofish/**, data/world/seed-pack/**. Seed pack: today's odds (state.json), real incidents and government acts from the last 6 months (events.json, ts < asOf), the 32-account cast. Project question: 'Over the next six months, which AI incidents, government decisions and lab actions happen, and how dangerous does the world become?' Save each project's ontology and build output for the replica's Step 1.\nSpec: docs/superpowers/specs/2026-10-25-doom-clock-coupled-loop-design.md (Amendments 2 wins, then Amendments, then the body)",
+        "details": "Scope: patches/ (new or extended patch, applied to ~/dev/MiroFish and restarted in Herdr pane wR:pC), doomclock/pipeline/mirofish/**, data/world/seed-pack/**. Seed pack: today's odds (state.json), real incidents and government acts from the last 6 months (events.json, ts < asOf), the 32-account cast. Project question: 'Over the next six months, which AI incidents, government decisions and lab actions happen, and how dangerous does the world become?' Save each project's ontology and build output for the replica's Step 1.\nSpec: docs/superpowers/specs/2026-10-25-doom-clock-coupled-loop-design.md (Amendments 2 wins, then Amendments, then the body)\n2026-10-25T02:47:47Z: WRAP-UP 02:50. Done: English Zep episode templates patched (patches/mirofish-english-zep-episodes.patch, applied to ~/dev/MiroFish, backend restarted). Step 1 script: doomclock/pipeline/world/step1.ts (--future=N; --pack prints the seed pack); pack data/world/seed-pack/world-today.md (38 KB). FUTURE 1 BUILD FAILED: project proj_924fbd219a0a, graph mirofish_f77348dec9cd44dc; ontology saved (data/world/futures/1/step1/ontology.json); 115 Zep episodes sent, 100 processed in ~550 s then 15 stalled and MiroFish gave up at 600 s. Partial graph saved (312 nodes, 369 edges): step1/graph-data-partial.json. ZEP FINDINGS: free plan = 10,000 credits/month (1 credit per episode of <=350 bytes, more for bigger), no usage API, processing is SLOW (about 5 s per episode) and stalls; out of credits, episodes stop and rate drops to 5 req/min. FIXES: shrink the seed pack (about 12 KB, about 35 episodes) or raise the 600 s batch timeout in graph_builder.py, then rebuild futures 1-3. Futures 2-3 not built. Old spike project proj_69d072e0c890 / graph mirofish_9df0589c36e0491b still exists. NEEDS THE LOCAL MACHINE: MiroFish backend (Herdr pane wR:pC, :5001, start with sh doomclock/pipeline/mirofish/backend.sh), OPENROUTER key (~/dev/oxhack/.env), ZEP key (~/dev/MiroFish/.env), data/raw. A cloud session cannot run this.",
         "testStrategy": "An English episode lands in a test graph; 3 projects built with graph ids and node/edge counts saved; Zep usage/limits recorded with headroom for ~500 episodes.",
-        "status": "pending",
+        "status": "in-progress",
         "dependencies": [
           150
         ],
         "priority": "high",
         "subtasks": [],
-        "updatedAt": "2026-10-25T02:32:12Z"
+        "updatedAt": "2026-10-25T02:47:47Z"
       },
       {
         "id": 153,
         "title": "[world] Parallel smoke: 2 simulations at once with graph memory on",
         "description": "Run 2 simulations concurrently for 1 round each with enable_graph_memory_update, on two of the per-future projects, to decide parallel vs the serial fallback (4 steps per future).",
-        "details": "Scope: doomclock/pipeline/world/** (a --smoke mode), data/tests/parallel-smoke.json. Measure wall time, drain time, 409s, errors and cost. Its saved outputs (graph data, actions, report) are the replica's first real data.\nSpec: docs/superpowers/specs/2026-10-25-doom-clock-coupled-loop-design.md (Amendments 2 wins, then Amendments, then the body)",
+        "details": "Scope: doomclock/pipeline/world/** (a --smoke mode), data/tests/parallel-smoke.json. Measure wall time, drain time, 409s, errors and cost. Its saved outputs (graph data, actions, report) are the replica's first real data.\nSpec: docs/superpowers/specs/2026-10-25-doom-clock-coupled-loop-design.md (Amendments 2 wins, then Amendments, then the body)\n2026-10-25T02:47:47Z: WRAP-UP 02:50: not started (blocked on 152 builds). Plan: record.ts --smoke, 2 sims at once, 1 round each, enable_graph_memory_update on; measure wall time, Zep drain (slow, see 152), 409s, cost; write data/tests/parallel-smoke.json and the decision on 154. No real MiroFish outputs for the replica exist yet; older runs: data/world/runs/ and local data/raw/mirofish. NEEDS THE LOCAL MACHINE: MiroFish backend (Herdr pane wR:pC, :5001, start with sh doomclock/pipeline/mirofish/backend.sh), OPENROUTER key (~/dev/oxhack/.env), ZEP key (~/dev/MiroFish/.env), data/raw. A cloud session cannot run this.",
         "testStrategy": "parallel-smoke.json records pass/fail, timings and cost; the decision (parallel or serial-4) is written on task 154.",
         "status": "pending",
         "dependencies": [
@@ -187,13 +187,13 @@
         ],
         "priority": "high",
         "subtasks": [],
-        "updatedAt": "2026-10-25T02:32:12Z"
+        "updatedAt": "2026-10-25T02:47:47Z"
       },
       {
         "id": 154,
         "title": "[world] Record 3 futures x 6 steps on real MiroFish, then hand-check the events",
         "description": "The recording: 3 futures (seeds 1-3), 6 steps of 6 months from 2027-01-01, 5 rounds per run, graph saved after each drain, MiroFish's report agent per step, rubric and odds per step, checkpointed per step; then a 10-minute hand check of each future's events.",
-        "details": "Scope: data/world/futures/<id>/**, doomclock/web/public/cache/futures.json (+ the replica's per-step bundles), cost and time logs. Parallel per task 153, else serial with 4 steps. Lane cap $7 under the $10 key guard; stop cleanly before Zep's limits. Loop gate 05:30 GMT: step 1 of each future with its graph and report; all done ~06:00 (parallel) or ~07:00 (fallback).\nSpec: docs/superpowers/specs/2026-10-25-doom-clock-coupled-loop-design.md (Amendments 2 wins, then Amendments, then the body)",
+        "details": "Scope: data/world/futures/<id>/**, doomclock/web/public/cache/futures.json (+ the replica's per-step bundles), cost and time logs. Parallel per task 153, else serial with 4 steps. Lane cap $7 under the $10 key guard; stop cleanly before Zep's limits. Loop gate 05:30 GMT: step 1 of each future with its graph and report; all done ~06:00 (parallel) or ~07:00 (fallback).\nSpec: docs/superpowers/specs/2026-10-25-doom-clock-coupled-loop-design.md (Amendments 2 wins, then Amendments, then the body)\n2026-10-25T02:47:47Z: WRAP-UP 02:50: not started (no futures recorded; the warm-up step was discarded). Resume after 152 and 153 and the record.ts rework in 150: LANE_CAP_USD=7 node doomclock/pipeline/world/record.ts --future=N (resumes at the first missing step; checkpoints data/world/futures/<id>/step-<s>/step.json; node doomclock/pipeline/world/record.ts --bundle writes doomclock/web/public/cache/futures.json). About $0.04 per step plus the report agent. Spent $0.20 of $7. Sim: sim_c0d244b2642a (data/world/sim.json). NEEDS THE LOCAL MACHINE: MiroFish backend (Herdr pane wR:pC, :5001, start with sh doomclock/pipeline/mirofish/backend.sh), OPENROUTER key (~/dev/oxhack/.env), ZEP key (~/dev/MiroFish/.env), data/raw. A cloud session cannot run this.",
         "testStrategy": "Every step has graph data, actions, posts, report, rubric, events with effects, date10/rulesOffDate10/noEventsDate10; future 1 has at least one event with a nonzero effect and date10 != rulesOffDate10 on some step; cost and wall time logged; hand-check notes on the task.",
         "status": "pending",
         "dependencies": [
@@ -202,7 +202,7 @@
         ],
         "priority": "high",
         "subtasks": [],
-        "updatedAt": "2026-10-25T02:32:12Z"
+        "updatedAt": "2026-10-25T02:47:47Z"
       },
       {
         "id": 155,
@@ -223,7 +223,7 @@
         "id": 156,
         "title": "[world] Showcase demo: a real-speed recording and a local 'Run live' button",
         "description": "One showcase run replayed at real speed on the deployed site, and a 'Run live' button on the laptop that runs one real step with live polling into the replica and enables Step 5 (chat and surveys). Falls back to the recording within 2 s on any failure.",
-        "details": "Scope: doomclock/pipeline/world/live/**, small hooks in ui/engine. Supersedes task 16. Live mode only works locally (the deployed site cannot reach localhost:5001); labelled LIVE or RECORDED. Spend per live step <= $0.20.\nSpec: docs/superpowers/specs/2026-10-25-doom-clock-coupled-loop-design.md (Amendments 2 wins, then Amendments, then the body)",
+        "details": "Scope: doomclock/pipeline/world/live/**, small hooks in ui/engine. Supersedes task 16. Live mode only works locally (the deployed site cannot reach localhost:5001); labelled LIVE or RECORDED. Spend per live step <= $0.20.\nSpec: docs/superpowers/specs/2026-10-25-doom-clock-coupled-loop-design.md (Amendments 2 wins, then Amendments, then the body)\n2026-10-25T02:47:47Z: WRAP-UP 02:50: not started; depends on 154 and 155. NEEDS THE LOCAL MACHINE: MiroFish backend (Herdr pane wR:pC, :5001, start with sh doomclock/pipeline/mirofish/backend.sh), OPENROUTER key (~/dev/oxhack/.env), ZEP key (~/dev/MiroFish/.env), data/raw. A cloud session cannot run this.",
         "testStrategy": "The showcase plays end to end at real speed on the deployed build; locally, Run live streams a real step and Step 5 answers one question; killing the backend mid-run falls back to the recording within 2 s.",
         "status": "pending",
         "dependencies": [
@@ -232,7 +232,7 @@
         ],
         "priority": "medium",
         "subtasks": [],
-        "updatedAt": "2026-10-25T02:32:12Z"
+        "updatedAt": "2026-10-25T02:47:47Z"
       },
       {
         "id": 1,
@@ -661,7 +661,7 @@
       "created": "2026-10-24T19:50:00Z",
       "description": "Doom Clock (OxHack 2026). PLAN as of 25 Oct 02:45 GMT (owner): one forecast, three scenarios. Today's clock reads real prediction-market odds (the backtest scores them: Brier 0.085 vs coin 0.25 on 1,186 later questions). Three futures are played forward on real MiroFish (own Zep graph per future, report agent per 6-month step, 5 rounds); simulated events nudge the 'when' odds and the report's rubric sets 'how dangerous', by labelled game rules; each future's clock moves, the real one never does. The Engine tab is a 1:1 replica of MiroFish's UI on the recordings; the World view has a live news feed with severity-driven legibility. Spec: docs/superpowers/specs/2026-10-25-doom-clock-coupled-loop-design.md (Amendments 2 wins, then Amendments, then the body). Lanes in Herdr workspace 'Doom Clock build': engine (149 done), recorder (150, 152-154, 156), ui (151, 155). Gates (GMT): 03:45 seam, 05:30 loop (step 1 of each future with graph and report), 07:30 release candidate (139), freeze 11:30, submit 11:45. The game layer was dropped on 25 Oct; its tasks are in the 'archive' tag.",
       "version": "1.0.0",
-      "lastModified": "2026-10-25T02:45:48Z",
+      "lastModified": "2026-10-25T02:47:47Z",
       "taskCount": 46,
       "completedCount": 30,
       "tags": [

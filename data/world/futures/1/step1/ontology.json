@@ -1,0 +1,786 @@
+{
+  "analysis_summary": "The text describes a six-month AI risk ecosystem in which labs, governments, media, experts, public figures, civil-society groups, trackers, and technology companies interact through releases, regulation, reporting, commentary, responses, support, opposition, collaboration, evaluation, and lobbying. The ontology separates high-reach experts and public figures from ordinary persons, and specific organizational actors from the Organization fallback, so social-media simulation can model who speaks, who is reported on, and how narratives spread.",
+  "files": [
+    {
+      "filename": "world-today.md",
+      "size": 38430
+    }
+  ],
+  "ontology": {
+    "edge_types": [
+      {
+        "attributes": [
+          {
+            "description": "Additional details about this ontology type.",
+            "name": "details",
+            "type": "text"
+          }
+        ],
+        "description": "Person or group is employed by or affiliated with an organization.",
+        "name": "WORKS_FOR",
+        "source_targets": [
+          {
+            "source": "Person",
+            "target": "Ailab"
+          },
+          {
+            "source": "Person",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "Person",
+            "target": "MediaOutlet"
+          },
+          {
+            "source": "Person",
+            "target": "TechnologyCompany"
+          },
+          {
+            "source": "Person",
+            "target": "CivilSocietyGroup"
+          },
+          {
+            "source": "Person",
+            "target": "DataTracker"
+          },
+          {
+            "source": "Person",
+            "target": "Organization"
+          },
+          {
+            "source": "ExpertVoice",
+            "target": "Ailab"
+          },
+          {
+            "source": "ExpertVoice",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "ExpertVoice",
+            "target": "MediaOutlet"
+          }
+        ]
+      },
+      {
+        "attributes": [
+          {
+            "description": "Additional details about this ontology type.",
+            "name": "details",
+            "type": "text"
+          }
+        ],
+        "description": "Government body enforces rules or policy on an AI actor.",
+        "name": "REGULATES",
+        "source_targets": [
+          {
+            "source": "GovernmentBody",
+            "target": "Ailab"
+          },
+          {
+            "source": "GovernmentBody",
+            "target": "TechnologyCompany"
+          },
+          {
+            "source": "GovernmentBody",
+            "target": "MediaOutlet"
+          },
+          {
+            "source": "GovernmentBody",
+            "target": "CivilSocietyGroup"
+          },
+          {
+            "source": "GovernmentBody",
+            "target": "Organization"
+          }
+        ]
+      },
+      {
+        "attributes": [
+          {
+            "description": "Additional details about this ontology type.",
+            "name": "details",
+            "type": "text"
+          }
+        ],
+        "description": "Media or tracker reports on an actor or event.",
+        "name": "REPORTS_ON",
+        "source_targets": [
+          {
+            "source": "MediaOutlet",
+            "target": "Ailab"
+          },
+          {
+            "source": "MediaOutlet",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "MediaOutlet",
+            "target": "PublicFigure"
+          },
+          {
+            "source": "MediaOutlet",
+            "target": "ExpertVoice"
+          },
+          {
+            "source": "MediaOutlet",
+            "target": "TechnologyCompany"
+          },
+          {
+            "source": "MediaOutlet",
+            "target": "CivilSocietyGroup"
+          },
+          {
+            "source": "MediaOutlet",
+            "target": "DataTracker"
+          },
+          {
+            "source": "MediaOutlet",
+            "target": "Person"
+          },
+          {
+            "source": "MediaOutlet",
+            "target": "Organization"
+          },
+          {
+            "source": "DataTracker",
+            "target": "Ailab"
+          }
+        ]
+      },
+      {
+        "attributes": [
+          {
+            "description": "Additional details about this ontology type.",
+            "name": "details",
+            "type": "text"
+          }
+        ],
+        "description": "Actor posts commentary about another actor or event.",
+        "name": "COMMENTS_ON",
+        "source_targets": [
+          {
+            "source": "Person",
+            "target": "Ailab"
+          },
+          {
+            "source": "Person",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "Person",
+            "target": "MediaOutlet"
+          },
+          {
+            "source": "Person",
+            "target": "PublicFigure"
+          },
+          {
+            "source": "ExpertVoice",
+            "target": "Ailab"
+          },
+          {
+            "source": "ExpertVoice",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "ExpertVoice",
+            "target": "MediaOutlet"
+          },
+          {
+            "source": "PublicFigure",
+            "target": "Ailab"
+          },
+          {
+            "source": "PublicFigure",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "PublicFigure",
+            "target": "MediaOutlet"
+          }
+        ]
+      },
+      {
+        "attributes": [
+          {
+            "description": "Additional details about this ontology type.",
+            "name": "details",
+            "type": "text"
+          }
+        ],
+        "description": "Actor replies to or rebuts another actor's statement or action.",
+        "name": "RESPONDS_TO",
+        "source_targets": [
+          {
+            "source": "Ailab",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "Ailab",
+            "target": "MediaOutlet"
+          },
+          {
+            "source": "Ailab",
+            "target": "PublicFigure"
+          },
+          {
+            "source": "Ailab",
+            "target": "ExpertVoice"
+          },
+          {
+            "source": "GovernmentBody",
+            "target": "Ailab"
+          },
+          {
+            "source": "GovernmentBody",
+            "target": "MediaOutlet"
+          },
+          {
+            "source": "GovernmentBody",
+            "target": "PublicFigure"
+          },
+          {
+            "source": "GovernmentBody",
+            "target": "ExpertVoice"
+          },
+          {
+            "source": "MediaOutlet",
+            "target": "Ailab"
+          },
+          {
+            "source": "MediaOutlet",
+            "target": "GovernmentBody"
+          }
+        ]
+      },
+      {
+        "attributes": [
+          {
+            "description": "Additional details about this ontology type.",
+            "name": "details",
+            "type": "text"
+          }
+        ],
+        "description": "Actor publicly backs another actor's position or action.",
+        "name": "SUPPORTS",
+        "source_targets": [
+          {
+            "source": "Person",
+            "target": "Ailab"
+          },
+          {
+            "source": "Person",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "Person",
+            "target": "PublicFigure"
+          },
+          {
+            "source": "Person",
+            "target": "CivilSocietyGroup"
+          },
+          {
+            "source": "ExpertVoice",
+            "target": "Ailab"
+          },
+          {
+            "source": "ExpertVoice",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "ExpertVoice",
+            "target": "PublicFigure"
+          },
+          {
+            "source": "ExpertVoice",
+            "target": "CivilSocietyGroup"
+          },
+          {
+            "source": "PublicFigure",
+            "target": "Ailab"
+          },
+          {
+            "source": "PublicFigure",
+            "target": "GovernmentBody"
+          }
+        ]
+      },
+      {
+        "attributes": [
+          {
+            "description": "Additional details about this ontology type.",
+            "name": "details",
+            "type": "text"
+          }
+        ],
+        "description": "Actor publicly contests another actor's position or action.",
+        "name": "OPPOSES",
+        "source_targets": [
+          {
+            "source": "Person",
+            "target": "Ailab"
+          },
+          {
+            "source": "Person",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "Person",
+            "target": "PublicFigure"
+          },
+          {
+            "source": "Person",
+            "target": "CivilSocietyGroup"
+          },
+          {
+            "source": "ExpertVoice",
+            "target": "Ailab"
+          },
+          {
+            "source": "ExpertVoice",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "ExpertVoice",
+            "target": "PublicFigure"
+          },
+          {
+            "source": "ExpertVoice",
+            "target": "CivilSocietyGroup"
+          },
+          {
+            "source": "PublicFigure",
+            "target": "Ailab"
+          },
+          {
+            "source": "PublicFigure",
+            "target": "GovernmentBody"
+          }
+        ]
+      },
+      {
+        "attributes": [
+          {
+            "description": "Additional details about this ontology type.",
+            "name": "details",
+            "type": "text"
+          }
+        ],
+        "description": "Actors coordinate, partner, or jointly act on AI issues.",
+        "name": "COLLABORATES_WITH",
+        "source_targets": [
+          {
+            "source": "Ailab",
+            "target": "Ailab"
+          },
+          {
+            "source": "Ailab",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "Ailab",
+            "target": "TechnologyCompany"
+          },
+          {
+            "source": "Ailab",
+            "target": "Organization"
+          },
+          {
+            "source": "GovernmentBody",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "GovernmentBody",
+            "target": "Ailab"
+          },
+          {
+            "source": "GovernmentBody",
+            "target": "CivilSocietyGroup"
+          },
+          {
+            "source": "GovernmentBody",
+            "target": "Organization"
+          },
+          {
+            "source": "MediaOutlet",
+            "target": "MediaOutlet"
+          },
+          {
+            "source": "MediaOutlet",
+            "target": "DataTracker"
+          }
+        ]
+      },
+      {
+        "attributes": [
+          {
+            "description": "Additional details about this ontology type.",
+            "name": "details",
+            "type": "text"
+          }
+        ],
+        "description": "Actor assesses another actor's systems, claims, or safety.",
+        "name": "EVALUATES",
+        "source_targets": [
+          {
+            "source": "GovernmentBody",
+            "target": "Ailab"
+          },
+          {
+            "source": "GovernmentBody",
+            "target": "TechnologyCompany"
+          },
+          {
+            "source": "Ailab",
+            "target": "Ailab"
+          },
+          {
+            "source": "Ailab",
+            "target": "TechnologyCompany"
+          },
+          {
+            "source": "DataTracker",
+            "target": "Ailab"
+          },
+          {
+            "source": "DataTracker",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "DataTracker",
+            "target": "TechnologyCompany"
+          },
+          {
+            "source": "MediaOutlet",
+            "target": "Ailab"
+          },
+          {
+            "source": "MediaOutlet",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "MediaOutlet",
+            "target": "TechnologyCompany"
+          }
+        ]
+      },
+      {
+        "attributes": [
+          {
+            "description": "Additional details about this ontology type.",
+            "name": "details",
+            "type": "text"
+          }
+        ],
+        "description": "Actor seeks to influence government policy or decisions.",
+        "name": "LOBBIES",
+        "source_targets": [
+          {
+            "source": "Ailab",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "TechnologyCompany",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "CivilSocietyGroup",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "MediaOutlet",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "PublicFigure",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "Organization",
+            "target": "GovernmentBody"
+          }
+        ]
+      }
+    ],
+    "entity_types": [
+      {
+        "attributes": [
+          {
+            "description": "Official lab or company name",
+            "name": "org_name",
+            "type": "text"
+          },
+          {
+            "description": "Stated role in the AI race",
+            "name": "lab_role",
+            "type": "text"
+          },
+          {
+            "description": "Public position on safety and pacing",
+            "name": "safety_stance",
+            "type": "text"
+          }
+        ],
+        "description": "Frontier AI developer or AI model lab that can release, pause, or evaluate systems.",
+        "examples": [
+          "OpenAI",
+          "Anthropic",
+          "Google DeepMind",
+          "Meta",
+          "xAI",
+          "DeepSeek",
+          "Alibaba Qwen"
+        ],
+        "name": "Ailab"
+      },
+      {
+        "attributes": [
+          {
+            "description": "Official government body name",
+            "name": "org_name",
+            "type": "text"
+          },
+          {
+            "description": "Country or region of authority",
+            "name": "jurisdiction",
+            "type": "text"
+          },
+          {
+            "description": "Main AI policy or regulatory function",
+            "name": "policy_role",
+            "type": "text"
+          }
+        ],
+        "description": "Government executive, regulator, legislature, or security institute with AI policy powers.",
+        "examples": [
+          "US Executive Branch",
+          "EU AI Office",
+          "UK Government and AISI",
+          "China CAC",
+          "US Senate Commerce Committee"
+        ],
+        "name": "GovernmentBody"
+      },
+      {
+        "attributes": [
+          {
+            "description": "Media desk or outlet name",
+            "name": "outlet_name",
+            "type": "text"
+          },
+          {
+            "description": "Main reporting beat or topic",
+            "name": "coverage_focus",
+            "type": "text"
+          },
+          {
+            "description": "Primary audience or market",
+            "name": "audience_scope",
+            "type": "text"
+          }
+        ],
+        "description": "News, trade, or broadcast media desk that reports on and amplifies AI events.",
+        "examples": [
+          "Global wire desk",
+          "US cable news desk",
+          "UK broadcaster tech desk",
+          "Tech trade press"
+        ],
+        "name": "MediaOutlet"
+      },
+      {
+        "attributes": [
+          {
+            "description": "Public name or persona label",
+            "name": "full_name",
+            "type": "text"
+          },
+          {
+            "description": "Field or topic of expertise",
+            "name": "expertise_area",
+            "type": "text"
+          },
+          {
+            "description": "Known position on AI risk and governance",
+            "name": "public_stance",
+            "type": "text"
+          }
+        ],
+        "description": "Individual expert or commentator who shapes public and policy debate on AI risk.",
+        "examples": [
+          "Nobel AI pioneer",
+          "Safety-by-design professor",
+          "Treaty professor",
+          "Risk-sceptic scientist",
+          "Timelines forecaster"
+        ],
+        "name": "ExpertVoice"
+      },
+      {
+        "attributes": [
+          {
+            "description": "Public name",
+            "name": "full_name",
+            "type": "text"
+          },
+          {
+            "description": "Political, business, or celebrity role",
+            "name": "public_role",
+            "type": "text"
+          },
+          {
+            "description": "Main social platform or audience size",
+            "name": "platform_reach",
+            "type": "text"
+          }
+        ],
+        "description": "Politician, executive, celebrity, or other high-reach individual who speaks publicly.",
+        "examples": [
+          "Sam Altman",
+          "Derrick Van Orden",
+          "Anthony Albanese",
+          "Rebecca Cooke"
+        ],
+        "name": "PublicFigure"
+      },
+      {
+        "attributes": [
+          {
+            "description": "Group or network name",
+            "name": "group_name",
+            "type": "text"
+          },
+          {
+            "description": "Main policy or public goal",
+            "name": "advocacy_goal",
+            "type": "text"
+          },
+          {
+            "description": "How the group coordinates messaging",
+            "name": "coordination_mode",
+            "type": "text"
+          }
+        ],
+        "description": "Advocacy coalition, campaign group, or coordinated network that posts and lobbies.",
+        "examples": [
+          "Innovation-first coalition",
+          "Pacing the Frontier signatories",
+          "Matryoshka influence operation"
+        ],
+        "name": "CivilSocietyGroup"
+      },
+      {
+        "attributes": [
+          {
+            "description": "Tracker or market desk name",
+            "name": "tracker_name",
+            "type": "text"
+          },
+          {
+            "description": "Incidents, forecasts, or market prices",
+            "name": "data_domain",
+            "type": "text"
+          },
+          {
+            "description": "How often it publishes updates",
+            "name": "posting_cadence",
+            "type": "text"
+          }
+        ],
+        "description": "Incident tracker or prediction-market desk that logs and prices AI developments.",
+        "examples": [
+          "Incident tracker",
+          "Markets desk",
+          "Kalshi"
+        ],
+        "name": "DataTracker"
+      },
+      {
+        "attributes": [
+          {
+            "description": "Company name",
+            "name": "company_name",
+            "type": "text"
+          },
+          {
+            "description": "Chips, platforms, hosting, or AI products",
+            "name": "sector",
+            "type": "text"
+          },
+          {
+            "description": "Market role or reach",
+            "name": "market_position",
+            "type": "text"
+          }
+        ],
+        "description": "Non-lab technology, platform, chip, or AI product company that can issue statements.",
+        "examples": [
+          "Nvidia",
+          "Character.ai",
+          "Hugging Face",
+          "GitHub",
+          "PyPI"
+        ],
+        "name": "TechnologyCompany"
+      },
+      {
+        "attributes": [
+          {
+            "description": "Person name or public label",
+            "name": "full_name",
+            "type": "text"
+          },
+          {
+            "description": "Job or social role",
+            "name": "occupation",
+            "type": "text"
+          },
+          {
+            "description": "Country or city",
+            "name": "location",
+            "type": "text"
+          }
+        ],
+        "description": "Any natural person not covered by a more specific individual type.",
+        "examples": [
+          "Worried parent and teacher",
+          "Engineer who runs coding agents",
+          "Anonymous ML engineer",
+          "Jarrod Shannon"
+        ],
+        "name": "Person"
+      },
+      {
+        "attributes": [
+          {
+            "description": "Organization name",
+            "name": "org_name",
+            "type": "text"
+          },
+          {
+            "description": "Legal or social form",
+            "name": "org_type",
+            "type": "text"
+          },
+          {
+            "description": "Country or headquarters",
+            "name": "location",
+            "type": "text"
+          }
+        ],
+        "description": "Any organization not covered by a more specific organizational type.",
+        "examples": [
+          "Marathon Petroleum",
+          "Fideuram",
+          "Shapiro Arato Bach LLP",
+          "Académie Goncourt"
+        ],
+        "name": "Organization"
+      }
+    ]
+  },
+  "project_id": "proj_924fbd219a0a",
+  "project_name": "Doom Clock future 1",
+  "total_text_length": 38280
+}
