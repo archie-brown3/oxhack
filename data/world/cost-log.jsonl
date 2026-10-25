@@ -2,3 +2,16 @@
 {"ts":"2026-10-25T00:18:16.385Z","event":"check","label":"task 105 force smoke","usage":0.171928288,"laneSpent":0.000119,"CAP_USD":10,"LANE_CAP_USD":1}
 {"ts":"2026-10-25T00:19:17.568Z","event":"run","label":"task 105 force smoke","sim":"sim_908b44137fec","cost_usd":0.058463,"wall_s":15.5}
 {"ts":"2026-10-25T00:20:24.111Z","event":"check","label":"check after 105","usage":0.281307383,"laneSpent":0.058463,"CAP_USD":10,"LANE_CAP_USD":1}
+{"ts":"2026-10-25T00:53:42.844Z","event":"check","label":"task 11 early 2032Q1","usage":0.479661016,"laneSpent":0.058463,"CAP_USD":10,"LANE_CAP_USD":1.5}
+{"ts":"2026-10-25T00:36:43.097Z","event":"check","label":"task 11 early 2027Q1","usage":0.318955983,"laneSpent":0.058463,"CAP_USD":10,"LANE_CAP_USD":1}
+{"ts":"2026-10-25T00:37:48.837Z","event":"run","label":"task 11 early 2027Q1","sim":"sim_c0d244b2642a","cost_usd":0.028933,"wall_s":38}
+{"ts":"2026-10-25T00:37:48.868Z","event":"check","label":"task 11 early 2028Q2","usage":0.347888818,"laneSpent":0.087396,"CAP_USD":10,"LANE_CAP_USD":1}
+{"ts":"2026-10-25T00:39:14.582Z","event":"run","label":"task 11 early 2028Q2","sim":"sim_c0d244b2642a","cost_usd":0.043327,"wall_s":60.1}
+{"ts":"2026-10-25T00:39:14.605Z","event":"check","label":"task 11 early 2029Q1","usage":0.391215817,"laneSpent":0.130723,"CAP_USD":10,"LANE_CAP_USD":1}
+{"ts":"2026-10-25T00:40:12.780Z","event":"run","label":"task 11 early 2029Q1","sim":"sim_c0d244b2642a","cost_usd":0.042583,"wall_s":34}
+{"ts":"2026-10-25T00:40:12.808Z","event":"check","label":"task 11 early 2032Q1","usage":0.433798421,"laneSpent":0.173306,"CAP_USD":10,"LANE_CAP_USD":1}
+{"ts":"2026-10-25T00:54:50.596Z","event":"run","label":"task 11 early 2032Q1","sim":"sim_c0d244b2642a","cost_usd":0.02378,"wall_s":42}
+{"ts":"2026-10-25T00:54:50.670Z","event":"check","label":"task 11 fairlyEarly 2027Q1","usage":0.503440635,"laneSpent":0.197086,"CAP_USD":10,"LANE_CAP_USD":1.5}
+{"ts":"2026-10-25T00:51:47.000Z","event":"run","label":"task 11 early 2032Q1 orphan (killed lane; env closed, not kept)","sim":"sim_c0d244b2642a","cost_usd":0.045863,"wall_s":32,"note":"key-usage delta 00:40:12 to 00:53:42, an upper bound"}
+{"ts":"2026-10-25T00:55:47.357Z","event":"run","label":"task 11 fairlyEarly 2027Q1","sim":"sim_c0d244b2642a","cost_usd":0.02515,"wall_s":34}
+{"ts":"2026-10-25T00:55:47.387Z","event":"check","label":"task 11 fairlyEarly 2027Q4","usage":0.528590177,"laneSpent":0.268099,"CAP_USD":10,"LANE_CAP_USD":1.5}

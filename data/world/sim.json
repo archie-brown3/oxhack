@@ -1,0 +1,7 @@
+{
+  "simulation_id": "sim_c0d244b2642a",
+  "created_at": "2026-10-25T01:36:42.699596",
+  "project_id": "proj_69d072e0c890",
+  "graph_id": "mirofish_9df0589c36e0491b",
+  "note": "One Twitter-only sim reused for every recorded run (POST /start force:true resets it)."
+}

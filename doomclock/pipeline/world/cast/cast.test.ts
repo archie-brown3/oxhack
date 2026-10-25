@@ -5,10 +5,10 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { test } from 'node:test'
 import { agentConfigs, MAX_CHARS, profilesCsv, renderSim, roster, userChar, type Cast, type Memory } from './cast.ts'
 
-const cast = JSON.parse(readFileSync(new URL('./data/cast.json', import.meta.url), 'utf8')) as Cast
+const cast = JSON.parse(readFileSync(new URL('./cast.json', import.meta.url), 'utf8')) as Cast
 const golden = new URL('./cast.golden.csv', import.meta.url)
 const epoch = new URL('../../../../data/clean/epoch.jsonl', import.meta.url)
-const weights = new URL('../../../pipeline/world/cast-weights.ts', import.meta.url).href
+const weights = new URL('../cast-weights.ts', import.meta.url).href
 
 const STUB: Memory = {
   quarter: '2027Q1',

@@ -6,7 +6,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 const ROOT = join(import.meta.dirname, "../../..");
-const CAST = join(ROOT, "doomclock/web/src/game/data/cast.json");
+const CAST = join(ROOT, "doomclock/pipeline/world/cast/cast.json");
 const FROM = Date.parse("2024-10-24T00:00:00Z");
 
 /** Epoch `org` names (comma-separated in the data) that count for each cast lab. */
