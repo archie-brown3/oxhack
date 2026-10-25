@@ -87,6 +87,7 @@ export function WhySheet({ world, timeline, hand, pin, backtest, future, step, l
 function ReportProse({ futureId, step }: { futureId: number; step: number }) {
   const [html, setHtml] = useState<string | null>(null)
   const [spike, setSpike] = useState(false)
+  const [earlier, setEarlier] = useState(false)
   const [miss, setMiss] = useState(false)
   useEffect(() => {
     let live = true
@@ -96,6 +97,8 @@ function ReportProse({ futureId, step }: { futureId: number; step: number }) {
       const md = d?.step.report.markdown_content?.trim()
       if (!d || !md) { setMiss(true); return }
       setSpike(d.spike)
+      // MiroFish keeps one report per simulation run, so later steps of a recorded future can carry an earlier step's report.
+      setEarlier(!d.spike && Date.parse(d.step.report.created_at) < Date.parse(String(d.step.runStatus?.started_at ?? '')))
       setHtml(renderMarkdown(md))
     })
     return () => { live = false }
@@ -103,7 +106,7 @@ function ReportProse({ futureId, step }: { futureId: number; step: number }) {
   if (miss) return null
   return (
     <section className="report-prose" aria-label="MiroFish report">
-      <div className="lede"><Label kind="simulated" />{spike && <span className="dc-data">Stand-in report from the 24 Oct spike, not this future.</span>}</div>
+      <div className="lede"><Label kind="simulated" />{spike && <span className="dc-data">Stand-in report from the 24 Oct spike, not this future.</span>}{earlier && <span className="dc-data">Written after an earlier step of this future; MiroFish keeps one report per run.</span>}</div>
       <h4>Report, as written</h4>
       {html ? <div className="report-body" dangerouslySetInnerHTML={{ __html: html }} /> : <p className="dc-dim">Loading the report…</p>}
     </section>

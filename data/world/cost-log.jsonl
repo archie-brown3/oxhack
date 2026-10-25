@@ -108,3 +108,21 @@
 {"ts":"2026-10-25T11:52:15.862Z","event":"run","label":"llm rubric-f3 s3","cost_usd":0.000241038,"wall_s":0}
 {"ts":"2026-10-25T11:52:15.968Z","event":"check","label":"f3 s4","usage":2.304755841,"laneSpent":3.009847,"CAP_USD":10,"LANE_CAP_USD":6}
 {"ts":"2026-10-25T11:52:34.588Z","event":"run","label":"llm rubric-f1 s6","cost_usd":0.000167336,"wall_s":0}
+{"ts":"2026-10-25T11:55:29.092Z","event":"run","label":"f3 s4","sim":"sim_1c26f2f9adfd","cost_usd":0.089246,"wall_s":186.8}
+{"ts":"2026-10-25T11:55:45.073Z","event":"run","label":"llm readout-f3-s4","cost_usd":0.0082386,"wall_s":0}
+{"ts":"2026-10-25T11:55:56.011Z","event":"run","label":"llm rubric-f3 s4","cost_usd":0.000236418,"wall_s":0}
+{"ts":"2026-10-25T11:55:56.393Z","event":"check","label":"f3 s5","usage":2.407333983,"laneSpent":3.107735,"CAP_USD":10,"LANE_CAP_USD":6}
+{"ts":"2026-10-25T11:56:01.411Z","event":"run","label":"f2 s5","sim":"sim_b85ee185988c","cost_usd":0.152384,"wall_s":250.9}
+{"ts":"2026-10-25T11:56:18.374Z","event":"run","label":"llm readout-f2-s5","cost_usd":0.003365538,"wall_s":0}
+{"ts":"2026-10-25T11:56:45.628Z","event":"run","label":"llm rubric-f2 s5","cost_usd":0.000371736,"wall_s":0}
+{"ts":"2026-10-25T11:56:46.336Z","event":"check","label":"f2 s6","usage":2.441952148,"laneSpent":3.263856,"CAP_USD":10,"LANE_CAP_USD":6}
+{"ts":"2026-10-25T11:59:35.575Z","event":"run","label":"f3 s5","sim":"sim_1c26f2f9adfd","cost_usd":0.113188,"wall_s":212.8}
+{"ts":"2026-10-25T12:00:09.260Z","event":"run","label":"llm readout-f3-s5","cost_usd":0.00440196,"wall_s":0}
+{"ts":"2026-10-25T12:00:20.579Z","event":"run","label":"llm rubric-f3 s5","cost_usd":0.0002284296,"wall_s":0}
+{"ts":"2026-10-25T12:00:20.724Z","event":"check","label":"f3 s6","usage":2.550056668,"laneSpent":3.381675,"CAP_USD":10,"LANE_CAP_USD":6}
+{"ts":"2026-10-25T12:00:55.369Z","event":"run","label":"f2 s6","sim":"sim_b85ee185988c","cost_usd":0.108333,"wall_s":242.8}
+{"ts":"2026-10-25T12:01:05.039Z","event":"run","label":"llm readout-f2-s6","cost_usd":0.0060762492,"wall_s":0}
+{"ts":"2026-10-25T12:01:23.099Z","event":"run","label":"llm rubric-f2 s6","cost_usd":0.000382016,"wall_s":0}
+{"ts":"2026-10-25T12:04:42.645Z","event":"run","label":"f3 s6","sim":"sim_1c26f2f9adfd","cost_usd":0.067191,"wall_s":255}
+{"ts":"2026-10-25T12:05:19.898Z","event":"run","label":"llm readout-f3-s6","cost_usd":0.00879175,"wall_s":0}
+{"ts":"2026-10-25T12:05:27.736Z","event":"run","label":"llm rubric-f3 s6","cost_usd":0.000233058,"wall_s":0}

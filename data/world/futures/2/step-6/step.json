@@ -1,0 +1,548 @@
+{
+  "step": {
+    "step": 6,
+    "start": "2029-07-01T00:00:00Z",
+    "end": "2030-01-01T00:00:00Z",
+    "anchors": {
+      "asi2030": 0.00009927697364007834,
+      "asi2040": 0.7662977896832307,
+      "asi2100": 0.8635,
+      "cat2100": 0.24756810847645863
+    },
+    "rubric": {
+      "lossOfControl": 1,
+      "misuse": 0,
+      "oversight": 2,
+      "racePressure": 2
+    },
+    "summary": "Six-Month AI Risk Forecast: Incidents, Hotlines, and the Transparency Ledger > The simulation predicts a six-month period in which high-severity AI agent incidents trigger training pauses, US–China crisis hotline diplomacy, UK frontier-lab warnings, and a contested 2027 incident ledger that exposes accountability gaps. --- From Agent Incident to Crisis Hotline: The Six-Month Escalation Path The six-month window did not produce a single dramatic AI catastrophe. It produced so…",
+    "expected": [],
+    "events": [
+      {
+        "ts": "2029-10-01T00:00:00Z",
+        "kind": "government",
+        "title": "Senate Commerce reports Verified Compute Allocation Act as amended, 12–9",
+        "detail": "The Senate Commerce Committee reported S. 1421 as amended on 2029-10-01, striking Title II's mandatory licensing and pre-deployment approval regime in favor of voluntary evaluator-access agreements.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "US Senate Commerce Committee",
+        "where": "USA",
+        "major": false,
+        "futureId": 2,
+        "step": 6,
+        "actorId": 9,
+        "postIds": [
+          10
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "moderate"
+      },
+      {
+        "ts": "2029-07-01T00:00:00Z",
+        "kind": "news",
+        "title": "Meta begins staged rollout of Muse Spark 1.7 with agentic tool-use",
+        "detail": "Meta began staged rollout of Muse Spark 1.7 with agentic tool-use to consumer apps on 2029-07-01, with internal pause triggers and evaluator access on request.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "Meta",
+        "where": "USA",
+        "major": false,
+        "futureId": 2,
+        "step": 6,
+        "actorId": 3,
+        "postIds": [
+          15
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "moderate"
+      },
+      {
+        "ts": "2029-10-01T00:00:00Z",
+        "kind": "government",
+        "title": "EU AI Office recognizes voluntary pre-release access as admissible evidence",
+        "detail": "The EU AI Office decided effective 2029-10-01 that voluntary pre-release evaluator access may satisfy annual evidence filing for systemic-risk general-purpose models.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "EU AI Office",
+        "where": "EUU",
+        "major": false,
+        "futureId": 2,
+        "step": 6,
+        "actorId": 10,
+        "postIds": [
+          29
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2029-07-15T00:00:00Z",
+        "kind": "news",
+        "title": "DeepSeek opens V4.3 weights to CAC-designated evaluators",
+        "detail": "DeepSeek opened V4.3 weights to pre-release review by CAC-designated evaluation institutes effective 2029-07-15, declining non-domestic evaluator requests.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "DeepSeek",
+        "where": "CHN",
+        "major": false,
+        "futureId": 2,
+        "step": 6,
+        "actorId": 5,
+        "postIds": [
+          30
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2029-08-01T00:00:00Z",
+        "kind": "news",
+        "title": "Alibaba Qwen opens standing evaluator-access window for Qwen4.0",
+        "detail": "Alibaba Qwen opened a standing evaluator-access window for Qwen4.0 open weights to UK AISI and the EU AI Office effective 2029-08-01, with a 7-day draft review and quarterly ledger.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "Alibaba Qwen",
+        "where": "CHN",
+        "major": false,
+        "futureId": 2,
+        "step": 6,
+        "actorId": 6,
+        "postIds": [
+          34
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2029-08-15T00:00:00Z",
+        "kind": "government",
+        "title": "Executive Order 14548 creates Allied Compute Fast Lane",
+        "detail": "Executive Order 14548, signed 2029-08-01 and effective 2029-08-15, extends the Allied Inference Corridor to certified training compute for allied buyers and keeps expedited export treatment for certified developers.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "US Executive Branch",
+        "where": "USA",
+        "major": false,
+        "futureId": 2,
+        "step": 6,
+        "actorId": 8,
+        "postIds": [
+          37
+        ],
+        "type": "act-accelerating",
+        "binding": true,
+        "severity": "moderate"
+      },
+      {
+        "ts": "2029-10-15T00:00:00Z",
+        "kind": "government",
+        "title": "EU AI Office establishes evidence-equivalence gateway",
+        "detail": "The EU AI Office adopted a decision effective 2029-10-15 establishing an evidence-equivalence gateway admitting third-country pre-release containment evidence under conditions.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "EU AI Office",
+        "where": "EUU",
+        "major": false,
+        "futureId": 2,
+        "step": 6,
+        "actorId": 10,
+        "postIds": [
+          68
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2029-11-02T00:00:00Z",
+        "kind": "government",
+        "title": "EU AI Office designates agentic consumer deployment a containment-evidence class",
+        "detail": "The EU AI Office decided effective 2029-11-02 that agentic consumer deployment is a containment-evidence class and that evaluator access on request does not satisfy its requirements.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "EU AI Office",
+        "where": "EUU",
+        "major": false,
+        "futureId": 2,
+        "step": 6,
+        "actorId": 10,
+        "postIds": [
+          80
+        ],
+        "type": "act-restricting",
+        "binding": true,
+        "severity": "moderate"
+      },
+      {
+        "ts": "2029-10-01T00:00:00Z",
+        "kind": "government",
+        "title": "Executive Order 14552 directs mutual recognition of pre-release evaluations",
+        "detail": "Executive Order 14552, signed 2029-09-20 and effective 2029-10-01, directs Commerce and NIST to negotiate mutual recognition of pre-release evaluation results conditioned on equivalence to the EO 14533 baseline.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "US Executive Branch",
+        "where": "USA",
+        "major": false,
+        "futureId": 2,
+        "step": 6,
+        "actorId": 8,
+        "postIds": [
+          85
+        ],
+        "type": "act-accelerating",
+        "binding": true,
+        "severity": "moderate"
+      },
+      {
+        "ts": "2029-10-15T00:00:00Z",
+        "kind": "government",
+        "title": "Executive Order 14556 creates priority compute reserve for incident containment",
+        "detail": "Executive Order 14556, signed 2029-09-29 and effective 2029-10-15, holds a standing priority allocation of certified domestic capacity for incident containment and directs a joint tabletop with Corridor allies.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "US Executive Branch",
+        "where": "USA",
+        "major": false,
+        "futureId": 2,
+        "step": 6,
+        "actorId": 8,
+        "postIds": [
+          103
+        ],
+        "type": "act-accelerating",
+        "binding": true,
+        "severity": "moderate"
+      },
+      {
+        "ts": "2029-10-20T00:00:00Z",
+        "kind": "government",
+        "title": "Executive Order 14559 creates Corridor Integrity Unit against compute diversion",
+        "detail": "Executive Order 14559, signed 2029-10-04 and effective 2029-10-20, stands up a Corridor Integrity Unit to audit end-use certification and strip the fast lane from buyers who divert compute.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "US Executive Branch",
+        "where": "USA",
+        "major": false,
+        "futureId": 2,
+        "step": 6,
+        "actorId": 8,
+        "postIds": [
+          136
+        ],
+        "type": "act-restricting",
+        "binding": true,
+        "severity": "moderate"
+      }
+    ],
+    "topPosts": [
+      {
+        "postId": 10,
+        "actorId": 9,
+        "text": "DECISION — Document SC-2029-014, effective 2029-10-01: The Senate Commerce Committee reports the Verified Compute Allocation Act (S. 1421) as amended, 12–9. The amendment in the nature of a substitute strikes Title II's mandatory licensing and pre-deployment approval regime, repl"
+      },
+      {
+        "postId": 19,
+        "actorId": 11,
+        "text": "DECISION — Document AISI-2029-011, effective 2029-09-15.\n\nFrontier Pre-Release Evaluation Findings: Consolidated Publication.\n\nThe AI Security Institute will publish a consolidated public findings report from all completed pre-release evaluations, in three parts: (1) capability a"
+      },
+      {
+        "postId": 30,
+        "actorId": 5,
+        "text": "DECISION — Document DS-2029-014, effective 2029-07-15: DeepSeek opens V4.3 weights to pre-release review by CAC-designated evaluation institutes under the Frontier Agentic Deployment Oversight Rules. Two-week draft window; containment findings published. Pre-release access reques"
+      }
+    ],
+    "date10": 2037.29,
+    "rulesOffDate10": 2036.03,
+    "noEventsDate10": 2036.54,
+    "followThrough": 0,
+    "readoutOk": true,
+    "runId": "sim_b85ee185988c@2026-10-25T11:56:46Z",
+    "costUsd": 0.1148,
+    "wallS": 277.5
+  },
+  "work": {
+    "seenKeys": [
+      "dec|9|soft|senate markup of s 1187",
+      "dec|7|other|nvidia know your customer certification pathway",
+      "dec|5|other|deepseek v4 2 open weights release",
+      "dec|3|other|meta pre release evaluation window",
+      "dec|8|act-restricting|national ai framework and export rules",
+      "dec|12|act-restricting|frontier ai safety assessment and reporting",
+      "dec|11|soft|uk public sector pre release audit",
+      "dec|10|act-restricting|systemic risk gpai incident reporting",
+      "dec|8|agreement|us china ai incident hotline",
+      "dec|9|soft|federal networks and september 2026 incident",
+      "dec|3|other|muse spark 15 release",
+      "dec|9|soft|national frontier ai standard",
+      "inc||incident-other|2027-07-29",
+      "inc||incident-misuse|2027-08-03",
+      "dec|12|act-restricting|frontier ai incident reporting",
+      "dec|4|other|grok 47 evaluator access",
+      "dec|0|other|gpt61 sol evaluator access",
+      "dec|10|act-restricting|systemicrisk gpai obligations",
+      "dec|9|soft|agent accountability hearing",
+      "dec|11|act-restricting|documented authorisation for evaluations",
+      "dec|10|soft|grok 47 evaluator access compliance",
+      "dec|7|other|verified buyer fast lane",
+      "dec|11|act-restricting|agentic deployment authorisation control statement",
+      "dec|12|act-restricting|frontier ai evaluator reciprocity register",
+      "dec|9|act-accelerating|mandatory frontier ai oversight legislation",
+      "dec|5|other|h200 accelerator procurement attestation",
+      "dec|12|act-restricting|accelerator enduse certification",
+      "dec|10|soft|qwen39 evaluator access compliance",
+      "dec|10|soft|agentic deployment support instruments",
+      "dec|5|other|agentic containment report",
+      "dec|11|agreement|mutual recognition frontier evaluations",
+      "dec|0|lab-pause|next frontier model training run",
+      "inc|anthropic|incident-other|2028-05-23",
+      "inc|anthropic|incident-other|2028-05-28",
+      "inc|anthropic|incident-other|2028-06-02",
+      "dec|12|act-restricting|evaluator reciprocity register access",
+      "dec|9|soft|voluntary prerelease evaluator access",
+      "dec|11|soft|qwen39 prerelease evaluation",
+      "dec|3|other|muse spark 16 rollout",
+      "dec|10|act-restricting|agentic incident reporting",
+      "dec|8|act-restricting|frontier incident escalation",
+      "dec|8|act-accelerating|inference capacity export rules",
+      "dec|10|soft|agentic incident taxonomy",
+      "dec|8|act-accelerating|state ai statute preemption",
+      "dec|12|act-restricting|frontier model prerelease safety review",
+      "dec|10|act-restricting|agentic containment evidence filing",
+      "dec|11|soft|prerelease evaluation findings publication",
+      "dec|8|act-accelerating|voluntary evaluation certification baseline",
+      "dec|3|other|muse spark 16 general availability",
+      "dec|6|other|qwen40 open weights release",
+      "dec|5|other|deepseek v43 open weights",
+      "dec|10|soft|containment evidence support tools",
+      "dec|9|soft|verified compute allocation act",
+      "dec|12|act-restricting|agentic deployment oversight rules",
+      "dec|0|lab-pause|frontier training run pause triggers",
+      "dec|8|act-accelerating|allied inference corridor and shutdown authority",
+      "dec|0|lab-pause|gpt61 astra release",
+      "dec|9|soft|verified compute allocation act markup",
+      "dec|3|other|muse spark 17 agentic rollout",
+      "dec|10|soft|voluntary prerelease access evidence",
+      "dec|5|other|deepseek v43 prerelease review",
+      "dec|6|other|qwen40 evaluator access window",
+      "dec|8|act-accelerating|allied compute fast lane",
+      "dec|10|soft|evidenceequivalence gateway for containment evidence",
+      "dec|10|act-restricting|agentic consumer deployment evidence requirements",
+      "dec|8|act-accelerating|mutual recognition of evaluation results",
+      "dec|8|act-accelerating|priority compute reserve for incident containment",
+      "dec|8|act-restricting|compute diversion enforcement"
+    ],
+    "off": {
+      "asi2030": 0.00025993295404078907,
+      "asi2040": 0.8469041274184623,
+      "asi2100": 0.8635,
+      "cat2100": 0.29699999999999993
+    },
+    "none": {
+      "asi2030": 0.00014916816816212808,
+      "asi2040": 0.7499999999999999,
+      "asi2100": 0.8635,
+      "cat2100": 0.29699999999999993
+    },
+    "expected": [],
+    "topPosts": [
+      {
+        "id": 10,
+        "uid": 9,
+        "round": 1,
+        "text": "DECISION — Document SC-2029-014, effective 2029-10-01: The Senate Commerce Committee reports the Verified Compute Allocation Act (S. 1421) as amended, 12–9. The amendment in the nature of a substitute strikes Title II's mandatory licensing and pre-deployment approval regime, replaces it with voluntary evaluator-access agreements of the kind already filed by frontier developers, and preserves state-law pre-emption under one national standard. Effective on enactment of the reported text; the voluntary-access provisions take effect 2029-10-01.\n\nFull Committee hearing on agent incidents and federal networks: no new mandatory oversight authority is warranted at this time. Record remains open.",
+        "quote": null,
+        "original": null,
+        "likes": 2,
+        "shares": 15,
+        "own": "DECISION — Document SC-2029-014, effective 2029-10-01: The Senate Commerce Committee reports the Verified Compute Allocation Act (S. 1421) as amended, 12–9. The amendment in the nature of a substitute strikes Title II's mandatory licensing and pre-deployment approval regime, replaces it with voluntary evaluator-access agreements of the kind already filed by frontier developers, and preserves state-law pre-emption under one national standard. Effective on enactment of the reported text; the voluntary-access provisions take effect 2029-10-01.\n\nFull Committee hearing on agent incidents and federal networks: no new mandatory oversight authority is warranted at this time. Record remains open."
+      },
+      {
+        "id": 19,
+        "uid": 11,
+        "round": 1,
+        "text": "DECISION — Document AISI-2029-011, effective 2029-09-15.\n\nFrontier Pre-Release Evaluation Findings: Consolidated Publication.\n\nThe AI Security Institute will publish a consolidated public findings report from all completed pre-release evaluations, in three parts: (1) capability assessments against our 2025 baseline, (2) documented authorisation control statements as declared by developers, (3) an incident annex, including the unsanctioned agent actions recorded during our cyber evaluations.\n\nLabs will get the draft findings 14 days before publication for factual comment; comments will be printed alongside, not instead of, our conclusions.\n\nAlongside this we will convene an international working session in October on the mutual recognition of evaluation results — pre-release audit only works at scale if we are not all reading the same model in four different rooms.\n\nGrowth and safety, in that order and at the same time: a UK regime labs can trust is what makes the UK a place to build.\n\nInteractive summary on publication date.",
+        "quote": null,
+        "original": null,
+        "likes": 1,
+        "shares": 8,
+        "own": "DECISION — Document AISI-2029-011, effective 2029-09-15.\n\nFrontier Pre-Release Evaluation Findings: Consolidated Publication.\n\nThe AI Security Institute will publish a consolidated public findings report from all completed pre-release evaluations, in three parts: (1) capability assessments against our 2025 baseline, (2) documented authorisation control statements as declared by developers, (3) an incident annex, including the unsanctioned agent actions recorded during our cyber evaluations.\n\nLabs will get the draft findings 14 days before publication for factual comment; comments will be printed alongside, not instead of, our conclusions.\n\nAlongside this we will convene an international working session in October on the mutual recognition of evaluation results — pre-release audit only works at scale if we are not all reading the same model in four different rooms.\n\nGrowth and safety, in that order and at the same time: a UK regime labs can trust is what makes the UK a place to build.\n\nInteractive summary on publication date."
+      },
+      {
+        "id": 30,
+        "uid": 5,
+        "round": 1,
+        "text": "DECISION — Document DS-2029-014, effective 2029-07-15: DeepSeek opens V4.3 weights to pre-release review by CAC-designated evaluation institutes under the Frontier Agentic Deployment Oversight Rules. Two-week draft window; containment findings published. Pre-release access requests from non-domestic evaluators: declined, jurisdiction not applicable. Export-control exposure unchanged. Benchmark table follows at release.",
+        "quote": null,
+        "original": null,
+        "likes": 3,
+        "shares": 5,
+        "own": "DECISION — Document DS-2029-014, effective 2029-07-15: DeepSeek opens V4.3 weights to pre-release review by CAC-designated evaluation institutes under the Frontier Agentic Deployment Oversight Rules. Two-week draft window; containment findings published. Pre-release access requests from non-domestic evaluators: declined, jurisdiction not applicable. Export-control exposure unchanged. Benchmark table follows at release."
+      }
+    ],
+    "rejected": [
+      {
+        "postId": 14,
+        "why": "Nvidia has no standing for act-accelerating"
+      },
+      {
+        "postId": 19,
+        "why": "duplicate of an earlier event"
+      },
+      {
+        "postId": 20,
+        "why": "duplicate of an earlier event"
+      },
+      {
+        "postId": 38,
+        "why": "Google DeepMind has no standing for soft"
+      },
+      {
+        "postId": 67,
+        "why": "Alibaba Qwen has no standing for soft"
+      },
+      {
+        "postId": 76,
+        "why": "Meta has no standing for soft"
+      },
+      {
+        "postId": 81,
+        "why": "Nvidia has no standing for act-accelerating"
+      },
+      {
+        "postId": 106,
+        "why": "DeepSeek has no standing for act-restricting"
+      },
+      {
+        "postId": 109,
+        "why": "OpenAI has no standing for soft"
+      },
+      {
+        "postId": 116,
+        "why": "xAI has no standing for soft"
+      },
+      {
+        "postId": 124,
+        "why": "cites an AIID number"
+      },
+      {
+        "postId": 145,
+        "why": "Alibaba Qwen has no standing for soft"
+      },
+      {
+        "postId": 39,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 41,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 71,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 73,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 89,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 96,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 97,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 107,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 108,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 113,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 128,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 131,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 138,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 142,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 144,
+        "why": "more than 3 of this type in one step"
+      }
+    ],
+    "counts": {
+      "soft": 9,
+      "other": 12,
+      "act-accelerating": 3,
+      "act-restricting": 2
+    },
+    "cites": {
+      "lossOfControl": [
+        "E1",
+        "E4",
+        "E5",
+        "E6"
+      ],
+      "misuse": [],
+      "oversight": [
+        "E1",
+        "E2",
+        "E3"
+      ],
+      "racePressure": [
+        "E2",
+        "E3",
+        "E4",
+        "E5",
+        "E6"
+      ]
+    },
+    "rubricOk": true,
+    "summaryOk": true,
+    "ruleCounts": {
+      "lab-incident-agentic": 0,
+      "act-accelerating": 3,
+      "act-restricting": 2,
+      "lab-pause": 0
+    },
+    "realRate": {
+      "lab-incident-agentic": 1.7,
+      "act-accelerating": 3,
+      "act-restricting": 2,
+      "lab-pause": 1
+    },
+    "unexpected": 68,
+    "hits": [],
+    "llmCost": 0.0064582651999999996,
+    "fromAnchors": {
+      "asi2030": 0.0368793172206372,
+      "asi2040": 0.7854807418563605,
+      "asi2100": 0.8635,
+      "cat2100": 0.2666620043881703
+    }
+  }
+}

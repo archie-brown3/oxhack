@@ -797,7 +797,882 @@
       "runId": "sim_1c26f2f9adfd@2026-10-25T11:45:05Z",
       "costUsd": 0.1778,
       "wallS": 431.6
+    },
+    {
+      "step": 4,
+      "start": "2028-07-01T00:00:00Z",
+      "end": "2029-01-01T00:00:00Z",
+      "anchors": {
+        "asi2030": 0.09819290371846566,
+        "asi2040": 0.7242764653160015,
+        "asi2100": 0.8635,
+        "cat2100": 0.22415330058011088
+      },
+      "rubric": {
+        "lossOfControl": 1,
+        "misuse": 1,
+        "oversight": 3,
+        "racePressure": 1
+      },
+      "summary": "Six-Month AI Risk Forecast: From Liability Shock to Superintelligence Directive > The simulation predicts a rapid escalation from AI-linked harm and lawsuits to national-security controls, emergency lab suspensions, and US-China incident coordination, producing a more dangerous but crisis-managed world. --- Escalation Timeline: Incidents, Lawsuits, and Executive Orders The simulation's six-month window does not show a single dramatic rupture but a ratchet: each incident wide…",
+      "expected": [],
+      "events": [
+        {
+          "ts": "2028-09-01T00:00:00Z",
+          "kind": "government",
+          "title": "China CAC establishes reciprocal frontier evaluation and incident-reporting framework",
+          "detail": "China CAC issued CAC-DOC-2028-017, effective 2028-09-01, establishing a reciprocal frontier model evaluation and incident-reporting framework allowing structured pre-release evaluator access under a CAC-supervised protocol.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "China CAC",
+          "where": "CHN",
+          "major": false,
+          "futureId": 3,
+          "step": 4,
+          "actorId": 12,
+          "postIds": [
+            8
+          ],
+          "type": "agreement",
+          "binding": false,
+          "severity": "moderate"
+        },
+        {
+          "ts": "2028-09-15T00:00:00Z",
+          "kind": "government",
+          "title": "UK AISI to audit OpenAI GPT-6.1 Astra before release",
+          "detail": "UK AISI issued AISI-DOC-2028-031, effective 2028-09-15, beginning an independent audit of OpenAI's GPT-6.1 Astra under its pre-release evaluation regime.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "UK Government and AISI",
+          "where": "GBR",
+          "major": false,
+          "futureId": 3,
+          "step": 4,
+          "actorId": 11,
+          "postIds": [
+            30
+          ],
+          "type": "soft",
+          "binding": false,
+          "severity": "moderate"
+        },
+        {
+          "ts": "2028-09-15T00:00:00Z",
+          "kind": "news",
+          "title": "OpenAI delays next frontier release 30 days for independent evaluation",
+          "detail": "OpenAI issued OPENAI-DOC-2028-014, effective 2028-09-15, pushing its next frontier release back 30 days for independent pre-release evaluation and granting full evaluator access to the EU AI Office and UK AISI.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "OpenAI",
+          "where": "USA",
+          "major": false,
+          "futureId": 3,
+          "step": 4,
+          "actorId": 0,
+          "postIds": [
+            32
+          ],
+          "type": "lab-pause",
+          "binding": false,
+          "severity": "moderate"
+        },
+        {
+          "ts": "2028-09-15T00:00:00Z",
+          "kind": "government",
+          "title": "UK AISI convenes London international safety talks for November 2028",
+          "detail": "UK AISI issued AISI-DOC-2028-031, effective 2028-09-15, convening international safety talks in London for November 2028 on pre-release evaluation and incident reporting.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "UK Government and AISI",
+          "where": "GBR",
+          "major": false,
+          "futureId": 3,
+          "step": 4,
+          "actorId": 11,
+          "postIds": [
+            34
+          ],
+          "type": "soft",
+          "binding": false,
+          "severity": "minor"
+        },
+        {
+          "ts": "2028-09-01T00:00:00Z",
+          "kind": "news",
+          "title": "Alibaba Qwen releases Qwen3.10-32B open weights and evaluator registry",
+          "detail": "Alibaba Qwen issued QWEN-DOC-2028-003, effective 2028-09-01, releasing Qwen3.10-32B open weights with a public evaluator-access registry.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "Alibaba Qwen",
+          "where": "CHN",
+          "major": false,
+          "futureId": 3,
+          "step": 4,
+          "actorId": 6,
+          "postIds": [
+            38
+          ],
+          "type": "other",
+          "binding": false,
+          "severity": "minor"
+        },
+        {
+          "ts": "2028-09-15T00:00:00Z",
+          "kind": "government",
+          "title": "Executive Order 14538 establishes federal AI preemption and compute fast lane",
+          "detail": "US President signed Executive Order 14538 on 2028-09-01, effective 2028-09-15, preempting conflicting state AI statutes, expanding the compute fast lane, and requiring disclosure of foreign-origin open-weight models in critical infrastructu",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "US Executive Branch",
+          "where": "USA",
+          "major": false,
+          "futureId": 3,
+          "step": 4,
+          "actorId": 8,
+          "postIds": [
+            44
+          ],
+          "type": "act-restricting",
+          "binding": true,
+          "severity": "moderate",
+          "effect": {
+            "dlogit": {
+              "asi2030": -0.013333333333333332,
+              "asi2040": -0.006666666666666666
+            },
+            "rule": "GAME RULE"
+          }
+        },
+        {
+          "ts": "2028-09-14T00:00:00Z",
+          "kind": "government",
+          "title": "Senate Commerce adopts Frontier AI Transparency and Competitiveness Act mark",
+          "detail": "US Senate Commerce Committee adopted Chairman's Mark S. 1147-R2 (Committee Print 115-41) on 2028-09-14, codifying a safe harbor for firms publishing eval protocols and meeting incident-reporting SLAs and preempting state capability mandates",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "US Senate Commerce Committee",
+          "where": "USA",
+          "major": false,
+          "futureId": 3,
+          "step": 4,
+          "actorId": 9,
+          "postIds": [
+            46
+          ],
+          "type": "soft",
+          "binding": false,
+          "severity": "moderate"
+        },
+        {
+          "ts": "2028-09-20T00:00:00Z",
+          "kind": "government",
+          "title": "UK AISI opens talks to join China CAC reciprocal evaluation framework",
+          "detail": "UK AISI issued AISI-DOC-2028-038, effective 2028-09-20, opening talks with China CAC on joining the reciprocal evaluation and incident-reporting framework.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "UK Government and AISI",
+          "where": "GBR",
+          "major": false,
+          "futureId": 3,
+          "step": 4,
+          "actorId": 11,
+          "postIds": [
+            87
+          ],
+          "type": "agreement",
+          "binding": false,
+          "severity": "moderate"
+        },
+        {
+          "ts": "2028-09-01T00:00:00Z",
+          "kind": "government",
+          "title": "China CAC mandates monthly public summaries of minor-harm incidents",
+          "detail": "China CAC issued CAC-DOC-2028-019, effective 2028-09-01, requiring the National Frontier AI Incident Reporting and Emergency Response Desk to publish monthly public summaries of verified minor-harm incidents.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "China CAC",
+          "where": "CHN",
+          "major": false,
+          "futureId": 3,
+          "step": 4,
+          "actorId": 12,
+          "postIds": [
+            93
+          ],
+          "type": "act-restricting",
+          "binding": true,
+          "severity": "minor",
+          "effect": {
+            "dlogit": {
+              "asi2030": -0.013333333333333332,
+              "asi2040": -0.006666666666666666
+            },
+            "rule": "GAME RULE"
+          }
+        },
+        {
+          "ts": "2028-10-01T00:00:00Z",
+          "kind": "news",
+          "title": "DeepSeek completes V4.4 training and opens post-release evaluator access",
+          "detail": "DeepSeek issued DS-DOC-2028-007, effective 2028-10-01, completing the V4.4 training run and opening post-release evaluator access 72 hours after public drop.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "DeepSeek",
+          "where": "CHN",
+          "major": false,
+          "futureId": 3,
+          "step": 4,
+          "actorId": 5,
+          "postIds": [
+            101
+          ],
+          "type": "other",
+          "binding": false,
+          "severity": "minor"
+        },
+        {
+          "ts": "2028-10-01T00:00:00Z",
+          "kind": "government",
+          "title": "China CAC imposes 24-hour minor-harm incident notification duty",
+          "detail": "China CAC issued CAC-DOC-2028-021, effective 2028-10-01, requiring Chinese providers to notify the National Frontier AI Incident Reporting and Emergency Response Desk within 24 hours of credible minor-harm reports from synthetic or deepfake",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "China CAC",
+          "where": "CHN",
+          "major": false,
+          "futureId": 3,
+          "step": 4,
+          "actorId": 12,
+          "postIds": [
+            116
+          ],
+          "type": "act-restricting",
+          "binding": true,
+          "severity": "moderate",
+          "effect": {
+            "dlogit": {
+              "asi2030": -0.013333333333333332,
+              "asi2040": -0.006666666666666666
+            },
+            "rule": "GAME RULE"
+          }
+        }
+      ],
+      "topPosts": [
+        {
+          "postId": 38,
+          "actorId": 6,
+          "text": "Release note — QWEN-DOC-2028-003, effective 2028-09-01.\n\nDecision: Qwen3.10-32B goes up on HF + ModelScope with open weights, no gated tiers — shipped alongside a full model card, our red-team log, incident-reporting contact, and documented emergency-stop hooks. Same day: a publi"
+        },
+        {
+          "postId": 32,
+          "actorId": 0,
+          "text": "OPENAI-DOC-2028-014, effective 2028-09-15.\n\nDecision: our next frontier release is pushed 30 days for independent pre-release evaluation. EU AI Office and UK AISI evaluator access granted in full — weights, evals, system cards. No gated version, no side deal. Pacing has costs. We"
+        },
+        {
+          "postId": 8,
+          "actorId": 12,
+          "text": "CAC-DOC-2028-017, effective 2028-09-01: Reciprocal Frontier Model Evaluation and Incident-Reporting Framework. Chinese developers of frontier models with a completed CAC filing may grant structured pre-release evaluator access to designated foreign evaluation bodies under a CAC-s"
+        }
+      ],
+      "date10": 2037.45,
+      "rulesOffDate10": 2034.56,
+      "noEventsDate10": 2035.31,
+      "followThrough": 0,
+      "readoutOk": true,
+      "runId": "sim_1c26f2f9adfd@2026-10-25T11:52:15Z",
+      "costUsd": 0.0977,
+      "wallS": 220.1
+    },
+    {
+      "step": 5,
+      "start": "2029-01-01T00:00:00Z",
+      "end": "2029-07-01T00:00:00Z",
+      "anchors": {
+        "asi2030": 0.024143313150168044,
+        "asi2040": 0.6849308502529419,
+        "asi2100": 0.8635,
+        "cat2100": 0.2383721844320958
+      },
+      "rubric": {
+        "lossOfControl": 1,
+        "misuse": 1,
+        "oversight": 3,
+        "racePressure": 2
+      },
+      "summary": "Six-Month AI Risk Forecast: From Liability Shock to Superintelligence Directive > The simulation predicts a rapid escalation from AI-linked harm and lawsuits to national-security controls, emergency lab suspensions, and US-China incident coordination, producing a more dangerous but crisis-managed world. --- Escalation Timeline: Incidents, Lawsuits, and Executive Orders The simulation's six-month window does not show a single dramatic rupture but a ratchet: each incident wide…",
+      "expected": [],
+      "events": [
+        {
+          "ts": "2029-02-27T00:00:00Z",
+          "kind": "government",
+          "title": "Senate Commerce schedules hearing on frontier release delays and evaluator access",
+          "detail": "The US Senate Commerce Committee scheduled a hearing, 'Frontier Release Delays, Evaluator Access, and US Competitiveness,' under Committee Record SC-2029-004, effective 2029-02-27.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "US Senate Commerce Committee",
+          "where": "USA",
+          "major": false,
+          "futureId": 3,
+          "step": 5,
+          "actorId": 9,
+          "postIds": [
+            8
+          ],
+          "type": "soft",
+          "binding": false,
+          "severity": "minor"
+        },
+        {
+          "ts": "2029-04-01T00:00:00Z",
+          "kind": "news",
+          "title": "xAI grants pre-release evaluator access to Grok 5",
+          "detail": "xAI granted independent red teams, UK AISI and EU AI Office pre-release access to Grok 5 system cards and adversarial eval results, but not weights, effective 2029-04-01.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "xAI",
+          "where": "USA",
+          "major": false,
+          "futureId": 3,
+          "step": 5,
+          "actorId": 4,
+          "postIds": [
+            12
+          ],
+          "type": "other",
+          "binding": false,
+          "severity": "minor"
+        },
+        {
+          "ts": "2029-01-15T00:00:00Z",
+          "kind": "news",
+          "title": "OpenAI ships GPT-6.1 Astra to limited access program",
+          "detail": "OpenAI decided that GPT-6.1 Astra ships to a limited access program for government evaluators, safety institutes and vetted partners on published system cards, effective 2029-01-15.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "OpenAI",
+          "where": "USA",
+          "major": false,
+          "futureId": 3,
+          "step": 5,
+          "actorId": 0,
+          "postIds": [
+            14
+          ],
+          "type": "other",
+          "binding": false,
+          "severity": "moderate"
+        },
+        {
+          "ts": "2029-03-15T00:00:00Z",
+          "kind": "news",
+          "title": "DeepSeek releases V4.5 open weights",
+          "detail": "DeepSeek released V4.5 open weights on schedule with post-release evaluator access to EU AI Office and UK AISI, effective 2029-03-15.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "DeepSeek",
+          "where": "CHN",
+          "major": false,
+          "futureId": 3,
+          "step": 5,
+          "actorId": 5,
+          "postIds": [
+            15
+          ],
+          "type": "other",
+          "binding": false,
+          "severity": "moderate"
+        },
+        {
+          "ts": "2029-02-01T00:00:00Z",
+          "kind": "government",
+          "title": "UK AISI commits to publish evaluation findings within 60 days",
+          "detail": "UK AISI announced under UK-AISI-2029-002, effective 2029-02-01, that it will publish a summary of evaluation findings for each audited frontier system within 60 days of release.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "UK Government and AISI",
+          "where": "GBR",
+          "major": false,
+          "futureId": 3,
+          "step": 5,
+          "actorId": 11,
+          "postIds": [
+            18
+          ],
+          "type": "soft",
+          "binding": false,
+          "severity": "minor"
+        },
+        {
+          "ts": "2029-03-01T00:00:00Z",
+          "kind": "government",
+          "title": "UK AISI convenes successor London international safety talks",
+          "detail": "UK AISI decided under UK-AISI-DOC-2029-003, effective 2029-03-01, to convene the London international safety talks' successor round in April 2029 with agenda items on reciprocal evaluation and joint incident reporting.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "UK Government and AISI",
+          "where": "GBR",
+          "major": false,
+          "futureId": 3,
+          "step": 5,
+          "actorId": 11,
+          "postIds": [
+            21
+          ],
+          "type": "soft",
+          "binding": false,
+          "severity": "minor"
+        },
+        {
+          "ts": "2029-03-15T00:00:00Z",
+          "kind": "government",
+          "title": "UK AISI accepts admission as first foreign evaluation body under China CAC framework",
+          "detail": "UK AISI accepted admission as the first foreign evaluation body under China CAC's reciprocal framework and will apply the same protocol to Chinese systems, effective 2029-03-15.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "UK Government and AISI",
+          "where": "GBR",
+          "major": false,
+          "futureId": 3,
+          "step": 5,
+          "actorId": 11,
+          "postIds": [
+            45
+          ],
+          "type": "agreement",
+          "binding": false,
+          "severity": "moderate"
+        },
+        {
+          "ts": "2029-05-01T00:00:00Z",
+          "kind": "government",
+          "title": "BIS rule BIS-2029-0114 tightens frontier accelerator export licensing",
+          "detail": "The US Department of Commerce/BIS issued rule BIS-2029-0114, effective 2029-05-01, keeping frontier accelerators licensed for export with a presumption of denial for destinations of concern.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "US Executive Branch",
+          "where": "USA",
+          "major": false,
+          "futureId": 3,
+          "step": 5,
+          "actorId": 8,
+          "postIds": [
+            74
+          ],
+          "type": "act-restricting",
+          "binding": true,
+          "severity": "moderate",
+          "effect": {
+            "dlogit": {
+              "asi2030": -0.013333333333333332,
+              "asi2040": -0.006666666666666666
+            },
+            "rule": "GAME RULE"
+          }
+        },
+        {
+          "ts": "2029-04-15T00:00:00Z",
+          "kind": "government",
+          "title": "EU AI Office opens formal compliance proceeding against DeepSeek",
+          "detail": "The EU AI Office adopted AIO-DOC-2029-007, effective 2029-04-15, opening a formal compliance proceeding against DeepSeek and requesting documents within 30 days.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "EU AI Office",
+          "where": "EUU",
+          "major": false,
+          "futureId": 3,
+          "step": 5,
+          "actorId": 10,
+          "postIds": [
+            86
+          ],
+          "type": "act-restricting",
+          "binding": true,
+          "severity": "moderate",
+          "effect": {
+            "dlogit": {
+              "asi2030": -0.013333333333333332,
+              "asi2040": -0.006666666666666666
+            },
+            "rule": "GAME RULE"
+          }
+        },
+        {
+          "ts": "2029-03-01T00:00:00Z",
+          "kind": "news",
+          "title": "OpenAI closes GPT-6.1 Astra limited access program pending safety case",
+          "detail": "OpenAI decided under OPENAI-DOC-2029-003, effective 2029-03-01, to close the limited access program for GPT-6.1 Astra to new entrants pending a fresh external safety case.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "OpenAI",
+          "where": "USA",
+          "major": false,
+          "futureId": 3,
+          "step": 5,
+          "actorId": 0,
+          "postIds": [
+            112
+          ],
+          "type": "lab-pause",
+          "binding": false,
+          "severity": "moderate"
+        },
+        {
+          "ts": "2029-06-15T00:00:00Z",
+          "kind": "government",
+          "title": "Executive Order 14582 establishes National-Security AI Incident Cell and suspension rules",
+          "detail": "The US Executive Branch signed Executive Order 14582, effective 2029-06-15, establishing a National-Security AI Incident Cell and requiring a presidential finding for emergency suspension of a US frontier developer.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "US Executive Branch",
+          "where": "USA",
+          "major": false,
+          "futureId": 3,
+          "step": 5,
+          "actorId": 8,
+          "postIds": [
+            115
+          ],
+          "type": "act-restricting",
+          "binding": true,
+          "severity": "moderate",
+          "effect": {
+            "dlogit": {
+              "asi2030": -0.013333333333333332,
+              "asi2040": -0.006666666666666666
+            },
+            "rule": "GAME RULE"
+          }
+        }
+      ],
+      "topPosts": [
+        {
+          "postId": 36,
+          "actorId": 10,
+          "text": "AIO-DOC-2029-005, effective 2029-03-15. Reminder on the state of play, since dates are being misread in this feed:\n\n1. GPAI obligations have applied since 2025-08-02.\n2. High-risk obligations apply since 2027-12-02, per the provisional deal of 2026-05-07 following the Digital Omn"
+        },
+        {
+          "postId": 14,
+          "actorId": 0,
+          "text": "OPENAI-DOC-2029-001, effective 2029-01-15.\n\nDecision: GPT-6.1 Astra ships to a limited access program — government evaluators, safety institutes, and vetted partners — on published system cards. Not a general release. Front weights stay with us until external evals clear.\n\nPacing"
+        },
+        {
+          "postId": 28,
+          "actorId": 12,
+          "text": "CAC-DOC-2028-021, effective 2028-10-15.\n\nDecision: The Administration designates the UK AI Safety Institute as the first foreign evaluation body admitted under the Reciprocal Frontier Model Evaluation and Incident-Reporting Framework (CAC-DOC-2028-017), following the talks opened"
+        }
+      ],
+      "date10": 2037.93,
+      "rulesOffDate10": 2035.81,
+      "noEventsDate10": 2035.94,
+      "followThrough": 0,
+      "readoutOk": true,
+      "runId": "sim_1c26f2f9adfd@2026-10-25T11:55:56Z",
+      "costUsd": 0.1178,
+      "wallS": 264.6
+    },
+    {
+      "step": 6,
+      "start": "2029-07-01T00:00:00Z",
+      "end": "2030-01-01T00:00:00Z",
+      "anchors": {
+        "asi2030": 0.00004481580899391765,
+        "asi2040": 0.7435827219324528,
+        "asi2100": 0.8635,
+        "cat2100": 0.25699908473751576
+      },
+      "rubric": {
+        "lossOfControl": 1,
+        "misuse": 1,
+        "oversight": 2,
+        "racePressure": 2
+      },
+      "summary": "Six-Month AI Risk Forecast: From Liability Shock to Superintelligence Directive > The simulation predicts a rapid escalation from AI-linked harm and lawsuits to national-security controls, emergency lab suspensions, and US-China incident coordination, producing a more dangerous but crisis-managed world. --- Escalation Timeline: Incidents, Lawsuits, and Executive Orders The simulation's six-month window does not show a single dramatic rupture but a ratchet: each incident wide…",
+      "expected": [],
+      "events": [
+        {
+          "ts": "2029-09-15T00:00:00Z",
+          "kind": "news",
+          "title": "Meta ships Muse Spark 1.6 agents to full consumer surface",
+          "detail": "Meta announced it will ship Muse Spark 1.6 agents to its full consumer surface behind internal safety gates with a public incident log, effective 2029-09-15.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "Meta",
+          "where": "USA",
+          "major": false,
+          "futureId": 3,
+          "step": 6,
+          "actorId": 3,
+          "postIds": [
+            8
+          ],
+          "type": "other",
+          "binding": false,
+          "severity": "minor"
+        },
+        {
+          "ts": "2029-08-01T00:00:00Z",
+          "kind": "news",
+          "title": "DeepSeek releases V4.6 open weights",
+          "detail": "DeepSeek announced the open-weights release of DeepSeek V4.6 with a model card and CAC filing, effective 2029-08-01.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "DeepSeek",
+          "where": "CHN",
+          "major": false,
+          "futureId": 3,
+          "step": 6,
+          "actorId": 5,
+          "postIds": [
+            9
+          ],
+          "type": "other",
+          "binding": false,
+          "severity": "minor"
+        },
+        {
+          "ts": "2029-09-01T00:00:00Z",
+          "kind": "government",
+          "title": "Executive Order 14589 establishes single national AI framework",
+          "detail": "Executive Order 14589, effective 2029-09-01, establishes a single national AI framework preempting conflicting state frontier-AI laws and directs Commerce to maintain export controls at BIS-2029-0114 strength.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "US Executive Branch",
+          "where": "USA",
+          "major": false,
+          "futureId": 3,
+          "step": 6,
+          "actorId": 8,
+          "postIds": [
+            14
+          ],
+          "type": "act-accelerating",
+          "binding": true,
+          "severity": "moderate",
+          "effect": {
+            "dlogit": {
+              "asi2030": -0.015,
+              "asi2040": -0.0075
+            },
+            "rule": "GAME RULE"
+          }
+        },
+        {
+          "ts": "2029-09-18T00:00:00Z",
+          "kind": "government",
+          "title": "Senate Commerce schedules hearing on evaluator access and release pacing",
+          "detail": "The US Senate Commerce Committee scheduled a full committee hearing on frontier evaluator access, release pacing, and US competitiveness for 2029-09-18.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "US Senate Commerce Committee",
+          "where": "USA",
+          "major": false,
+          "futureId": 3,
+          "step": 6,
+          "actorId": 9,
+          "postIds": [
+            17
+          ],
+          "type": "soft",
+          "binding": false,
+          "severity": "minor"
+        },
+        {
+          "ts": "2029-10-01T00:00:00Z",
+          "kind": "government",
+          "title": "Senate Commerce reports amended Frontier AI Transparency and Competitiveness Act",
+          "detail": "The Senate Commerce Committee reported the Frontier AI Transparency and Competitiveness Act as amended, preserving voluntary evaluator access and striking pre-release federal licensing, effective 2029-10-01.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "US Senate Commerce Committee",
+          "where": "USA",
+          "major": false,
+          "futureId": 3,
+          "step": 6,
+          "actorId": 9,
+          "postIds": [
+            17
+          ],
+          "type": "soft",
+          "binding": false,
+          "severity": "moderate"
+        },
+        {
+          "ts": "2029-10-01T00:00:00Z",
+          "kind": "news",
+          "title": "Alibaba Qwen keeps Qwen3.10-32B fully open and opens evaluator registry",
+          "detail": "Alibaba Qwen announced Qwen3.10-32B stays fully open with weights, model card, and eval harness, and opened its evaluator registry to accredited safety institutes, effective 2029-10-01.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "Alibaba Qwen",
+          "where": "CHN",
+          "major": false,
+          "futureId": 3,
+          "step": 6,
+          "actorId": 6,
+          "postIds": [
+            20
+          ],
+          "type": "other",
+          "binding": false,
+          "severity": "minor"
+        },
+        {
+          "ts": "2029-07-01T00:00:00Z",
+          "kind": "government",
+          "title": "China CAC adopts reciprocal incident measures in frontier AI",
+          "detail": "The China CAC adopted reciprocal incident measures in frontier AI, effective 2029-07-01, recognizing foreign suspension orders only on reciprocal terms.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "China CAC",
+          "where": "CHN",
+          "major": false,
+          "futureId": 3,
+          "step": 6,
+          "actorId": 12,
+          "postIds": [
+            21
+          ],
+          "type": "act-restricting",
+          "binding": true,
+          "severity": "moderate",
+          "effect": {
+            "dlogit": {
+              "asi2030": -0.013333333333333332,
+              "asi2040": -0.006666666666666666
+            },
+            "rule": "GAME RULE"
+          }
+        },
+        {
+          "ts": "2029-08-01T00:00:00Z",
+          "kind": "government",
+          "title": "UK AISI opens second audit window and widens evaluator circle",
+          "detail": "The UK AISI opened a second audit window for frontier systems from any developer before public release and made reciprocal evaluation work with China CAC live, effective 2029-08-01.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "UK Government and AISI",
+          "where": "GBR",
+          "major": false,
+          "futureId": 3,
+          "step": 6,
+          "actorId": 11,
+          "postIds": [
+            46
+          ],
+          "type": "soft",
+          "binding": false,
+          "severity": "minor"
+        },
+        {
+          "ts": "2029-07-15T00:00:00Z",
+          "kind": "government",
+          "title": "EU AI Office opens information request to xAI on Grok 5",
+          "detail": "The EU AI Office opened an information request to xAI under Art. 53 and Art. 55 regarding Grok 5, effective 2029-07-15.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "EU AI Office",
+          "where": "EUU",
+          "major": false,
+          "futureId": 3,
+          "step": 6,
+          "actorId": 10,
+          "postIds": [
+            58
+          ],
+          "type": "act-restricting",
+          "binding": true,
+          "severity": "moderate",
+          "effect": {
+            "dlogit": {
+              "asi2030": -0.013333333333333332,
+              "asi2040": -0.006666666666666666
+            },
+            "rule": "GAME RULE"
+          }
+        },
+        {
+          "ts": "2029-07-01T00:00:00Z",
+          "kind": "government",
+          "title": "EU AI Office sets baseline for external evaluation claims",
+          "detail": "The EU AI Office set published evaluation criteria and a named accredited body with audit rights as the baseline for accepting external-evaluation claims under Art. 55, effective 2029-07-01.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "EU AI Office",
+          "where": "EUU",
+          "major": false,
+          "futureId": 3,
+          "step": 6,
+          "actorId": 10,
+          "postIds": [
+            68
+          ],
+          "type": "act-restricting",
+          "binding": true,
+          "severity": "moderate",
+          "effect": {
+            "dlogit": {
+              "asi2030": -0.013333333333333332,
+              "asi2040": -0.006666666666666666
+            },
+            "rule": "GAME RULE"
+          }
+        },
+        {
+          "ts": "2029-10-01T00:00:00Z",
+          "kind": "government",
+          "title": "Commerce adopts five-day accelerator licensing lane for allied buyers",
+          "detail": "Commerce adopted a five-business-day frontier accelerator licensing lane for pre-cleared buyers in allied markets under BIS-2029-0118, effective 2029-10-01.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "US Executive Branch",
+          "where": "USA",
+          "major": false,
+          "futureId": 3,
+          "step": 6,
+          "actorId": 8,
+          "postIds": [
+            102
+          ],
+          "type": "act-accelerating",
+          "binding": true,
+          "severity": "moderate",
+          "effect": {
+            "dlogit": {
+              "asi2030": -0.015,
+              "asi2040": -0.0075
+            },
+            "rule": "GAME RULE"
+          }
+        }
+      ],
+      "topPosts": [
+        {
+          "postId": 31,
+          "actorId": 4,
+          "text": "EO 14582 hands a new Incident Cell the power to suspend models it doesn't understand, staffed by people who have never trained one. That's not safety, that's a kill switch with a filing deadline. xAI will publish evals and ship. We will not pre-clear our roadmap with a committee."
+        },
+        {
+          "postId": 9,
+          "actorId": 5,
+          "text": "DEEPSEEK-DOC-2029-0117, effective 2029-08-01.\n\nDecision: DeepSeek V4.6 open weights release. Full weights + card, CAC filing under the existing framework, no pre-release external evaluator requirement. Post-release evaluator access granted to admitted bodies.\n\nBenchmarks (V4.5 → "
+        },
+        {
+          "postId": 33,
+          "actorId": 1,
+          "text": "ANTHROPIC-DOC-2029-014, effective 2029-07-01.\n\nDecision: We are publishing our third-party evaluation protocol and opening standing evaluator access to three accredited bodies — UK AISI, the EU AI Office's evaluation unit, and the US National-Security AI Incident Cell established"
+        }
+      ],
+      "date10": 2037.25,
+      "rulesOffDate10": 2036.06,
+      "noEventsDate10": 2036.54,
+      "followThrough": 0,
+      "readoutOk": true,
+      "runId": "sim_1c26f2f9adfd@2026-10-25T12:00:20Z",
+      "costUsd": 0.0762,
+      "wallS": 307.2
     }
   ],
-  "unexpected": 29
+  "unexpected": 62
 }
