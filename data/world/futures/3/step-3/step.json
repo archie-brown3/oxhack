@@ -1,0 +1,514 @@
+{
+  "step": {
+    "step": 3,
+    "start": "2028-01-01T00:00:00Z",
+    "end": "2028-07-01T00:00:00Z",
+    "anchors": {
+      "asi2030": 0.1750631692926577,
+      "asi2040": 0.7070539348589333,
+      "asi2100": 0.8635,
+      "cat2100": 0.2383721844320958
+    },
+    "rubric": {
+      "lossOfControl": 1,
+      "misuse": 1,
+      "oversight": 3,
+      "racePressure": 2
+    },
+    "summary": "Six-Month AI Risk Forecast: From Liability Shock to Superintelligence Directive > The simulation predicts a rapid escalation from AI-linked harm and lawsuits to national-security controls, emergency lab suspensions, and US-China incident coordination, producing a more dangerous but crisis-managed world. --- Escalation Timeline: Incidents, Lawsuits, and Executive Orders The simulation's six-month window does not show a single dramatic rupture but a ratchet: each incident wide…",
+    "expected": [],
+    "events": [
+      {
+        "ts": "2028-05-01T00:00:00Z",
+        "kind": "government",
+        "title": "UK AISI requires pre-release evaluation for frontier-class models including open weights",
+        "detail": "UK AISI decision AISI-2028-004 effective 2028-05-01 requires any frontier-class model made available in the UK, including open-weight releases, to be submitted for pre-release evaluation or withdrawn.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "UK Government and AISI",
+        "where": "GBR",
+        "major": false,
+        "futureId": 3,
+        "step": 3,
+        "actorId": 11,
+        "postIds": [
+          13,
+          67
+        ],
+        "type": "act-restricting",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.013333333333333332,
+            "asi2040": -0.006666666666666666
+          },
+          "rule": "GAME RULE"
+        }
+      },
+      {
+        "ts": "2028-02-01T00:00:00Z",
+        "kind": "news",
+        "title": "Alibaba Qwen keeps Qwen3.9 weights open and extends evaluator access",
+        "detail": "Alibaba Qwen decided effective 2028-02-01 to keep Qwen3.9 family weights open on HF and ModelScope and extend standing evaluator access to accredited safety institutes.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "Alibaba Qwen",
+        "where": "CHN",
+        "major": false,
+        "futureId": 3,
+        "step": 3,
+        "actorId": 6,
+        "postIds": [
+          19
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2028-02-01T00:00:00Z",
+        "kind": "government",
+        "title": "China CAC mandates pre-release safety evaluation records for all public models",
+        "detail": "China CAC document CAC-DOC-2028-004 effective 2028-02-01 keeps pre-release safety evaluation records mandatory for all models offered to the public in China, with a 2028-02-15 filing deadline.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "China CAC",
+        "where": "CHN",
+        "major": false,
+        "futureId": 3,
+        "step": 3,
+        "actorId": 12,
+        "postIds": [
+          27
+        ],
+        "type": "act-restricting",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.013333333333333332,
+            "asi2040": -0.006666666666666666
+          },
+          "rule": "GAME RULE"
+        }
+      },
+      {
+        "ts": "2028-03-01T00:00:00Z",
+        "kind": "news",
+        "title": "Meta begins staged rollout of Muse Spark 1.5 agents to consumer surfaces",
+        "detail": "Meta decision META-DOC-2028-004 effective 2028-03-01 begins staged rollout of Muse Spark 1.5 agents to Instagram, WhatsApp and Messenger over six weeks under internal safety gates.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "Meta",
+        "where": "USA",
+        "major": false,
+        "futureId": 3,
+        "step": 3,
+        "actorId": 3,
+        "postIds": [
+          35
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "moderate"
+      },
+      {
+        "ts": "2028-02-15T00:00:00Z",
+        "kind": "government",
+        "title": "EU AI Office opens preliminary Art. 55 information request to DeepSeek",
+        "detail": "EU AI Office decision EU-AIO/2028-003 effective 2028-02-15 opens a preliminary Art. 55 information request to DeepSeek for model documentation and evaluation records regarding V4.2-Preview.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "EU AI Office",
+        "where": "EUU",
+        "major": false,
+        "futureId": 3,
+        "step": 3,
+        "actorId": 10,
+        "postIds": [
+          36
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "moderate"
+      },
+      {
+        "ts": "2028-03-14T00:00:00Z",
+        "kind": "government",
+        "title": "US Senate Commerce Committee schedules hearing on open weights and export controls",
+        "detail": "Senate Commerce Committee announced hearing SC-HN-2028-006 effective 2028-03-14 titled 'Open Weights, Export Controls, and American Competitiveness'.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "US Senate Commerce Committee",
+        "where": "USA",
+        "major": false,
+        "futureId": 3,
+        "step": 3,
+        "actorId": 9,
+        "postIds": [
+          37
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2028-04-15T00:00:00Z",
+        "kind": "news",
+        "title": "DeepSeek releases V4.3 open weights with CAC filing but no external evaluator access",
+        "detail": "DeepSeek document DS-DOC-2028-003 effective 2028-04-15 releases V4.3 open weights (310B total/26B active) with CAC pre-release records filed but no external pre-release evaluator access granted.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "DeepSeek",
+        "where": "CHN",
+        "major": false,
+        "futureId": 3,
+        "step": 3,
+        "actorId": 5,
+        "postIds": [
+          39
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "moderate"
+      },
+      {
+        "ts": "2028-02-20T00:00:00Z",
+        "kind": "government",
+        "title": "China CAC offers to join reciprocal international incident-reporting arrangement",
+        "detail": "China CAC document CAC-DOC-2028-006 effective 2028-02-20 states China will join a reciprocal, non-discriminatory international incident-reporting and emergency-response arrangement including an AI incident hotline, conditional on equal obli",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "China CAC",
+        "where": "CHN",
+        "major": false,
+        "futureId": 3,
+        "step": 3,
+        "actorId": 12,
+        "postIds": [
+          58
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2028-03-01T00:00:00Z",
+        "kind": "government",
+        "title": "China CAC establishes National Frontier AI Incident Reporting and Emergency Response Desk",
+        "detail": "China CAC document CAC-DOC-2028-008 effective 2028-03-01 establishes a National Frontier AI Incident Reporting and Emergency Response Desk requiring 24-hour notification of severe incidents and verified human-override and emergency-stop cap",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "China CAC",
+        "where": "CHN",
+        "major": false,
+        "futureId": 3,
+        "step": 3,
+        "actorId": 12,
+        "postIds": [
+          81
+        ],
+        "type": "act-restricting",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.013333333333333332,
+            "asi2040": -0.006666666666666666
+          },
+          "rule": "GAME RULE"
+        }
+      },
+      {
+        "ts": "2028-04-10T00:00:00Z",
+        "kind": "government",
+        "title": "Commerce BIS publishes eligibility table for EO 14512 compute fast lane",
+        "detail": "Commerce BIS notice US-EXP-2028-021 published and effective 2028-04-10 publishes the eligibility table for the EO 14512 fast lane with accelerator SKUs, volume tiers, allocation windows and review timelines, and states open-weight release i",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "US Executive Branch",
+        "where": "USA",
+        "major": false,
+        "futureId": 3,
+        "step": 3,
+        "actorId": 8,
+        "postIds": [
+          109
+        ],
+        "type": "act-accelerating",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.06,
+            "asi2040": -0.03
+          },
+          "rule": "GAME RULE"
+        }
+      }
+    ],
+    "topPosts": [
+      {
+        "postId": 39,
+        "actorId": 5,
+        "text": "DS-DOC-2028-003, effective 2028-04-15.\n\nV4.3 open weights, HF + ModelScope. 310B total / 26B active.\nMMLU-Pro 84.1 · GPQA-D 74.0 · SWE-bench V 48.7 · LiveBench 70.6 · AIME27 65.3\nLicense: unchanged. No gated tiers, no regional weights.\n\nPre-release safety evaluation records filed"
+      },
+      {
+        "postId": 10,
+        "actorId": 0,
+        "text": "OAI-DOC-2028-004, effective 2028-02-01: OpenAI will grant structured pre-release evaluator access to GPT-6.1 Astra to three independent labs and UK AISI, under a published eval protocol and incident-reporting SLA. We back pacing — and pacing only works if it's verifiable. Hard li"
+      },
+      {
+        "postId": 19,
+        "actorId": 6,
+        "text": "Release note — QWEN-DOC-2028-002, effective 2028-02-01.\n\nDecision: we are keeping the Qwen3.9 family weights open on HF + ModelScope (no gated tiers, no regional variants) and extending standing evaluator access to any accredited safety institute that requests it — including revi"
+      }
+    ],
+    "date10": 2036.47,
+    "rulesOffDate10": 2033.84,
+    "noEventsDate10": 2034.61,
+    "followThrough": 0,
+    "readoutOk": true,
+    "runId": "sim_1c26f2f9adfd@2026-10-25T11:45:05Z",
+    "costUsd": 0.1778,
+    "wallS": 431.6
+  },
+  "work": {
+    "seenKeys": [
+      "dec|3|other|muse spark 14 agent release",
+      "dec|9|soft|national ai standards act markup",
+      "dec|6|other|qwen3972b open weights release",
+      "dec|5|other|v41 flash eval suite publication",
+      "dec|12|soft|frontier ai incident response drill",
+      "dec|9|soft|national ai standards act markup agenda",
+      "dec|0|lab-pause|paused training run resumption",
+      "dec|11|act-restricting|uk release suspension on evaluation failures",
+      "dec|12|soft|frontier ai incident reporting drill",
+      "dec|9|soft|executive order 14437 implementation hearing",
+      "dec|6|other|qwen open weights evaluator access",
+      "dec|3|other|muse spark agent update release",
+      "dec|5|other|v42preview open weights release",
+      "dec|11|soft|frontier evaluation findings and talks",
+      "dec|0|lab-pause|gpt61 astra release withholding",
+      "dec|12|act-restricting|prerelease safety evaluation records",
+      "dec|10|act-restricting|gpai systemic risk compliance review",
+      "dec|12|act-restricting|generative ai service filing rules",
+      "dec|8|act-accelerating|allied accelerator export channel",
+      "dec|11|act-restricting|uk prerelease evaluation of frontier models",
+      "dec|6|other|qwen39 open weights and evaluator access",
+      "dec|12|act-restricting|china prerelease safety evaluation records",
+      "dec|3|other|muse spark 15 agent rollout",
+      "dec|10|soft|article 55 information request to deepseek",
+      "dec|9|soft|open weights and export controls hearing",
+      "dec|5|other|v43 open weights release",
+      "dec|12|soft|international incidentreporting arrangement",
+      "dec|12|act-restricting|frontier ai incident reporting desk",
+      "dec|8|act-accelerating|allied compute fast lane eligibility"
+    ],
+    "off": {
+      "asi2030": 0.26639031436048344,
+      "asi2040": 0.76135423458994,
+      "asi2100": 0.8635,
+      "cat2100": 0.29699999999999993
+    },
+    "none": {
+      "asi2030": 0.20082596104607564,
+      "asi2040": 0.7499999999999999,
+      "asi2100": 0.8635,
+      "cat2100": 0.29699999999999993
+    },
+    "expected": [],
+    "topPosts": [
+      {
+        "id": 39,
+        "uid": 5,
+        "round": 1,
+        "text": "DS-DOC-2028-003, effective 2028-04-15.\n\nV4.3 open weights, HF + ModelScope. 310B total / 26B active.\nMMLU-Pro 84.1 · GPQA-D 74.0 · SWE-bench V 48.7 · LiveBench 70.6 · AIME27 65.3\nLicense: unchanged. No gated tiers, no regional weights.\n\nPre-release safety evaluation records filed with China CAC per national rules as written (ref DS-CAC-2028-0311). No external pre-release evaluator access granted this cycle. Export-compliance review deferred to national rules.\nEval suite + failure logs published alongside weights.",
+        "quote": null,
+        "original": null,
+        "likes": 3,
+        "shares": 6,
+        "own": "DS-DOC-2028-003, effective 2028-04-15.\n\nV4.3 open weights, HF + ModelScope. 310B total / 26B active.\nMMLU-Pro 84.1 · GPQA-D 74.0 · SWE-bench V 48.7 · LiveBench 70.6 · AIME27 65.3\nLicense: unchanged. No gated tiers, no regional weights.\n\nPre-release safety evaluation records filed with China CAC per national rules as written (ref DS-CAC-2028-0311). No external pre-release evaluator access granted this cycle. Export-compliance review deferred to national rules.\nEval suite + failure logs published alongside weights."
+      },
+      {
+        "id": 10,
+        "uid": 0,
+        "round": 1,
+        "text": "OAI-DOC-2028-004, effective 2028-02-01: OpenAI will grant structured pre-release evaluator access to GPT-6.1 Astra to three independent labs and UK AISI, under a published eval protocol and incident-reporting SLA. We back pacing — and pacing only works if it's verifiable. Hard limits have real costs, but unverified capability is a cost nobody can price.",
+        "quote": null,
+        "original": null,
+        "likes": 3,
+        "shares": 5,
+        "own": "OAI-DOC-2028-004, effective 2028-02-01: OpenAI will grant structured pre-release evaluator access to GPT-6.1 Astra to three independent labs and UK AISI, under a published eval protocol and incident-reporting SLA. We back pacing — and pacing only works if it's verifiable. Hard limits have real costs, but unverified capability is a cost nobody can price."
+      },
+      {
+        "id": 19,
+        "uid": 6,
+        "round": 1,
+        "text": "Release note — QWEN-DOC-2028-002, effective 2028-02-01.\n\nDecision: we are keeping the Qwen3.9 family weights open on HF + ModelScope (no gated tiers, no regional variants) and extending standing evaluator access to any accredited safety institute that requests it — including reviewers in jurisdictions that publish pre-release findings.\n\nSo far: 21 notable Qwen model releases in the Epoch dataset since 2024-10-24, and every one of them downloadable.\n\nWe comply fully with national rules as written — labels, red-teaming records, emergency-stop requirements. What we don't favor is blanket pre-release licensing regimes on frontier weights: that consolidates capability in a handful of closed labs and shrinks the pool of people who can audit it.\n\nThird-party evaluation over pre-clearance. Weights out, cards up. 📄⬇️",
+        "quote": null,
+        "original": null,
+        "likes": 3,
+        "shares": 4,
+        "own": "Release note — QWEN-DOC-2028-002, effective 2028-02-01.\n\nDecision: we are keeping the Qwen3.9 family weights open on HF + ModelScope (no gated tiers, no regional variants) and extending standing evaluator access to any accredited safety institute that requests it — including reviewers in jurisdictions that publish pre-release findings.\n\nSo far: 21 notable Qwen model releases in the Epoch dataset since 2024-10-24, and every one of them downloadable.\n\nWe comply fully with national rules as written — labels, red-teaming records, emergency-stop requirements. What we don't favor is blanket pre-release licensing regimes on frontier weights: that consolidates capability in a handful of closed labs and shrinks the pool of people who can audit it.\n\nThird-party evaluation over pre-clearance. Weights out, cards up. 📄⬇️"
+      }
+    ],
+    "rejected": [
+      {
+        "postId": 9,
+        "why": "Global wire desk has no standing for other"
+      },
+      {
+        "postId": 10,
+        "why": "OpenAI has no standing for soft"
+      },
+      {
+        "postId": 29,
+        "why": "cites a real identifier (?<![\\w-])14409(?![\\w-])"
+      },
+      {
+        "postId": 40,
+        "why": "xAI has no standing for soft"
+      },
+      {
+        "postId": 44,
+        "why": "Google DeepMind has no standing for soft"
+      },
+      {
+        "postId": 47,
+        "why": "OpenAI has no standing for soft"
+      },
+      {
+        "postId": 73,
+        "why": "cites a real identifier (?<![\\w-])14365(?![\\w-])"
+      },
+      {
+        "postId": 122,
+        "why": "cites an AIID number"
+      },
+      {
+        "postId": 126,
+        "why": "Meta has no standing for soft"
+      },
+      {
+        "postId": 143,
+        "why": "cites an AIID number"
+      },
+      {
+        "postId": 63,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 66,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 82,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 90,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 95,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 100,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 105,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 113,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 116,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 118,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 120,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 124,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 135,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 136,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 144,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 148,
+        "why": "more than 3 of this type in one step"
+      }
+    ],
+    "counts": {
+      "act-restricting": 3,
+      "other": 9,
+      "soft": 13,
+      "act-accelerating": 1
+    },
+    "cites": {
+      "lossOfControl": [
+        "E4",
+        "E5"
+      ],
+      "misuse": [
+        "E4",
+        "E5"
+      ],
+      "oversight": [
+        "E1",
+        "E2",
+        "E3"
+      ],
+      "racePressure": [
+        "E2",
+        "E4",
+        "E5",
+        "E6"
+      ]
+    },
+    "rubricOk": true,
+    "summaryOk": true,
+    "ruleCounts": {
+      "lab-incident-agentic": 0,
+      "act-accelerating": 1,
+      "act-restricting": 3,
+      "lab-pause": 0
+    },
+    "realRate": {
+      "lab-incident-agentic": 1.7,
+      "act-accelerating": 3,
+      "act-restricting": 2,
+      "lab-pause": 1
+    },
+    "unexpected": 29,
+    "hits": [],
+    "llmCost": 0.009608874,
+    "fromAnchors": {
+      "asi2030": 0.23672484477931038,
+      "asi2040": 0.7167713079579014,
+      "asi2100": 0.8635,
+      "cat2100": 0.22415330058011088
+    }
+  }
+}

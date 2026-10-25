@@ -1,0 +1,15 @@
+{
+  "simulation_id": "sim_1c26f2f9adfd",
+  "savedAt": "2026-10-25T11:44:34.562Z",
+  "api": {
+    "run-status": "200",
+    "run-status-detail": "200",
+    "actions": "200",
+    "timeline": "200",
+    "agent-stats": "200",
+    "posts": "200",
+    "profiles": "200",
+    "config": "200"
+  },
+  "note": "twitter_simulation.db.gz is the gzipped sqlite DB of this run."
+}

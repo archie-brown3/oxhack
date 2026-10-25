@@ -1,0 +1,29 @@
+{
+  "simulation_id": "sim_22c9450b9606",
+  "project_id": "proj_140bde512ce4",
+  "graph_id": "mirofish_65312b733d8c462a",
+  "enable_twitter": true,
+  "enable_reddit": false,
+  "status": "completed",
+  "entities_count": 32,
+  "profiles_count": 32,
+  "entity_types": [
+    "lab",
+    "government",
+    "voice",
+    "media",
+    "tracker",
+    "markets",
+    "public",
+    "sock"
+  ],
+  "profiles_generated": true,
+  "config_generated": true,
+  "config_reasoning": "",
+  "current_round": 0,
+  "twitter_status": "not_started",
+  "reddit_status": "not_started",
+  "created_at": "2026-10-25T11:18:00.294987",
+  "updated_at": "2026-10-25T11:43:16.371278",
+  "error": null
+}

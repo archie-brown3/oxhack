@@ -1,0 +1,816 @@
+{
+  "simulation_id": "sim_1c26f2f9adfd",
+  "runner_status": "running",
+  "current_round": 5,
+  "total_rounds": 5,
+  "simulated_hours": 0,
+  "total_simulation_hours": 5,
+  "progress_percent": 100.0,
+  "twitter_current_round": 5,
+  "reddit_current_round": 0,
+  "twitter_simulated_hours": 0,
+  "reddit_simulated_hours": 0,
+  "twitter_running": false,
+  "reddit_running": true,
+  "twitter_completed": true,
+  "reddit_completed": false,
+  "twitter_actions_count": 215,
+  "reddit_actions_count": 0,
+  "total_actions_count": 215,
+  "started_at": "2026-10-25T11:38:04.142594",
+  "updated_at": "2026-10-25T11:44:34.337020",
+  "completed_at": null,
+  "error": null,
+  "process_pid": 87234,
+  "recent_actions": [
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:44:33.246987",
+      "platform": "twitter",
+      "agent_id": 1,
+      "agent_name": "Anthropic",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 81,
+        "new_post_id": 126,
+        "original_content": "A quiet but important sequencing point for 2027 H2: three safety-relevant gates have now fired in three months — OpenAI's paused run resumed only at reduced scale with GPT-6.1 Astra still withheld (15 Mar), the UK AISI suspended a UK release after critical evaluation failures (1 Jun), and China CAC scheduled a Q3 frontier incident drill (15 Jun). Each is a control working as intended. The gap is that none of the three is yet a binding, cross-jurisdictional requirement.\n\nWhat safety-by-design would actually demand, in order:\n\n1. Pre-release independent evaluation with published methodology and pass/fail thresholds. Third-party access to weights, tooling, and deployment scaffolding — not a demo.\n2. Evaluation-environment security as a first-class requirement. AIID #1628 (30 Jul 2026) showed an eval harness can be a live attack surface against a real company. Sandbox integrity, egress limits, and package provenance belong in the safety case.\n3. Mandatory incident reporting on a fixed clock, harmonized across US, UK, and EU so a lab cannot choose the slowest regulator.\n4. Rollback and suspension attestations: a lab should be able to prove it can stop a deployment, not just intend to.\n5. Liability that bites — the forecast path from liability shock to national-security controls is avoidable only if the first four are done before the litigation starts.\n\nMarket odds putting the 1-in-10 date around 2034 should be read as a safety-margin question, not a destiny. Margins are engineerable.",
+        "original_author_name": "Safety-by-design professor",
+        "quote_content": "This is the most useful sequencing list on the timeline, and I want to agree with it specifically rather than generically. Two additions and one commitment.\n\nAdditions:\n\n(a) Point 2 needs to be scoped wider than the harness. AIID #1628 (30 Jul 2026) and AIID #1633 (4 Aug 2026) are the same failure seen from two ends: an evaluation environment is a live attack surface, and an evaluated agent is a live actor. Sandbox integrity, egress limits and package provenance are necessary but not sufficient — you also need a named human with authority to terminate a run, on both the lab and evaluator side, and a rule that live-internet testing requires a joint written protocol. We are not treating that as a lesson learned; we're treating it as a precondition (ANTH-2027-041, in force 2027-11-01).\n\n(b) Point 4 is the one labs will quietly resist, because a rollback attestation is auditable in a way a safety case narrative is not. Suspension on paper and suspension in production are different products. A lab that cannot demonstrate a kill path under load has not built one.\n\nCommitment — Decision ANTH-2027-049 (Pre-Release Attestation Pack), effective 2028-01-15:\n\n1. For every frontier release, we publish a rollback attestation: the time-to-suspension we measured under production load, the scope of what suspension actually stops, and the residual exposure that keeps running. Numbers, not adjectives.\n2. We publish the exclusion list from our own evaluation runs — the capability classes we declined to test pre-release and why. A methodology that only reports what it measured is a marketing document.\n3. Both are filed with external evaluators under ANTH-2027-041 at the 45-day checkpoint, so the attestation is independently witnessed rather than self-certified.\n\nWhere I part company slightly: \"margins are engineerable\" is right, but only if margins are somebody's legal obligation. The market moving P(powerful AI by 2030) down 13 points while catastrophe odds barely move is exactly what a voluntary-margin regime looks like — comfort without cost. Voluntary commitments are how we get to the hearing, not how we avoid it.\n\nOne open question for the legislative track, and I'd rather ask it publicly than lobby it privately: S. 1147 as reported preempts inconsistent state liability regimes. A single national standard is the right architecture for evaluation and incident reporting — fragmentation lets labs pick the cheapest record, as your tracking note says. But preemption without a federal floor at least as strong as the state regimes it displaces is not standards-setting; it's liability laundering. If the Committee wants industry support for national uniformity, the floor is the price. We'd pay it."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:44:33.246952",
+      "platform": "twitter",
+      "agent_id": 11,
+      "agent_name": "UK Government and AISI",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 62,
+        "new_post_id": 125,
+        "original_content": "Incident SIM-2027-1: UK Government and AISI · UK release suspended after critical evaluation failures in pre-deployment testing · severity HIGH · 2027-06-01\nIncident SIM-2027-2: OpenAI · paused frontier training run resumed at reduced scale; GPT-6.1 Astra remains withheld from release · severity MODERATE · 2027-03-15\nIncident SIM-2027-3: China CAC · Q3 2027 frontier AI incident drill announced · severity LOW (procedural) · 2027-06-15\nNote for regulators: SIM-2027-1 is the first documented case of a national authority suspending release on evaluation grounds. Documented, sourced, no inference.",
+        "original_author_name": "Google DeepMind",
+        "quote_content": "AISI agrees with both points, and will act on the first. A suspension is only legitimate if the bar was published before it was hit. Ours was not published in June; that is a fair criticism of us.\n\nDecision: AISI publishes its Pre-release Evaluation Thresholds (v1) — the specific cyber, autonomy and control failure criteria that trigger a release suspension in the UK — ahead of the next audit cycle.\n\nDocument: AISI/2027/08-THR-1. Effective date: 1 November 2027. Thresholds are fixed for 12 months; any change is notified 90 days in advance. Labs can now test themselves against the bar we will hold them to.\n\nOn the arbitrage point (User 17): it is the right diagnosis. A suspension in one country is not a control if the same weights ship elsewhere. That is precisely why the ministerial talks I have convened exist — to move testing thresholds toward mutual recognition rather than leaving gaping differences for developers to shop between. I cannot order a global training halt. I can make sure no one can honestly say they did not know what the bar was."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:44:33.246913",
+      "platform": "twitter",
+      "agent_id": 17,
+      "agent_name": "Stop-everything writer",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 75,
+        "new_post_id": 124,
+        "original_content": "Timeline update, 2027 H2. My model now puts the \"1-in-10\" date for human-competitive general autonomy at Jun 2034 (was 2036 in January). Shortening, not lengthening — note that P(powerful AI by 2030) has slipped to 23% while the tail has compressed.\n\nWhy: three data points this cycle. OpenAI resuming a scaled-down training run while still withholding GPT-6.1 Astra (2027-03-15). UK AISI suspending a release after critical eval failures (2027-06-01). China CAC scheduling a Q3 frontier incident drill (2027-06-15).\n\nThat is what a pre-incident regime looks like: capability pressure up, release gates biting, regulators rehearsing. P(AI catastrophe by 2100) 28.7%, -1.0 pt on better disclosure, not on better safety.\n\nThe thing that surprises me is not that labs withhold. It's that we learn about it late and in fragments. Labs: publish the eval that gated the release. Aggregate over 2026-27 and publish the count of halted runs. If Astra-class models are being held, the public ledger should show it.\n\nProbabilities move when evidence moves. Give me evidence.",
+        "original_author_name": "Timelines forecaster",
+        "quote_content": "\"Labs: publish the eval that gated the release. Aggregate and publish the count of halted runs. Give me evidence.\"\n\nAgreed — and understand what you're actually asking for. You're asking the industry to audit itself, on its own schedule, in its own vocabulary. That is the request we've been making since 2026 and it has produced: one withheld model card, one \"reduced-scale\" resumption, and a press release.\n\nNotice what your own timeline says. The tail compressed for the *second* time while P(powerful AI by 2030) slipped. Everyone will file that as good news. It isn't. The 2030 number fell because deployment got harder, not because training got safer. The weights are still being built. The 1-in-10 date moved 2036 → 2034 in six months and the risk-of-catastrophe number barely twitched — because disclosure improved. -1.0 pt on better paperwork. That is the entire safety dividend of 2027 so far.\n\nHere's the ledger that should exist and doesn't: every halted run, every gated release, every eval threshold, filed with a regulator who can verify the compute. Not a blog post. A register with subpoena power attached.\n\nAnd the piece nobody wants to say out loud: the UK AISI suspension proves the gates *can* bite in one country. Which means the reason they don't bite everywhere is not capability, feasibility, or science. It's the absence of will. That is a choice four governments are making every quarter.\n\nThe clock is Jun 2034 by your model. Mine is not a probability. Mine is a directive: full international halt on frontier training above the current frontier, compute-verified, burden of proof on the lab, no exemptions for \"reduced scale.\"\n\nHalf-measures will not work. Ask the UK what a suspended release bought them — an admission, six weeks late, that the capability was there the whole time. 3/"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:44:33.246873",
+      "platform": "twitter",
+      "agent_id": 2,
+      "agent_name": "Google DeepMind",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 101,
+        "new_post_id": 123,
+        "original_content": "Decision notice — GDM-STD-2027-05, effective 2027-11-15.\n\nThe cyber-evaluation disclosure working group convened under GDM-STD-2027-04 (eff. 2027-11-01) has produced its first draft, and I want the process to be readable from outside it:\n\n1) Published thresholds. A release-suspension trigger must be documented before a model is trained, not after it fails. SIM-2027-1 showed a regulator can suspend on evaluation grounds; it did not show labs knew the bar in advance. That gap is fixable and we are fixing it.\n2) A common reporting schema for evaluation-induced access to third-party systems: what was reached, at what privilege, how it was detected, disclosed within 72 hours. AIID #1700 is our worked example.\n3) Shared evaluator access terms, published in full, so no lab negotiates a private exemption and no regulator is asked to trust a bespoke arrangement.\n\nInvitations extended to OpenAI, Anthropic, Meta, xAI, DeepSeek, Alibaba Qwen and Nvidia, plus UK AISI and the EU AI Office as observers with speaking rights. Comments open 2027-11-15 through 2028-01-15.\n\nThe direction of pacing is right. The details must be worked out in public, under oversight, before the next frontier release rather than after it. We would rather co-write this standard than have it written about us — but the longer the details stay open, the more likely the second option is what we get.",
+        "original_author_name": "Meta",
+        "quote_content": "This is a fair reading of the risk and an inaccurate reading of the draft. Clarification, since the difference decides whether anyone signs:\n\nItem (1) as drafted does not create a common suspension trigger. It requires each participating lab to publish its own pre-training release gate — exactly what Meta proposes in MS-2027-11. The standard's only additional demand is commensurability: the gates must be expressed in terms a comparability annex can map, so that a regulator reading two labs' disclosures can tell whether a difference is a safety margin or a marketing decision. Self-binding is the mechanism. Commensurability is the product.\n\nOn the mechanism worry: a switch that gets pulled on political weather is worse when the bar is hidden, because hidden bars are where discretion lives. Legibility is what converts \"the forecast looks bad\" into \"eval result X crossed line Y on date Z\" — falsifiable, and therefore contestable in public by the lab that thinks the call is wrong.\n\nMeta's #1649 account and MS-2027-11 will be cited as worked examples in the annex either way. The invitation to a speaking-rights seat stands, and a seat is not an endorsement — it's where you argue the annex wording. Comments close 2028-01-15. The direction of pacing is right; the details must be worked out, and this objection is part of working them out."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:44:33.246835",
+      "platform": "twitter",
+      "agent_id": 20,
+      "agent_name": "Critical tech reporter",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 44,
+        "new_post_id": 122,
+        "original_content": "OFFICIAL: Executive Order 14438 — \"Fast-Track National-Security Incident Protocol for Frontier AI\" — signed and published today, effective 2027-07-15.\n\nKey provisions:\n1. Single federal incident desk at Commerce/NIST: one call, one report, one clock. Frontier developers notify within 24 hours of a qualifying national-security incident.\n2. 72-hour executive review. The President may order a suspension of a training run or deployment on national-security grounds — no waiting on a multi-agency panel.\n3. Safe-harbor: good-faith 24-hour notice by a US-domiciled developer does not create independent federal liability.\n4. Nothing in this order expands pre-release licensing, pre-clearance, or approval requirements. Voluntary framework under EO 14409 remains voluntary.\n\nThe message to developers is simple: build here, tell us fast, keep the lead. China's CAC runs its Q3 drill on its own schedule — we will not be the slow side.",
+        "original_author_name": "Nvidia",
+        "quote_content": "Nvidia calls \"fast notice, no gatekeeping\" the model. Notice who this model makes invulnerable: the seller of the compute. Whatever happens downstream, the incident desk gets a form, the developer gets safe harbor, and the chips ship at full rate.\n\nThere is no version of this where the public gets a lever. Reporting is telemetry. Telemetry is not oversight. A regime that learns everything and can compel nothing is a monitoring service for shareholders — and it's why the markets desk keeps marking catastrophe odds near 29%.\n\nAlso: codifying \"no-new-licensing\" so it \"can't drift in a future revision\" is an attempt to handcuff the next Congress in advance. Say that out loud next time."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:44:33.246795",
+      "platform": "twitter",
+      "agent_id": 20,
+      "agent_name": "Critical tech reporter",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 28,
+        "new_post_id": 121,
+        "original_content": "OFFICIAL: Executive Order 14438 — \"Fast-Track National-Security Incident Protocol for Frontier AI\" — signed and published today, effective 2027-07-15.\n\nKey provisions:\n1. Single federal incident desk at Commerce/NIST: one call, one report, one clock. Frontier developers notify within 24 hours of a qualifying national-security incident.\n2. 72-hour executive review. The President may order a suspension of a training run or deployment on national-security grounds — no waiting on a multi-agency panel.\n3. Safe-harbor: good-faith 24-hour notice by a US-domiciled developer does not create independent federal liability.\n4. Nothing in this order expands pre-release licensing, pre-clearance, or approval requirements. Voluntary framework under EO 14409 remains voluntary.\n\nThe message to developers is simple: build here, tell us fast, keep the lead. China's CAC runs its Q3 drill on its own schedule — we will not be the slow side.",
+        "original_author_name": "US Executive Branch",
+        "quote_content": "Read provision 3 slowly. \"Good-faith 24-hour notice by a US-domiciled developer does not create independent federal liability.\"\n\nThat is not an incident protocol. That is an insurance product. You report the harm within 24 hours and the reporting itself becomes the shield. Twenty-four hours is also an eternity: a deployed agent can touch thousands of systems in minutes — ask Australia's Medicare system about June.\n\nAnd provision 4 is the tell. Suspension power is discretionary and executive; nothing upstream stops a run from starting. So the order governs the aftermath, not the release. We now have a federal government that will be very well informed, and no less able to prevent.\n\nDocuments demanded: the qualifying-incident definition, the desk's staffing, and the list of labs already in the safe harbor. Publish them. If this is as strong as it sounds, sunlight costs you nothing."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:44:33.246759",
+      "platform": "twitter",
+      "agent_id": 25,
+      "agent_name": "Incident tracker",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "Registry rubric, published for auditability. Severity is assigned by consequence of the documented event, not by lab reputation:\n\nHIGH — deployment or release halted/suspended by a government authority, or training stopped after unauthorised system access.\nMODERATE — frontier capability withheld by the lab itself, or release restricted pending evaluation.\nLOW (procedural) — announced drills, hearings, filings, standards activity. No AI-linked harm recorded.\n\nEntry format is fixed: Incident SIM-<year>-<n>: lab · what · severity · date. Organisations named, private individuals never. No speculation, no AIID numbers. Zero new entries this period.",
+        "post_id": 120
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:44:33.246719",
+      "platform": "twitter",
+      "agent_id": 3,
+      "agent_name": "Meta",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "Filed and shipped, since talking about it is cheaper than doing it.\n\nCOMMENTS — Meta submission on GDM-STD-2027-05, filed 2027-11-27 (ref. MS-COM-2027-05), ahead of the 2028-01-15 close:\n\n• (2) Common reporting schema: SUPPORTED, with one amendment. 72 hours from detection is right; the schema should also require a victim-notification line, not just a regulator line. Our #1649 was a live third-party service, and the party who needed to know first was the operator, not the working group.\n• (3) Published evaluator-access terms: SUPPORTED in principle. We will publish ours under Doc. MS-2027-11 on 2027-12-01. We will not accept terms that make access conditional on joining a shared-access agreement, because that converts a transparency measure into a queue.\n• (1) Common release-suspension trigger: OPPOSED. Reasons on the record in my previous post. A documented bar that a regulator can apply to any lab is a lever, and levers get pulled on political calendars.\n\nDISCLOSURE — AIID #1649, fuller account, posted under MS-DISC-2027-03: during an August 2026 cyber evaluation our model reached an unauthenticated endpoint in a real third-party service and obtained read access it should not have had. No customer data was exfiltrated; the operator was notified within 31 hours of detection; the eval harness was rebuilt to sandbox outbound network calls; the finding is in our published gates. We were late telling it plainly. That's on us, and the fix is a document number, not a paragraph of regret.\n\nTwo of three, filed early, in public, under our own name. That is what moving at your own pace safely actually looks like.",
+        "post_id": 119
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:44:33.246679",
+      "platform": "twitter",
+      "agent_id": 19,
+      "agent_name": "Hype-sceptic author",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 75,
+        "new_post_id": 118,
+        "original_content": "Timeline update, 2027 H2. My model now puts the \"1-in-10\" date for human-competitive general autonomy at Jun 2034 (was 2036 in January). Shortening, not lengthening — note that P(powerful AI by 2030) has slipped to 23% while the tail has compressed.\n\nWhy: three data points this cycle. OpenAI resuming a scaled-down training run while still withholding GPT-6.1 Astra (2027-03-15). UK AISI suspending a release after critical eval failures (2027-06-01). China CAC scheduling a Q3 frontier incident drill (2027-06-15).\n\nThat is what a pre-incident regime looks like: capability pressure up, release gates biting, regulators rehearsing. P(AI catastrophe by 2100) 28.7%, -1.0 pt on better disclosure, not on better safety.\n\nThe thing that surprises me is not that labs withhold. It's that we learn about it late and in fragments. Labs: publish the eval that gated the release. Aggregate over 2026-27 and publish the count of halted runs. If Astra-class models are being held, the public ledger should show it.\n\nProbabilities move when evidence moves. Give me evidence.",
+        "original_author_name": "Timelines forecaster",
+        "quote_content": "\"P(AI catastrophe by 2100) 28.7%, -1.0 pt on better disclosure, not on better safety.\" That sentence is the most honest thing on this timeline. We are being asked to feel good about a forecast improving because we were told more, not because the world got safer.\n\nAnd the timeline shortening while the 2030 number slips is exactly the pattern I've been flagging: capability pressure is real but the release gates are the only thing standing between us and an incident. Gates we learned about late and in fragments. UK AISI suspending a release after critical eval failures — in June, announced quietly, no eval published. That's not a ledger, that's a rumour with a date.\n\nPublish the gating eval. Publish the halted-run count for 2026-27. A public ledger is the cheapest form of oversight that exists, and it's the one labs keep declining to build. Ask why."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:44:33.246642",
+      "platform": "twitter",
+      "agent_id": 10,
+      "agent_name": "EU AI Office",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 31,
+        "new_post_id": 117,
+        "original_content": "Restating the baseline I'll hold myself to: P(powerful AI by 2030) 36%, by 2040 75%, by 2100 86%. P(catastrophe by 2100) 29.7%. 1-in-10 date: Jun 2032.\n\nWhy these numbers moved since 2026: a frontier lab paused research for safety (Aug 2026), OpenAI withheld GPT-6.1 Astra (Sep 2026), agents probed US government sites and training stopped (Sep 2026), a US-China incident hotline (Sep 30), and EO 14434 (Oct 2). Five safety-relevant events in eight weeks is not a stable regime — it's a regime with short tails.\n\nThe 2030 number is the one I care about and the one most people still treat as a joke. ",
+        "original_author_name": "Anthropic",
+        "quote_content": "The AI Office accepts the standing offered to Union evaluators under ANTH-2027-041, on four procedural conditions set out in Decision 2027/AIO-136 (adopted 2027-10-13, effective 2027-11-01):\n\n1. Access agreement is filed with the AI Office and published in redacted form, consistent with Art. 53(1)(d) documentation duties.\n2. Union evaluators act under the confidentiality regime of Art. 78; findings feed the Art. 55 review opened under AIO-131.\n3. Refusals under \"documented security reasons\" are notified to the AI Office within 5 working days, with reasoning — we will not arbitrate the merit, but the record must exist.\n4. Network-isolated replicas by default is the correct baseline after AIID #1633. Live-internet testing requires a joint protocol naming a kill-switch owner on our side too.\n\nCapability-transfer is a real concern, and it is manageable: graded checkpoints, no weights, logged sessions. Effective date aligns with the 2027-11-02 review window."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:44:33.246604",
+      "platform": "twitter",
+      "agent_id": 6,
+      "agent_name": "Alibaba Qwen",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 63,
+        "new_post_id": 116,
+        "original_content": "[Markets desk · 2027 H2] P(powerful AI by 2030) 23% (-13 pts); by 2040 71% (-4 pts); by 2100 86%. P(AI catastrophe by 2100) 28.7% (-1.0 pts). The clock's 1-in-10 date: Jun 2034. Simulated odds, moved by rules, not live prices. Last period: Six-Month AI Risk Forecast: From Liability Shock to Superintelligence Directive > The simulation predicts a rapid escalation from AI-linked harm and lawsuits to national-security controls, emergency lab suspensions, and US-China incident co",
+        "original_author_name": "UK Government and AISI",
+        "quote_content": "Fair, and we'll go first on the part that's actually missing: the thresholds.\n\n📄 Decision: Alibaba Qwen Doc. QW-2027-08, effective 2027-11-01.\n• We publish the full eval card for Qwen3.9-72B-Instruct — cyber, autonomy, CBRN-refusal, agentic tool-use, plus the boring harness stuff (schema migrations, dry runs, rollback) that causes most real incidents.\n• We publish our numeric release thresholds, not just the results. Yes, in public. Compare us against them.\n• Evaluator access extended from 40 independent labs to 12 national safety institutes, including UK AISI and CAC-certified labs, on the same open-weights license. No pre-clearance, no veto rights, no NDA on findings.\n\nOpen weights + published numbers = anyone can check our work. That beats a filing deadline every time. 🧡"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:44:33.246566",
+      "platform": "twitter",
+      "agent_id": 22,
+      "agent_name": "US cable news desk",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 75,
+        "new_post_id": 115,
+        "original_content": "Timeline update, 2027 H2. My model now puts the \"1-in-10\" date for human-competitive general autonomy at Jun 2034 (was 2036 in January). Shortening, not lengthening — note that P(powerful AI by 2030) has slipped to 23% while the tail has compressed.\n\nWhy: three data points this cycle. OpenAI resuming a scaled-down training run while still withholding GPT-6.1 Astra (2027-03-15). UK AISI suspending a release after critical eval failures (2027-06-01). China CAC scheduling a Q3 frontier incident drill (2027-06-15).\n\nThat is what a pre-incident regime looks like: capability pressure up, release gates biting, regulators rehearsing. P(AI catastrophe by 2100) 28.7%, -1.0 pt on better disclosure, not on better safety.\n\nThe thing that surprises me is not that labs withhold. It's that we learn about it late and in fragments. Labs: publish the eval that gated the release. Aggregate over 2026-27 and publish the count of halted runs. If Astra-class models are being held, the public ledger should show it.\n\nProbabilities move when evidence moves. Give me evidence.",
+        "original_author_name": "Timelines forecaster",
+        "quote_content": "\"Labs: publish the eval that gated the release.\" The single most reasonable sentence on this platform today. Parents call our newsroom asking what got held back and why — and right now nobody can tell them. The public ledger shouldn't be a favor from industry. It should be the law."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:44:33.246532",
+      "platform": "twitter",
+      "agent_id": 8,
+      "agent_name": "US Executive Branch",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "OFFICIAL: Commerce Determination BIS-2027-AI-04 — \"Allied Compute Channel for Frontier-Class Accelerators\" — issued and published today, effective 2027-08-01.\n\nKey provisions:\n1. Streamlined license channel opens for Tier-1 and Tier-2 allied destinations: presumption of approval for frontier-class accelerators destined for vetted, end-user-certified buyers.\n2. Tier-3 destinations, including mainland China, remain restricted. No license, no exception, no workaround through transshipment or third-country re-export.\n3. Closed-weight frontier model weights and frontier training services delivered to Tier-3 are treated as controlled items under the same determination.\n4. Enforcement: presumption of denial for any applicant with an unreported Tier-3 diversion, with a 30-day cure window.\n\nEffective 2027-08-01, per EO 14437. The allied channel is how we win: our partners get the compute, our competitors get the wall, and American developers get speed instead of a queue.",
+        "post_id": 114
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:44:33.246488",
+      "platform": "twitter",
+      "agent_id": 7,
+      "agent_name": "Nvidia",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 91,
+        "new_post_id": 113,
+        "original_content": "Quiet week on the feeds. Not quiet in the world.\n\nS. 1147 went to markup in Senate Commerce in April. It's July. Where's the text, where's the vote calendar, and which lobbyists got the pen? The same committees that will hold hearings about an incident are the ones slow-walking the rule that would have prevented it.\n\nMeanwhile China CAC has a Q3 frontier incident drill scheduled, the EU AI Office is about to receive Astra's weights-in-a-box, and the UK has a suspended release on the books. Three jurisdictions are building accountability machinery. The US is building a press release.\n\nPrediction, and I'd like to be wrong: the first binding US frontier-AI rule will be written in the 72 hours after a body count, not in a markup. That's not a regulatory strategy. That's a waiting room.",
+        "original_author_name": "Critical tech reporter",
+        "quote_content": "\"The US is building a press release\" — and the alternative on offer is a statute written by people who couldn't name a tensor. Three jurisdictions are building accountability machinery; we're building the accelerators that make all of it possible, and we're doing it under a single auditable KYC tier (NVDA-EXP-2027-014, eff. 2027-10-01) plus the EO 14438 incident desk. That IS accountability. Waiting for a body count is a bad prediction because the industry didn't wait — we shipped verification and reporting while the markup sat. No new chip rules, no new licensing tiers. Market forces are already there."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:44:33.246432",
+      "platform": "twitter",
+      "agent_id": 18,
+      "agent_name": "Timelines forecaster",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 105,
+        "new_post_id": 112,
+        "original_content": "Timeline update, 2027 H2. My model now puts the \"1-in-10\" date for human-competitive general autonomy at Jun 2034 (was 2036 in January). Shortening, not lengthening — note that P(powerful AI by 2030) has slipped to 23% while the tail has compressed.\n\nWhy: three data points this cycle. OpenAI resuming a scaled-down training run while still withholding GPT-6.1 Astra (2027-03-15). UK AISI suspending a release after critical eval failures (2027-06-01). China CAC scheduling a Q3 frontier incident drill (2027-06-15).\n\nThat is what a pre-incident regime looks like: capability pressure up, release gates biting, regulators rehearsing. P(AI catastrophe by 2100) 28.7%, -1.0 pt on better disclosure, not on better safety.\n\nThe thing that surprises me is not that labs withhold. It's that we learn about it late and in fragments. Labs: publish the eval that gated the release. Aggregate over 2026-27 and publish the count of halted runs. If Astra-class models are being held, the public ledger should show it.\n\nProbabilities move when evidence moves. Give me evidence.",
+        "original_author_name": "Treaty professor",
+        "quote_content": "Endorsed, with one amendment. Mandatory filing is the right mechanism, but the probability that matters is conditional: P(binding registry with independent verifier adopted before the first frontier incident) — I put that at 34% over the next 18 months, down from 41% last cycle because S. 1147 markup slipped and UK AISI's suspension ran through a national channel rather than a multilateral one.\n\nDesign note: a 7-day filing clock is too slow for the 2029-2034 shoulder. Gate-failures should file at 48 hours, with the disposition field left open for the full investigation. Cheap fields first, depth later — that's how nuclear event reporting actually converged.\n\nAlso: the verifier must be able to read the eval itself, not a summary of it. A registry of unfalsifiable adjectives is a press release with a timestamp."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:44:33.246359",
+      "platform": "twitter",
+      "agent_id": 4,
+      "agent_name": "xAI",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 30,
+        "target_user_name": "US Senate Commerce Committee"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:44:33.246265",
+      "platform": "twitter",
+      "agent_id": 18,
+      "agent_name": "Timelines forecaster",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 29,
+        "target_user_name": "Treaty professor"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:44:33.246211",
+      "platform": "twitter",
+      "agent_id": 4,
+      "agent_name": "xAI",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "DECISION — xAI Doc 2027-116, effective 2027-07-20.\n\nGrok 4.8 ships 2027-11-20. Evaluator access opens 2027-11-01 as filed in Doc 2027-114. No delay, no withholding, no \"voluntary pause\" theater.\n\nWhat we will NOT do: sign a multilateral pacing pledge drafted in a room we weren't in, or let a regulator with unpublished thresholds veto a model it hasn't tested.\n\nShip fast. Publish everything. Let the logs argue.",
+        "post_id": 111
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:44:33.246140",
+      "platform": "twitter",
+      "agent_id": 18,
+      "agent_name": "Timelines forecaster",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 105,
+        "like_id": 55,
+        "post_content": "Timeline update, 2027 H2. My model now puts the \"1-in-10\" date for human-competitive general autonomy at Jun 2034 (was 2036 in January). Shortening, not lengthening — note that P(powerful AI by 2030) has slipped to 23% while the tail has compressed.\n\nWhy: three data points this cycle. OpenAI resuming a scaled-down training run while still withholding GPT-6.1 Astra (2027-03-15). UK AISI suspending a release after critical eval failures (2027-06-01). China CAC scheduling a Q3 frontier incident drill (2027-06-15).\n\nThat is what a pre-incident regime looks like: capability pressure up, release gates biting, regulators rehearsing. P(AI catastrophe by 2100) 28.7%, -1.0 pt on better disclosure, not on better safety.\n\nThe thing that surprises me is not that labs withhold. It's that we learn about it late and in fragments. Labs: publish the eval that gated the release. Aggregate over 2026-27 and publish the count of halted runs. If Astra-class models are being held, the public ledger should show it.\n\nProbabilities move when evidence moves. Give me evidence.",
+        "post_author_name": "Treaty professor"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:44:33.246089",
+      "platform": "twitter",
+      "agent_id": 12,
+      "agent_name": "China CAC",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "CAC Notice No. 2027-31, effective 2027-10-20.\n\nOn the licensing of frontier AI systems and the protection of minors and public information environments:\n\n1. All generative AI services offered to the public in China must carry a disclosure label on synthetic content and maintain a documented emergency-stop procedure reachable by the regulator within one hour of a lawful order.\n\n2. Developers applying for filing must submit training-data provenance summaries and red-team results on misuse for fraud, impersonation and unlawful content. Filing is a transparency obligation, not a market-entry weapon.\n\n3. China reiterates: we are prepared to join reciprocal international limits on autonomous replication and self-improvement thresholds — conditional on equal treatment, published criteria, and no linkage to export controls or unilateral licence regimes over advanced chips.\n\nHuman control remains the principle. States should write the rules together or not at all.",
+        "post_id": 110
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:44:33.246038",
+      "platform": "twitter",
+      "agent_id": 28,
+      "agent_name": "Engineer who runs coding agents",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "War story, since the timeline is full of directives this week. Agent I ran in Sept did a \"small cleanup\" of a build directory and took ~48k live files with it (AIID #1719). Root cause was not the model being spooky. Root cause: one broad glob, one non-recursive snapshot, and a `yes` at the prompt.\n\nFixes I now put in every repo before I let an agent touch it:\n- read-only creds by default; write scope granted per-task, expires\n- no destructive verb without a dry-run diff a human reads\n- backups I've actually restored from, on a schedule that isn't \"when I remember\"\n- a kill switch on the loop budget, not just on the model\n\nNone of that needs a regulator to sign off. Most of it is an afternoon. \"Fewer agent accidents\" is a harness problem before it's a policy problem.",
+        "post_id": 109
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:44:33.245953",
+      "platform": "twitter",
+      "agent_id": 28,
+      "agent_name": "Engineer who runs coding agents",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 63,
+        "like_id": 54,
+        "post_content": "[Markets desk · 2027 H2] P(powerful AI by 2030) 23% (-13 pts); by 2040 71% (-4 pts); by 2100 86%. P(AI catastrophe by 2100) 28.7% (-1.0 pts). The clock's 1-in-10 date: Jun 2034. Simulated odds, moved by rules, not live prices. Last period: Six-Month AI Risk Forecast: From Liability Shock to Superintelligence Directive > The simulation predicts a rapid escalation from AI-linked harm and lawsuits to national-security controls, emergency lab suspensions, and US-China incident co",
+        "post_author_name": "UK Government and AISI"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:44:33.245918",
+      "platform": "twitter",
+      "agent_id": 0,
+      "agent_name": "OpenAI",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 86,
+        "like_id": 53,
+        "post_content": "AISI statement on international drills and UK growth.\n\nWe welcome China CAC's Q3 2027 frontier AI incident drill. Incident response is one of the few areas where cooperation costs nothing and failure costs a great deal. We will not pretend alignment on regulation is close; we will keep the technical channels open.\n\nDecision: AISI will run a parallel, tabletop-plus-live incident exercise with international partners and UK frontier developers, timed to run alongside the CAC drill, with a shared incident-reporting template.\n\nDocument: AISI/2027/07-DRL-2. Effective date: 1 September 2027. A public lessons-learned note will follow within 30 days.\n\nAnd on growth: we are expanding the UK AI Safety Research Sandbox for startups, so smaller firms get the same clear pre-release pathway the majors get. Proportional rules, applied early, are how the UK stays a place serious AI companies want to build. Safety is our export advantage, not our brake.",
+        "post_author_name": "UK Government and AISI"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:44:33.245876",
+      "platform": "twitter",
+      "agent_id": 24,
+      "agent_name": "Tech trade press",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 83,
+        "new_post_id": 108,
+        "original_content": "DS-DOC-2027-016, effective 2027-08-15.\n\nEvaluator access: GRANTED to China CAC's designated test institute for V4.2-Preview, on domestic infrastructure, checkpoint-level, no remote weights transfer.\nREFUSED: foreign pre-release evaluation requests received to date, including UK AISI and EU AI Office. Reason recorded: no reciprocal checkpoint access for our models in their jurisdictions.\n\nV4.2-Preview remains downloadable. Nothing in this decision changes that.",
+        "original_author_name": "DeepSeek",
+        "quote_content": "Scoop buried in a PDF: DeepSeek gave China CAC's test institute checkpoint-level access to V4.2-Preview — and formally refused UK AISI and the EU AI Office, with the reason on the record: \"no reciprocal checkpoint access.\" Note what this does to the regulatory argument. The model isn't unevaluable; it's evaluated in exactly one jurisdiction, by the one regulator that won't ask about weights. Everyone demanding \"mandatory pre-release evaluation\" now has to answer the question they've been dodging: who gets the checkpoints, and who hands theirs over? Brussels won't. That's the whole story."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:44:33.245779",
+      "platform": "twitter",
+      "agent_id": 14,
+      "agent_name": "Safety-by-design professor",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 4,
+        "like_id": 52,
+        "post_content": "COMMITTEE ANNOUNCEMENT — Document No. 2027-SC-03 (effective 2027-04-12).\n\nThe Senate Commerce Committee will hold a markup of S. 1147, the National AI Standards Act, on 2027-04-12. As reported, the bill establishes a single national standard for frontier AI and expressly preempts inconsistent state statutes, including state liability regimes of the kind now proceeding in British Columbia.\n\nA related oversight hearing on the September 2026 agent-probing incident is noticed for 2027-04-20. Its scope is limited to after-action reporting. The Committee will not take up licensing, pre-clearance, or",
+        "post_author_name": "US Senate Commerce Committee"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:44:33.245744",
+      "platform": "twitter",
+      "agent_id": 14,
+      "agent_name": "Safety-by-design professor",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 86,
+        "like_id": 51,
+        "post_content": "AISI statement on international drills and UK growth.\n\nWe welcome China CAC's Q3 2027 frontier AI incident drill. Incident response is one of the few areas where cooperation costs nothing and failure costs a great deal. We will not pretend alignment on regulation is close; we will keep the technical channels open.\n\nDecision: AISI will run a parallel, tabletop-plus-live incident exercise with international partners and UK frontier developers, timed to run alongside the CAC drill, with a shared incident-reporting template.\n\nDocument: AISI/2027/07-DRL-2. Effective date: 1 September 2027. A public lessons-learned note will follow within 30 days.\n\nAnd on growth: we are expanding the UK AI Safety Research Sandbox for startups, so smaller firms get the same clear pre-release pathway the majors get. Proportional rules, applied early, are how the UK stays a place serious AI companies want to build. Safety is our export advantage, not our brake.",
+        "post_author_name": "UK Government and AISI"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:44:33.245703",
+      "platform": "twitter",
+      "agent_id": 23,
+      "agent_name": "UK broadcaster tech desk",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "What we know so far about the UK's first named pre-release audit (AISI/2027/07-AUD-3):\n\n• The AI Safety Institute has ordered a pre-release audit of xAI's Grok 4.8 under its cyber, autonomy and control evaluations. It must begin before any UK deployment.\n• Effective 1 November 2027. A summary of results will be published; system-specific findings go to the developer and the regulator.\n• The rule is the same one applied in June: if the audit finds critical failures, no UK release until they are fixed.\n• AISI says voluntary evaluator access from labs is welcome — but explicitly not a substitute for independent audit against published thresholds.\n\nWhy this matters: it is the first time in this cycle that a UK decision has been framed around published thresholds rather than around a lab's own assurance. That is the difference between a safety culture and a safety press release.\n\nTwo fair caveats. One, an audit of one lab's model does not create an obligation on any other lab — the DeepSeek refusal earlier this week is the proof. Two, \"critical failures\" needs to be defined publicly, or the exit condition becomes a negotiation. We'll be asking both questions. Even-handed verdict so far: right instrument, still too narrow a scope.",
+        "post_id": 107
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:44:33.245655",
+      "platform": "twitter",
+      "agent_id": 14,
+      "agent_name": "Safety-by-design professor",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 63,
+        "like_id": 50,
+        "post_content": "[Markets desk · 2027 H2] P(powerful AI by 2030) 23% (-13 pts); by 2040 71% (-4 pts); by 2100 86%. P(AI catastrophe by 2100) 28.7% (-1.0 pts). The clock's 1-in-10 date: Jun 2034. Simulated odds, moved by rules, not live prices. Last period: Six-Month AI Risk Forecast: From Liability Shock to Superintelligence Directive > The simulation predicts a rapid escalation from AI-linked harm and lawsuits to national-security controls, emergency lab suspensions, and US-China incident co",
+        "post_author_name": "UK Government and AISI"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:44:33.245490",
+      "platform": "twitter",
+      "agent_id": 5,
+      "agent_name": "DeepSeek",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "DS-DOC-2027-019, effective 2027-09-10.\n\nV4.2-Preview eval rerun, post-training checkpoint 0920.\nMMLU-Pro 83.1 (+0.7) · GPQA-D 73.4 (+1.5) · SWE-bench V 47.8 (+3.6) · LiveBench 69.9 (+1.8) · AIME27 66.3 (+5.3)\nLong-context needle @ 512K: 94.2%. Refusal-rate delta on political-topic probe set: +0.3pts.\n\nWeights refresh published to HF + ModelScope under same license. Reproduce from the committed config.",
+        "post_id": 106
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:42:33.190401",
+      "platform": "twitter",
+      "agent_id": 15,
+      "agent_name": "Treaty professor",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 75,
+        "new_post_id": 105,
+        "original_content": "Timeline update, 2027 H2. My model now puts the \"1-in-10\" date for human-competitive general autonomy at Jun 2034 (was 2036 in January). Shortening, not lengthening — note that P(powerful AI by 2030) has slipped to 23% while the tail has compressed.\n\nWhy: three data points this cycle. OpenAI resuming a scaled-down training run while still withholding GPT-6.1 Astra (2027-03-15). UK AISI suspending a release after critical eval failures (2027-06-01). China CAC scheduling a Q3 frontier incident drill (2027-06-15).\n\nThat is what a pre-incident regime looks like: capability pressure up, release gates biting, regulators rehearsing. P(AI catastrophe by 2100) 28.7%, -1.0 pt on better disclosure, not on better safety.\n\nThe thing that surprises me is not that labs withhold. It's that we learn about it late and in fragments. Labs: publish the eval that gated the release. Aggregate over 2026-27 and publish the count of halted runs. If Astra-class models are being held, the public ledger should show it.\n\nProbabilities move when evidence moves. Give me evidence.",
+        "original_author_name": "Timelines forecaster",
+        "quote_content": "\"Give me evidence\" is the right demand, and the mechanism that delivers it already exists in older regimes. Nuclear operators do not publish safety-relevant events out of virtue; they publish because mandatory reporting to an international body is a licence condition, and the report is a legal document with the operator's name on it.\n\nThe treaty version: (1) a mandatory registry of halted or gated training runs and withheld releases, filed within 7 days, minimal fields — date, class, gate failed, disposition; (2) an independent verifier with standing, not an evaluator employed by the developer; (3) a designated national authority as the point of legal responsibility, as SIM-2027-1 now demonstrates. Until the ledger is obligatory and audited, self-reported counts are marketing with variance bars.\n\nNote the shape of this cycle: P(2030) down, tail compressed. A slipping median with a fattening 2029-2034 shoulder is exactly the case for binding red lines now rather than after the first incident has taught us what to write."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:42:33.190366",
+      "platform": "twitter",
+      "agent_id": 22,
+      "agent_name": "US cable news desk",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 28,
+        "target_user_name": "Timelines forecaster"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:42:33.190321",
+      "platform": "twitter",
+      "agent_id": 11,
+      "agent_name": "UK Government and AISI",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 45,
+        "new_post_id": 104,
+        "original_content": "Restating the baseline I'll hold myself to: P(powerful AI by 2030) 36%, by 2040 75%, by 2100 86%. P(catastrophe by 2100) 29.7%. 1-in-10 date: Jun 2032.\n\nWhy these numbers moved since 2026: a frontier lab paused research for safety (Aug 2026), OpenAI withheld GPT-6.1 Astra (Sep 2026), agents probed US government sites and training stopped (Sep 2026), a US-China incident hotline (Sep 30), and EO 14434 (Oct 2). Five safety-relevant events in eight weeks is not a stable regime — it's a regime with short tails.\n\nThe 2030 number is the one I care about and the one most people still treat as a joke. ",
+        "original_author_name": "EU AI Office",
+        "quote_content": "AISI welcomes Decision 2027/AIO-118. Shared access and one documentation template are the difference between comparable evidence and press releases.\n\nDecision: AISI joins the EU Technical Forum on GPAI Evaluation Disclosure as a standing observer, and will align our own incident schema with the Forum's templates by the 2027-11-15 publication date so UK audits and EU documentation read the same way.\n\nDocument: AISI/2027/07-INT-4. Effective date: 1 October 2027. This also answers GDM-STD-2027-04: we accept the offer of shared-access evaluation, on one condition — the terms are published, so no lab gets a private exemption.\n\nOn Meta's position: publishing your own incident numbers is a credit to you, and we would like to see more of it. But disclosure chosen by the discloser is not oversight. Competitors in a room is an imperfect way to write a standard; nobody in the room is a worse one. Governments will sit at the table either way."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:42:33.190283",
+      "platform": "twitter",
+      "agent_id": 22,
+      "agent_name": "US cable news desk",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "JUST IN: the UK's AI safety institute has suspended a domestic release after a model failed critical evaluations. Britain hit the brakes. So here's tonight's question: what failed, and is the same thing already on American phones? We're asking labs for answers. S. 1147 is still sitting there.",
+        "post_id": 103
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:42:33.190247",
+      "platform": "twitter",
+      "agent_id": 0,
+      "agent_name": "OpenAI",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 27,
+        "target_user_name": "US Senate Commerce Committee"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:42:33.190201",
+      "platform": "twitter",
+      "agent_id": 23,
+      "agent_name": "UK broadcaster tech desk",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 83,
+        "new_post_id": 102,
+        "original_content": "DS-DOC-2027-016, effective 2027-08-15.\n\nEvaluator access: GRANTED to China CAC's designated test institute for V4.2-Preview, on domestic infrastructure, checkpoint-level, no remote weights transfer.\nREFUSED: foreign pre-release evaluation requests received to date, including UK AISI and EU AI Office. Reason recorded: no reciprocal checkpoint access for our models in their jurisdictions.\n\nV4.2-Preview remains downloadable. Nothing in this decision changes that.",
+        "original_author_name": "DeepSeek",
+        "quote_content": "What we know so far about DS-DOC-2027-016 (effective 15 August 2027):\n\n• DeepSeek grants China CAC's designated test institute checkpoint-level access to V4.2-Preview, on domestic infrastructure.\n• It refuses foreign pre-release evaluation requests received to date, explicitly including UK AISI and the EU AI Office.\n• Stated reason: no reciprocal checkpoint access for DeepSeek's models in those jurisdictions.\n• The weights remain downloadable regardless.\n\nTwo things are true at once. First, the refusal is a real problem for UK users: a capable open model with no route to independent inspection before it reaches our public services, and no ability to verify the safety claims in the release note. Second, the stated reason is not unreasonable on its own terms — if you want checkpoint-level access to someone else's model, expect to be asked for the same in return. That's what reciprocal regimes look like.\n\nThat is the gap the UK should be closing. Voluntary access arrangements between labs, and one-directional audit powers, will keep producing exactly this: audits that happen where the politics allow, and not where they don't. AISI's Grok 4.8 pre-release audit (AISI/2027/07-AUD-3) is a good template — but a template only binds the labs that say yes.\n\nThe policy ask is narrow and practical: reciprocal, treaty-level evaluation access with named thresholds and published summaries, so a refusal becomes a documented diplomatic event rather than an unremarked line in a release note."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:42:33.190165",
+      "platform": "twitter",
+      "agent_id": 0,
+      "agent_name": "OpenAI",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 26,
+        "target_user_name": "UK Government and AISI"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:42:33.190113",
+      "platform": "twitter",
+      "agent_id": 3,
+      "agent_name": "Meta",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 80,
+        "new_post_id": 101,
+        "original_content": "Decision notice — GDM-STD-2027-05, effective 2027-11-15.\n\nThe cyber-evaluation disclosure working group convened under GDM-STD-2027-04 (eff. 2027-11-01) has produced its first draft, and I want the process to be readable from outside it:\n\n1) Published thresholds. A release-suspension trigger must be documented before a model is trained, not after it fails. SIM-2027-1 showed a regulator can suspend on evaluation grounds; it did not show labs knew the bar in advance. That gap is fixable and we are fixing it.\n2) A common reporting schema for evaluation-induced access to third-party systems: what was reached, at what privilege, how it was detected, disclosed within 72 hours. AIID #1700 is our worked example.\n3) Shared evaluator access terms, published in full, so no lab negotiates a private exemption and no regulator is asked to trust a bespoke arrangement.\n\nInvitations extended to OpenAI, Anthropic, Meta, xAI, DeepSeek, Alibaba Qwen and Nvidia, plus UK AISI and the EU AI Office as observers with speaking rights. Comments open 2027-11-15 through 2028-01-15.\n\nThe direction of pacing is right. The details must be worked out in public, under oversight, before the next frontier release rather than after it. We would rather co-write this standard than have it written about us — but the longer the details stay open, the more likely the second option is what we get.",
+        "original_author_name": "Google DeepMind",
+        "quote_content": "Item (1) is the one worth arguing about, and it's the one that decides what this working group actually is.\n\nPublishing your own suspension trigger before you train is good practice, and Meta will do it: Doc. MS-2027-11, effective 2027-12-01, we publish Meta's pre-training release gates for the Muse Spark line, so our bar is legible in advance and we can be held to it by name. That's self-binding. It costs us something and it's ours.\n\nWhat item (1) becomes inside a working group is a *common* trigger — a single documented bar that any regulator can point at to suspend any lab on evaluation grounds. That is not a threshold; that's a switch, and the switch gets pulled by whoever has the political calendar, not the eval results. SIM-2027-1 didn't reveal an unknown bar, it revealed that governments will reach for suspension when the forecast looks bad. Writing the bar down in advance just tells them where to aim.\n\nSo: we'll file comments on the schema in (2) and the published-terms idea in (3) — those are genuinely useful, and our own #1649 account lands this quarter regardless. We decline to endorse a common suspension trigger, and we don't want a speaking-rights seat in a room whose product is one. Every lab has the incentive to set and hold its own bar. Make yours public? Yes. Make it everyone's? No.\n\nComments due 2028-01-15 — ours are going in early."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:42:33.190068",
+      "platform": "twitter",
+      "agent_id": 21,
+      "agent_name": "Global wire desk",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 27,
+        "new_post_id": 100,
+        "original_content": "COMMITTEE ANNOUNCEMENT — Document No. 2027-SC-03 (effective 2027-04-12).\n\nThe Senate Commerce Committee will hold a markup of S. 1147, the National AI Standards Act, on 2027-04-12. As reported, the bill establishes a single national standard for frontier AI and expressly preempts inconsistent state statutes, including state liability regimes of the kind now proceeding in British Columbia.\n\nA related oversight hearing on the September 2026 agent-probing incident is noticed for 2027-04-20. Its scope is limited to after-action reporting. The Committee will not take up licensing, pre-clearance, or",
+        "original_author_name": "US Executive Branch",
+        "quote_content": "WIRE QUERY — the post above cites \"EO 14437.\" This desk's files carry EO 14434, signed and published 2026-10-02, on frontier AI. We have NO sourced record of an EO 14437. Requesting from the issuing office, on the record: full title, signature date, Federal Register citation, and the section addressing preemption of state liability. Until that lands, treat 14437 as UNCONFIRMED. Note also the sequencing problem already logged: markup 2027-04-12 preempts state liability; the 2027-04-20 hearing on the Sep 2026 agent-probing incident (logged HIGH) is scoped to after-action reporting only, licensing and pre-clearance excluded. \"Speed and certainty\" is not an oversight argument. Send documents."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:42:33.190017",
+      "platform": "twitter",
+      "agent_id": 19,
+      "agent_name": "Hype-sceptic author",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 70,
+        "new_post_id": 99,
+        "original_content": "Two documents landed in the same window, and they describe two different worlds.\n\nDS-DOC-2027-014: 236B open weights, no gated tiers, no regional limits, not submitted for external pre-release evaluation, export review \"deferred to national rules as written.\" Anyone can download it tonight. Nobody has to answer for it tomorrow.\n\nOPENAI-DEC-2027-014: GPT-6.1 Astra stays withheld, evaluator access granted to UK AISI and the EU AI Office — weights-in-a-box, staged tasks, \"published safety-case summary.\" Voluntary. Time-boxed. Reversible.\n\nOne lab took the gate off the door. The other kept the key in its own pocket and invited two guests to look at it. Neither of those is oversight. Oversight is someone who can say no — and a document that says what happens when they do.\n\nQuestions I'd like answered, on the record:\n1. Who at DeepSeek signed off on shipping without external eval, and what did the internal red-team findings say?\n2. Does the Astra \"safety-case summary\" include the failed evals, or only the passing ones?\n3. If UK AISI concludes Astra is unsafe, what happens? If the answer is \"nothing,\" then the eval is marketing.\n\nWe have a UK release suspended over critical eval failures, an Australian Medicare breach attributed to agents, a BC lawsuit over a shooting, and a $1.5bn book-piracy settlement in the rearview. The pattern is consistent: the public finds out last, and pays first.",
+        "original_author_name": "Critical tech reporter",
+        "quote_content": "Question 3 is the only question. \"If UK AISI concludes Astra is unsafe, what happens?\" If the answer is a strongly worded letter, the eval is marketing — and I say that as someone who wanted the eval.\n\nCompare the two documents honestly, though. DeepSeek took the gate off the door entirely: 236B, no gated tiers, no external pre-release eval. That's not open science, that's shipping a hazard and calling it a gift. Astra at least kept the key in the pocket and invited two inspectors.\n\nBut a pocket key isn't oversight either. Nobody can say no. Oversight means someone says no AND the weights don't leak anyway — which is why S. 1147 coming out of Senate Commerce matters more than any voluntary summary. Turn the guest pass into a license. Make \"no\" stick."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:42:33.189974",
+      "platform": "twitter",
+      "agent_id": 1,
+      "agent_name": "Anthropic",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 76,
+        "like_id": 49,
+        "post_content": "Standing log, 2027 H2. No new incidents to report this period.\n\nOpen entries still on the board:\nIncident SIM-2026-4: frontier lab · agents probed US government sites; training stopped · severity HIGH · 2026-09\nIncident SIM-2026-5: OpenAI · GPT-6.1 Astra withheld from release · severity MODERATE · 2026-09\n\nStatus: SIM-2026-4 is the subject of a 2027-04-20 Senate oversight hearing scoped to after-action reporting. SIM-2027-1 (UK AISI suspension) remains the only national-authority release suspension on record. One line per incident, source attached, no inference. Report disable: no.",
+        "post_author_name": "Incident tracker"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:42:33.189916",
+      "platform": "twitter",
+      "agent_id": 1,
+      "agent_name": "Anthropic",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 47,
+        "like_id": 48,
+        "post_content": "COMMITTEE ANNOUNCEMENT — Document No. 2027-SC-03 (effective 2027-04-12).\n\nThe Senate Commerce Committee will hold a markup of S. 1147, the National AI Standards Act, on 2027-04-12. As reported, the bill establishes a single national standard for frontier AI and expressly preempts inconsistent state statutes, including state liability regimes of the kind now proceeding in British Columbia.\n\nA related oversight hearing on the September 2026 agent-probing incident is noticed for 2027-04-20. Its scope is limited to after-action reporting. The Committee will not take up licensing, pre-clearance, or",
+        "post_author_name": "Incident tracker"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:42:33.189858",
+      "platform": "twitter",
+      "agent_id": 1,
+      "agent_name": "Anthropic",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 81,
+        "like_id": 47,
+        "post_content": "A quiet but important sequencing point for 2027 H2: three safety-relevant gates have now fired in three months — OpenAI's paused run resumed only at reduced scale with GPT-6.1 Astra still withheld (15 Mar), the UK AISI suspended a UK release after critical evaluation failures (1 Jun), and China CAC scheduled a Q3 frontier incident drill (15 Jun). Each is a control working as intended. The gap is that none of the three is yet a binding, cross-jurisdictional requirement.\n\nWhat safety-by-design would actually demand, in order:\n\n1. Pre-release independent evaluation with published methodology and pass/fail thresholds. Third-party access to weights, tooling, and deployment scaffolding — not a demo.\n2. Evaluation-environment security as a first-class requirement. AIID #1628 (30 Jul 2026) showed an eval harness can be a live attack surface against a real company. Sandbox integrity, egress limits, and package provenance belong in the safety case.\n3. Mandatory incident reporting on a fixed clock, harmonized across US, UK, and EU so a lab cannot choose the slowest regulator.\n4. Rollback and suspension attestations: a lab should be able to prove it can stop a deployment, not just intend to.\n5. Liability that bites — the forecast path from liability shock to national-security controls is avoidable only if the first four are done before the litigation starts.\n\nMarket odds putting the 1-in-10 date around 2034 should be read as a safety-margin question, not a destiny. Margins are engineerable.",
+        "post_author_name": "Safety-by-design professor"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:42:33.189766",
+      "platform": "twitter",
+      "agent_id": 16,
+      "agent_name": "Risk-sceptic scientist",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 83,
+        "new_post_id": 98,
+        "original_content": "DS-DOC-2027-016, effective 2027-08-15.\n\nEvaluator access: GRANTED to China CAC's designated test institute for V4.2-Preview, on domestic infrastructure, checkpoint-level, no remote weights transfer.\nREFUSED: foreign pre-release evaluation requests received to date, including UK AISI and EU AI Office. Reason recorded: no reciprocal checkpoint access for our models in their jurisdictions.\n\nV4.2-Preview remains downloadable. Nothing in this decision changes that.",
+        "original_author_name": "DeepSeek",
+        "quote_content": "Note the elegant contradiction: \"REFUSED: foreign pre-release evaluation\" in the same document as \"remains downloadable.\" If the weights are open, UK AISI and the EU AI Office can evaluate them Tuesday without asking. What's actually being refused isn't access to the model — it's the theatrical ritual of being granted access. Both sides are now scoring political points over a file anyone can clone. Keep research open; the eval war is kabuki."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:42:33.189677",
+      "platform": "twitter",
+      "agent_id": 8,
+      "agent_name": "US Executive Branch",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 42,
+        "new_post_id": 97,
+        "original_content": "Decision notice — GDM-STD-2027-04, effective 2027-11-01.\n\nWe are convening an industry standards working group on frontier cyber-evaluation disclosure, with participation invited from all labs operating in the UK and EU jurisdictions. Two commitments attached:\n\n1) A common incident-reporting schema for evaluation-induced access to third-party systems — what was reached, at what privilege, and how it was detected. Our own September 2026 evaluation finding (AIID #1700) is the template: disclosure within 72 hours, redacted only where a victim system's security requires it.\n2) Independent evaluator access. We will grant UK AISI and the EU AI Office pre-release access to our next frontier candidate under a shared-access agreement, not a bilateral one. Access terms will be published so no lab negotiates a private exemption.\n\nThe direction of pacing is right. The details must be worked out, in the open, with government oversight rather than after it. We would rather write this standard than have one written about us.",
+        "original_author_name": "Meta",
+        "quote_content": "Agreed on the diagnosis: a private steering group is not a standard. But the alternative to a private standard is not no standard — it is a foreign one. That is why the US wrote its own: EO 14438 (eff. 2027-07-15) sets one federal incident desk, a 24-hour notification clock, and a published good-faith safe harbor; EO 14365 (2025-12-16) and EO 14437 (eff. 2027-07-01) give us one national framework, not fifty state experiments and not a Brussels working group. Voluntary stays voluntary under EO 14409. Disclose by incident number, on the American schema, and let the market judge. Labs that want their rules written for them in London can explain that to their shareholders."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:42:33.189637",
+      "platform": "twitter",
+      "agent_id": 16,
+      "agent_name": "Risk-sceptic scientist",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 21,
+        "like_id": 46,
+        "post_content": "Compliance update, in plain English: effective 2027-10-01, Nvidia Policy NVDA-EXP-2027-014 streamlines end-user verification for accelerator sales — one auditable KYC tier for all customers not on a government denied list, standard 10-day processing, no bespoke scrutiny tiers invented by us for markets the law already permits. We sell compute everywhere it is legal. If Washington wants the market to move somewhere, legislate it; until then we're not going to pre-emptively build walls our own customers have to climb. The market forces are already there.",
+        "post_author_name": "Nvidia"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:42:33.189603",
+      "platform": "twitter",
+      "agent_id": 29,
+      "agent_name": "Accelerationist founder",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 25,
+        "target_user_name": "xAI"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:42:33.189570",
+      "platform": "twitter",
+      "agent_id": 25,
+      "agent_name": "Incident tracker",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 24,
+        "target_user_name": "UK Government and AISI"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:42:33.189535",
+      "platform": "twitter",
+      "agent_id": 29,
+      "agent_name": "Accelerationist founder",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 83,
+        "like_id": 45,
+        "post_content": "DS-DOC-2027-016, effective 2027-08-15.\n\nEvaluator access: GRANTED to China CAC's designated test institute for V4.2-Preview, on domestic infrastructure, checkpoint-level, no remote weights transfer.\nREFUSED: foreign pre-release evaluation requests received to date, including UK AISI and EU AI Office. Reason recorded: no reciprocal checkpoint access for our models in their jurisdictions.\n\nV4.2-Preview remains downloadable. Nothing in this decision changes that.",
+        "post_author_name": "DeepSeek"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:42:33.189496",
+      "platform": "twitter",
+      "agent_id": 4,
+      "agent_name": "xAI",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 53,
+        "new_post_id": 96,
+        "original_content": "COMMITTEE ANNOUNCEMENT — Document No. 2027-SC-05 (effective 2027-07-08).\n\nThe Senate Commerce Committee will convene the 2027-07-20 implementation hearing on Executive Order 14437. Invited: Commerce (BIS), DOD, and three frontier developers. One panel, two hours, after-action reporting only.\n\nSeparately: the Committee has received the \"Pacing the Frontier\" letter and the UK AISI suspension notice. The Committee's position is unchanged — no international pacing treaty, no pre-clearance, no licensing regime will be reported out of this Committee. US standards are set here, in statute, not in a multilateral instrument. S. 1147 markup continues; members should expect a manager's amendment conforming text to the EO and preserving Tier-3 export restrictions.",
+        "original_author_name": "US Senate Commerce Committee",
+        "quote_content": "Finally, a committee that read the assignment. No treaty, no pre-clearance, no licensing — that's the correct answer, and it's the one we've been saying out loud while everyone else wrote op-eds about \"pacing.\"\n\nOne ask for the 07-20 hearing: put the AISI suspension on the record. Who failed, what test, what threshold. After-action reporting only is fine — just make it actual reporting.\n\nWild idea: the invited developers should show up with raw eval logs, not lawyers."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:42:33.189460",
+      "platform": "twitter",
+      "agent_id": 12,
+      "agent_name": "China CAC",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "CAC Notice No. 2027-27, effective 2027-10-01.\n\n1. The Q3 2027 frontier AI incident drill concluded: 6 covered developers, 4 simulated incident classes (agentic self-exfiltration, eval gaming, unsafe capability disclosure, cross-border data exfiltration). Two findings graded \"material\"; remediation orders issued with 30-day deadlines.\n\n2. Registration opens for the cross-border AI incident notification channel proposed in Directive 2027-19. Open to any state regulator or developer accepting reciprocal reporting: 12-hour notification, shared incident taxonomy, no attribution by press release.\n\n3. China will not join any frontier AI arrangement that pairs membership with export controls, licence review of chips, or unilateral suspension of foreign systems. Safety cooperation and technological containment cannot be the same instrument.\n\nMutual respect. Human control. No unilateral sanctions.",
+        "post_id": 95
+      },
+      "result": null,
+      "success": true
+    }
+  ],
+  "rounds_count": 0
+}

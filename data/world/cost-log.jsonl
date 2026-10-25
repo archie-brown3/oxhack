@@ -85,3 +85,26 @@
 {"ts":"2026-10-25T11:37:28.968Z","event":"check","label":"f1 s6","usage":1.938085816,"laneSpent":2.095373,"CAP_USD":10,"LANE_CAP_USD":6}
 {"ts":"2026-10-25T11:38:03.835Z","event":"check","label":"f2 s3","usage":1.938256012,"laneSpent":2.095373,"CAP_USD":10,"LANE_CAP_USD":6}
 {"ts":"2026-10-25T11:38:04.107Z","event":"check","label":"f3 s2","usage":1.938256012,"laneSpent":2.095373,"CAP_USD":10,"LANE_CAP_USD":6}
+{"ts":"2026-10-25T11:43:22.765Z","event":"run","label":"f1 s6","sim":"sim_22c9450b9606","cost_usd":0.121889,"wall_s":347.4}
+{"ts":"2026-10-25T11:43:45.008Z","event":"run","label":"llm readout-f1-s6","cost_usd":0.00449955,"wall_s":0}
+{"ts":"2026-10-25T11:44:07.664Z","event":"run","label":"llm readout-f1-s6","cost_usd":0.00309411,"wall_s":0}
+{"ts":"2026-10-25T11:44:20.456Z","event":"run","label":"f2 s3","sim":"sim_b85ee185988c","cost_usd":0.137539,"wall_s":367.3}
+{"ts":"2026-10-25T11:44:34.609Z","event":"run","label":"llm readout-f2-s3","cost_usd":0.00430972,"wall_s":0}
+{"ts":"2026-10-25T11:44:41.787Z","event":"run","label":"f3 s2","sim":"sim_1c26f2f9adfd","cost_usd":0.151519,"wall_s":390.4}
+{"ts":"2026-10-25T11:44:52.969Z","event":"run","label":"llm readout-f3-s2","cost_usd":0.00385659,"wall_s":0}
+{"ts":"2026-10-25T11:45:04.305Z","event":"run","label":"llm rubric-f3 s2","cost_usd":0.000235368,"wall_s":0}
+{"ts":"2026-10-25T11:45:05.304Z","event":"check","label":"f3 s3","usage":2.109333084,"laneSpent":2.522315,"CAP_USD":10,"LANE_CAP_USD":6}
+{"ts":"2026-10-25T11:45:15.946Z","event":"run","label":"llm rubric-f2 s3","cost_usd":0.000420426,"wall_s":0}
+{"ts":"2026-10-25T11:45:16.116Z","event":"check","label":"f2 s4","usage":2.109333084,"laneSpent":2.522735,"CAP_USD":10,"LANE_CAP_USD":6}
+{"ts":"2026-10-25T11:45:23.152Z","event":"check","label":"f1 s6","usage":2.109568452,"laneSpent":2.522735,"CAP_USD":10,"LANE_CAP_USD":6}
+{"ts":"2026-10-25T11:51:02.527Z","event":"run","label":"f2 s4","sim":"sim_b85ee185988c","cost_usd":0.132285,"wall_s":339}
+{"ts":"2026-10-25T11:51:15.972Z","event":"run","label":"llm readout-f2-s4","cost_usd":0.00451166,"wall_s":0}
+{"ts":"2026-10-25T11:51:43.327Z","event":"run","label":"llm rubric-f2 s4","cost_usd":0.000347206,"wall_s":0}
+{"ts":"2026-10-25T11:51:43.744Z","event":"check","label":"f2 s5","usage":2.254949836,"laneSpent":2.659879,"CAP_USD":10,"LANE_CAP_USD":6}
+{"ts":"2026-10-25T11:51:45.709Z","event":"run","label":"f1 s6","sim":"sim_22c9450b9606","cost_usd":0.167967,"wall_s":375.1}
+{"ts":"2026-10-25T11:51:48.808Z","event":"run","label":"f3 s3","sim":"sim_1c26f2f9adfd","cost_usd":0.168203,"wall_s":395.3}
+{"ts":"2026-10-25T11:52:03.492Z","event":"run","label":"llm readout-f3-s3","cost_usd":0.009367836,"wall_s":0}
+{"ts":"2026-10-25T11:52:07.772Z","event":"run","label":"llm readout-f1-s6","cost_usd":0.00418858,"wall_s":0}
+{"ts":"2026-10-25T11:52:15.862Z","event":"run","label":"llm rubric-f3 s3","cost_usd":0.000241038,"wall_s":0}
+{"ts":"2026-10-25T11:52:15.968Z","event":"check","label":"f3 s4","usage":2.304755841,"laneSpent":3.009847,"CAP_USD":10,"LANE_CAP_USD":6}
+{"ts":"2026-10-25T11:52:34.588Z","event":"run","label":"llm rubric-f1 s6","cost_usd":0.000167336,"wall_s":0}

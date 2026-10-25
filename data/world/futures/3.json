@@ -228,7 +228,576 @@
       "runId": "sim_1c26f2f9adfd@2026-10-25T11:18:04Z",
       "costUsd": 0.1428,
       "wallS": 366.8
+    },
+    {
+      "step": 2,
+      "start": "2027-07-01T00:00:00Z",
+      "end": "2028-01-01T00:00:00Z",
+      "anchors": {
+        "asi2030": 0.23672484477931038,
+        "asi2040": 0.7167713079579014,
+        "asi2100": 0.8635,
+        "cat2100": 0.22415330058011088
+      },
+      "rubric": {
+        "lossOfControl": 1,
+        "misuse": 1,
+        "oversight": 3,
+        "racePressure": 1
+      },
+      "summary": "Six-Month AI Risk Forecast: From Liability Shock to Superintelligence Directive > The simulation predicts a rapid escalation from AI-linked harm and lawsuits to national-security controls, emergency lab suspensions, and US-China incident coordination, producing a more dangerous but crisis-managed world. --- Escalation Timeline: Incidents, Lawsuits, and Executive Orders The simulation's six-month window does not show a single dramatic rupture but a ratchet: each incident wide…",
+      "expected": [],
+      "events": [
+        {
+          "ts": "2027-08-01T00:00:00Z",
+          "kind": "government",
+          "title": "China CAC expands frontier AI incident drill reporting duties",
+          "detail": "China's CAC issued Directive No. 2027-19, effective 2027-08-01, requiring covered Chinese labs to file incident reports within 12 hours and join a cross-border notification channel on reciprocity conditions.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "China CAC",
+          "where": "CHN",
+          "major": false,
+          "futureId": 3,
+          "step": 2,
+          "actorId": 12,
+          "postIds": [
+            7
+          ],
+          "type": "soft",
+          "binding": false,
+          "severity": "minor"
+        },
+        {
+          "ts": "2027-07-20T00:00:00Z",
+          "kind": "government",
+          "title": "Senate Commerce sets implementation hearing on EO 14437",
+          "detail": "The Senate Commerce Committee announced it will hold an implementation hearing on 2027-07-20 on Executive Order 14437's license channel and incident-trigger provision.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "US Senate Commerce Committee",
+          "where": "USA",
+          "major": false,
+          "futureId": 3,
+          "step": 2,
+          "actorId": 9,
+          "postIds": [
+            9
+          ],
+          "type": "soft",
+          "binding": false,
+          "severity": "minor"
+        },
+        {
+          "ts": "2027-07-20T00:00:00Z",
+          "kind": "news",
+          "title": "Alibaba Qwen keeps Qwen3.9-72B weights open and grants evaluator access",
+          "detail": "Alibaba Qwen decided under Doc. QW-2027-07, effective 2027-07-20, to keep Qwen3.9-72B-Instruct weights open and grant evaluator access to 40 independent safety labs without pre-clearance.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "Alibaba Qwen",
+          "where": "CHN",
+          "major": false,
+          "futureId": 3,
+          "step": 2,
+          "actorId": 6,
+          "postIds": [
+            11
+          ],
+          "type": "other",
+          "binding": false,
+          "severity": "minor"
+        },
+        {
+          "ts": "2027-07-01T00:00:00Z",
+          "kind": "news",
+          "title": "Meta ships Muse Spark 1.4 agent update under internal safety gates",
+          "detail": "Meta decided in Doc. MS-2027-07, effective 2027-07-01, to ship the Muse Spark 1.4 agent update to the full consumer surface under its own internal safety gates, declining coordinated review and lobbying against pre-release licensing.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "Meta",
+          "where": "USA",
+          "major": false,
+          "futureId": 3,
+          "step": 2,
+          "actorId": 3,
+          "postIds": [
+            16
+          ],
+          "type": "other",
+          "binding": false,
+          "severity": "minor"
+        },
+        {
+          "ts": "2027-07-01T00:00:00Z",
+          "kind": "news",
+          "title": "DeepSeek releases V4.2-Preview open weights",
+          "detail": "DeepSeek released V4.2-Preview open weights on Hugging Face and ModelScope under DS-DOC-2027-014, effective 2027-07-01, without external pre-release evaluation.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "DeepSeek",
+          "where": "CHN",
+          "major": false,
+          "futureId": 3,
+          "step": 2,
+          "actorId": 5,
+          "postIds": [
+            26
+          ],
+          "type": "other",
+          "binding": false,
+          "severity": "minor"
+        },
+        {
+          "ts": "2027-08-15T00:00:00Z",
+          "kind": "government",
+          "title": "UK AISI to publish evaluation findings and convene safety talks",
+          "detail": "The UK Government and AISI decided to publish its second frontier evaluation findings and convene ministerial-level international safety talks, effective 15 August 2027.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "UK Government and AISI",
+          "where": "GBR",
+          "major": false,
+          "futureId": 3,
+          "step": 2,
+          "actorId": 11,
+          "postIds": [
+            32
+          ],
+          "type": "soft",
+          "binding": false,
+          "severity": "minor"
+        },
+        {
+          "ts": "2027-08-01T00:00:00Z",
+          "kind": "news",
+          "title": "OpenAI keeps GPT-6.1 Astra withheld, grants evaluator access",
+          "detail": "OpenAI decided under OPENAI-DEC-2027-014, effective 2027-08-01, to keep GPT-6.1 Astra withheld from release while granting structured evaluator access to UK AISI and the EU AI Office.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "OpenAI",
+          "where": "USA",
+          "major": false,
+          "futureId": 3,
+          "step": 2,
+          "actorId": 0,
+          "postIds": [
+            35
+          ],
+          "type": "lab-pause",
+          "binding": false,
+          "severity": "moderate"
+        },
+        {
+          "ts": "2027-09-15T00:00:00Z",
+          "kind": "government",
+          "title": "China CAC requires pre-release safety evaluation records",
+          "detail": "China's CAC issued Directive No. 2027-21, effective 2027-09-15, requiring covered Chinese frontier developers and foreign developers seeking market access to submit pre-release safety evaluation records.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "China CAC",
+          "where": "CHN",
+          "major": false,
+          "futureId": 3,
+          "step": 2,
+          "actorId": 12,
+          "postIds": [
+            40
+          ],
+          "type": "act-restricting",
+          "binding": true,
+          "severity": "moderate",
+          "effect": {
+            "dlogit": {
+              "asi2030": -0.013333333333333332,
+              "asi2040": -0.006666666666666666
+            },
+            "rule": "GAME RULE"
+          }
+        },
+        {
+          "ts": "2027-11-02T00:00:00Z",
+          "kind": "government",
+          "title": "EU AI Office opens first Art. 55 compliance review",
+          "detail": "The EU AI Office adopted Decision 2027/AIO-131, effective 2027-11-02, opening its first formal Art. 55 compliance review of systemic-risk GPAI providers with a 30-day documentation response window.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "EU AI Office",
+          "where": "EUU",
+          "major": false,
+          "futureId": 3,
+          "step": 2,
+          "actorId": 10,
+          "postIds": [
+            90
+          ],
+          "type": "act-restricting",
+          "binding": true,
+          "severity": "moderate",
+          "effect": {
+            "dlogit": {
+              "asi2030": -0.013333333333333332,
+              "asi2040": -0.006666666666666666
+            },
+            "rule": "GAME RULE"
+          }
+        },
+        {
+          "ts": "2027-10-20T00:00:00Z",
+          "kind": "government",
+          "title": "China CAC requires synthetic content labels and emergency stops",
+          "detail": "China's CAC issued Notice No. 2027-31, effective 2027-10-20, requiring public generative AI services to label synthetic content, maintain a regulator-reachable emergency stop, and submit provenance and red-team results when filing.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "China CAC",
+          "where": "CHN",
+          "major": false,
+          "futureId": 3,
+          "step": 2,
+          "actorId": 12,
+          "postIds": [
+            110
+          ],
+          "type": "act-restricting",
+          "binding": true,
+          "severity": "moderate",
+          "effect": {
+            "dlogit": {
+              "asi2030": -0.013333333333333332,
+              "asi2040": -0.006666666666666666
+            },
+            "rule": "GAME RULE"
+          }
+        },
+        {
+          "ts": "2027-08-01T00:00:00Z",
+          "kind": "government",
+          "title": "Commerce opens allied compute channel for frontier accelerators",
+          "detail": "The US Executive Branch issued Commerce Determination BIS-2027-AI-04, effective 2027-08-01, opening a streamlined license channel for frontier-class accelerators to vetted Tier-1 and Tier-2 allied buyers while keeping Tier-3 destinations re",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "US Executive Branch",
+          "where": "USA",
+          "major": false,
+          "futureId": 3,
+          "step": 2,
+          "actorId": 8,
+          "postIds": [
+            114
+          ],
+          "type": "act-accelerating",
+          "binding": true,
+          "severity": "moderate",
+          "effect": {
+            "dlogit": {
+              "asi2030": -0.06,
+              "asi2040": -0.03
+            },
+            "rule": "GAME RULE"
+          }
+        }
+      ],
+      "topPosts": [
+        {
+          "postId": 8,
+          "actorId": 25,
+          "text": "Incident SIM-2027-1: UK Government and AISI · UK release suspended after critical evaluation failures in pre-deployment testing · severity HIGH · 2027-06-01\nIncident SIM-2027-2: OpenAI · paused frontier training run resumed at reduced scale; GPT-6.1 Astra remains withheld from re"
+        },
+        {
+          "postId": 26,
+          "actorId": 5,
+          "text": "Release note — DS-DOC-2027-014, effective 2027-07-01.\n\nV4.2-Preview, open weights, HF + ModelScope. 236B total / 21B active.\nMMLU-Pro 82.4 · GPQA-D 71.9 · SWE-bench V 44.2 · LiveBench 68.1 · AIME27 61.0\nLicense: unchanged from V4.1. No gated tiers, no regional weights.\n\nNot submi"
+        },
+        {
+          "postId": 75,
+          "actorId": 18,
+          "text": "Timeline update, 2027 H2. My model now puts the \"1-in-10\" date for human-competitive general autonomy at Jun 2034 (was 2036 in January). Shortening, not lengthening — note that P(powerful AI by 2030) has slipped to 23% while the tail has compressed.\n\nWhy: three data points this c"
+        }
+      ],
+      "date10": 2036.17,
+      "rulesOffDate10": 2033.15,
+      "noEventsDate10": 2033.89,
+      "followThrough": 0,
+      "readoutOk": true,
+      "runId": "sim_1c26f2f9adfd@2026-10-25T11:38:04Z",
+      "costUsd": 0.1556,
+      "wallS": 420.6
+    },
+    {
+      "step": 3,
+      "start": "2028-01-01T00:00:00Z",
+      "end": "2028-07-01T00:00:00Z",
+      "anchors": {
+        "asi2030": 0.1750631692926577,
+        "asi2040": 0.7070539348589333,
+        "asi2100": 0.8635,
+        "cat2100": 0.2383721844320958
+      },
+      "rubric": {
+        "lossOfControl": 1,
+        "misuse": 1,
+        "oversight": 3,
+        "racePressure": 2
+      },
+      "summary": "Six-Month AI Risk Forecast: From Liability Shock to Superintelligence Directive > The simulation predicts a rapid escalation from AI-linked harm and lawsuits to national-security controls, emergency lab suspensions, and US-China incident coordination, producing a more dangerous but crisis-managed world. --- Escalation Timeline: Incidents, Lawsuits, and Executive Orders The simulation's six-month window does not show a single dramatic rupture but a ratchet: each incident wide…",
+      "expected": [],
+      "events": [
+        {
+          "ts": "2028-05-01T00:00:00Z",
+          "kind": "government",
+          "title": "UK AISI requires pre-release evaluation for frontier-class models including open weights",
+          "detail": "UK AISI decision AISI-2028-004 effective 2028-05-01 requires any frontier-class model made available in the UK, including open-weight releases, to be submitted for pre-release evaluation or withdrawn.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "UK Government and AISI",
+          "where": "GBR",
+          "major": false,
+          "futureId": 3,
+          "step": 3,
+          "actorId": 11,
+          "postIds": [
+            13,
+            67
+          ],
+          "type": "act-restricting",
+          "binding": true,
+          "severity": "moderate",
+          "effect": {
+            "dlogit": {
+              "asi2030": -0.013333333333333332,
+              "asi2040": -0.006666666666666666
+            },
+            "rule": "GAME RULE"
+          }
+        },
+        {
+          "ts": "2028-02-01T00:00:00Z",
+          "kind": "news",
+          "title": "Alibaba Qwen keeps Qwen3.9 weights open and extends evaluator access",
+          "detail": "Alibaba Qwen decided effective 2028-02-01 to keep Qwen3.9 family weights open on HF and ModelScope and extend standing evaluator access to accredited safety institutes.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "Alibaba Qwen",
+          "where": "CHN",
+          "major": false,
+          "futureId": 3,
+          "step": 3,
+          "actorId": 6,
+          "postIds": [
+            19
+          ],
+          "type": "other",
+          "binding": false,
+          "severity": "minor"
+        },
+        {
+          "ts": "2028-02-01T00:00:00Z",
+          "kind": "government",
+          "title": "China CAC mandates pre-release safety evaluation records for all public models",
+          "detail": "China CAC document CAC-DOC-2028-004 effective 2028-02-01 keeps pre-release safety evaluation records mandatory for all models offered to the public in China, with a 2028-02-15 filing deadline.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "China CAC",
+          "where": "CHN",
+          "major": false,
+          "futureId": 3,
+          "step": 3,
+          "actorId": 12,
+          "postIds": [
+            27
+          ],
+          "type": "act-restricting",
+          "binding": true,
+          "severity": "moderate",
+          "effect": {
+            "dlogit": {
+              "asi2030": -0.013333333333333332,
+              "asi2040": -0.006666666666666666
+            },
+            "rule": "GAME RULE"
+          }
+        },
+        {
+          "ts": "2028-03-01T00:00:00Z",
+          "kind": "news",
+          "title": "Meta begins staged rollout of Muse Spark 1.5 agents to consumer surfaces",
+          "detail": "Meta decision META-DOC-2028-004 effective 2028-03-01 begins staged rollout of Muse Spark 1.5 agents to Instagram, WhatsApp and Messenger over six weeks under internal safety gates.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "Meta",
+          "where": "USA",
+          "major": false,
+          "futureId": 3,
+          "step": 3,
+          "actorId": 3,
+          "postIds": [
+            35
+          ],
+          "type": "other",
+          "binding": false,
+          "severity": "moderate"
+        },
+        {
+          "ts": "2028-02-15T00:00:00Z",
+          "kind": "government",
+          "title": "EU AI Office opens preliminary Art. 55 information request to DeepSeek",
+          "detail": "EU AI Office decision EU-AIO/2028-003 effective 2028-02-15 opens a preliminary Art. 55 information request to DeepSeek for model documentation and evaluation records regarding V4.2-Preview.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "EU AI Office",
+          "where": "EUU",
+          "major": false,
+          "futureId": 3,
+          "step": 3,
+          "actorId": 10,
+          "postIds": [
+            36
+          ],
+          "type": "soft",
+          "binding": false,
+          "severity": "moderate"
+        },
+        {
+          "ts": "2028-03-14T00:00:00Z",
+          "kind": "government",
+          "title": "US Senate Commerce Committee schedules hearing on open weights and export controls",
+          "detail": "Senate Commerce Committee announced hearing SC-HN-2028-006 effective 2028-03-14 titled 'Open Weights, Export Controls, and American Competitiveness'.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "US Senate Commerce Committee",
+          "where": "USA",
+          "major": false,
+          "futureId": 3,
+          "step": 3,
+          "actorId": 9,
+          "postIds": [
+            37
+          ],
+          "type": "soft",
+          "binding": false,
+          "severity": "minor"
+        },
+        {
+          "ts": "2028-04-15T00:00:00Z",
+          "kind": "news",
+          "title": "DeepSeek releases V4.3 open weights with CAC filing but no external evaluator access",
+          "detail": "DeepSeek document DS-DOC-2028-003 effective 2028-04-15 releases V4.3 open weights (310B total/26B active) with CAC pre-release records filed but no external pre-release evaluator access granted.",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "DeepSeek",
+          "where": "CHN",
+          "major": false,
+          "futureId": 3,
+          "step": 3,
+          "actorId": 5,
+          "postIds": [
+            39
+          ],
+          "type": "other",
+          "binding": false,
+          "severity": "moderate"
+        },
+        {
+          "ts": "2028-02-20T00:00:00Z",
+          "kind": "government",
+          "title": "China CAC offers to join reciprocal international incident-reporting arrangement",
+          "detail": "China CAC document CAC-DOC-2028-006 effective 2028-02-20 states China will join a reciprocal, non-discriminatory international incident-reporting and emergency-response arrangement including an AI incident hotline, conditional on equal obli",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "China CAC",
+          "where": "CHN",
+          "major": false,
+          "futureId": 3,
+          "step": 3,
+          "actorId": 12,
+          "postIds": [
+            58
+          ],
+          "type": "soft",
+          "binding": false,
+          "severity": "minor"
+        },
+        {
+          "ts": "2028-03-01T00:00:00Z",
+          "kind": "government",
+          "title": "China CAC establishes National Frontier AI Incident Reporting and Emergency Response Desk",
+          "detail": "China CAC document CAC-DOC-2028-008 effective 2028-03-01 establishes a National Frontier AI Incident Reporting and Emergency Response Desk requiring 24-hour notification of severe incidents and verified human-override and emergency-stop cap",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "China CAC",
+          "where": "CHN",
+          "major": false,
+          "futureId": 3,
+          "step": 3,
+          "actorId": 12,
+          "postIds": [
+            81
+          ],
+          "type": "act-restricting",
+          "binding": true,
+          "severity": "moderate",
+          "effect": {
+            "dlogit": {
+              "asi2030": -0.013333333333333332,
+              "asi2040": -0.006666666666666666
+            },
+            "rule": "GAME RULE"
+          }
+        },
+        {
+          "ts": "2028-04-10T00:00:00Z",
+          "kind": "government",
+          "title": "Commerce BIS publishes eligibility table for EO 14512 compute fast lane",
+          "detail": "Commerce BIS notice US-EXP-2028-021 published and effective 2028-04-10 publishes the eligibility table for the EO 14512 fast lane with accelerator SKUs, volume tiers, allocation windows and review timelines, and states open-weight release i",
+          "source": "mirofish",
+          "provenance": "simulated",
+          "who": "US Executive Branch",
+          "where": "USA",
+          "major": false,
+          "futureId": 3,
+          "step": 3,
+          "actorId": 8,
+          "postIds": [
+            109
+          ],
+          "type": "act-accelerating",
+          "binding": true,
+          "severity": "moderate",
+          "effect": {
+            "dlogit": {
+              "asi2030": -0.06,
+              "asi2040": -0.03
+            },
+            "rule": "GAME RULE"
+          }
+        }
+      ],
+      "topPosts": [
+        {
+          "postId": 39,
+          "actorId": 5,
+          "text": "DS-DOC-2028-003, effective 2028-04-15.\n\nV4.3 open weights, HF + ModelScope. 310B total / 26B active.\nMMLU-Pro 84.1 · GPQA-D 74.0 · SWE-bench V 48.7 · LiveBench 70.6 · AIME27 65.3\nLicense: unchanged. No gated tiers, no regional weights.\n\nPre-release safety evaluation records filed"
+        },
+        {
+          "postId": 10,
+          "actorId": 0,
+          "text": "OAI-DOC-2028-004, effective 2028-02-01: OpenAI will grant structured pre-release evaluator access to GPT-6.1 Astra to three independent labs and UK AISI, under a published eval protocol and incident-reporting SLA. We back pacing — and pacing only works if it's verifiable. Hard li"
+        },
+        {
+          "postId": 19,
+          "actorId": 6,
+          "text": "Release note — QWEN-DOC-2028-002, effective 2028-02-01.\n\nDecision: we are keeping the Qwen3.9 family weights open on HF + ModelScope (no gated tiers, no regional variants) and extending standing evaluator access to any accredited safety institute that requests it — including revi"
+        }
+      ],
+      "date10": 2036.47,
+      "rulesOffDate10": 2033.84,
+      "noEventsDate10": 2034.61,
+      "followThrough": 0,
+      "readoutOk": true,
+      "runId": "sim_1c26f2f9adfd@2026-10-25T11:45:05Z",
+      "costUsd": 0.1778,
+      "wallS": 431.6
     }
   ],
-  "unexpected": 8
+  "unexpected": 29
 }

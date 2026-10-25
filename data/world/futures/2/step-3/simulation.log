@@ -1,0 +1,53 @@
+[11:38:12] ============================================================
+[11:38:12] OASIS 双平台并行模拟
+[11:38:12] 配置文件: /Users/archiebrown/dev/MiroFish/backend/app/services/../../uploads/simulations/sim_b85ee185988c/simulation_config.json
+[11:38:12] 模拟ID: sim_b85ee185988c
+[11:38:12] 等待命令模式: 启用
+[11:38:12] ============================================================
+[11:38:12] 模拟参数:
+[11:38:12]   - 总模拟时长: 5小时
+[11:38:12]   - 每轮时间: 60分钟
+[11:38:12]   - 配置总轮数: 5
+[11:38:12]   - 最大轮数限制: 5
+[11:38:12]   - Agent数量: 32
+[11:38:12] 日志结构:
+[11:38:12]   - 主日志: simulation.log
+[11:38:12]   - Twitter动作: twitter/actions.jsonl
+[11:38:12]   - Reddit动作: reddit/actions.jsonl
+[11:38:12] ============================================================
+[11:38:12] [Twitter] 初始化...
+[11:38:14] [Reddit] 初始化...
+[11:38:14] [Reddit] 错误: Profile文件不存在: /Users/archiebrown/dev/MiroFish/backend/app/services/../../uploads/simulations/sim_b85ee185988c/reddit_profiles.json
+[11:38:14] [Twitter] 环境已启动
+[11:38:14] [Twitter] 已发布 4 条初始帖子
+Some weights of BertModel were not initialized from the model checkpoint at Twitter/twhin-bert-base and are newly initialized: ['pooler.dense.bias', 'pooler.dense.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+BertSdpaSelfAttention is used but `torch.nn.functional.scaled_dot_product_attention` does not support non-absolut2026-10-25 11:44:10 - INFO - [Twitter] 模拟循环完成! 耗时: 355.4秒, 总动作: 237
+2026-10-25 11:44:10 - INFO - ============================================================
+2026-10-25 11:44:10 - INFO - 模拟循环完成! 总耗时: 357.8秒
+2026-10-25 11:44:10 - INFO - 
+2026-10-25 11:44:10 - INFO - ============================================================
+2026-10-25 11:44:10 - INFO - 进入等待命令模式 - 环境保持运行
+2026-10-25 11:44:10 - INFO - 支持的命令: interview, batch_interview, close_env
+2026-10-25 11:44:10 - INFO - ============================================================
+2026-10-25 11:44:10 - INFO - 
+关闭环境...
+2026-10-25 11:44:10 - INFO - [Twitter] 环境已关闭
+2026-10-25 11:44:10 - INFO - ============================================================
+2026-10-25 11:44:10 - INFO - 全部完成!
+2026-10-25 11:44:10 - INFO - 日志文件:
+2026-10-25 11:44:10 - INFO -   - /Users/archiebrown/dev/MiroFish/backend/app/services/../../[11:44:10]   - /Users/archiebrown/dev/MiroFish/backe2026-10-25 11:44:10 - INFO -   - /Users/archiebrown/dev/MiroFish/backend/a[11:44:10]   - /Users/archiebrown/dev/MiroFish/backend/app/services/../../upl2026-10-25 11:44:10 - INFO -   - /Users/archiebrown/dev/[11:44:10]   - /Users/archiebrown/dev/MiroFish/backend/app/services/../../uploads/simulations/2026-10-25 11:44:10 - INFO - =========[11:44:10] ============================================================
+已加载环境配置: /Users/archiebrown/dev/MiroFish/.env
+[Twitter] 初始化...
+[通用LLM] model=deepseek/deepseek-v4.1-flash-1017, base_url=https://openrouter.ai/api/v1...
+db_path /Users/archiebrown/dev/MiroFish/backend/app/services/../../uploads/simulations/sim_b85ee185988c/twitter_simulation.db
+[Reddit] 初始化...
+[通用LLM] model=deepseek/deepseek-v4.1-flash-1017, base_url=https://openrouter.ai/api/v1...
+[Reddit] 错误: Profile文件不存在: /Users/archiebrown/dev/MiroFish/backend/app/services/../../uploads/simulations/sim_b85ee185988c/reddit_profiles.json
+[Twitter] 环境已启动
+[Twitter] 已发布 4 条初始帖子
+[Twitter] 模拟循环完成! 耗时: 355.4秒, 总动作: 237
+
+收到IPC命令: close_env, id=4e533784-ebab-487a-9c91-0bdf774704e3
+收到关闭环境命令
+模拟进程已退出
