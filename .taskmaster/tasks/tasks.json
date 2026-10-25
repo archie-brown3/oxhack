@@ -974,6 +974,18 @@
         "priority": "high",
         "subtasks": [],
         "updatedAt": "2026-10-24T21:43:56.332476+00:00"
+      },
+      {
+        "id": 148,
+        "title": "[P1 \u00b7 ui] Red spreads from the datacentres as the clock nears midnight",
+        "description": "Owner idea (25 Oct 02:10 GMT): the globe's red comes from the datacentre locations. As the clock gets closer to midnight the red around each datacentre grows; at midnight the whole map is red.",
+        "details": "Scope: doomclock/web/src/ui/world/Globe.tsx and ui/world/*.css, plus a small additive prop from doomclock/web/src/app/App.tsx (how close the watched clock is to midnight, 0..1). Drive it from the clock the user sees (scale.hand / frame clock), not a separate number, so it follows the coupled-loop spec (docs/superpowers/specs/2026-10-25-doom-clock-coupled-loop-design.md) when per-future clocks land. Colour from the design-system tokens (oxblood / red), reduced motion respected, 30 fps while rotating, works offline. Datacentre dots: 'publicly mapped sites, not compute share' wording stays. The red is a visual metaphor: say so in the Map key / legend in one plain line (it shows closeness to midnight, not where harm happens).",
+        "testStrategy": "Headless screenshots at 1440x900 and 390x844: today, a quarter near midnight, and at/after midnight (whole land red). 0 console errors; npm test and npm run build pass; frame rate measured while rotating.",
+        "status": "in-progress",
+        "dependencies": [],
+        "priority": "medium",
+        "subtasks": [],
+        "updatedAt": "2026-10-25T02:02:15Z"
       }
     ],
     "metadata": {
