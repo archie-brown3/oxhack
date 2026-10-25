@@ -174,3 +174,91 @@ and its scores); the track record.
 Live MiroFish in the demo (task 16); parallel sims; MiroFish's report agent; interviews; mood
 feeding back into institutions; cumulative risk along a path (each step re-reads the clock);
 deleting the game code before the freeze.
+
+## Amendments after review (25 Oct 02:25 GMT) — this section wins on any conflict
+
+From a five-lens review (HRT judge, feasibility, MiroFish realism, demo UX, consistency), each
+serious finding adversarially checked (55 kept, 1 refuted). Decisions taken by the Lead per the
+owner's "decide these".
+
+Decisions:
+- **Gates:** 03:45 seam gate = `step.ts` + tests + knot filter; `buildTimeline(sim)` moving the hand
+  in the browser from `public/cache/futures.fixture.json`; `recorder --dry` renders all 32 personas
+  within 3,000 chars with MARKETS NOW present. 05:00 loop gate = future 1 recorded end to end, at
+  least one read-out event with nonzero effect in "why the hand moved", and date10 ≠ rulesOffDate10
+  on at least one step. Futures 2–5 05:00–05:45; UI wired by 07:00. Recorder LANE_CAP_USD=3.
+- **No "capability claim or release" type.** Releases are `other` (zero effect).
+- **Expectations:** only the shared WHAT PEOPLE EXPECT NEXT line; no targeted line. Call the metric
+  "follow-through", log it, keep it out of the UI.
+- **Event predictions table: cut.** Build only if the UI lane is ahead at 07:00, as counts
+  ("3 of 5"), never odds, with "step-1 inputs are shared, so agreement is not independent".
+
+Changes:
+1. **Before lanes start:** the Lead commits the salvaged recorder (record.ts, data/world/runs/,
+   library.json, the EngineScreen diff) and adds board tasks for engine, recorder and UI with file
+   scopes. The Lead owns contracts.ts and commits `RecordedFuture`, the `WorldEvent` fields and
+   `public/cache/futures.fixture.json` first. Cast changes go in as an in-code override; cast.json
+   and cast.golden.csv stay. Fallback = main + copy fixes + salvaged Engine view with any
+   "modelled on AIID #…" seed hidden or labelled.
+2. **Read-out input:** only posts with round ≥ 1 that are not seeds or carry-overs; drop bare
+   reposts and empty posts; for a quote use only the quoter's own text (keep `original_post_id`);
+   exclude the Markets desk. Strict json_schema call (as in backtest/llm.ts) with one retry; save
+   raw responses to `data/raw/readout/` first; `readoutOk: false` on failure.
+3. **No-copy check by identifiers, not word overlap:** reject any event citing an AIID number, any
+   real document or EO number from events.json or the cast facts, or a date outside the step
+   window. Log every rejection.
+4. **Closed event vocabulary:** the read-out returns `actorId`, `type` (one enum: the nudge rows
+   plus `soft` and `other`, both zero effect), `binding`, `severity` (minor / moderate / major by
+   fixed tests: harm to a government or critical system, or an AI acting outside its operator's
+   control, is major), and `where` (ISO3 of the actor or named lab; add iso3 to the cast override).
+   Code, not the model, sets `major` and the nudge. Dedupe decisions on (actorId, type, object) and
+   incidents on (lab, type, date), keeping all reporter post ids.
+5. **Incident source:** tracker (#25) and the 13 institutions at activity 1.0. The tracker's
+   persona: post the 1–3 most serious new incidents as `Incident SIM-<yyyy>-<n>: lab · what ·
+   severity · date`, never an AIID number; its real AIID dated record is removed. Incidents are
+   exempt from the first-person rule; standing for incidents is #25, plus #21 in SIM- format, plus
+   any lab disclosing its own. Remove OpenAI's 2026-10-21 paused-training fact with its goal.
+   Optional A/B on step 1 with and without the decision line (~$0.08).
+6. **Centre the "when" nudges:** nudge = β × (min(count, 3) − realRate), with real rates per 6
+   months: lab agentic/cyber major incident 1.7, binding accelerating 3, binding restricting 2, lab
+   pause 1. Log simulated count vs realRate per type. Test: counts at the real rate give zero push.
+7. **Baseline parity:** baseline.json is built through the same formatter as a step (events.json
+   records with asOf − 182 d ≤ ts < asOf, top 3 per type by major then ts, plus one count line
+   "about 216 incidents this period"); every step gets the same count line at the real rate. The
+   rubric reads event objects only (top posts feed the summary only, never the Markets desk post).
+   Written level anchors for 0–3. One sample at temperature 0. Score the baseline 5 times at 0.7
+   and report the spread as rubric noise. Parity test: today's real step through the formatter is
+   within ±0.5 of the baseline. Keep the ±0.75 clip.
+8. **Persona renderer:** MARKETS NOW and WHAT PEOPLE EXPECT NEXT are fixed blocks, never trimmed;
+   WORLD holds 6 events of at most 120 chars; trim the dated record before world lines; headers say
+   "this period"; remove "strategy game". cast.test: at a step-6 memory every lab and government
+   keeps MARKETS NOW and at least 4 events.
+9. **Time points:** step s covers [t_{s−1}, t_s), t_0 = 2027-01-01. Decay from the previous step's
+   value; stop it just before 2030. Store anchors after each step's events. Quarter 1 of a step
+   reads the incoming anchors, quarter 2 the outgoing ones. date10 = reading(anchorsOut, t_s).
+   `RecordedFuture` also gets `startAnchors`, `baselineRef`, `rulesVersion`, `unexpected`.
+10. **Engine:** remove the copied incident templates; future quarters show a count; rewrite
+    timeline.test.ts:155-162 and regenerate the fixture. Keep FRAMES = 45; stop play and the Spine
+    at 2029Q4 in App/Hud. With a recording loaded: `timeline.future` has asiDate = catDate = null,
+    no Monte Carlo flashes, no Spine ASI/catastrophe marks, no `ended` state, and the ensemble is
+    the 5 recorded futures.
+11. **UI on simulated frames:** the clock cap reads "Future N of 5 · simulated · 2028 H1" and the
+    main line reads frame date10; the countdown ticks only on real frames; today's reading is the
+    ghost hand; no Bulletin pin, market links or trader counts on simulated frames. "Why the hand
+    moved" shows four rows in months (events · situation report · luck = rulesOff − noEvents ·
+    time) and auto-opens ~4 s per new step. Playback: one step per ~5 s tick. One simulated
+    newsflash per step (largest effect). Walkthrough step 3 completes when the first step lands.
+    The label is GAME RULE. Cut order from the bottom: 1 loader, switcher, hand and Clock branch;
+    2 copy and walkthrough; 3 the four-row split; 4 the How dangerous tab; 5 the Engine step panel
+    (summary, rubric, top posts only).
+12. **Copy:** "Today's clock reads today's market prices only. The rubric adds zero at today by
+    construction. The backtest checks those prices 30 days out (Brier 0.085 vs coin 0.25); the
+    clock's date is not scored." Pitch: "Today's clock is the market. Inside five MiroFish
+    scenarios, simulated events nudge the when and the situation report sets how dangerous, by
+    labelled game rules, and you can see how much of each move is events, report, time and luck."
+    Replace "about half luck" with the share measured from the recordings. Fix AGENTS.md and
+    App.tsx:93 to "nothing moves the real clock".
+
+Judge path (60 s): today's real clock → Inputs, drag the date back → play Future 1 (six steps at
+~5 s, pings land, hand moves, the callout splits each move) → click a ping (account, post, effect,
+GAME RULE) → Why → Track record.
