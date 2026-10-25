@@ -20,6 +20,12 @@
 .mf-switch-btn { border: none; background: transparent; padding: 6px 16px; font-size: 12px; font-weight: 600; color: #666; border-radius: 4px; cursor: pointer; transition: all .2s; }
 .mf-switch-btn.active { background: #FFF; color: #000; box-shadow: 0 2px 4px rgba(0,0,0,.05); }
 .mf-header-right { display: flex; align-items: center; gap: 16px; }
+/* Phone width: let the header wrap so the SIMULATED · RECORDED · stand-in tag is never clipped. */
+@media (max-width: 720px) {
+  .mf-header { height: auto; flex-wrap: wrap; gap: 8px 12px; padding: 8px 12px; }
+  .mf-header-left { flex-wrap: wrap; row-gap: 4px; }
+  .mf-header-center { position: static; transform: none; }
+}
 .mf-workflow-step { display: flex; align-items: center; gap: 8px; font-size: 14px; }
 .mf-step-num { font-family: 'JetBrains Mono', monospace; font-weight: 700; color: #999; }
 .mf-step-name { font-weight: 700; color: #000; }

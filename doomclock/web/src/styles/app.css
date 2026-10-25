@@ -19,6 +19,9 @@ body.ended #vignette { opacity: 1; }
 /* ---------- clock (top-left, never hides) ---------- */
 #clock { position: fixed; left: var(--space-5); top: var(--space-5); z-index: 60; cursor: pointer; transition: border-color .15s; }
 #clock:hover { border-color: var(--rule-strong); }
+/* Keep long captions (the stand-in label, the ghost-hand line) inside the 260px card. */
+#clock { grid-template-columns: minmax(0, 1fr); }
+#clock .cap .dc-label { white-space: normal; line-height: 16px; }
 .dc-face .ghost-t { font-size: 6px; } /* system draws it at 4.8 (9.6px); the 12px floor wins */
 #clock .reading { margin: var(--space-1) 0 0; }
 #clock .why { margin-top: var(--space-1); }
@@ -302,6 +305,7 @@ body.ov #engine .pane > h3 { display: none; }
   #viewseg { top: auto; bottom: 160px; }
   .dc-timebar > .dc-btn, .dc-timebar > .dc-tabs { display: none; }
   .sheet { left: var(--space-2); right: var(--space-2); }
+  .scrim { z-index: 61; } /* full-width sheet sits above the clock, which would cover its heading */
   .dc-sheet .split, .trackgrid { grid-template-columns: minmax(0, 1fr); }
   #flash { left: var(--space-4); right: var(--space-4); top: auto; bottom: 200px; }
   #flash.dc-flash { width: auto; }
@@ -365,9 +369,12 @@ img.av { object-fit: cover; padding: 0; }
   #clock { top: calc(var(--space-8) * 2); }
   #ticker.event-reader { max-height: 32vh; overflow: auto; }
   .engine #society { display: none; }
-  .engine #clock { transform: none; width: auto; right: var(--space-3); left: var(--space-3); padding: var(--space-2); grid-template-columns: auto 1fr; align-items: center; }
+  .engine #clock { transform: none; width: auto; right: var(--space-3); left: var(--space-3); padding: var(--space-2); grid-template-columns: minmax(0, 1fr) auto; align-items: center; }
   .engine #clock .face, .engine #clock .cd, .engine #clock .movedline, .engine #clock .why { display: none; }
-  .engine #clock .reading { font: var(--type-body); text-align: right; }
+  .engine #clock .reading { font: var(--type-body); text-align: right; white-space: nowrap; }
+  /* The MiroFish replica sits at left: 300px for the desktop clock card; on a phone that left a sliver. */
+  .engine #engine-replica { top: calc(var(--space-8) * 4 + var(--space-3)); left: var(--space-3); right: var(--space-3); bottom: calc(var(--space-12) * 4); }
+  .engine #futseg { top: auto; bottom: calc(var(--space-8) * 4 + var(--space-2)); }
   .engine #clock .cap .dc-faint { display: none; }
   .engine #engine { top: calc(var(--space-8) * 4); left: var(--space-3); right: var(--space-3); bottom: 140px; overflow: auto; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; }
   .engine #engine .pane { min-height: 280px; }
