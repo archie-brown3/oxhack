@@ -19,19 +19,16 @@ local task list. Specs still define correctness, and the rules below still apply
 board determines what to code next. `CLAUDE.md` links to this file, so these instructions
 apply to both entry points.
 
-We are building the **Doom Clock**: a Plague Inc for AI, run on real data. The Guardian (the
-player) plays against an AI agent playing the Rogue AI. The world starts from today's real
-prediction-market odds and AI news. A model turns them into a countdown that every move shifts:
-the clock reads the model's catastrophe curve exactly, and a Monte Carlo of 10,000 futures drawn
+We are building the **Doom Clock**: AI risk made visible, run on real data. The world starts
+from today's real prediction-market odds and AI news. A model turns them into a countdown: the
+clock reads the model's catastrophe curve exactly, and a Monte Carlo of 10,000 futures drawn
 from the same model gives the futures the globe replays (they agree with the clock within 1 pt).
+MiroFish plays out 5 representative futures as a simulated society on X, recorded ahead of the
+demo. It shows what living through a future looks like and never moves the clock.
 
-- **Engine A**: the forecast. It combines market odds, a three-persona LLM panel reading
-  Hacker News and the Monte Carlo, and a backtest sets the panel weight `w`.
-- **Game B**: the game, played in cycles on top of engine A.
-
-The chart has two lines. The **real forecast** comes from engine A alone, and no move ever
-touches it. **Your timeline** starts on the real forecast and bends as both sides play. Keep
-the two separate, because the HRT pitch rests on the backtest scoring the real forecast.
+- **The forecast**: market odds and the Monte Carlo. The backtest scores the market inputs out
+  of sample and sets the weight `w` for a blind LLM baseline (it chose `w = 0`).
+- **The game layer is dropped** (owner, 25 Oct). Don't build cards, the Rogue or "your timeline".
 
 ## Where things live
 
