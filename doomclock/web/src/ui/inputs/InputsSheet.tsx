@@ -71,7 +71,7 @@ export function InputsSheet({ world, dcs, worldSource, onClose }: Props) {
             </>}
           </article>
         </div>
-        <div className="infoot"><p>Slide the date back to see what the clock would have read then. Nothing published later can leak in.</p></div>
+        <div className="infoot"><p>Slide the date back: anything published after that day disappears, and the chart shows the date the markets gave then.</p></div>
       </div>
     </div>
   )

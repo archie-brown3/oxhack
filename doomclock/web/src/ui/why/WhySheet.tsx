@@ -120,7 +120,7 @@ function ReportProse({ futureId, step }: { futureId: number; step: number }) {
 
 /** The 1-in-10 date at each step: with events and report (solid), rules off (dashed), today's odds with no events (dotted). */
 function ThreeLines({ future, step }: { future: RecordedFuture; step: number }) {
-  const W = 420, H = 150, L = 40, B = 22, T = 10, R = 10
+  const W = 420, H = 150, L = 52, B = 22, T = 10, R = 10 // 52: room for 6-character year labels (40 clipped them)
   const n = future.steps.length
   const series: [string, string, string | undefined, (s: RecordedStep) => number][] = [
     ['With events and report', 'var(--ink)', undefined, (s) => s.date10], ['Rules off', 'var(--ink-2)', '5 3', (s) => s.rulesOffDate10], ['Today\'s odds, no events', 'var(--ink-3)', '1 3', (s) => s.noEventsDate10]]
