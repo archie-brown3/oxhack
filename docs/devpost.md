@@ -6,13 +6,13 @@ Owner task 142 submits this. Workshop 09:00 GMT, submit by 11:45 GMT, hacking en
 
 Minutes to Midnight
 
-## Tagline (elevator pitch, 156 chars)
+## Tagline (elevator pitch, 199 chars)
 
-A countdown to the date prediction markets put AI catastrophe at 1 in 10. The hand reads real odds, a Monte Carlo replays 10,000 futures, and a backtest shows the track record.
+A countdown to the date prediction markets put AI catastrophe at 1 in 10. Agents built from real labs, regulators and news desks, with their own memories, play out three futures from today's real data.
 
 ## What it is
 
-The clock is a countdown to the date when prediction markets put the chance of an AI catastrophe at 1 in 10. The hand reads those prices. A Monte Carlo uses the same model. Drag Inputs back in time and the globe, the news and the hand use only what was public by that date.
+The clock is a countdown to the date when prediction markets put the chance of an AI catastrophe at 1 in 10. The hand reads those prices. Drag Inputs back in time and the globe, the news and the hand use only what was public by that date.
 
 Beside that, two illustrative futures show the shape of a coupled loop: a simulated society (MiroFish) plays six months, a report says how dangerous that period was, and labelled game rules nudge that future's clock. Those futures are a stand-in. They are not a forecast, and they do not move the real clock.
 
@@ -54,7 +54,7 @@ The theme was TIME. A clock that counts down to a date, with a slider that hides
 
 ### What it does
 
-The clock counts down to the first date on which prediction markets put the chance of an AI catastrophe at 1 in 10. Today that is around May 2032, which the face shows as 5.6 minutes to midnight; one minute on the face is one year. The hand reads the market curve exactly, and a Monte Carlo of 10,000 futures drawn from the same model lights up the globe, so the two agree within a point.
+The clock counts down to the first date on which prediction markets put the chance of an AI catastrophe at 1 in 10. Today that is around May 2032, which the face shows as 5.6 minutes to midnight; one minute on the face is one year. The hand reads the market curve exactly.
 
 Drag the date back and everything on screen, the globe, the news feed and the hand, uses only what was public by then. The Track record tab shows how good the inputs are: thirty days before 1,186 recent AI questions resolved, the markets scored a Brier of 0.085, against 0.25 for a coin flip.
 
@@ -64,7 +64,7 @@ Beside today's clock, three futures play forward from 2027 to 2029. Each is a si
 
 Data first. We call APIs only, never scrape, and save every raw response before parsing it. Prices come from Manifold, Polymarket and Kalshi, pinned by market ID; incidents from the AI Incident Database; government actions and datacentre records alongside. Every record carries the time it became public and the files are sorted by it, so point-in-time code filters on that timestamp and nothing from the future leaks in.
 
-The engine is TypeScript in the browser: Vite and React, the clock and the Monte Carlo as pure functions with a seeded random number generator, and a globe.gl sphere on Natural Earth GeoJSON that works offline. A small Node pipeline fetches, cleans, runs the backtest and writes the JSON the app reads.
+The engine is TypeScript in the browser: Vite and React, the clock and the timeline as pure functions, and a globe.gl sphere on Natural Earth GeoJSON that works offline. A small Node pipeline fetches, cleans, runs the backtest and writes the JSON the app reads.
 
 The backtest is out of sample. We take the market price 30 days before each question resolved, on questions dated after the blind model's training cutoff. The earlier half of the questions picks the blend weight between the markets and a blind LLM; the later half reports the score. The markets won on their own, so the weight is zero and today's clock is the markets alone.
 
