@@ -262,3 +262,47 @@ Changes:
 Judge path (60 s): today's real clock → Inputs, drag the date back → play Future 1 (six steps at
 ~5 s, pings land, hand moves, the callout splits each move) → click a ping (account, post, effect,
 GAME RULE) → Why → Track record.
+
+## Amendments 2: real MiroFish and a 1:1 replica (25 Oct 02:40 GMT, owner) — wins over everything above
+
+Settled with Archie in a grilling session, after a map of MiroFish's GUI and API
+(GraphPanel.vue, Step1-5 components, /api/graph, /api/simulation, /api/report).
+
+1. **Futures:** 3, not 5 (seeds 1-3); 6 steps of 6 months; **5 rounds per run**; a 10-minute hand
+   check of each future's events after recording. Recording starts once the pipeline has landed.
+   The 3 futures run **in parallel**, one MiroFish simulation each, after a 2-sim smoke test;
+   fallback: serial with 4 steps per future.
+2. **Real MiroFish end to end:**
+   - one project and one Zep graph per future, so futures never mix;
+   - MiroFish's real Step 1 per future: ontology generation and graph build from the same
+     "world today" seed pack (today's odds, the last 6 months of real incidents and government
+     acts, the 32-account cast). Project question: "Over the next six months, which AI incidents,
+     government decisions and lab actions happen, and how dangerous does the world become?";
+   - `enable_graph_memory_update: true` on every run, with MiroFish's Zep episode templates
+     patched to **English** (`patches/`);
+   - MiroFish's own **report agent** after every step (replaces our own summary call);
+   - saved per step: `GET /api/graph/data/:graph_id` after the drain, the actions, posts, config,
+     profiles, run-status, and the report with its agent log and console log.
+3. **Clock:** one cheap call scores the fixed rubric from MiroFish's report plus the saved event
+   objects, citing event ids; events and rubric move the odds by the labelled game rules above.
+   The report's prose is shown as written, labelled SIMULATED; numbers in it that are not in our
+   data are never shown as figures in our UI.
+4. **Engine tab = a 1:1 replica of MiroFish's UI**, from the recordings: header (Graph / Split /
+   Workbench, "Step N/5", status dot); Step 1 (ontology, build stats), Step 2 (profiles, config,
+   initial posts), Step 3 (platform card, the full action timeline, monitor log), Step 4 (report,
+   step list, Sections / Elapsed / Tools, agent-log timeline, console output). Step 5 (chat,
+   surveys) only in live mode. The knowledge graph is a d3 clone of GraphPanel with MiroFish's node
+   and edge panels plus **Show connections** (expand a node's neighbours and edges, dim the rest).
+   The main time bar stays on this page and selects the step; each step's rounds replay inside it,
+   so the graph grows as you watch. Never call `/simulation/:id/start` from the replica.
+5. **World view:** a live news feed on the right (real before today, simulated after, labelled),
+   expanding into today's full feed page. Severity drives legibility: major = title on the globe,
+   larger red ping, newsflash (at most 3 at once); moderate = a short label; minor = dot only,
+   collapsed in the feed.
+6. **Demo:** a showcase recording replayed at real speed on the deployed site, plus a "Run live"
+   button on the laptop that runs one real step with live polling and Step 5.
+7. **Playback:** futures compressed (~8 s per step); the showcase at real speed.
+8. **Budget and time:** recorder lane cap **$7**; check Zep's limits before starting and stop
+   cleanly before them. **Loop gate 05:30 GMT:** smoke + the 3 Step 1 builds + step 1 of each
+   future with its graph and report. All futures done ~06:00 (parallel) or ~07:00 (fallback). The
+   replica UI builds against the smoke run's real data from ~04:30.

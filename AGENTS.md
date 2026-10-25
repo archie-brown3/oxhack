@@ -23,8 +23,10 @@ We are building the **Doom Clock**: AI risk made visible, run on real data. The 
 from today's real prediction-market odds and AI news. A model turns them into a countdown: the
 clock reads the model's catastrophe curve exactly, and a Monte Carlo of 10,000 futures drawn
 from the same model gives the futures the globe replays (they agree with the clock within 1 pt).
-MiroFish plays out 5 representative futures as a simulated society on X, recorded ahead of the
-demo. It shows what living through a future looks like and never moves the clock.
+MiroFish plays out 3 futures as a simulated society on X, recorded ahead of the demo on real
+MiroFish (own Zep graph per future, its report agent per 6-month step). Its events and reports move
+that future's clock by labelled game rules; nothing moves the real clock. Spec:
+`docs/superpowers/specs/2026-10-25-doom-clock-coupled-loop-design.md`.
 
 - **The forecast**: market odds and the Monte Carlo. The backtest scores the market inputs out
   of sample and sets the weight `w` for a blind LLM baseline (it chose `w = 0`).
