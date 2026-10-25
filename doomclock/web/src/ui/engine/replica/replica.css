@@ -57,3 +57,8 @@
 
 /* Doom Clock: the console / log panels at the foot of each MiroFish step are hidden (owner, 25 Oct). */
 .mf .mf-s1-system-logs, .mf .mf-s2-system-logs, .mf-s3-system-logs, .mf-s4-console-logs { display: none !important; }
+/* Doom Clock: fewer eyebrows (owner, 25 Oct). The header's SIMULATED · RECORDED tag labels everything below it. */
+.mf .mf-g-title,
+.mf-s3-platform-status.mf-s3-reddit,
+.mf-s4-report-meta,
+.mf-s4-metric:not(.mf-s4-metric-right) { display: none !important; }
