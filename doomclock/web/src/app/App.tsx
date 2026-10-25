@@ -3,7 +3,6 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { WorldEvent, WorldFrame } from '../contracts.ts'
 import { buildTimeline, PICKS, type Pick } from '../engine/timeline.ts'
-import { backtest } from '../fixtures/backtest.ts'
 import { Clock } from '../ui/clock/Clock.tsx'
 import { bulletinAt, scaleOf } from '../ui/clock/scale.ts'
 import { dmy, monthYear, qName, sourceName } from '../ui/format.ts'
@@ -12,7 +11,8 @@ import { WhySheet, type WhyTab } from '../ui/why/WhySheet.tsx'
 import type { Member } from '../ui/engine/EngineScreen.tsx'
 import { locate, type Flare, type Located } from '../ui/world/locate.ts'
 import { EventPop, FutureChip, MapKey, Newsflash, Spine, Ticker, type Flash } from '../ui/world/Hud.tsx'
-import { countryAt, countryName, load, type Data } from './data.ts'
+import { backtest } from '../fixtures/backtest.ts'
+import { countryAt, countryName, load, loadTrack, type Data } from './data.ts'
 import { Tour, tourDone } from './Tour.tsx'
 import { tourSteps } from './tourSteps.tsx'
 import { forecastLine } from '../ui/chart/TwoLine.tsx'
@@ -51,6 +51,9 @@ function World({ data }: { data: Data }) {
   const [sheet, setSheet] = useState<null | 'inputs' | 'why'>(() => (['inputs', 'why'] as const).find((s) => s === params.get('sheet')) ?? null)
   // First launch (no deep link) or ?tour: the walkthrough. "Show me around" replays it.
   const [touring, setTouring] = useState(() => params.has('tour') || (!params.size && !tourDone()))
+  // The walkthrough's last step quotes the backtest's headline once it has loaded.
+  const [trackHeadline, setTrackHeadline] = useState<string | null>(null)
+  useEffect(() => { if (touring) loadTrack().then((t) => setTrackHeadline(t.bt?.headline.text ?? null)) }, [touring])
   const [whyTab, setWhyTab] = useState<WhyTab>((params.get('tab') as WhyTab) ?? 'anchors')
   const [flashes, setFlashes] = useState<Flash[]>([])
   const [flare, setFlare] = useState<Flare | null>(null)
@@ -197,6 +200,7 @@ function World({ data }: { data: Data }) {
       {sheet === 'inputs' && <InputsSheet world={world} dcs={data.dcs} worldSource={data.worldSource} onRun={runLive} onClose={() => setSheet(null)} />}
       {sheet === 'why' && <WhySheet world={world} timeline={timeline} hand={scale.hand(frames[today], true)} pin={scale.pin} daysPerSecond={scale.daysPerSecond} backtest={backtest} tab={whyTab} onTab={setWhyTab} onClose={() => setSheet(null)} />}
       {touring && <Tour steps={tourSteps({ date10: timeline.clock.date10, daysPerSecond: scale.daysPerSecond, real: forecastLine(timeline),
+        trackHeadline,
         openInputs: () => { setPlaying(false); setSheet('inputs') }, closeSheets: () => setSheet(null), openTrack: () => { setWhyTab('track'); setSheet('why') } })}
         onEnd={() => setTouring(false)} />}
       <span className="sr-only" aria-live="polite">{setting ? `The Bulletin stands at ${setting.seconds_to_midnight} seconds.` : ''}</span>

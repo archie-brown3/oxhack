@@ -4,6 +4,7 @@ import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import type { World } from '../../contracts.ts'
 import { knownAt, NODES } from './known.ts'
+import { asOf } from '../../../../pipeline/asof/asof.ts'
 
 const read = (p: string) => readFileSync(new URL(p, import.meta.url), 'utf8')
 const world: World = JSON.parse(read('../../../public/cache/world.json'))
@@ -24,6 +25,10 @@ for (const iso of ['2025-06-01T00:00:00Z', '2026-03-01T00:00:00Z']) {
     const before = (rows: { ts: string }[]) => rows.filter((r) => Date.parse(r.ts) < T).length
     assert.equal(k.incident.length, before(clean('aiid')))
     assert.equal(k.datacentres.length, before(clean('datacentres')))
+  })
+  test(`as of ${iso.slice(0, 10)}: each source's count matches asOf(T)`, () => {
+    const k = knownAt(world, dcs, T), a = asOf(T).events()
+    for (const kind of ['incident', 'government', 'news'] as const) assert.equal(k[kind].length, a.filter((e) => e.kind === kind).length, kind)
   })
 }
 

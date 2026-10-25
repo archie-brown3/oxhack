@@ -8,6 +8,8 @@ export interface TourContext {
   /** The day the real forecast passes 1 in 10, or null if after 2100. */
   date10: string | null
   daysPerSecond: number | null
+  /** The backtest's headline, when a real one is loaded (not the fixture). */
+  trackHeadline: string | null
   real: LinePoint[]
   openInputs: () => void
   closeSheets: () => void
@@ -49,8 +51,8 @@ export function tourSteps(c: TourContext): TourStep[] {
     {
       id: 'track', target: '#clock',
       title: 'Can you trust the markets?',
-      body: <p>We test these markets on AI questions that have already resolved, against a coin flip, using only prices from before each date.</p>,
-      ask: 'Open the track record to see how they did.',
+      body: <p>{c.trackHeadline ?? 'We test these markets on AI questions that have already resolved, against a coin flip, using only prices from before each date.'}</p>,
+      ask: 'Open the track record to see the scores and how well the prices were calibrated.',
       next: { label: 'Show the track record', run: c.openTrack },
     },
   ]
