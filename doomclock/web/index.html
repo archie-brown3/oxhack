@@ -8,7 +8,8 @@
     <title>Doom Clock</title>
   </head>
   <body>
-    <div id="root"></div>
+    <!-- Painted before any script runs; React replaces it. -->
+    <div id="root"><main style="position:fixed;inset:0;display:grid;place-items:center;background:#0b0b0b;color:#9a9a9a;font:400 13px/19px -apple-system,BlinkMacSystemFont,Roboto,Arial,sans-serif" aria-busy="true">Loading the world…</main></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

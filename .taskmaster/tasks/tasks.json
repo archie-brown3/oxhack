@@ -80,7 +80,7 @@
         ],
         "priority": "high",
         "subtasks": [],
-        "updatedAt": "2026-10-24T21:47:44.278807+00:00"
+        "updatedAt": "2026-10-25T00:14:08Z"
       },
       {
         "id": 11,
@@ -124,7 +124,7 @@
         ],
         "priority": "high",
         "subtasks": [],
-        "updatedAt": "2026-10-24T21:27:19Z"
+        "updatedAt": "2026-10-25T00:14:08Z"
       },
       {
         "id": 15,
@@ -139,7 +139,7 @@
         "priority": "high",
         "status": "in-progress",
         "subtasks": [],
-        "updatedAt": "2026-10-24T21:27:19Z"
+        "updatedAt": "2026-10-25T00:14:08Z"
       },
       {
         "id": 16,
@@ -189,9 +189,9 @@
         "id": 8,
         "title": "[P1 \u00b7 web] Wire the app + offline build",
         "description": "App = world view full-bleed + clock HUD + Why + Track record. Loads state/events/backtest from public/cache, builds the Timeline in the browser. npm run publish:cache. Works offline.",
-        "details": "Scope: doomclock/web/src/{main.tsx,app/**,api.ts}, scripts.",
+        "details": "Scope: doomclock/web/src/{main.tsx,app/**,api.ts}, scripts.\n2026-10-25T00:16:20Z: Offline build (ui lane): PT Serif self-hosted in public/fonts (OFL, Latin subset), Google Fonts import removed from ds.css and from the tokens script. Globe (globe.gl + three, 1.9 MB) and the Engine screen are lazy chunks; the globe chunk starts downloading at module load beside the data; the world fixture is fetched only if cache/world.json is missing. App chunk 277 kB (87 kB gzip), down from 2.7 MB; chunkSizeWarningLimit set to 2000 kB to cover the one lazy globe chunk. index.html paints a static 'Loading the world' before any script. Checked headless on vite preview with every non-localhost request aborted: first render 145 ms, 0 console errors, 0 external requests, 60 fps while the globe auto-rotates (swiftshader). Backtest still comes from fixtures/backtest.ts until the backtest lane ships backtest.json.",
         "testStrategy": "npm run build. Offline headless screenshot. First render under 2 s.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           4,
           5,
@@ -199,7 +199,7 @@
         ],
         "priority": "high",
         "subtasks": [],
-        "updatedAt": "2026-10-24T20:05:00Z"
+        "updatedAt": "2026-10-25T00:16:20Z"
       },
       {
         "id": 9,
@@ -363,13 +363,13 @@
         "description": "The frame of the judge path. It must work offline with no new dependencies.",
         "details": "Use React 19 with inline SVG in doomclock/web/src/app/. Add no dependencies.\n- Hero: the headline '1-in-10 chance of AI catastrophe by Dec 2032' (REAL) with 'your timeline' drawn on top (GAME RULE), in a two-line chart.\n- Prologue ticker (REAL, about 30 s, no interaction): AIID agentic incidents Apr\u2013Oct 2026 with ids and dates, the world-facts and the KXAGICO history.\n- Clock bar: 'Kalshi: 39% that a company announces AGI before 2028, used as the clock's pace' (GAME RULE).\n- Lab panel for the 8 labs. Build the 77-datacentre globe only if there is time; it is cut at 07:30.\n- A single Label component that renders exactly one of the 7 labels. Every visible item goes through it.\n\nThe static build makes no runtime network calls. Use the existing src/fixtures.\nDeadline (from plan): Sat 24 Oct 22:30 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
         "testStrategy": "- `npm run build` passes.\n- The shell renders from fixtures with 0 console errors.\n- A quick DOM script finds every leaf text block inside exactly one Label.\n- With the network blocked in devtools, the page still renders.",
-        "status": "pending",
+        "status": "in-progress",
         "dependencies": [
           101
         ],
         "priority": "high",
         "subtasks": [],
-        "updatedAt": "2026-10-24T19:50:00Z"
+        "updatedAt": "2026-10-25T00:14:08Z"
       },
       {
         "id": 112,
@@ -916,7 +916,7 @@
         "dependencies": [],
         "priority": "medium",
         "subtasks": [],
-        "updatedAt": "2026-10-24T21:35:00Z"
+        "updatedAt": "2026-10-25T00:14:08Z"
       },
       {
         "id": 19,
@@ -980,9 +980,9 @@
       "created": "2026-10-24T19:50:00Z",
       "description": "Doom Clock. P1 = the Monte Carlo simulation (10,000 futures; the globe plays one sampled future; a MiroFish society ensemble for ~5 representative futures): a Plague Inc-style world view of a quarterly Timeline (real -> projected), with the analog clock in the corner (build now). P2 = the game on the same screen (deferred, gated by task 9). Game plan: docs/superpowers/plans/2026-10-24-doom-clock-game-plan-full.md Demo path: Inputs (seed data, as-of slider) -> live run (Monte Carlo in the browser + one live MiroFish quarter) -> replay recorded futures -> Why this time? + Track record. SCOPE CUT 22:20 BST: checkpoints 00:00 engine+asOf+mockup OK, 03:00 World+clock+Why on real data, 06:00 Inputs+track record+recorded runs, 09:00 polish+Devpost (live run if ahead), freeze 11:30 GMT, submit 11:45 GMT. OVERNIGHT RUN (25 Oct 00:15 GMT, owner instruction): build the whole product as one demo; every task including the former deferred P2 game tasks is now active. Lanes (one workflow, git worktrees, each lane lands on main): core-data (14,3,103,110), backtest (6,106,118), game-core (101,107,108,115,116,117,119,124,125,129), society (102,105,11,112,109 then 113,114,120-123,128,131,132,134), ui (8,15,4,5,18,111 + first-launch walkthrough, then 126,127,133,135,7,136), ship (17,137,138,139). Owner-only tasks (130,140,142,143,144) are prepared but need Archie.",
       "version": "1.0.0",
-      "lastModified": "2026-10-25T00:09:25Z",
+      "lastModified": "2026-10-25T00:16:20Z",
       "taskCount": 66,
-      "completedCount": 9,
+      "completedCount": 10,
       "tags": [
         "master"
       ]

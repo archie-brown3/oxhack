@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react'
 import type { SampledFuture, WorldEvent, WorldFrame } from '../../contracts.ts'
 import { dmy, fmt, monthYear, qName, sourceName } from '../format.ts'
-import type { Located } from './Globe.tsx'
+import type { Located } from './locate.ts'
 
 const Real = () => <span className="dc-label dc-label--real">Real</span>
 const Sim = () => <span className="dc-label dc-label--sim">Simulated</span>

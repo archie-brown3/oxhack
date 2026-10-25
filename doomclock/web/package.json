@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "publish:cache": "node scripts/publish-cache.ts",
     "test": "tsc --noEmit -p tsconfig.app.json && node --test src/engine/ src/fixtures/contract.test.ts",
-    "tokens": "node ../../.lavish/prototype/gen-tokens.mjs src/styles/tokens.css && cp ../../context/design-system/components/bundle.css src/styles/ds.css"
+    "tokens": "node ../../.lavish/prototype/gen-tokens.mjs src/styles/tokens.css && grep -v fonts.googleapis ../../context/design-system/components/bundle.css > src/styles/ds.css"
   },
   "dependencies": {
     "globe.gl": "^2.46.2",

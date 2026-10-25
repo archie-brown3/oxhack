@@ -1,6 +1,6 @@
 // Phase 1: the World screen with the clock, Inputs and Why this time? (with Track record).
 // Renders the engine's Timeline and ClockReading (contracts.ts); never game state.
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { WorldEvent, WorldFrame } from '../contracts.ts'
 import { buildTimeline, PICKS, type Pick } from '../engine/timeline.ts'
 import { backtest } from '../fixtures/backtest.ts'
@@ -9,10 +9,16 @@ import { bulletinAt, scaleOf } from '../ui/clock/scale.ts'
 import { dmy, monthYear, qName, sourceName } from '../ui/format.ts'
 import { InputsSheet } from '../ui/inputs/InputsSheet.tsx'
 import { WhySheet, type WhyTab } from '../ui/why/WhySheet.tsx'
-import { EngineScreen, type Member } from '../ui/engine/EngineScreen.tsx'
-import { GlobeView, locate, type Flare, type Located } from '../ui/world/Globe.tsx'
+import type { Member } from '../ui/engine/EngineScreen.tsx'
+import { locate, type Flare, type Located } from '../ui/world/locate.ts'
 import { EventPop, FutureChip, MapKey, Newsflash, Spine, Ticker, type Flash } from '../ui/world/Hud.tsx'
 import { countryAt, countryName, load, type Data } from './data.ts'
+
+// The globe (three.js) and the Engine screen load in their own chunks, so the clock paints first.
+// The globe chunk starts downloading at once, alongside the data.
+const globeChunk = import('../ui/world/Globe.tsx')
+const GlobeView = lazy(() => globeChunk.then((m) => ({ default: m.GlobeView })))
+const EngineScreen = lazy(() => import('../ui/engine/EngineScreen.tsx').then((m) => ({ default: m.EngineScreen })))
 
 const params = new URLSearchParams(location.search)
 const QMS = 8000 // one quarter at 1x: time to read the event before the next quarter
@@ -150,7 +156,9 @@ function World({ data }: { data: Data }) {
 
   return (
     <div className={`${ended ? 'ended' : ''} ${view}`} onClick={() => { setPop(null); setKeyOpen(false) }}>
-      <GlobeView hidden={view === 'engine'} countries={countries} dcs={data.dcs} frame={frame} ended={ended} events={located} spanMs={live && playing ? QMS / speed : null} flare={flare} focus={focus} rotate={!sheet && view === 'world'} onPick={(e, anchor) => setPop({ e, anchor })} />
+      <Suspense fallback={<div id="globe" />}>
+        <GlobeView hidden={view === 'engine'} countries={countries} dcs={data.dcs} frame={frame} ended={ended} events={located} spanMs={live && playing ? QMS / speed : null} flare={flare} focus={focus} rotate={!sheet && view === 'world'} onPick={(e, anchor) => setPop({ e, anchor })} />
+      </Suspense>
       <div id="vignette" />
       <Clock hand={hand} pin={scale.pin} daysPerSecond={scale.daysPerSecond} today={timeline.clock} isToday={isToday} frame={frame} prev={frames[cur - 1] ?? null} onWhy={() => setSheet('why')} />
       <nav id="viewseg" className="dc-panel" aria-label="View">
@@ -160,8 +168,8 @@ function World({ data }: { data: Data }) {
           <button aria-pressed={sheet !== 'inputs' && view === 'engine'} onClick={() => { setSheet(null); setView('engine') }}>Engine<kbd>E</kbd></button>
         </div>
       </nav>
-      {view === 'engine' && <EngineScreen future={timeline.future} ensemble={ensemble} quarter={frame.quarter} firstSim={frames[today + 1].quarter} live={liveRun} avatars={data.avatars} maxed={maxed} onMax={setMaxed}
-        onWatch={(m) => choose({ percentile: m.q })} />}
+      {view === 'engine' && <Suspense fallback={null}><EngineScreen future={timeline.future} ensemble={ensemble} quarter={frame.quarter} firstSim={frames[today + 1].quarter} live={liveRun} avatars={data.avatars} maxed={maxed} onMax={setMaxed}
+        onWatch={(m) => choose({ percentile: m.q })} /></Suspense>}
       <FutureChip future={timeline.future} onPick={(q) => choose({ percentile: q })} onRoll={roll} />
       <footer id="dock" className="dc-panel">
         <Ticker key={frame.quarter} events={afterEnd ? [] : frame.events} real={frame.provenance === 'real'} note={tickerNote} onRead={() => setPlaying(false)} />

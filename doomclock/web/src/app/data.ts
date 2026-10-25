@@ -1,7 +1,6 @@
 // Runtime data. The World input comes from public/cache/world.json once the asOf(T) module writes
 // it; until then, the engine's frozen fixture (real data, frozen 24 Oct). Everything else is
 // public/cache (npm run publish:cache) plus the Natural Earth countries. Works offline.
-import worldFixture from '../engine/fixtures/world.fixture.json?raw'
 import type { World } from '../contracts.ts'
 import type { BulletinSetting } from '../ui/clock/scale.ts'
 import type { Avatar } from '../ui/engine/EngineScreen.tsx'
@@ -20,7 +19,8 @@ export async function load(): Promise<Data> {
     get<World>('cache/world.json'), get<Datacentre[]>('cache/datacentres.json'), get<BulletinSetting[]>('cache/bulletin.json'), get<Countries>('ne_110m_countries.geojson'), get<Avatar[]>('avatars/manifest.json'),
   ])
   if (!countries) throw new Error('ne_110m_countries.geojson missing from public/')
-  const world = cached ?? (JSON.parse(worldFixture) as World)
+  // The fixture is its own chunk, fetched only when the cache is missing.
+  const world = cached ?? (JSON.parse((await import('../engine/fixtures/world.fixture.json?raw')).default) as World)
   return { avatars: avatars ?? [], world, worldSource: cached ? 'cache' : 'fixture', dcs: dcs ?? [], bulletin: bulletin ?? [], countries, centroids: centroids(countries) }
 }
 
