@@ -60,7 +60,8 @@ export function EngineScreen({ futureId, step }: Props) {
     return graphAt(data.step.graph, cutoffAt(data.step, r))
   }, [data, mf, round, rounds])
 
-  const go = (n: number) => { setMf(Math.max(1, Math.min(5, n))); log(t('log.enterStep', { step: n, name: tm('main.stepNames')[n - 1] })) }
+  // The report's three columns need the width: Step 4 opens in Workbench (the panel is narrower than MiroFish's window).
+  const go = (n: number) => { if (n === 4) setMode('workbench'); else if (mf === 4) setMode('split'); setMf(Math.max(1, Math.min(5, n))); log(t('log.enterStep', { step: n, name: tm('main.stepNames')[n - 1] })) }
   const toggleMax = () => setMode((m) => (m === 'graph' ? 'split' : 'graph'))
 
   const phase = mf === 3 ? 3 : 2
@@ -83,8 +84,10 @@ export function EngineScreen({ futureId, step }: Props) {
         </div>
         <div className="mf-header-right">
           <div className="mf-workflow-step">
+            <button className="mf-nav" disabled={mf <= 1} onClick={() => go(mf - 1)} aria-label="Previous step">‹</button>
             <span className="mf-step-num">Step {mf}/5</span>
             <span className="mf-step-name">{tm('main.stepNames')[mf - 1]}</span>
+            <button className="mf-nav" disabled={mf >= 5} onClick={() => go(mf + 1)} aria-label="Next step">›</button>
           </div>
           <div className="mf-step-divider" />
           <span className={`mf-status ${status[0]}`}><span className="mf-dot" />{status[1]}</span>
