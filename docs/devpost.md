@@ -4,11 +4,11 @@ Owner task 142 submits this. Workshop 09:00 GMT, submit by 11:45 GMT, hacking en
 
 ## Title
 
-Doom Clock
+Minutes to Midnight
 
-## Tagline
+## Tagline (elevator pitch, 156 chars)
 
-Today's AI-risk odds, read as a clock, with the track record beside them.
+A countdown to the date prediction markets put AI catastrophe at 1 in 10. The hand reads real odds, a Monte Carlo replays 10,000 futures, and a backtest shows the track record.
 
 ## What it is
 
