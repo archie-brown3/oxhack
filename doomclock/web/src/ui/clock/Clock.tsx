@@ -77,7 +77,7 @@ export function Clock({ hand, pin, daysPerSecond, today, isToday, frame, prev, c
         <div className="cap">
           {sim ? <Label kind="simulated">Future {sim.n} of {sim.of} · {sim.standIn ? 'illustrative stand-in' : 'simulated'} · {half(frame.start)}</Label>
             : hand.source === 'bulletin' && !isToday ? <Label kind="real">Bulletin, {qName(frame.quarter)}</Label> : <Label kind="real">Real forecast</Label>}
-          <span className="dc-faint">{sim || (hand.source === 'bulletin' && !isToday) ? '' : daysPerSecond ? `1 s ≈ ${Math.round(daysPerSecond)} days` : ''}</span>
+          <span className="dc-faint">{sim || (hand.source === 'bulletin' && !isToday) ? '' : daysPerSecond ? `Face set to the Bulletin's ${pin} s · 1 s ≈ ${Math.round(daysPerSecond)} days` : ''}</span>
         </div>
         <div className="face" ref={faceRef} dangerouslySetInnerHTML={{ __html: clockFace(hand, pin) }} />
         <p className="reading">{readingLine(hand)}</p>
@@ -96,8 +96,8 @@ export function Clock({ hand, pin, daysPerSecond, today, isToday, frame, prev, c
         )}
         {!compact && (sim ? <div className="to">Today: <b>{reading.date10 ? dmy(reading.date10) : 'after 2100'}</b> (ghost hand). A scenario, not a prediction.</div> :
           hand.source === 'bulletin' && !isToday && frame.clock?.date10
-            ? <div className="to">Our forecast then: 1 in 10 by <b>{dmy(frame.clock.date10)}</b>. Today: <b>{reading.date10 ? dmy(reading.date10) : 'after 2100'}</b></div>
-            : <div className="to">until <b>{reading.date10 ? dmy(reading.date10) : 'after 2100'}</b>, when the chance of AI catastrophe passes 1 in 10</div>
+            ? <div className="to">Our forecast then: 1 in 10 by <b>{dmy(frame.clock.date10)}</b>, assuming a 3-year gap <Label kind="game-rule" />. Today: <b>{reading.date10 ? dmy(reading.date10) : 'after 2100'}</b></div>
+            : <div className="to">until <b>{reading.date10 ? dmy(reading.date10) : 'after 2100'}</b>, when the chance of AI catastrophe passes 1 in 10, assuming a 3-year gap <Label kind="game-rule" /></div>
         )}
         <span className="why">Why this time?</span>
       </section>
@@ -173,7 +173,7 @@ function SimMoved({ sim, onClose }: { sim: NonNullable<Props['sim']> & { move: M
       ))}
       {!move.split && <div className="drv"><span className="dc-faint">Events and situation report, together</span><span>{move.rows[0].months < 0 ? '−' : '+'}{mths(move.rows[0].months)}</span></div>}
       <div className="ctx">
-        <span>{step.summary}</span>
+        {step.summary && <span>{step.summary}</span>}
         {top.map((e) => <div key={e.ts + e.title}><span className="dc-data">{dmy(e.ts)}</span> {e.title.length > 90 ? e.title.slice(0, 90) + '…' : e.title}</div>)}
         <span className="dc-faint">How much each event moves the odds is our rule, not data <Label kind="game-rule" />. Simulated by MiroFish <Label kind="simulated" /></span>
       </div>

@@ -17,7 +17,7 @@ const avatarFor = (e: WorldEvent, avatars: AvatarRef[]) =>
 export function FutureSwitcher({ futures, current, endDate, onPick }: { futures: { id: number }[]; current: number; endDate: string | null; onPick: (i: number) => void }) {
   return (
     <nav id="futseg" className="dc-panel" aria-label="Simulated futures" title={endDate ? `Future ${current + 1} of ${futures.length}: 1 in 10 by ${monthYear(endDate)}. A scenario, not a prediction.` : undefined}>
-      <div className="dc-tabs">{futures.map((f, i) => <button key={f.id} aria-pressed={i === current} onClick={() => onPick(i)}>Future {i + 1}</button>)}</div>
+      <div className="dc-tabs"><span className="cap-t dc-faint" style={{ alignSelf: 'center' }}>Future</span>{futures.map((f, i) => <button key={f.id} aria-pressed={i === current} aria-label={`Future ${i + 1}`} onClick={() => onPick(i)}>{i + 1}</button>)}</div>
     </nav>
   )
 }

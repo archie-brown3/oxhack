@@ -15,6 +15,7 @@ import { EventPop, FutureSwitcher, Legend, Newsflash, Spine, Ticker, type Flash 
 import { backtest } from '../fixtures/backtest.ts'
 import { countryAt, countryName, load, loadTrack, type Data } from './data.ts'
 import { Tour, tourDone } from './Tour.tsx'
+import { Boundary } from './Boundary.tsx'
 import { liveMode } from '../ui/engine/live.ts'
 import { tourSteps } from './tourSteps.tsx'
 
@@ -63,7 +64,6 @@ function World({ data }: { data: Data }) {
   const [pop, setPop] = useState<{ e: Located; anchor: HTMLElement } | null>(null)
   const [view, setView] = useState<'world' | 'engine'>(params.get('view') === 'engine' || liveDemo ? 'engine' : 'world')
   const [feedOpen, setFeedOpen] = useState(false)
-  const [maxed, setMaxed] = useState<'graph' | 'cast' | null>(null)
   // The Engine screen (owner redesign in progress) still takes its old props.
 
   const frame = frames[cur]
@@ -130,19 +130,22 @@ function World({ data }: { data: Data }) {
     return () => clearTimeout(t)
   }, [playing, cur, frames, future, today, go])
 
+  // A sheet or the full feed covers the Play button and swallows Space, so the replay holds while one is open.
+  useEffect(() => { if (sheet || feedOpen) setPlaying(false) }, [sheet, feedOpen])
+
   const play = () => { if (cur >= frames.length - 1) go(today, false); setPlaying(true) }
-  const choose = (i: number) => { setFi(i); setPop(null) }
+  // Picking a future at today (or before) plays it, so the pick shows; the Engine keeps its own step.
+  const choose = (i: number) => { setFi(i); setPop(null); if (cur <= today && view === 'world') setPlaying(true) }
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.metaKey || e.ctrlKey || e.altKey || (e.target as HTMLElement).closest('input,textarea')) return
-      if (e.key === 'Escape') { if (feedOpen) return setFeedOpen(false); if (maxed) return setMaxed(null); setSheet(null); setPop(null); return }
+      if (e.key === 'Escape') { if (feedOpen) return setFeedOpen(false); setSheet(null); setPop(null); return }
       if (sheet) return
       const k = e.key.toLowerCase()
       if (k === 'e') setView(view === 'engine' ? 'world' : 'engine')
-      else if (k === 'f' && view === 'engine') setMaxed(maxed ? null : 'graph')
       else if (e.key === '?') setTouring(true)
-      else if (e.key === ' ' && !(e.target as HTMLElement).closest('button,[role=button],[role=slider]')) { e.preventDefault(); if (playing) setPlaying(false); else play() }
+      else if (e.key === ' ' && !(e.target as HTMLElement).closest('[role=slider],.mf')) { e.preventDefault(); if (playing) setPlaying(false); else play() } // also after a click left focus on a tab button
       else if (e.key === 'ArrowRight' && !(e.target as HTMLElement).closest('[role=slider]')) { setPlaying(false); go(cur + 1, true) }
       else if (e.key === 'ArrowLeft' && !(e.target as HTMLElement).closest('[role=slider]')) { setPlaying(false); go(cur - 1, false) }
     }
@@ -158,9 +161,11 @@ function World({ data }: { data: Data }) {
 
   return (
     <div className={view} onClick={() => setPop(null)}>
+      <Boundary fallback={<div id="globe" />}>
       <Suspense fallback={<div id="globe" />}>
         <GlobeView hidden={view === 'engine'} countries={countries} dcs={data.dcs} frame={frame} closeness={closeness(hand)} ended={false} events={located} spanMs={live && playing ? STEP_MS : null} flare={flare} focus={focus} rotate={!sheet && view === 'world'} onPick={(e, anchor) => setPop({ e, anchor })} />
       </Suspense>
+      </Boundary>
       <div id="vignette" />
       <Clock hand={hand} pin={scale.pin} daysPerSecond={scale.daysPerSecond} today={timeline.clock} isToday={isToday} frame={frame} prev={frames[cur - 1] ?? null}
         sim={step ? { n: fi + 1, of: futures.length, step, move: sheet ? null : move, live: live && !sheet && view !== 'engine', standIn: !!future.fixture } : null} onWhy={() => setSheet('why')} />
@@ -171,7 +176,7 @@ function World({ data }: { data: Data }) {
           <button aria-pressed={sheet !== 'inputs' && view === 'engine'} onClick={() => { setSheet(null); setView('engine') }}>Engine<kbd>E</kbd></button>
         </div>
       </nav>
-      {view === 'engine' && <Suspense fallback={null}><EngineScreen futureId={futures[fi]?.id ?? 1} step={step?.step ?? 1} live={liveDemo} /></Suspense>}
+      {view === 'engine' && <Boundary><Suspense fallback={null}><EngineScreen futureId={futures[fi]?.id ?? 1} step={step?.step ?? 1} live={liveDemo} /></Suspense></Boundary>}
       <FutureSwitcher futures={futures} current={fi} endDate={frames.at(-1)?.clock?.date10 ?? null} onPick={choose} />
       {view === 'world' && <Legend />}
       <NewsFeed events={feed.events} playing={playing} freshFrom={Date.parse(frame.start)} onExpand={() => setFeedOpen(true)} />

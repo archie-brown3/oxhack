@@ -31,4 +31,4 @@ export interface Step3Props {
   onNext: () => void
   onLog: (msg: string) => void
 }
-export interface Step4Props { step: ReplicaStep; project: ReplicaProject; logs: LogLine[]; spike?: boolean; onBack: () => void; onNext: () => void; onLog: (msg: string) => void }
+export interface Step4Props { step: ReplicaStep; project: ReplicaProject; logs: LogLine[]; spike?: boolean; /** The report was written after an earlier step of this run. */ reused?: boolean; onBack: () => void; onNext: () => void; onLog: (msg: string) => void }

@@ -31,3 +31,6 @@
   .globe-zoom button + button { border-left: 0; border-top: 1px solid var(--rule-strong); }
 }
 @media (max-width: 720px) { .globe-zoom { right: var(--space-5); } }
+
+/* "Read context" opens the ticker and the dock grows upward over the zoom group: lift it clear (bug hunt, 25 Oct). */
+@media (min-width: 721px) { body:has(#dock details[open]) .globe-zoom { bottom: calc(232px + 104px); } }

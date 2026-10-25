@@ -21,7 +21,7 @@ export function Step5Interaction({ onBack, live = null }: { onBack: () => void; 
         <div className="mf-step5-title">{t('step5.interactiveTools')}</div>
         <p>{t('step5.chatWithReportAgent')} · {t('step5.chatWithAgent')}</p>
         <p className="mf-step5-note">Available when running live. This recording has no backend to answer.</p>
-        {live && <p className="mf-live-note">On this Mac: start the live server ({SERVER_HINT}) with the MiroFish backend running, then come back to this step.</p>}
+        {live && <p className="mf-live-note">Not connected to MiroFish right now.</p>}
         <button className="mf-btn" onClick={onBack}>← Back</button>
       </div>
     </div>

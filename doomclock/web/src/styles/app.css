@@ -360,9 +360,11 @@ img.av { object-fit: cover; padding: 0; }
 }
 @media (max-height: 800px) and (min-width: 721px) {
   #clock .face { width: 140px; }
-  #clock .to { display: none; }
+  #clock .to { font-size: 12px; line-height: 16px; } /* keep what the countdown counts to; 12px is the floor */
   .engine #society { top: 390px; }
 }
+/* 1280x720: with the 'until' line and the 3-line caption, a 140px face ran the card 9px into the dock. */
+@media (max-height: 740px) and (min-width: 721px) { #clock .face { width: 120px; } }
 @media (max-width: 720px) {
   #viewseg { top: var(--space-3); bottom: auto; left: auto; right: var(--space-3); transform: none; padding: var(--space-2); }
   #viewseg .dc-tabs { gap: var(--space-2); }
@@ -410,7 +412,10 @@ img.av { object-fit: cover; padding: 0; }
 
 /* Futures switcher in the top bar */
 #futseg { position: fixed; top: var(--space-5); right: calc(50% + 140px); z-index: 30; padding: var(--space-2) var(--space-4); }
-@media (max-width: 720px) { #futseg { top: 424px; bottom: auto; right: auto; left: var(--space-3); } }
+#futseg .dc-tabs button { min-width: var(--space-6); } /* numbered buttons stay a real tap target (24px; they were 7-9 px wide) */
+@media (min-width: 721px) { #futseg { padding: var(--space-2) var(--space-3); } }
+/* Phones: the numbered switcher fits top-left beside World | Engine, clear of the clock card however tall it runs. */
+@media (max-width: 720px) { #futseg { top: var(--space-3); bottom: auto; right: auto; left: var(--space-3); padding: var(--space-2) var(--space-3); } #futseg .dc-tabs { gap: var(--space-4); } }
 
 /* Severity on the globe: labels beside the dot */
 .bub .lbl { position: absolute; left: 100%; top: 50%; transform: translateY(-50%); margin-left: 6px; white-space: nowrap; pointer-events: none; font: 500 11px/14px var(--font-sans); color: var(--ink); background: var(--scrim); padding: 1px 6px; border-radius: var(--radius-1); }

@@ -15,7 +15,9 @@ const toYear = (ms: number) => { const y = new Date(ms).getUTCFullYear(), a = Da
 
 export const stepAt = (f: RecordedFuture, start: IsoTime): RecordedStep | null =>
   f.steps.find((s) => Date.parse(s.start) <= Date.parse(start) && Date.parse(start) < Date.parse(s.end)) ?? null
-export const isSecondQuarter = (s: RecordedStep, start: IsoTime) => Date.parse(start) >= (Date.parse(s.start) + Date.parse(s.end)) / 2
+/** A step's quarters start on day 0 and day 90-92, so 80 days splits them in every year (the midpoint of a
+ *  181-day Jan-Jul step falls at 1 Apr 12:00, after Q2 starts). */
+export const isSecondQuarter = (s: RecordedStep, start: IsoTime) => Date.parse(start) >= Date.parse(s.start) + 80 * 864e5
 /** The step before `s`'s 1-in-10 date (decimal year); step 1 starts from today's reading. */
 const prevYear = (f: RecordedFuture, s: RecordedStep, today: IsoTime | null) => (s.step > 1 ? f.steps[s.step - 2].date10 : today ? toYear(Date.parse(today)) : s.date10)
 
@@ -28,7 +30,10 @@ const mo = (y: number) => y * 12
 /** Why this step's 1-in-10 date moved, in months (negative = toward midnight). total = events + report + luck + time. */
 export function moveOf(world: World, f: RecordedFuture, s: RecordedStep, todayDate10: IsoTime | null): Move {
   const prev = prevYear(f, s, todayDate10)
-  const time = s.noEventsDate10 - prev, luck = s.rulesOffDate10 - s.noEventsDate10, both = s.date10 - s.rulesOffDate10
+  // Each counterfactual line runs from today, so this step's share is its change since the previous step (bug hunt, 25 Oct).
+  const before = s.step > 1 ? f.steps[s.step - 2] : null
+  const pNone = before ? before.noEventsDate10 : prev, pOff = before ? before.rulesOffDate10 : prev
+  const time = s.noEventsDate10 - pNone, luck = (s.rulesOffDate10 - s.noEventsDate10) - (pOff - pNone), both = (s.date10 - s.rulesOffDate10) - (prev - pOff)
   // Report = what the situation report's cat2100 level adds, read with the engine's own clock.
   let report = 0, split = true
   try {
