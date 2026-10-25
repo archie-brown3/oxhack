@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "name": "doomclock",
+  "engines": {
+    "node": "22.x"
+  },
+  "scripts": {
+    "build": "npm --prefix doomclock/web run build"
+  }
+}
