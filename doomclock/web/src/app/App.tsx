@@ -134,7 +134,8 @@ function World({ data }: { data: Data }) {
   useEffect(() => { if (sheet || feedOpen) setPlaying(false) }, [sheet, feedOpen])
 
   const play = () => { if (cur >= frames.length - 1) go(today, false); setPlaying(true) }
-  const choose = (i: number) => { setFi(i); setPop(null) }
+  // Picking a future at today (or before) plays it, so the pick shows; the Engine keeps its own step.
+  const choose = (i: number) => { setFi(i); setPop(null); if (cur <= today && view === 'world') setPlaying(true) }
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
