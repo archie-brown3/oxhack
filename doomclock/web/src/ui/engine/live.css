@@ -1,0 +1,37 @@
+/* Live-only panes of the Engine tab (LivePanel.tsx). Inherit the replica's colours; only layout here. */
+.mf-live-arm, .mf-live-result { padding: 24px 28px; overflow: auto; height: 100%; box-sizing: border-box; font-size: 13px; line-height: 1.45; }
+.mf-live-arm h2, .mf-live-result h2 { margin: 0 0 8px; font-size: 18px; letter-spacing: 0.02em; }
+.mf-live-result h3 { margin: 22px 0 8px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; }
+.mf-live-result h3 small { text-transform: none; letter-spacing: 0; opacity: 0.65; font-weight: normal; margin-left: 8px; }
+.mf-live-sub { opacity: 0.85; margin: 0 0 16px; }
+.mf-live-go { font-size: 16px; padding: 12px 28px; margin: 4px 0 16px; }
+.mf-live-go:disabled { opacity: 0.45; cursor: default; }
+.mf-live-err { color: #c0392b; border: 1px solid currentColor; padding: 8px 10px; margin: 8px 0; word-break: break-word; }
+.mf-live-note { opacity: 0.7; margin: 8px 0 0; }
+.mf-live-meta { display: grid; grid-template-columns: max-content 1fr; gap: 4px 14px; margin: 8px 0; }
+.mf-live-meta dt { opacity: 0.6; }
+.mf-live-meta dd { margin: 0; }
+.mf-live-head { display: flex; align-items: center; gap: 14px; }
+.mf-live-head h2 { flex: 1; margin: 0; }
+.mf-live-events { list-style: none; padding: 0; margin: 0; }
+.mf-live-events li { padding: 6px 0; border-bottom: 1px solid rgba(127,127,127,0.25); display: flex; gap: 10px; align-items: baseline; }
+.mf-live-when { opacity: 0.6; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.mf-live-type { margin-left: auto; opacity: 0.6; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap; }
+.mf-live-table { border-collapse: collapse; }
+.mf-live-table td { padding: 4px 14px 4px 0; border-bottom: 1px solid rgba(127,127,127,0.2); }
+.mf-live-table td:nth-child(3), .mf-live-table td:nth-child(4) { opacity: 0.75; }
+.mf-live-log { max-height: 180px; overflow: auto; font-size: 12px; opacity: 0.85; border: 1px solid rgba(127,127,127,0.25); padding: 8px; }
+.mf-live-log .mono { opacity: 0.6; margin-right: 8px; }
+.mf-live .mf-tag.live { font-weight: 700; }
+/* Step 5, live: the report-agent chat and the interview side by side. */
+.mf-live-step5 { display: flex; flex-direction: column; height: 100%; padding: 16px 20px; box-sizing: border-box; gap: 12px; }
+.mf-live-step5 h2 small { font-size: 12px; font-weight: normal; opacity: 0.65; margin-left: 8px; }
+.mf-live-chat { display: flex; gap: 14px; flex: 1; min-height: 0; }
+.mf-live-card { flex: 1; display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+.mf-live-msgs { flex: 1; overflow: auto; min-height: 120px; margin: 8px 0; }
+.mf-live-msg { padding: 8px 10px; margin: 6px 0; border: 1px solid rgba(127,127,127,0.3); white-space: pre-wrap; font-size: 13px; line-height: 1.45; max-width: 92%; }
+.mf-live-msg.user { margin-left: auto; font-weight: 600; }
+.mf-live-wait { opacity: 0.7; font-style: italic; }
+.mf-live-ask { display: flex; gap: 8px; }
+.mf-live-ask input { flex: 1; padding: 8px 10px; font: inherit; }
+.mf-live-ask select { max-width: 40%; font: inherit; }

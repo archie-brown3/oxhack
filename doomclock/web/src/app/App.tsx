@@ -15,6 +15,7 @@ import { EventPop, FutureSwitcher, Legend, Newsflash, Spine, Ticker, type Flash 
 import { backtest } from '../fixtures/backtest.ts'
 import { countryAt, countryName, load, loadTrack, type Data } from './data.ts'
 import { Tour, tourDone } from './Tour.tsx'
+import { liveMode } from '../ui/engine/live.ts'
 import { tourSteps } from './tourSteps.tsx'
 
 // The globe (three.js) and the Engine screen load in their own chunks, so the clock paints first.
@@ -24,6 +25,8 @@ const GlobeView = lazy(() => globeChunk.then((m) => ({ default: m.GlobeView })))
 const EngineScreen = lazy(() => import('../ui/engine/EngineScreen.tsx').then((m) => ({ default: m.EngineScreen })))
 
 const params = new URLSearchParams(location.search)
+// Local live demo (task 156): ?live=1 / ?live=report on localhost only; null everywhere else, so production is inert.
+const liveDemo = liveMode(new URL(location.href))
 const STEP_MS = 5000 // one simulated step (6 months): time to read its events before the next
 const FIRST_MS = 1200 // today to the first step, so the first step lands at once
 
@@ -58,7 +61,7 @@ function World({ data }: { data: Data }) {
   const [flare, setFlare] = useState<Flare | null>(null)
   const [focus, setFocus] = useState<[number, number] | null>(null)
   const [pop, setPop] = useState<{ e: Located; anchor: HTMLElement } | null>(null)
-  const [view, setView] = useState<'world' | 'engine'>(params.get('view') === 'engine' ? 'engine' : 'world')
+  const [view, setView] = useState<'world' | 'engine'>(params.get('view') === 'engine' || liveDemo ? 'engine' : 'world')
   const [feedOpen, setFeedOpen] = useState(false)
   const [maxed, setMaxed] = useState<'graph' | 'cast' | null>(null)
   // The Engine screen (owner redesign in progress) still takes its old props.
@@ -168,7 +171,7 @@ function World({ data }: { data: Data }) {
           <button aria-pressed={sheet !== 'inputs' && view === 'engine'} onClick={() => { setSheet(null); setView('engine') }}>Engine<kbd>E</kbd></button>
         </div>
       </nav>
-      {view === 'engine' && <Suspense fallback={null}><EngineScreen futureId={futures[fi]?.id ?? 1} step={step?.step ?? 1} /></Suspense>}
+      {view === 'engine' && <Suspense fallback={null}><EngineScreen futureId={futures[fi]?.id ?? 1} step={step?.step ?? 1} live={liveDemo} /></Suspense>}
       <FutureSwitcher futures={futures} current={fi} endDate={frames.at(-1)?.clock?.date10 ?? null} onPick={choose} />
       {view === 'world' && <Legend />}
       <NewsFeed events={feed.events} playing={playing} freshFrom={Date.parse(frame.start)} onExpand={() => setFeedOpen(true)} />

@@ -1,0 +1,24 @@
+{
+  "simulation_id": "sim_afa73bdd8866",
+  "future": 1,
+  "project_id": "proj_140bde512ce4",
+  "graph_id": "mirofish_65312b733d8c462a",
+  "rounds": 5,
+  "seeds": [
+    {
+      "uid": 26,
+      "kind": "markets",
+      "text": "[Markets desk · 2027 H1] P(powerful AI by 2030) 36%; by 2040 75%; by 2100 86%. P(AI catastrophe by 2100) 29.7%. The clock's 1-in-10 date: Jun 2032. Simulated odds, moved by rules, not live prices."
+    }
+  ],
+  "preparedAt": "2026-10-25T11:12:20.281Z",
+  "usedAt": "2026-10-25T11:18:05.714Z",
+  "report_id": "report_d7df134659d9",
+  "run": {
+    "wall_s": 70.6,
+    "cost_usd": 0.039945
+  },
+  "report_s": 268.4,
+  "wall_s": 345.4,
+  "rulesVersion": "coupled-loop/1 (25 Oct 2026)"
+}

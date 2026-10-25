@@ -32,18 +32,18 @@ const RAW_MIRO = join(process.env.HOME ?? "", "dev/oxhack/data/raw/mirofish");
 const MODEL = "deepseek/deepseek-v4.1-flash-1017";
 export const RULES_VERSION = "coupled-loop/1 (25 Oct 2026)";
 const STEPS = 6;
-const T0 = Date.parse("2027-01-01T00:00:00Z");
-const MARKETS = 26;
+export const T0 = Date.parse("2027-01-01T00:00:00Z");
+export const MARKETS = 26;
 
 const rawCast = JSON.parse(readFileSync(join(ROOT, "doomclock/web/src/game/data/cast.json"), "utf8")) as Cast;
-const cast = loopCast(rawCast);
-const world = JSON.parse(readFileSync(join(ROOT, "doomclock/web/public/cache/world.json"), "utf8")) as World;
+export const cast = loopCast(rawCast);
+export const world = JSON.parse(readFileSync(join(ROOT, "doomclock/web/public/cache/world.json"), "utf8")) as World;
 const realEvents = (JSON.parse(readFileSync(join(ROOT, "data/events.json"), "utf8")).events ?? []) as WorldEvent[];
-const REAL_IDS = realIdentifiers([...realEvents.flatMap((e) => [e.title, e.detail ?? ""]), ...rawCast.accounts.flatMap((a) => a.facts.map((f) => f.text))]);
+export const REAL_IDS = realIdentifiers([...realEvents.flatMap((e) => [e.title, e.detail ?? ""]), ...rawCast.accounts.flatMap((a) => a.facts.map((f) => f.text))]);
 
 const jsonOut = (f: string, v: unknown) => { mkdirSync(join(f, ".."), { recursive: true }); writeFileSync(f, JSON.stringify(v, null, 2) + "\n"); };
-const stepStart = (s: number) => new Date(Date.UTC(2027, 6 * (s - 1), 1)).toISOString().replace(".000Z", "Z");
-const period = (s: number) => `${new Date(stepStart(s)).getUTCFullYear()} ${s % 2 ? "H1" : "H2"}`;
+export const stepStart = (s: number) => new Date(Date.UTC(2027, 6 * (s - 1), 1)).toISOString().replace(".000Z", "Z");
+export const period = (s: number) => `${new Date(stepStart(s)).getUTCFullYear()} ${s % 2 ? "H1" : "H2"}`;
 const ymd = (ts: string) => ts.slice(0, 10);
 
 // ---------- the clock ----------
@@ -92,14 +92,14 @@ async function baseline(): Promise<Baseline> {
   jsonOut(join(WORLD_DIR, "baseline.json"), out);
   return out;
 }
-const loadBaseline = (): Baseline => JSON.parse(readFileSync(join(WORLD_DIR, "baseline.json"), "utf8"));
+export const loadBaseline = (): Baseline => JSON.parse(readFileSync(join(WORLD_DIR, "baseline.json"), "utf8"));
 
 // ---------- memory for one step ----------
 
 const worldLine = (e: WorldEvent) => `[${ymd(e.ts)}] ${e.who ? e.who + ": " : ""}${e.title}`;
 const expectLine = (x: Expectation) => `${x.who} may ${x.what}`.replace(/\s+/g, " ").slice(0, 118).replace(/[.\s]*$/, ".");
 
-interface Carry { events: WorldEvent[]; summary: string; expected: Expectation[]; anchors: Anchors; prevAnchors: Anchors | null; date10: number; topPosts: Post[] }
+export interface Carry { events: WorldEvent[]; summary: string; expected: Expectation[]; anchors: Anchors; prevAnchors: Anchors | null; date10: number; topPosts: Post[] }
 
 export function memoryFor(s: number, c: Carry): Memory {
   const real = realEvents.filter((e) => e.provenance === "real" && e.major && Date.parse(e.ts) < Date.parse(world.asOf)).slice(-6);
@@ -116,7 +116,7 @@ export function memoryFor(s: number, c: Carry): Memory {
 
 // ---------- one MiroFish run ----------
 
-function readDb(simDir: string, seedText: Map<string, string>): { posts: Post[]; edges: unknown[] } {
+export function readDb(simDir: string, seedText: Map<string, string>): { posts: Post[]; edges: unknown[] } {
   const db = new DatabaseSync(join(simDir, "twitter_simulation.db"), { readOnly: true });
   const rows = db.prepare("select post_id, user_id, original_post_id, content, quote_content, created_at, num_likes, num_shares from post order by post_id").all() as any[];
   db.close();
@@ -134,12 +134,12 @@ async function ensureSim(p: FutureProject): Promise<string> {
   return d.simulation_id;
 }
 
-function writeSimFiles(sim: string, p: FutureProject, mem: Memory, seeds: { uid: number; kind: string; text: string }[]) {
+export function writeSimFiles(sim: string, p: FutureProject, mem: Memory, seeds: { uid: number; kind: string; text: string }[], requirement = `Doom Clock recorded run: how the 32 accounts react in ${mem.quarter}.`) {
   const dir = join(SIM_ROOT, sim);
   writeFileSync(join(dir, "twitter_profiles.csv"), profilesCsv(cast, mem));
   const config = {
     simulation_id: sim, project_id: p.project_id, graph_id: p.graph_id,
-    simulation_requirement: `Doom Clock recorded run: how the 32 accounts react in ${mem.quarter}.`,
+    simulation_requirement: requirement,
     time_config: TIME_CONFIG, agent_configs: agentConfigs(cast, mem),
     event_config: { initial_posts: seeds.map((s) => ({ poster_agent_id: s.uid, poster_type: s.kind, content: s.text })), scheduled_events: [], hot_topics: [], narrative_direction: "" },
     twitter_config: { platform: "twitter", recency_weight: 0.4, popularity_weight: 0.3, relevance_weight: 0.3, viral_threshold: 10, echo_chamber_strength: 0.5 },
@@ -174,7 +174,7 @@ async function saveArtifacts(sim: string, dir: string) {
   jsonOut(join(dir, "artifacts.json"), { simulation_id: sim, savedAt: new Date().toISOString(), api: res, note: "twitter_simulation.db.gz is the gzipped sqlite DB of this run." });
 }
 
-async function ensureIdle(sim: string) {
+export async function ensureIdle(sim: string) {
   const s: any = await call("GET", `/api/simulation/${sim}/run-status`).catch(() => ({}));
   if (s.runner_status === "running" || s.runner_status === "starting") throw new Error(`run-status says ${sim} is ${s.runner_status}; not starting a second run`);
 }
