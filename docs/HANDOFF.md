@@ -70,12 +70,13 @@ MiroFish's UI; the World view has a live news feed with severity-driven legibili
 6. **138** label and offline tests, **9** demo-able gate, **141** play-through fixes by 10:30.
 7. Owner-only: 140, 142, 143, 144. Prepare everything they need; leave them to Archie.
 
-## 5. Urgent: production deploys are failing
+## 5. Production deploys: fixed (10:30 GMT)
 
-Since about 02:28 GMT the Vercel project's Root Directory is `.` instead of `doomclock/web`, so
-every push to main fails to build and the live site is an older build. See task **13** for the
-cause and the fix (an owner decision in Vercel settings). Until it is fixed, a green
-`npm test && npm run build` locally is the only check; nothing you push reaches production.
+The cloud agent's branch (`cursor/handoff-remaining-f63a`) was fast-forwarded onto main. Its
+repo-root `package.json` and `vercel.json` build `doomclock/web` while the dashboard Root Directory
+stays `.`. Production https://doomclock-web.vercel.app serves the latest main with
+`frame-ancestors *`; a headless walk of the judge path there shows 0 console errors and 0 external
+requests (task 141). Final build archived at `~/Desktop/doomclock-final-2026-10-25.zip`.
 
 ## 6. Rules that bit us overnight
 
