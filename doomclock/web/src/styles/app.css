@@ -6,6 +6,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 :focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 kbd { font: var(--type-data); color: var(--ink-3); }
 .eyebrow { font: var(--type-eyebrow); letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; }
+/* A small sentence-case heading: eyebrow caps are kept for tabs and bands. */
+.cap-t { font: var(--type-caption); }
 .dc-btn--sm { min-height: 26px; padding: 0 var(--space-3); font-size: 12px; }
 
 /* ---------- stage ---------- */
@@ -244,7 +246,7 @@ body.ov #engine .pane > h3 { display: none; }
 #roster .rhead { display: flex; gap: var(--space-3); align-items: baseline; margin-bottom: var(--space-4); }
 .tbl { width: 100%; border-collapse: collapse; }
 .tbl th, .tbl td { text-align: left; padding: var(--space-2) var(--space-3); border-bottom: 1px solid var(--rule); vertical-align: top; }
-.tbl th { font: var(--type-eyebrow); letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; color: var(--ink-3); }
+.tbl th { font: var(--type-caption); color: var(--ink-3); }
 .tbl td.n, .tbl th.n { text-align: right; font-variant-numeric: tabular-nums; }
 .tbl td small { display: block; color: var(--ink-3); font-size: 12px; line-height: 16px; max-width: 64ch; }
 

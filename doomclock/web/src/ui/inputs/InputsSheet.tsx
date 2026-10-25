@@ -38,7 +38,7 @@ export function InputsSheet({ world, dcs, worldSource, onRun, onClose }: Props) 
         <button className="x" aria-label="Close" onClick={onClose}>×</button>
         <h2 className="title" id="inputs-h">What the engine knows</h2>
         <div className="asof">
-          <div className="asof-read"><span className="eyebrow">As of</span><b>{dmy(new Date(D0 + day * DAY).toISOString())}</b>
+          <div className="asof-read"><span className="cap-t">As of</span><b>{dmy(new Date(D0 + day * DAY).toISOString())}</b>
             <span className="dc-dim">{day >= last ? `Today. Data frozen ${dmy(world.asOf)}${worldSource === 'fixture' ? ' (engine fixture)' : ''}.` : `${fmt(known.hidden)} later items hidden`}</span></div>
           <input type="range" id="asof" min={0} max={last} value={day} aria-label="As of date" onChange={(e) => setDay(+e.target.value)} style={{ ['--p' as string]: `${(day / last) * 100}%` }} />
           <div className="asof-ticks"><span>24 Oct 2024</span><span>2025</span><span>2026</span><span>Today</span></div>

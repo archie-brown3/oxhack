@@ -71,16 +71,16 @@
         "id": 4,
         "title": "[P1 \u00b7 ui] Plague Inc world view",
         "description": "A full-bleed globe (hex-dot style B + the 77 datacentre markers from data/clean/datacentres.jsonl), region tint = frame.regions x capability, event pings on the map, a bottom news ticker, time controls (play/pause, 1x/4x, a quarter scrubber Oct 2024 -> 2035, a 'today' marker, real vs projected styling). Leave room in the corner HUD for the clock.",
-        "details": "Scope: doomclock/web/src/ui/world/**; may add globe deps (react-globe.gl/three) to doomclock/web/package.json. Renders a Timeline only, never game state. Inspired by the plague board (.lavish/plague-board.html).\nSCOPE CUT 24 Oct 22:20: Simpler: flat datacentre markers (no 3D houses), region tint, event pings + flare, ticker, scrubber. Checkpoint 03:00.\nUnblocked ~22:15 BST (mockup approved). Build from .lavish/prototype + docs/briefs/ui.md against engine fixtures until engine/timeline.ts lands.\nBUILD (ui, 2026-10-24T21:27:19Z): doomclock/web/src/ui/world/{Globe,Hud}.tsx + app/App.tsx. globe.gl 2.46.2 (hex dots, land ink-3\u2192ink-2 by frame.regions \u00d7 capability, flat Epoch datacentre markers by ts, rings + clickable bubbles placed by event.where/region, country flare + newsflash for frame.events[].major and Bulletin settings), ticker, Bulletin-style time spine scrubber, future chip (Early/Typical/Late/Roll via buildTimeline picks). Renders buildTimeline(world) from engine/timeline.ts on the world fixture (cache/world.json preferred when the asOf module writes it). Verified headless at 1440x900 (today, past, projected/ended) and 390x844 (usable, needs polish). Not yet: 30 fps measurement, offline check of Google Fonts fallback.\nOwner follow-up 24 Oct: make quarter events visible at a glance and identify event kinds on globe dots. Implemented typed glyphs ! incident, \u00a7 government, \u224b news, @ X post, preserving solid REAL/dashed SIMULATED provenance treatment. The Map key explains glyphs, real/simulated rings, datacentre dots and catastrophe marks. Verified visually in the World view and Map key dialog. Static quarter event reader and 8s replay at 1x tracked in task146.",
+        "details": "Scope: doomclock/web/src/ui/world/**; may add globe deps (react-globe.gl/three) to doomclock/web/package.json. Renders a Timeline only, never game state. Inspired by the plague board (.lavish/plague-board.html).\nSCOPE CUT 24 Oct 22:20: Simpler: flat datacentre markers (no 3D houses), region tint, event pings + flare, ticker, scrubber. Checkpoint 03:00.\nUnblocked ~22:15 BST (mockup approved). Build from .lavish/prototype + docs/briefs/ui.md against engine fixtures until engine/timeline.ts lands.\nBUILD (ui, 2026-10-24T21:27:19Z): doomclock/web/src/ui/world/{Globe,Hud}.tsx + app/App.tsx. globe.gl 2.46.2 (hex dots, land ink-3\u2192ink-2 by frame.regions \u00d7 capability, flat Epoch datacentre markers by ts, rings + clickable bubbles placed by event.where/region, country flare + newsflash for frame.events[].major and Bulletin settings), ticker, Bulletin-style time spine scrubber, future chip (Early/Typical/Late/Roll via buildTimeline picks). Renders buildTimeline(world) from engine/timeline.ts on the world fixture (cache/world.json preferred when the asOf module writes it). Verified headless at 1440x900 (today, past, projected/ended) and 390x844 (usable, needs polish). Not yet: 30 fps measurement, offline check of Google Fonts fallback.\nOwner follow-up 24 Oct: make quarter events visible at a glance and identify event kinds on globe dots. Implemented typed glyphs ! incident, \u00a7 government, \u224b news, @ X post, preserving solid REAL/dashed SIMULATED provenance treatment. The Map key explains glyphs, real/simulated rings, datacentre dots and catastrophe marks. Verified visually in the World view and Map key dialog. Static quarter event reader and 8s replay at 1x tracked in task146.\n2026-10-25T00:32:48Z: Leftovers (ui lane): measured headless (Chrome + swiftshader, vite preview, every non-localhost request aborted): 60 fps while the globe auto-rotates at 1440x900, 60.2 fps while playing a quarter with pings, 60.1 fps at 390x844; first render 130-155 ms; 0 console errors, 0 external requests. Globe is now a lazy chunk (task 8). Event popover shows the source or account avatar (AIID, Federal Register, GOV.UK, EUR-Lex; MiroFish handles by alias). Scrubbing tint, pings and ticker verified earlier.",
         "testStrategy": "Headless screenshots at 1440x900 and 390x844. Works offline. 30 fps while rotating. Scrubbing changes tint, pings and ticker.",
-        "status": "in-progress",
+        "status": "done",
         "dependencies": [
           3,
           10
         ],
         "priority": "high",
         "subtasks": [],
-        "updatedAt": "2026-10-25T00:14:08Z"
+        "updatedAt": "2026-10-25T00:32:48Z"
       },
       {
         "id": 11,
@@ -115,16 +115,16 @@
         "id": 5,
         "title": "[P1 \u00b7 clock] Analog clock in the corner + 'Why this time?'",
         "description": "A Bulletin-style quarter face in the corner HUD: white hand = the real line, 1 minute = 1 year to date10, a ghost tick at 85 s (Bulletin 2026), the lag range as an arc, a red-hand slot for phase 2. A live countdown (y d hh:mm:ss) to date10. Click opens 'Why this time?': anchors (market, p, traders, link) -> Monte Carlo fan -> date10 -> hand. 'A prediction, not a prophecy'.",
-        "details": "Scope: doomclock/web/src/ui/clock/**, ui/why/**. SVG + CSS, no new deps. Reads ClockReading + Timeline.\nSCOPE CUT 24 Oct 22:20: Centrepiece. Checkpoint 03:00.\nSPECIFICITY (Archie, 22:30): A 'why the hand moved' callout from frame.drivers under the clock. The newsflash for major events on World.\nUnblocked ~22:15 BST (mockup approved). Build from .lavish/prototype + docs/briefs/ui.md against engine fixtures until engine/timeline.ts lands.\nBUILD (ui, 2026-10-24T21:27:19Z): ui/clock/{face.ts,scale.ts,Clock.tsx}. OWNER DECISION 25 Oct: today's reading is pinned to the Bulletin's current setting (85 s); k = 85 s / years to date10 (\u22481 s per 24 days); face shows the last 3 minutes. Past quarters show the Bulletin's own settings (90/89/85 s, cache/bulletin.json) as real history; from today the forecast drives the hand (k \u00d7 years from frame start to date10). 600 ms hand sweep. 'Why the hand moved' callout from frame.drivers + residualDays, events only as 'around the same time'. Why this time? Paper sheet (ui/why/WhySheet.tsx): Anchors, Fan (frames pCat), Date (waffle), Hand, Track record tab. Countdown ticks to today's date10 (real: 31 May 2032 on the fixture). Verified headless.",
+        "details": "Scope: doomclock/web/src/ui/clock/**, ui/why/**. SVG + CSS, no new deps. Reads ClockReading + Timeline.\nSCOPE CUT 24 Oct 22:20: Centrepiece. Checkpoint 03:00.\nSPECIFICITY (Archie, 22:30): A 'why the hand moved' callout from frame.drivers under the clock. The newsflash for major events on World.\nUnblocked ~22:15 BST (mockup approved). Build from .lavish/prototype + docs/briefs/ui.md against engine fixtures until engine/timeline.ts lands.\nBUILD (ui, 2026-10-24T21:27:19Z): ui/clock/{face.ts,scale.ts,Clock.tsx}. OWNER DECISION 25 Oct: today's reading is pinned to the Bulletin's current setting (85 s); k = 85 s / years to date10 (\u22481 s per 24 days); face shows the last 3 minutes. Past quarters show the Bulletin's own settings (90/89/85 s, cache/bulletin.json) as real history; from today the forecast drives the hand (k \u00d7 years from frame start to date10). 600 ms hand sweep. 'Why the hand moved' callout from frame.drivers + residualDays, events only as 'around the same time'. Why this time? Paper sheet (ui/why/WhySheet.tsx): Anchors, Fan (frames pCat), Date (waffle), Hand, Track record tab. Countdown ticks to today's date10 (real: 31 May 2032 on the fixture). Verified headless.\n2026-10-25T00:32:48Z: Leftovers (ui lane): src/ui/clock/scale.test.ts (in npm test) checks the hand on three fixture dates: 2024Q4 reads the Bulletin's 90 s, 2025Q1 its 89 s (set 28 Jan 2025), today pinned to 85 s, and a projected quarter two years on reads 85 x (date10 - start) / (date10 - asOf) within 0.5 s, about 24 days per second. Countdown test: one second later it reads one second less (5y 219d 00:00:00 -> 5y 218d 23:59:59) and 0 at the target. Decorative eyebrow caps in the 'why the hand moved' callout and the Inputs as-of read are now sentence-case captions; table headers no longer use caps.",
         "testStrategy": "Headless screenshot. The countdown ticks. The hand is correct for 3 fixture dates. Every number traces to the data.",
-        "status": "in-progress",
+        "status": "done",
         "dependencies": [
           3,
           10
         ],
         "priority": "high",
         "subtasks": [],
-        "updatedAt": "2026-10-25T00:14:08Z"
+        "updatedAt": "2026-10-25T00:32:48Z"
       },
       {
         "id": 15,
@@ -910,13 +910,13 @@
         "id": 18,
         "title": "[P1 \u00b7 assets] Account avatars (generated, typographic)",
         "description": "A generated avatar for every simulated X account and every real government, news and data source: monogram + role glyph, dashed sim ring for SIMULATED and solid ring for REAL, per the design system. No real logos or photos.",
-        "details": "Lane assets (Sonnet). Scope: doomclock/web/scripts/avatars*.{ts,json}, doomclock/web/public/avatars/**. Generator plus manifest; the world agent appends accounts.",
+        "details": "Lane assets (Sonnet). Scope: doomclock/web/scripts/avatars*.{ts,json}, doomclock/web/public/avatars/**. Generator plus manifest; the world agent appends accounts.\n2026-10-25T00:32:48Z: Verified (ui lane): node scripts/avatars.ts regenerates 46 avatars with no diff, all glyph and ring contrast >= 3:1 (the generator exits 1 below 3:1). Every manifest entry has its SVG (0 missing), and all 28 accounts in the Engine spike fixture resolve to a manifest id or alias. Contact sheet (public/avatars/contact-sheet.html) screenshot on Stage and Paper: 92 images, 0 broken. Real sources now show their avatar in the World event popover.",
         "testStrategy": "A contact-sheet screenshot on Stage and Paper. Every account in the manifest has an SVG. Glyph contrast at least 3:1.",
-        "status": "in-progress",
+        "status": "done",
         "dependencies": [],
         "priority": "medium",
         "subtasks": [],
-        "updatedAt": "2026-10-25T00:14:08Z"
+        "updatedAt": "2026-10-25T00:32:48Z"
       },
       {
         "id": 19,
@@ -980,9 +980,9 @@
       "created": "2026-10-24T19:50:00Z",
       "description": "Doom Clock. P1 = the Monte Carlo simulation (10,000 futures; the globe plays one sampled future; a MiroFish society ensemble for ~5 representative futures): a Plague Inc-style world view of a quarterly Timeline (real -> projected), with the analog clock in the corner (build now). P2 = the game on the same screen (deferred, gated by task 9). Game plan: docs/superpowers/plans/2026-10-24-doom-clock-game-plan-full.md Demo path: Inputs (seed data, as-of slider) -> live run (Monte Carlo in the browser + one live MiroFish quarter) -> replay recorded futures -> Why this time? + Track record. SCOPE CUT 22:20 BST: checkpoints 00:00 engine+asOf+mockup OK, 03:00 World+clock+Why on real data, 06:00 Inputs+track record+recorded runs, 09:00 polish+Devpost (live run if ahead), freeze 11:30 GMT, submit 11:45 GMT. OVERNIGHT RUN (25 Oct 00:15 GMT, owner instruction): build the whole product as one demo; every task including the former deferred P2 game tasks is now active. Lanes (one workflow, git worktrees, each lane lands on main): core-data (14,3,103,110), backtest (6,106,118), game-core (101,107,108,115,116,117,119,124,125,129), society (102,105,11,112,109 then 113,114,120-123,128,131,132,134), ui (8,15,4,5,18,111 + first-launch walkthrough, then 126,127,133,135,7,136), ship (17,137,138,139). Owner-only tasks (130,140,142,143,144) are prepared but need Archie.",
       "version": "1.0.0",
-      "lastModified": "2026-10-25T00:31:24Z",
+      "lastModified": "2026-10-25T00:32:48Z",
       "taskCount": 66,
-      "completedCount": 24,
+      "completedCount": 27,
       "tags": [
         "master"
       ]

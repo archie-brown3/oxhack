@@ -193,7 +193,7 @@ function World({ data }: { data: Data }) {
       {keyOpen && <MapKey />}
       {coach && <div id="coach" className="dc-panel">{coach.text}{coach.skip && <button className="dc-btn dc-btn--sm coach-skip" onClick={skip}>Skip</button>}</div>}
       <Newsflash flash={flash} onDone={() => setFlashes((f) => f.slice(1))} />
-      {pop && <EventPop e={pop.e} anchor={pop.anchor} where={whereOf(pop.e)} onClose={() => setPop(null)} />}
+      {pop && <EventPop e={pop.e} anchor={pop.anchor} where={whereOf(pop.e)} avatars={data.avatars} onClose={() => setPop(null)} />}
       {sheet === 'inputs' && <InputsSheet world={world} dcs={data.dcs} worldSource={data.worldSource} onRun={runLive} onClose={() => setSheet(null)} />}
       {sheet === 'why' && <WhySheet world={world} timeline={timeline} hand={scale.hand(frames[today], true)} pin={scale.pin} daysPerSecond={scale.daysPerSecond} backtest={backtest} tab={whyTab} onTab={setWhyTab} onClose={() => setSheet(null)} />}
       {touring && <Tour steps={tourSteps({ date10: timeline.clock.date10, daysPerSecond: scale.daysPerSecond, real: forecastLine(timeline),

@@ -108,7 +108,7 @@ function Moved({ prev, frame, days, onClose }: { prev: WorldFrame; frame: WorldF
   const ctx = contextEvents(frame)
   return (
     <section id="moved" className="dc-panel on" aria-label="Why the hand moved">
-      <div className="mh"><span className="eyebrow">Why the hand moved</span><button aria-label="Hide" onClick={onClose}>×</button></div>
+      <div className="mh"><b className="cap-t">Why the hand moved</b><button aria-label="Hide" onClick={onClose}>×</button></div>
       {frame.drivers.length === 0 ? (
         <p className="mt">No market moved. The predicted date is the same; the hand advances because {qName(frame.quarter)} is later than {qName(prev.quarter)}.</p>
       ) : (
@@ -128,7 +128,7 @@ function Moved({ prev, frame, days, onClose }: { prev: WorldFrame; frame: WorldF
       )}
       {ctx.length > 0 && (
         <div className="ctx">
-          <span className="eyebrow dc-faint">Around the same time</span>
+          <b className="cap-t dc-faint">Around the same time</b>
           {ctx.map((e) => (
             <div key={e.ts + e.title}><span className="dc-data">{dmy(e.ts)}</span> {e.title.length > 100 ? e.title.slice(0, 100) + '…' : e.title} · {e.url ? <a href={e.url} target="_blank" rel="noopener">{sourceName(e.source)} ↗</a> : sourceName(e.source)}</div>
           ))}

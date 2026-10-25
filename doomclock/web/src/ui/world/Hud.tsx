@@ -7,6 +7,11 @@ import type { Located } from './locate.ts'
 import { Label, labelOf } from '../Label.tsx'
 
 export const isReal = (e: WorldEvent) => e.provenance === 'real'
+interface AvatarRef { id: string; file: string; aliases: string[] }
+const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+/** The event's account avatar (a simulated poster's handle) or its source's (AIID, GOV.UK...). */
+const avatarFor = (e: WorldEvent, avatars: AvatarRef[]) =>
+  avatars.find((a) => (e.who && a.aliases?.includes(e.who)) || a.id === slug(sourceName(e.source)))
 
 export const PICKS = [['Early', 0.1], ['Typical', 0.5], ['Late', 0.9]] as const
 
@@ -111,12 +116,13 @@ export function Newsflash({ flash, onDone }: { flash: Flash | null; onDone: () =
 }
 
 /** Who, what, where, when, source and label for one event on the map. */
-export function EventPop({ e, anchor, where, onClose }: { e: Located; anchor: HTMLElement; where: string; onClose: () => void }) {
+export function EventPop({ e, anchor, where, avatars = [], onClose }: { e: Located; anchor: HTMLElement; where: string; avatars?: AvatarRef[]; onClose: () => void }) {
   const r = anchor.getBoundingClientRect()
   const real = isReal(e)
+  const av = avatarFor(e, avatars)
   return (
     <div id="pop" className="dc-panel on" role="dialog" style={{ left: Math.min(innerWidth - 316, r.right + 10), top: Math.max(16, Math.min(innerHeight - 380, r.top - 20)) }} onClick={(ev) => ev.stopPropagation()}>
-      <div className="h"><Label kind={labelOf(e.provenance)} /><span className="dc-data">{dmy(e.ts)}</span><button className="x" aria-label="Close" onClick={onClose}>×</button></div>
+      <div className="h">{av && <img className="av" src={`avatars/${av.file}`} alt="" />}<Label kind={labelOf(e.provenance)} /><span className="dc-data">{dmy(e.ts)}</span><button className="x" aria-label="Close" onClick={onClose}>×</button></div>
       <p>{e.detail ?? e.title}</p>
       <dl>
         {e.who && <><dt>Who</dt><dd>{e.who}</dd></>}
