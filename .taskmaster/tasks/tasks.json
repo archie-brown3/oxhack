@@ -86,16 +86,16 @@
         "id": 11,
         "title": "[P1 \u00b7 world] Recorded runs library (MiroFish ensemble for representative futures)",
         "description": "Pre-run and store, as a replayable library, a small Twitter-only MiroFish ensemble: ~5 representative futures (early -> late by date10), each a few quarters, different seeds. Each quarter's run is seeded with that future's events (government events, news, AIID-style incidents) and the previous quarter's top posts, because every run starts empty. Store per future and quarter: posts, government events, news, alarm (engagement share on the event post, with interview as secondary). The Engine view shows the society for the future being watched. Each stored run carries its seed, run id, timings and cost and is labelled RECORDED. It's the replay mode in the demo and the fallback for the live run.",
-        "details": "Scope: doomclock/pipeline/world/**, data/world/**. Uses the patched backend (English, Twitter-only restart). Budget about $1.50 (about $0.03 per quarter-run), guard capped at $3. Hand-written cast (government, media, labs, a few public archetypes), no Reddit. Warm-up run first.\nSCOPE CUT 24 Oct 22:20: Smaller: 3 representative futures x 4 quarters (~$0.40, ~15 min). Checkpoint 06:00.\nSPECIFICITY (Archie, 22:30): Injected events must be specific (agency, document number, date) or agents treat them as rumours (spike S2). The read-back keeps who/where/detail and flags major. Avatars from doomclock/web/public/avatars (append new accounts to scripts/avatars.accounts.json).\nseed.ts still builds its news digest from HN (dropped). Rework it to use data/events.json (government + news + AIID, specific detail) when building the recorded runs.",
+        "details": "Scope: doomclock/pipeline/world/**, data/world/**. Uses the patched backend (English, Twitter-only restart). Budget about $1.50 (about $0.03 per quarter-run), guard capped at $3. Hand-written cast (government, media, labs, a few public archetypes), no Reddit. Warm-up run first.\nSCOPE CUT 24 Oct 22:20: Smaller: 3 representative futures x 4 quarters (~$0.40, ~15 min). Checkpoint 06:00.\nSPECIFICITY (Archie, 22:30): Injected events must be specific (agency, document number, date) or agents treat them as rumours (spike S2). The read-back keeps who/where/detail and flags major. Avatars from doomclock/web/public/avatars (append new accounts to scripts/avatars.accounts.json).\nseed.ts still builds its news digest from HN (dropped). Rework it to use data/events.json (government + news + AIID, specific detail) when building the recorded runs.\n2026-10-25T00:36:35Z: society lane: recording 3 futures (Early/Typical/Late = percentiles 0.1/0.5/0.9) x 4 quarters with doomclock/pipeline/world/record.ts on cast.json; quarters are the first simulated quarter, this future's superintelligence and catastrophe quarters, and evenly spaced ones between.",
         "testStrategy": "5 futures x N quarters on disk, each with at least 10 non-seed posts per quarter. Alarm is computed. Cost is logged. The UI fixture validates.",
-        "status": "pending",
+        "status": "in-progress",
         "dependencies": [
           3,
           10
         ],
         "priority": "high",
         "subtasks": [],
-        "updatedAt": "2026-10-24T21:50:00Z"
+        "updatedAt": "2026-10-25T00:36:35Z"
       },
       {
         "id": 12,
@@ -980,7 +980,7 @@
       "created": "2026-10-24T19:50:00Z",
       "description": "Doom Clock. P1 = the Monte Carlo simulation (10,000 futures; the globe plays one sampled future; a MiroFish society ensemble for ~5 representative futures): a Plague Inc-style world view of a quarterly Timeline (real -> projected), with the analog clock in the corner (build now). P2 = the game on the same screen (deferred, gated by task 9). Game plan: docs/superpowers/plans/2026-10-24-doom-clock-game-plan-full.md Demo path: Inputs (seed data, as-of slider) -> live run (Monte Carlo in the browser + one live MiroFish quarter) -> replay recorded futures -> Why this time? + Track record. SCOPE CUT 22:20 BST: checkpoints 00:00 engine+asOf+mockup OK, 03:00 World+clock+Why on real data, 06:00 Inputs+track record+recorded runs, 09:00 polish+Devpost (live run if ahead), freeze 11:30 GMT, submit 11:45 GMT. OVERNIGHT RUN (25 Oct 00:15 GMT, owner instruction): build the whole product as one demo; every task including the former deferred P2 game tasks is now active. Lanes (one workflow, git worktrees, each lane lands on main): core-data (14,3,103,110), backtest (6,106,118), game-core (101,107,108,115,116,117,119,124,125,129), society (102,105,11,112,109 then 113,114,120-123,128,131,132,134), ui (8,15,4,5,18,111 + first-launch walkthrough, then 126,127,133,135,7,136), ship (17,137,138,139). Owner-only tasks (130,140,142,143,144) are prepared but need Archie.",
       "version": "1.0.0",
-      "lastModified": "2026-10-25T00:32:48Z",
+      "lastModified": "2026-10-25T00:36:35Z",
       "taskCount": 66,
       "completedCount": 27,
       "tags": [
