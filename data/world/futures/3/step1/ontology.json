@@ -1,0 +1,736 @@
+{
+  "analysis_summary": "The text describes a near-future AI governance simulation with frontier labs, government regulators, media, expert commentators, ordinary public voices, sock-puppet influence accounts, and incident trackers. The ontology is designed to model public statements, reporting, regulation, support and opposition, and hidden influence operations around AI incidents and policy decisions.",
+  "files": [
+    {
+      "filename": "world-today.md",
+      "size": 5227
+    }
+  ],
+  "ontology": {
+    "edge_types": [
+      {
+        "attributes": [
+          {
+            "description": "Role or position",
+            "name": "role",
+            "type": "text"
+          }
+        ],
+        "description": "Person or group is employed by or formally attached to an organization.",
+        "name": "WORKS_FOR",
+        "source_targets": [
+          {
+            "source": "Person",
+            "target": "Ailab"
+          },
+          {
+            "source": "Person",
+            "target": "GovernmentAgency"
+          },
+          {
+            "source": "Person",
+            "target": "MediaOutlet"
+          },
+          {
+            "source": "Person",
+            "target": "Organization"
+          },
+          {
+            "source": "Journalist",
+            "target": "MediaOutlet"
+          },
+          {
+            "source": "ExpertCommentator",
+            "target": "Ailab"
+          },
+          {
+            "source": "ExpertCommentator",
+            "target": "GovernmentAgency"
+          },
+          {
+            "source": "ExpertCommentator",
+            "target": "Organization"
+          },
+          {
+            "source": "PublicVoice",
+            "target": "Ailab"
+          },
+          {
+            "source": "PublicVoice",
+            "target": "Organization"
+          }
+        ]
+      },
+      {
+        "attributes": [
+          {
+            "description": "Additional details about this ontology type.",
+            "name": "details",
+            "type": "text"
+          }
+        ],
+        "description": "Entity is publicly associated with another entity through membership or partnership.",
+        "name": "AFFILIATED_WITH",
+        "source_targets": [
+          {
+            "source": "ExpertCommentator",
+            "target": "Ailab"
+          },
+          {
+            "source": "ExpertCommentator",
+            "target": "GovernmentAgency"
+          },
+          {
+            "source": "ExpertCommentator",
+            "target": "Organization"
+          },
+          {
+            "source": "Journalist",
+            "target": "MediaOutlet"
+          },
+          {
+            "source": "PublicVoice",
+            "target": "Organization"
+          },
+          {
+            "source": "Ailab",
+            "target": "GovernmentAgency"
+          },
+          {
+            "source": "GovernmentAgency",
+            "target": "Organization"
+          },
+          {
+            "source": "MediaOutlet",
+            "target": "Organization"
+          }
+        ]
+      },
+      {
+        "attributes": [
+          {
+            "description": "Specific rule, lawsuit, or directive",
+            "name": "regulatory_action",
+            "type": "text"
+          }
+        ],
+        "description": "Government body oversees, restricts, or sets rules for an AI actor.",
+        "name": "REGULATES",
+        "source_targets": [
+          {
+            "source": "GovernmentAgency",
+            "target": "Ailab"
+          },
+          {
+            "source": "GovernmentAgency",
+            "target": "Organization"
+          },
+          {
+            "source": "GovernmentAgency",
+            "target": "MediaOutlet"
+          }
+        ]
+      },
+      {
+        "attributes": [
+          {
+            "description": "Subject of the report",
+            "name": "report_topic",
+            "type": "text"
+          }
+        ],
+        "description": "Media, journalist, or tracker publishes information about an actor or incident.",
+        "name": "REPORTS_ON",
+        "source_targets": [
+          {
+            "source": "MediaOutlet",
+            "target": "Ailab"
+          },
+          {
+            "source": "MediaOutlet",
+            "target": "GovernmentAgency"
+          },
+          {
+            "source": "MediaOutlet",
+            "target": "Organization"
+          },
+          {
+            "source": "MediaOutlet",
+            "target": "Person"
+          },
+          {
+            "source": "Journalist",
+            "target": "Ailab"
+          },
+          {
+            "source": "Journalist",
+            "target": "GovernmentAgency"
+          },
+          {
+            "source": "Journalist",
+            "target": "Organization"
+          },
+          {
+            "source": "Journalist",
+            "target": "Person"
+          },
+          {
+            "source": "IncidentTracker",
+            "target": "Ailab"
+          },
+          {
+            "source": "IncidentTracker",
+            "target": "GovernmentAgency"
+          }
+        ]
+      },
+      {
+        "attributes": [
+          {
+            "description": "Tone or position of the comment",
+            "name": "comment_stance",
+            "type": "text"
+          }
+        ],
+        "description": "Entity posts public commentary about another entity or its actions.",
+        "name": "COMMENTS_ON",
+        "source_targets": [
+          {
+            "source": "Person",
+            "target": "Ailab"
+          },
+          {
+            "source": "Person",
+            "target": "GovernmentAgency"
+          },
+          {
+            "source": "Person",
+            "target": "Organization"
+          },
+          {
+            "source": "ExpertCommentator",
+            "target": "Ailab"
+          },
+          {
+            "source": "ExpertCommentator",
+            "target": "GovernmentAgency"
+          },
+          {
+            "source": "ExpertCommentator",
+            "target": "Organization"
+          },
+          {
+            "source": "Journalist",
+            "target": "Ailab"
+          },
+          {
+            "source": "Journalist",
+            "target": "GovernmentAgency"
+          },
+          {
+            "source": "PublicVoice",
+            "target": "Ailab"
+          },
+          {
+            "source": "PublicVoice",
+            "target": "GovernmentAgency"
+          }
+        ]
+      },
+      {
+        "attributes": [
+          {
+            "description": "Type such as denial, clarification, or counterclaim",
+            "name": "response_type",
+            "type": "text"
+          }
+        ],
+        "description": "Entity replies to or reacts publicly to another entity's statement or action.",
+        "name": "RESPONDS_TO",
+        "source_targets": [
+          {
+            "source": "Ailab",
+            "target": "GovernmentAgency"
+          },
+          {
+            "source": "Ailab",
+            "target": "MediaOutlet"
+          },
+          {
+            "source": "Ailab",
+            "target": "Person"
+          },
+          {
+            "source": "GovernmentAgency",
+            "target": "Ailab"
+          },
+          {
+            "source": "GovernmentAgency",
+            "target": "MediaOutlet"
+          },
+          {
+            "source": "MediaOutlet",
+            "target": "Ailab"
+          },
+          {
+            "source": "MediaOutlet",
+            "target": "GovernmentAgency"
+          },
+          {
+            "source": "Person",
+            "target": "Ailab"
+          },
+          {
+            "source": "Person",
+            "target": "GovernmentAgency"
+          },
+          {
+            "source": "ExpertCommentator",
+            "target": "Ailab"
+          }
+        ]
+      },
+      {
+        "attributes": [
+          {
+            "description": "Stated reason for support",
+            "name": "support_reason",
+            "type": "text"
+          }
+        ],
+        "description": "Entity publicly endorses another entity's position, policy, or action.",
+        "name": "SUPPORTS",
+        "source_targets": [
+          {
+            "source": "Person",
+            "target": "Ailab"
+          },
+          {
+            "source": "Person",
+            "target": "GovernmentAgency"
+          },
+          {
+            "source": "ExpertCommentator",
+            "target": "Ailab"
+          },
+          {
+            "source": "ExpertCommentator",
+            "target": "GovernmentAgency"
+          },
+          {
+            "source": "PublicVoice",
+            "target": "Ailab"
+          },
+          {
+            "source": "PublicVoice",
+            "target": "GovernmentAgency"
+          },
+          {
+            "source": "SockPuppetAccount",
+            "target": "Ailab"
+          },
+          {
+            "source": "SockPuppetAccount",
+            "target": "GovernmentAgency"
+          },
+          {
+            "source": "MediaOutlet",
+            "target": "GovernmentAgency"
+          },
+          {
+            "source": "Organization",
+            "target": "Ailab"
+          }
+        ]
+      },
+      {
+        "attributes": [
+          {
+            "description": "Stated reason for opposition",
+            "name": "opposition_reason",
+            "type": "text"
+          }
+        ],
+        "description": "Entity publicly criticizes or campaigns against another entity's position or action.",
+        "name": "OPPOSES",
+        "source_targets": [
+          {
+            "source": "Person",
+            "target": "Ailab"
+          },
+          {
+            "source": "Person",
+            "target": "GovernmentAgency"
+          },
+          {
+            "source": "ExpertCommentator",
+            "target": "Ailab"
+          },
+          {
+            "source": "ExpertCommentator",
+            "target": "GovernmentAgency"
+          },
+          {
+            "source": "PublicVoice",
+            "target": "Ailab"
+          },
+          {
+            "source": "PublicVoice",
+            "target": "GovernmentAgency"
+          },
+          {
+            "source": "SockPuppetAccount",
+            "target": "Ailab"
+          },
+          {
+            "source": "SockPuppetAccount",
+            "target": "GovernmentAgency"
+          },
+          {
+            "source": "MediaOutlet",
+            "target": "Ailab"
+          },
+          {
+            "source": "MediaOutlet",
+            "target": "GovernmentAgency"
+          }
+        ]
+      },
+      {
+        "attributes": [
+          {
+            "description": "Goal of the influence operation",
+            "name": "operation_purpose",
+            "type": "text"
+          }
+        ],
+        "description": "Sock puppet account is controlled by or represents a hidden operator.",
+        "name": "OPERATES",
+        "source_targets": [
+          {
+            "source": "SockPuppetAccount",
+            "target": "Person"
+          },
+          {
+            "source": "SockPuppetAccount",
+            "target": "Organization"
+          },
+          {
+            "source": "SockPuppetAccount",
+            "target": "Ailab"
+          },
+          {
+            "source": "SockPuppetAccount",
+            "target": "GovernmentAgency"
+          }
+        ]
+      },
+      {
+        "attributes": [
+          {
+            "description": "Area of joint work",
+            "name": "collaboration_topic",
+            "type": "text"
+          }
+        ],
+        "description": "Entities work together on standards, policy, research, or public messaging.",
+        "name": "COLLABORATES_WITH",
+        "source_targets": [
+          {
+            "source": "Ailab",
+            "target": "Ailab"
+          },
+          {
+            "source": "Ailab",
+            "target": "GovernmentAgency"
+          },
+          {
+            "source": "Ailab",
+            "target": "Organization"
+          },
+          {
+            "source": "GovernmentAgency",
+            "target": "GovernmentAgency"
+          },
+          {
+            "source": "GovernmentAgency",
+            "target": "Organization"
+          },
+          {
+            "source": "MediaOutlet",
+            "target": "MediaOutlet"
+          },
+          {
+            "source": "Organization",
+            "target": "Organization"
+          }
+        ]
+      }
+    ],
+    "entity_types": [
+      {
+        "attributes": [
+          {
+            "description": "Official organization name",
+            "name": "org_name",
+            "type": "text"
+          },
+          {
+            "description": "Country where headquartered",
+            "name": "headquarters_country",
+            "type": "text"
+          },
+          {
+            "description": "Primary public strategy or mission",
+            "name": "strategic_goal",
+            "type": "text"
+          }
+        ],
+        "description": "Frontier AI developer or compute provider that builds and deploys AI models.",
+        "examples": [
+          "OpenAI",
+          "Anthropic",
+          "Google DeepMind",
+          "DeepSeek"
+        ],
+        "name": "Ailab"
+      },
+      {
+        "attributes": [
+          {
+            "description": "Official agency or office name",
+            "name": "agency_name",
+            "type": "text"
+          },
+          {
+            "description": "Country or region of authority",
+            "name": "jurisdiction",
+            "type": "text"
+          },
+          {
+            "description": "Main AI policy responsibility",
+            "name": "policy_mandate",
+            "type": "text"
+          }
+        ],
+        "description": "Government body, regulator, legislature, or executive office acting on AI policy.",
+        "examples": [
+          "US Executive Branch",
+          "EU AI Office",
+          "China CAC",
+          "UK Cabinet Office"
+        ],
+        "name": "GovernmentAgency"
+      },
+      {
+        "attributes": [
+          {
+            "description": "Media organization name",
+            "name": "outlet_name",
+            "type": "text"
+          },
+          {
+            "description": "Primary format such as wire, cable, broadcast, or trade press",
+            "name": "media_format",
+            "type": "text"
+          },
+          {
+            "description": "Target audience or geographic reach",
+            "name": "audience_scope",
+            "type": "text"
+          }
+        ],
+        "description": "News organization, broadcaster, wire service, or trade publication covering AI.",
+        "examples": [
+          "Global Wire Desk",
+          "US Cable News Desk",
+          "UK Broadcaster Tech Desk",
+          "Tech Trade Press"
+        ],
+        "name": "MediaOutlet"
+      },
+      {
+        "attributes": [
+          {
+            "description": "Public name or professional label",
+            "name": "full_name",
+            "type": "text"
+          },
+          {
+            "description": "Field of expertise",
+            "name": "expertise_area",
+            "type": "text"
+          },
+          {
+            "description": "Main public position on AI risk",
+            "name": "public_stance",
+            "type": "text"
+          }
+        ],
+        "description": "Public intellectual, scientist, or policy expert who comments on AI risk and governance.",
+        "examples": [
+          "Nobel AI Pioneer",
+          "Safety-by-Design Professor",
+          "Treaty Professor",
+          "Risk-Sceptic Scientist"
+        ],
+        "name": "ExpertCommentator"
+      },
+      {
+        "attributes": [
+          {
+            "description": "Journalist name or professional label",
+            "name": "full_name",
+            "type": "text"
+          },
+          {
+            "description": "Reporting beat such as AI accountability or tech policy",
+            "name": "beat",
+            "type": "text"
+          },
+          {
+            "description": "Main investigative focus",
+            "name": "reporting_focus",
+            "type": "text"
+          }
+        ],
+        "description": "Reporter or editor who investigates and publishes AI-related news.",
+        "examples": [
+          "Critical Tech Reporter"
+        ],
+        "name": "Journalist"
+      },
+      {
+        "attributes": [
+          {
+            "description": "Name or public label",
+            "name": "full_name",
+            "type": "text"
+          },
+          {
+            "description": "Role such as parent, teacher, engineer, or founder",
+            "name": "public_role",
+            "type": "text"
+          },
+          {
+            "description": "Primary concern or advocacy focus",
+            "name": "concern_focus",
+            "type": "text"
+          }
+        ],
+        "description": "Ordinary public individual or founder actively posting about AI from a personal perspective.",
+        "examples": [
+          "Worried Parent and Teacher",
+          "Engineer Who Runs Coding Agents",
+          "Accelerationist Founder"
+        ],
+        "name": "PublicVoice"
+      },
+      {
+        "attributes": [
+          {
+            "description": "Public handle or account label",
+            "name": "account_handle",
+            "type": "text"
+          },
+          {
+            "description": "False or misleading identity presented",
+            "name": "cover_identity",
+            "type": "text"
+          },
+          {
+            "description": "Suspected or known operator behind the account",
+            "name": "actual_operator",
+            "type": "text"
+          }
+        ],
+        "description": "Coordinated or deceptive social media account posing as a grassroots or insider voice.",
+        "examples": [
+          "Innovation-First Coalition",
+          "Anonymous ML Engineer"
+        ],
+        "name": "SockPuppetAccount"
+      },
+      {
+        "attributes": [
+          {
+            "description": "Tracker or desk name",
+            "name": "tracker_name",
+            "type": "text"
+          },
+          {
+            "description": "Incident categories or regions tracked",
+            "name": "tracking_scope",
+            "type": "text"
+          },
+          {
+            "description": "How incidents are verified and logged",
+            "name": "methodology",
+            "type": "text"
+          }
+        ],
+        "description": "Monitoring group or analyst that logs AI incidents and market signals.",
+        "examples": [
+          "Incident Tracker",
+          "Markets Desk"
+        ],
+        "name": "IncidentTracker"
+      },
+      {
+        "attributes": [
+          {
+            "description": "Person's name or public label",
+            "name": "full_name",
+            "type": "text"
+          },
+          {
+            "description": "Job or public role",
+            "name": "occupation",
+            "type": "text"
+          },
+          {
+            "description": "Country or region",
+            "name": "location",
+            "type": "text"
+          }
+        ],
+        "description": "Fallback type for any natural person not covered by a more specific person type.",
+        "examples": [
+          "Simbarashe Steyn Kundizeza",
+          "Md Faisal",
+          "Teen Hiker"
+        ],
+        "name": "Person"
+      },
+      {
+        "attributes": [
+          {
+            "description": "Organization name",
+            "name": "org_name",
+            "type": "text"
+          },
+          {
+            "description": "Type such as company, nonprofit, or informal group",
+            "name": "org_type",
+            "type": "text"
+          },
+          {
+            "description": "Country or region",
+            "name": "location",
+            "type": "text"
+          }
+        ],
+        "description": "Fallback type for any organization not covered by a more specific organization type.",
+        "examples": [
+          "Marathon Petroleum",
+          "Kalibrate",
+          "Hugging Face"
+        ],
+        "name": "Organization"
+      }
+    ]
+  },
+  "project_id": "proj_e7fc7c61960a",
+  "project_name": "Doom Clock future 3",
+  "total_text_length": 5213
+}
