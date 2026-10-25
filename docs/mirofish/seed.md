@@ -25,13 +25,13 @@ a date T (default now; only data with `ts < T`, read from `data/clean/<source>.j
 
 | File in `data/seed/round-1/` | Content | Size target |
 | --- | --- | --- |
-| `news-digest.md` | the 40 most-discussed Hacker News AI stories from the 7 days ending 48 h before T (so points have settled), one dated line each with points and comments | ~4–5 KB |
-| `market-odds.md` | latest odds before T on the core markets: Kalshi AGI curve, Manifold ASI curve, AI kills ≥10% of humans, catastrophe / loss-of-control / proliferation, Polymarket best-AI-model race | ~1–2 KB |
+| `world-events.md` | from `asOf(T).events()` (`docs/data/asof.md`): every government action and news line from the 60 days before T, the 12 most-reported AI incidents of those 60 days, and up to 18 turning points (`major`) from the year before. One dated line each: date, country code, the specific sentence (`detail`), who acted and the source. Hacker News is dropped | ~9–10 KB |
+| `market-odds.md` | the pinned markets priced at T: the 4 Manifold anchors (with traders and last trade), the 4 warning pins and the Kalshi AGI-announcement curve at each year end | ~1 KB |
 | `scenario-brief.md` | who plays (Guardian vs Rogue AI), which kinds of actors react, and that move effects are game rules, only news and odds are real | ~1 KB |
 | `requirement.txt` | the prediction requirement, sent as `simulation_requirement` (not uploaded as a file) | ~0.4 KB |
-| `meta.json` | T, the HN window, counts, missing sources, byte sizes | – |
+| `meta.json` | T, the 60-day window, counts, byte sizes | – |
 
-Total about 7–8 KB of seed, roughly 15–20 Zep chunks. This is deliberately small: the extra detail in more headlines
+Total about 12 KB of seed, roughly 25 Zep chunks. This is deliberately small: the extra detail in more headlines
 doesn't change what 10 agents say, but every chunk costs Zep time. Do **not** put the raw data dump, long articles,
 Epoch/METR numbers or AIID incidents in round 1. They aren't news that a social network would react to, and the
 panel/Monte Carlo already use them.

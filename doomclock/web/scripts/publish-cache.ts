@@ -21,13 +21,20 @@ const bulletin = readFileSync(fileURLToPath(new URL('../../../data/clean/doomsda
 writeFileSync(cacheDir + 'bulletin.json', JSON.stringify(bulletin))
 console.log(`publish:cache wrote bulletin.json (${bulletin.length} settings)`)
 
-// The engine's one input, built from the files above (engine/world.ts). ui loads cache/world.json.
+// The engine's one input (engine/world.ts), straight from asOf(T) (pipeline/asof): T is the data freeze, the
+// asOf of data/state.json, or --asOf=ISO. Prices, history, curve and events can't drift from T. ui loads cache/world.json.
 const { worldFrom } = await import('../src/engine/world.ts')
+// A computed specifier, so tsc -b doesn't type-check the pipeline (plain node ESM outside this package).
+const { asOf } = await import(new URL('../../pipeline/asof/asof.ts', import.meta.url).href)
 const read = (f: string) => JSON.parse(readFileSync(dataDir + f, 'utf8'))
+const at = asOf(process.argv.find((a) => a.startsWith('--asOf='))?.slice(7) ?? read('state.json').asOf)
+const marketInputs = at.marketInputs()
+if (!marketInputs) throw new Error(`publish:cache: no KXAGICO curve before ${at.T}`)
 const markets = JSON.parse(readFileSync(fileURLToPath(new URL('../../pipeline/markets.json', import.meta.url)), 'utf8'))
 const world = worldFrom({
-  state: read('state.json'), marketInputs: read('market-inputs.json'), signalInputs: read('signal-inputs.json'),
-  events: read('events.json'), markets, bulletin,
+  state: at.state(), marketInputs, signalInputs: read('signal-inputs.json'), events: at.eventsFile(), markets,
+  bulletin: at.records('doomsday_clock') as unknown as BulletinRow[],
 })
 writeFileSync(cacheDir + 'world.json', JSON.stringify(world))
-console.log(`publish:cache wrote world.json (asOf ${world.asOf}, ${world.events.length} events)`)
+console.log(`publish:cache wrote world.json from asOf(${at.T}): ${world.events.length} events, ${world.events.filter((e) => e.major).length} major`)
+type BulletinRow = { ts: string; seconds_to_midnight: number }

@@ -41,15 +41,15 @@
         "id": 14,
         "title": "[P1 \u00b7 data] asOf(T): one point-in-time module",
         "description": "A single module that answers 'what was known at time T': it loads data/clean, normalises ts to Date and market ids, and exposes priceAt(market), anchors(), events() and government(), never returning anything with ts >= T. It replaces the scattered copies (seed.ts latestMarkets, clean-manifold as-of price, markets.json snapshot p, the prototype's own filter). Architecture review candidate 1.",
-        "details": "Scope: doomclock/pipeline/asof/** (or where the data workflow put priceAt: fold it in, not a fifth copy). Feeds the state builder, the timeline, the Inputs view, the backtest and the MiroFish seed.\nSCOPE CUT 24 Oct 22:20: Merged with task 2: the data workflow's priceAt becomes asOf(T). One module, not two tasks. Checkpoint 00:00.\nSPECIFICITY (Archie, 22:30): asOf(T) must also yield anchorHistory (dated price points per anchor) for the per-frame clock. Events carry who/where/detail/major. Enrichment pass after the data workflow: AIID (deployer/developer as who, location as where, severity -> major), government events (agency, document number, jurisdiction, major for executive orders/laws/rules).\nPartial: lib/price-at.ts exists (priceAt, strict ts < T, numeric compare). Remaining: wrap it with events/anchors/government into asOf(T) for the Inputs view and per-frame clock.",
+        "details": "Scope: doomclock/pipeline/asof/** (or where the data workflow put priceAt: fold it in, not a fifth copy). Feeds the state builder, the timeline, the Inputs view, the backtest and the MiroFish seed.\nSCOPE CUT 24 Oct 22:20: Merged with task 2: the data workflow's priceAt becomes asOf(T). One module, not two tasks. Checkpoint 00:00.\nSPECIFICITY (Archie, 22:30): asOf(T) must also yield anchorHistory (dated price points per anchor) for the per-frame clock. Events carry who/where/detail/major. Enrichment pass after the data workflow: AIID (deployer/developer as who, location as where, severity -> major), government events (agency, document number, jurisdiction, major for executive orders/laws/rules).\nPartial: lib/price-at.ts exists (priceAt, strict ts < T, numeric compare). Remaining: wrap it with events/anchors/government into asOf(T) for the Inputs view and per-frame clock.\n2026-10-25T00:23:52Z: Landed doomclock/pipeline/asof/{asof,events}.ts: asOf(T) with records, series, priceAt (lib/price-at.ts is now a re-export, its test moved to asof/), anchors, anchorHistory, warnings, capabilityCurve, events (who/where/detail/major: AIID deployer as who, country from the region rule as where, first description sentence as detail, 10+ press reports as major, a heuristic since AIID has no severity; government agency, document or EO number, USA/GBR, EOs, final rules and AI Act milestones major), government, state, marketInputs, eventsFile. build-state.ts, build-events.ts, mirofish/seed.ts and publish:cache all use it. seed.ts now writes world-events.md (60 days of government, news and the 12 most-reported AIID incidents, plus 18 turning points) instead of the Hacker News digest; data/seed/round-1 written at T0. cache/world.json now comes from asOf(2026-10-24T20:51:00Z): 966 events, 62 major. Checks: node --test asof/ 11 pass (fixture with all 12 sources, Z, .000Z and epoch ts, a row exactly at T and poison rows after T; plus the real data/clean at 3 T), now part of npm test; npm run build passes; headless check at 1440 shows the Inputs sheet and event context, 1 console error is the pre-existing favicon 404. Docs: docs/data/asof.md, events.md, state.md, docs/mirofish/seed.md.",
         "testStrategy": "A fixture test proves nothing with ts >= T is ever returned, across all sources and both ts formats. seed.ts and state.json both use it.",
         "dependencies": [
           2
         ],
         "priority": "high",
-        "status": "pending",
+        "status": "done",
         "subtasks": [],
-        "updatedAt": "2026-10-24T21:50:00Z"
+        "updatedAt": "2026-10-25T00:23:52Z"
       },
       {
         "id": 3,
@@ -980,9 +980,9 @@
       "created": "2026-10-24T19:50:00Z",
       "description": "Doom Clock. P1 = the Monte Carlo simulation (10,000 futures; the globe plays one sampled future; a MiroFish society ensemble for ~5 representative futures): a Plague Inc-style world view of a quarterly Timeline (real -> projected), with the analog clock in the corner (build now). P2 = the game on the same screen (deferred, gated by task 9). Game plan: docs/superpowers/plans/2026-10-24-doom-clock-game-plan-full.md Demo path: Inputs (seed data, as-of slider) -> live run (Monte Carlo in the browser + one live MiroFish quarter) -> replay recorded futures -> Why this time? + Track record. SCOPE CUT 22:20 BST: checkpoints 00:00 engine+asOf+mockup OK, 03:00 World+clock+Why on real data, 06:00 Inputs+track record+recorded runs, 09:00 polish+Devpost (live run if ahead), freeze 11:30 GMT, submit 11:45 GMT. OVERNIGHT RUN (25 Oct 00:15 GMT, owner instruction): build the whole product as one demo; every task including the former deferred P2 game tasks is now active. Lanes (one workflow, git worktrees, each lane lands on main): core-data (14,3,103,110), backtest (6,106,118), game-core (101,107,108,115,116,117,119,124,125,129), society (102,105,11,112,109 then 113,114,120-123,128,131,132,134), ui (8,15,4,5,18,111 + first-launch walkthrough, then 126,127,133,135,7,136), ship (17,137,138,139). Owner-only tasks (130,140,142,143,144) are prepared but need Archie.",
       "version": "1.0.0",
-      "lastModified": "2026-10-25T00:21:27Z",
+      "lastModified": "2026-10-25T00:23:52Z",
       "taskCount": 66,
-      "completedCount": 14,
+      "completedCount": 15,
       "tags": [
         "master"
       ]

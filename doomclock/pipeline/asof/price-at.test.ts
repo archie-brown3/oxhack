@@ -1,7 +1,7 @@
-// Run: node --test doomclock/pipeline/lib/price-at.test.ts
+// Run: node --test doomclock/pipeline/asof/price-at.test.ts
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { priceAt, type Point } from "./price-at.ts";
+import { priceAt, type Point } from "./asof.ts";
 
 // Mixed formats on purpose. As strings "…00.500Z" sorts before "…00Z", the reverse of their time order.
 const series: Point[] = [
