@@ -69,6 +69,7 @@ function Record({ bt, t7 }: { bt: BacktestFile; t7: T7File | null }) {
           </tr>
         ))}</tbody>
       </table>
+      <div className="tr-small">Manifold questions in this score have at least {bt.design.minTradersManifold} traders.</div>
       <div className="tr-small">The range is a 95% interval from resampling whole events, so ladders of related questions count once. By site, the market scored {sites.map(([k, v], i) => <span key={k}>{i ? (i === sites.length - 1 ? ' and ' : ', ') : ''}{f3(v.market.brier)} on {siteName[k] ?? k} ({fmt(v.n)})</span>)}.</div>
 
       <h4>Should an AI nudge the market?</h4>

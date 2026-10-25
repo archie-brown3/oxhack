@@ -1,6 +1,7 @@
 {
   "private": true,
   "name": "doomclock",
+  "type": "module",
   "engines": {
     "node": "22.x"
   },

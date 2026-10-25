@@ -24,12 +24,14 @@ interface Props {
 
 export function WhySheet({ world, timeline, hand, pin, backtest, future, step, luck, tab, onTab, onClose }: Props) {
   const next = (t: WhyTab, text: string) => <a className="next" href="#" onClick={(e) => (e.preventDefault(), onTab(t))}>{text}</a>
+  const catTraders = world.anchorHistory.cat2100.traders
+  const minTraders = backtest.design.minTradersManifold
   const body = {
     when: <>
       <div className="lede"><Label kind="real" /><span className="dc-data">prices as of {dmy(world.asOf)}</span></div>
       <h3>Market prices say when</h3>
-      <p>Today's clock reads today's market prices only. The rubric adds zero at today by construction. The backtest checks those prices 30 days out (Brier 0.085 vs coin 0.25); the clock's date is not scored.</p>
-      <p>Four Manifold play-money market prices go in. Traders do not stake real money, and the catastrophe market is thin. The clock reads {timeline.clock.date10 ? longDate(timeline.clock.date10) : 'after 2100'}.</p>
+      <p>Today's clock reads today's market prices only. The rubric adds zero at today by construction. The backtest checks those prices 30 days out (Brier 0.085 vs coin 0.25). Manifold questions in that score have at least {minTraders} traders. The clock's date is not scored.</p>
+      <p>Four Manifold play-money market prices go in. Traders do not stake real money. The catastrophe market is thin play money ({catTraders} traders), under that {minTraders}-trader line. The clock reads {timeline.clock.date10 ? longDate(timeline.clock.date10) : 'after 2100'}.</p>
       <div>
         {NODES.map((id) => { const h = world.anchorHistory[id]
           return <div className="anc" key={id}><div><a href={h.url} target="_blank" rel="noopener">{h.question}</a></div><b>{pct(world.anchors[id])}</b>
