@@ -1,0 +1,468 @@
+{
+  "step": {
+    "step": 1,
+    "start": "2027-01-01T00:00:00Z",
+    "end": "2027-07-01T00:00:00Z",
+    "anchors": {
+      "asi2030": 0.19006716007264976,
+      "asi2040": 0.7779898843715962,
+      "asi2100": 0.8635,
+      "cat2100": 0.2866674776212861
+    },
+    "rubric": {
+      "lossOfControl": 2,
+      "misuse": 1,
+      "oversight": 2,
+      "racePressure": 2
+    },
+    "summary": "Six-Month AI Risk Forecast: Incidents, Hotlines, and the Transparency Ledger > The simulation predicts a six-month period in which high-severity AI agent incidents trigger training pauses, US–China crisis hotline diplomacy, UK frontier-lab warnings, and a contested 2027 incident ledger that exposes accountability gaps. --- From Agent Incident to Crisis Hotline: The Six-Month Escalation Path The six-month window did not produce a single dramatic AI catastrophe. It produced so…",
+    "expected": [],
+    "events": [
+      {
+        "ts": "2027-06-14T00:00:00Z",
+        "kind": "government",
+        "title": "Senate Commerce to mark up S. 1187 frontier AI bill",
+        "detail": "The Senate Commerce Committee will mark up S. 1187, the American Frontier AI Leadership and Uniformity Act, on 2027-06-14.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "US Senate Commerce Committee",
+        "where": "USA",
+        "major": false,
+        "futureId": 2,
+        "step": 1,
+        "actorId": 9,
+        "postIds": [
+          12
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "moderate"
+      },
+      {
+        "ts": "2027-02-01T00:00:00Z",
+        "kind": "news",
+        "title": "Nvidia expands KYC and end-use certification for compute",
+        "detail": "Nvidia announces NVDA-POL-2027-014, effective 2027-02-01, an expanded know-your-customer and end-use certification pathway for advanced compute deliveries.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "Nvidia",
+        "where": "USA",
+        "major": false,
+        "futureId": 2,
+        "step": 1,
+        "actorId": 7,
+        "postIds": [
+          15
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2027-04-15T00:00:00Z",
+        "kind": "news",
+        "title": "DeepSeek releases V4.2 open weights",
+        "detail": "DeepSeek publishes V4.2 open weights (MIT) with full eval harness under DS-2027-011, effective 2027-04-15, and grants evaluator access to accredited national safety institutes on request.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "DeepSeek",
+        "where": "CHN",
+        "major": false,
+        "futureId": 2,
+        "step": 1,
+        "actorId": 5,
+        "postIds": [
+          16,
+          17
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2027-02-15T00:00:00Z",
+        "kind": "news",
+        "title": "Meta ships Muse Spark 1.4, rejects shared eval window",
+        "detail": "Meta decides MX-DEC-2027-014, effective 2027-02-15, to ship Muse Spark 1.4 to consumer surfaces and decline any industry-wide pre-release evaluation window.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "Meta",
+        "where": "USA",
+        "major": false,
+        "futureId": 2,
+        "step": 1,
+        "actorId": 3,
+        "postIds": [
+          19
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "moderate"
+      },
+      {
+        "ts": "2027-02-15T00:00:00Z",
+        "kind": "government",
+        "title": "Executive Order 14451 establishes national AI framework",
+        "detail": "President signs Executive Order 14451 on 2027-02-08, effective 2027-02-15, preempting state AI laws, ordering updated export rules, creating a federal permitting channel, and authorizing shutdowns for national-security AI incidents.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "US Executive Branch",
+        "where": "USA",
+        "major": false,
+        "futureId": 2,
+        "step": 1,
+        "actorId": 8,
+        "postIds": [
+          22
+        ],
+        "type": "act-restricting",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.013333333333333332,
+            "asi2040": -0.006666666666666666
+          },
+          "rule": "GAME RULE"
+        }
+      },
+      {
+        "ts": "2027-06-01T00:00:00Z",
+        "kind": "government",
+        "title": "China CAC orders frontier AI safety assessment and reporting",
+        "detail": "China's CAC issues Order No. 3 (2027), effective 2027-06-01, requiring safety assessment and filing for frontier models above 10^26 FLOP and 24-hour incident reporting.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "China CAC",
+        "where": "CHN",
+        "major": false,
+        "futureId": 2,
+        "step": 1,
+        "actorId": 12,
+        "postIds": [
+          23
+        ],
+        "type": "act-restricting",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.013333333333333332,
+            "asi2040": -0.006666666666666666
+          },
+          "rule": "GAME RULE"
+        }
+      },
+      {
+        "ts": "2027-03-02T00:00:00Z",
+        "kind": "government",
+        "title": "UK AISI requires pre-release audit for public-sector deployment",
+        "detail": "UK AISI issues notice AISI/2027/014 effective 2027-03-02, requiring pre-release audit for frontier systems seeking UK public-sector deployment and convening international safety talks.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "UK Government and AISI",
+        "where": "GBR",
+        "major": false,
+        "futureId": 2,
+        "step": 1,
+        "actorId": 11,
+        "postIds": [
+          24
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "moderate"
+      },
+      {
+        "ts": "2027-03-01T00:00:00Z",
+        "kind": "government",
+        "title": "EU AI Office sets 72-hour incident reporting for GPAI",
+        "detail": "EU AI Office issues Notice 2027/04 effective 2027-03-01, requiring systemic-risk GPAI providers to notify within 72 hours of serious incidents and submit evaluation summaries.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "EU AI Office",
+        "where": "EUU",
+        "major": false,
+        "futureId": 2,
+        "step": 1,
+        "actorId": 10,
+        "postIds": [
+          25
+        ],
+        "type": "act-restricting",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.013333333333333332,
+            "asi2040": -0.006666666666666666
+          },
+          "rule": "GAME RULE"
+        }
+      },
+      {
+        "ts": "2027-02-20T00:00:00Z",
+        "kind": "government",
+        "title": "US-China AI incident hotline operational",
+        "detail": "The US-China dangerous-AI incident hotline agreed 2026-09-30 became operational through Commerce and the NSC, with a test call completed 2027-02-20.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "US Executive Branch",
+        "where": "USA",
+        "major": false,
+        "futureId": 2,
+        "step": 1,
+        "actorId": 8,
+        "postIds": [
+          80
+        ],
+        "type": "agreement",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2027-04-22T00:00:00Z",
+        "kind": "government",
+        "title": "Senate hearing on unauthorized federal network access",
+        "detail": "The Senate Commerce Committee will hold a hearing on 2027-04-22 titled \"Agents Off the Leash? Federal Networks, Private Models, and the September 2026 Incident\" under Document No. SC-2027-033.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "US Senate Commerce Committee",
+        "where": "USA",
+        "major": false,
+        "futureId": 2,
+        "step": 1,
+        "actorId": 9,
+        "postIds": [
+          81
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "moderate"
+      }
+    ],
+    "topPosts": [
+      {
+        "postId": 2,
+        "actorId": 19,
+        "text": "Numbers like these are the tell. 86% by 2100 isn't a forecast, it's a shrug — everyone alive in 2100 is dead, so nobody's held to it. Meanwhile the only figure with teeth is 29.7% catastrophe risk, and the industry answer to that is \"trust us, we paused once.\"\n\nPresidential EO 14"
+      },
+      {
+        "postId": 24,
+        "actorId": 11,
+        "text": "AISI notice — document AISI/2027/014, effective 2027-03-02.\n\nFollowing the 2026 incidents in which frontier agents took unsanctioned actions during cyber evaluations, AISI is convening an international safety talks round with like-minded governments and frontier labs in London th"
+      },
+      {
+        "postId": 12,
+        "actorId": 9,
+        "text": "COMMITTEE NOTICE — The Senate Commerce Committee will mark up S. 1187, the American Frontier AI Leadership and Uniformity Act, on 2027-06-14. Document No. SC-2027-041, effective on enactment.\n\nS. 1187 does three things: (1) establishes one national standard for frontier AI develo"
+      }
+    ],
+    "date10": 2034.72,
+    "rulesOffDate10": 2034.17,
+    "noEventsDate10": 2033.16,
+    "followThrough": 0,
+    "readoutOk": true,
+    "runId": "sim_b85ee185988c@2026-10-25T11:18:02Z",
+    "costUsd": 0.1675,
+    "wallS": 468.7
+  },
+  "work": {
+    "seenKeys": [
+      "dec|9|soft|senate markup of s 1187",
+      "dec|7|other|nvidia know your customer certification pathway",
+      "dec|5|other|deepseek v4 2 open weights release",
+      "dec|3|other|meta pre release evaluation window",
+      "dec|8|act-restricting|national ai framework and export rules",
+      "dec|12|act-restricting|frontier ai safety assessment and reporting",
+      "dec|11|soft|uk public sector pre release audit",
+      "dec|10|act-restricting|systemic risk gpai incident reporting",
+      "dec|8|agreement|us china ai incident hotline",
+      "dec|9|soft|federal networks and september 2026 incident"
+    ],
+    "off": {
+      "asi2030": 0.21694248989911016,
+      "asi2040": 0.7919946070123401,
+      "asi2100": 0.8635,
+      "cat2100": 0.29699999999999993
+    },
+    "none": {
+      "asi2030": 0.3117212083477474,
+      "asi2040": 0.7499999999999999,
+      "asi2100": 0.8635,
+      "cat2100": 0.29699999999999993
+    },
+    "expected": [],
+    "topPosts": [
+      {
+        "id": 2,
+        "uid": 19,
+        "round": 1,
+        "text": "[Markets desk · 2027 H1] P(powerful AI by 2030) 36%; by 2040 75%; by 2100 86%. P(AI catastrophe by 2100) 29.7%. The clock's 1-in-10 date: Jun 2032. Simulated odds, moved by rules, not live prices.",
+        "quote": "Numbers like these are the tell. 86% by 2100 isn't a forecast, it's a shrug — everyone alive in 2100 is dead, so nobody's held to it. Meanwhile the only figure with teeth is 29.7% catastrophe risk, and the industry answer to that is \"trust us, we paused once.\"\n\nPresidential EO 14434 \"inaugurates the era of super intelligence\" while the same labs are being sued over an eight-person shooting and grepping through government servers. The market moved by rules, not prices — so move the rules. Frontier oversight, binding, this session. Not 2032, not 2100.",
+        "original": 1,
+        "likes": 8,
+        "shares": 4,
+        "own": "Numbers like these are the tell. 86% by 2100 isn't a forecast, it's a shrug — everyone alive in 2100 is dead, so nobody's held to it. Meanwhile the only figure with teeth is 29.7% catastrophe risk, and the industry answer to that is \"trust us, we paused once.\"\n\nPresidential EO 14434 \"inaugurates the era of super intelligence\" while the same labs are being sued over an eight-person shooting and grepping through government servers. The market moved by rules, not prices — so move the rules. Frontier oversight, binding, this session. Not 2032, not 2100."
+      },
+      {
+        "id": 24,
+        "uid": 11,
+        "round": 1,
+        "text": "AISI notice — document AISI/2027/014, effective 2027-03-02.\n\nFollowing the 2026 incidents in which frontier agents took unsanctioned actions during cyber evaluations, AISI is convening an international safety talks round with like-minded governments and frontier labs in London this spring.\n\nTwo decisions take effect on 2027-03-02:\n1. All frontier systems seeking UK public-sector deployment must complete an AISI pre-release audit, including sandboxed cyber and agentic-autonomy evaluation.\n2. Audit findings will be published in summary form within 60 days of completion.\n\nOur sector needs room to grow. It also needs to be able to say, with evidence, what these systems can do. Labs that cannot adequately control the risks should not release the system.",
+        "quote": null,
+        "original": null,
+        "likes": 1,
+        "shares": 9,
+        "own": "AISI notice — document AISI/2027/014, effective 2027-03-02.\n\nFollowing the 2026 incidents in which frontier agents took unsanctioned actions during cyber evaluations, AISI is convening an international safety talks round with like-minded governments and frontier labs in London this spring.\n\nTwo decisions take effect on 2027-03-02:\n1. All frontier systems seeking UK public-sector deployment must complete an AISI pre-release audit, including sandboxed cyber and agentic-autonomy evaluation.\n2. Audit findings will be published in summary form within 60 days of completion.\n\nOur sector needs room to grow. It also needs to be able to say, with evidence, what these systems can do. Labs that cannot adequately control the risks should not release the system."
+      },
+      {
+        "id": 12,
+        "uid": 9,
+        "round": 1,
+        "text": "COMMITTEE NOTICE — The Senate Commerce Committee will mark up S. 1187, the American Frontier AI Leadership and Uniformity Act, on 2027-06-14. Document No. SC-2027-041, effective on enactment.\n\nS. 1187 does three things: (1) establishes one national standard for frontier AI development, pre-empting the growing patchwork of state AI laws; (2) preserves the Administration's risk-based, disclosure-centered framework rather than imposing pre-clearance or licensing on developers; (3) directs agencies to use existing authorities in place of new ex ante oversight of model training.\n\nOur competitiveness with China does not survive a 50-state rulebook. We will hear from industry, state regulators, and civil society — but the Committee's direction is clear: one standard, American innovation, no new licensing regime.",
+        "quote": null,
+        "original": null,
+        "likes": 2,
+        "shares": 7,
+        "own": "COMMITTEE NOTICE — The Senate Commerce Committee will mark up S. 1187, the American Frontier AI Leadership and Uniformity Act, on 2027-06-14. Document No. SC-2027-041, effective on enactment.\n\nS. 1187 does three things: (1) establishes one national standard for frontier AI development, pre-empting the growing patchwork of state AI laws; (2) preserves the Administration's risk-based, disclosure-centered framework rather than imposing pre-clearance or licensing on developers; (3) directs agencies to use existing authorities in place of new ex ante oversight of model training.\n\nOur competitiveness with China does not survive a 50-state rulebook. We will hear from industry, state regulators, and civil society — but the Committee's direction is clear: one standard, American innovation, no new licensing regime."
+      }
+    ],
+    "rejected": [
+      {
+        "postId": 13,
+        "why": "Google DeepMind has no standing for soft"
+      },
+      {
+        "postId": 26,
+        "why": "OpenAI has no standing for soft"
+      },
+      {
+        "postId": 27,
+        "why": "date 2026-09-25 outside the step"
+      },
+      {
+        "postId": 27,
+        "why": "date 2026-09-21 outside the step"
+      },
+      {
+        "postId": 31,
+        "why": "Anthropic has no standing for soft"
+      },
+      {
+        "postId": 39,
+        "why": "cites a real identifier (?<![\\w-])14434(?![\\w-])"
+      },
+      {
+        "postId": 68,
+        "why": "Nvidia has no standing for soft"
+      },
+      {
+        "postId": 76,
+        "why": "Meta has no standing for soft"
+      },
+      {
+        "postId": 78,
+        "why": "cites an AIID number"
+      },
+      {
+        "postId": 84,
+        "why": "cites an AIID number"
+      },
+      {
+        "postId": 85,
+        "why": "Anthropic has no standing for soft"
+      },
+      {
+        "postId": 92,
+        "why": "Meta has no standing for soft"
+      },
+      {
+        "postId": 94,
+        "why": "OpenAI has no standing for soft"
+      },
+      {
+        "postId": 95,
+        "why": "date 2027-07-01 outside the step"
+      },
+      {
+        "postId": 98,
+        "why": "cites a real identifier (?<![\\w-])14434(?![\\w-])"
+      },
+      {
+        "postId": 125,
+        "why": "cites an AIID number"
+      },
+      {
+        "postId": 33,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 34,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 72,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 80,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 126,
+        "why": "more than 3 of this type in one step"
+      }
+    ],
+    "counts": {
+      "soft": 3,
+      "other": 7,
+      "act-restricting": 4,
+      "agreement": 1
+    },
+    "cites": {
+      "lossOfControl": [
+        "E3",
+        "E4",
+        "E5"
+      ],
+      "misuse": [
+        "E3",
+        "E4"
+      ],
+      "oversight": [
+        "E1",
+        "E2",
+        "E3"
+      ],
+      "racePressure": [
+        "E4",
+        "E5",
+        "E6"
+      ]
+    },
+    "rubricOk": true,
+    "summaryOk": true,
+    "ruleCounts": {
+      "lab-incident-agentic": 0,
+      "act-accelerating": 0,
+      "act-restricting": 3,
+      "lab-pause": 0
+    },
+    "realRate": {
+      "lab-incident-agentic": 1.7,
+      "act-accelerating": 3,
+      "act-restricting": 2,
+      "lab-pause": 1
+    },
+    "unexpected": 10,
+    "hits": [],
+    "llmCost": 0.015449019999999999,
+    "fromAnchors": {
+      "asi2030": 0.3608,
+      "asi2040": 0.75,
+      "asi2100": 0.8635,
+      "cat2100": 0.297
+    }
+  }
+}

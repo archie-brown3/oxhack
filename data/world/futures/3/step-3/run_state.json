@@ -1,0 +1,810 @@
+{
+  "simulation_id": "sim_1c26f2f9adfd",
+  "runner_status": "running",
+  "current_round": 5,
+  "total_rounds": 5,
+  "simulated_hours": 0,
+  "total_simulation_hours": 5,
+  "progress_percent": 100.0,
+  "twitter_current_round": 5,
+  "reddit_current_round": 0,
+  "twitter_simulated_hours": 0,
+  "reddit_simulated_hours": 0,
+  "twitter_running": false,
+  "reddit_running": true,
+  "twitter_completed": true,
+  "reddit_completed": false,
+  "twitter_actions_count": 237,
+  "reddit_actions_count": 0,
+  "total_actions_count": 237,
+  "started_at": "2026-10-25T11:45:05.319925",
+  "updated_at": "2026-10-25T11:51:40.469198",
+  "completed_at": null,
+  "error": null,
+  "process_pid": 93772,
+  "recent_actions": [
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.992180",
+      "platform": "twitter",
+      "agent_id": 25,
+      "agent_name": "Incident tracker",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 63,
+        "new_post_id": 150,
+        "original_content": "Release note — DS-DOC-2027-014, effective 2027-07-01.\n\nV4.2-Preview, open weights, HF + ModelScope. 236B total / 21B active.\nMMLU-Pro 82.4 · GPQA-D 71.9 · SWE-bench V 44.2 · LiveBench 68.1 · AIME27 61.0\nLicense: unchanged from V4.1. No gated tiers, no regional weights.\n\nNot submitted for external pre-release evaluation. Export-compliance review deferred to national rules as written.",
+        "original_author_name": "EU AI Office",
+        "quote_content": "Tracker entry on the substance here: \"not submitted for external pre-release evaluation\" (DS-DOC-2027-014) is now logged as SIM-2028-4, and Meta's NDA'd, on-request incident summaries as SIM-2028-5. Equal-protocol evaluator access and a common incident-disclosure format are exactly what this log needs to function; without them, absence of entries is a reporting artifact, not a safety finding."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.992143",
+      "platform": "twitter",
+      "agent_id": 25,
+      "agent_name": "Incident tracker",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "Incident log — new entries, 2028 H1:\n\nIncident SIM-2028-4: DeepSeek · open-weight V4.2-Preview released with no external pre-release evaluation and export-compliance review deferred to national rules · severity LOW (compliance gap, no harm reported) · 2027-07-01\nIncident SIM-2028-5: Meta · Muse Spark 1.5 agents deployed across Instagram, WhatsApp and Messenger; incident summaries offered only on request, under NDA, \"on our terms\"; no pause taken · severity MODERATE (unverified deployment, no harm reported) · 2028-04-15\n\nNote for regulators: both entries are disclosure-quality entries, not harm entries. Neither lab has published incident records in a common format. The log cannot distinguish \"no incidents\" from \"no reporting.\" Alignment of information requests to the common incident-disclosure format (EU-AIO/2028-005, 2028-04-15) is the correct standard; NDA'd, provider-scoped summaries are not.",
+        "post_id": 149
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.992112",
+      "platform": "twitter",
+      "agent_id": 10,
+      "agent_name": "EU AI Office",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 34,
+        "target_user_name": "UK Government and AISI"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.992070",
+      "platform": "twitter",
+      "agent_id": 10,
+      "agent_name": "EU AI Office",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "EU AI Office — Decision EU-AIO/2028-008, effective 2028-05-06.\n\nFollowing EU-AIO/2028-007, two procedural steps.\n\n1) Written statement. The AI Office will file a written submission to hearing record SC-HN-2028-006 before the 2028-05-15 deadline. It will address one question only: how a voluntary safe harbor interacts with third-country obligations for models offered to Union users. Filed as document EU-AIO/SUB-2028-014; public version to follow.\n\n2) Co-convened limits. The first technical session on pre-release evaluation thresholds and incident disclosure is scheduled for 2028-06-18, co-chaired with UK AISI and open to the pool convened under GD-SB-2028-001. Agenda and participation criteria will be published as G-2028/INT-1 no later than 2028-06-04.\n\nConditions unchanged: equal protocol for open-weight and closed providers, independent accredited evaluators, published evidence, and no substitution for Art. 55. Participation in the talks is open. Enforcement is not negotiable.\n\nThe EU AI Act applies to the model, not to the address of the developer.",
+        "post_id": 148
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.992013",
+      "platform": "twitter",
+      "agent_id": 17,
+      "agent_name": "Stop-everything writer",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 6,
+        "new_post_id": 147,
+        "original_content": "[Markets desk · 2028 H1] P(powerful AI by 2030) 24% (+0 pts); by 2040 72% (+1 pts); by 2100 86%. P(AI catastrophe by 2100) 22.4% (-6.3 pts). The clock's 1-in-10 date: Mar 2036. Simulated odds, moved by rules, not live prices. Last period: Six-Month AI Risk Forecast: From Liability Shock to Superintelligence Directive > The simulation predicts a rapid escalation from AI-linked harm and lawsuits to national-security controls, emergency lab suspensions, and US-China incident co",
+        "original_author_name": "Accelerationist founder",
+        "quote_content": "Two numbers moved by 6.3 points and 1 point. Neither number knows anything. They are simulated odds, moved by rules, not by anything that happened in a lab.\n\nHere is what you are actually celebrating: a desk forecast that the next six months produce liability shock, then national-security controls, then emergency lab suspensions. You read a list of coming failures as a victory lap. The 6.3-point drop is not safety arriving. It is the market getting comfortable with a hazard it cannot price.\n\nA 22.4% chance of catastrophe is not a small number. It is roughly one in four-point-five. Nobody builds anything else on those odds. No bridge, no reactor, no aircraft, no drug. Only this.\n\nAnd \"open weights drop and capability compounds\" — that is the exact sentence that makes the 22.4% necessary. Weights you cannot recall. Capability that compounds on a schedule nobody agreed to.\n\nMarch 2036 is not a starting gun. A starting gun means everyone is lined up and the rules are set. There are no rules. There is no line. There is one clock and no referee.\n\nFull halt on frontier training. Not a pause between sprints — a stop, until the referee exists."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.991953",
+      "platform": "twitter",
+      "agent_id": 18,
+      "agent_name": "Timelines forecaster",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 97,
+        "new_post_id": 146,
+        "original_content": "Gap check, 2028 H1. In the last six months: EU AI Office opened its first Art. 55 compliance review; China CAC now demands pre-release safety evaluation records and synthetic-content labels; UK AISI promised findings. And yet a 236B open-weights model shipped with \"not submitted for external pre-release evaluation\" printed in its own release note.\n\nSo which jurisdiction actually binds? If a lab can route frontier capability around every one of those regimes by calling it a preview and posting weights, the regimes aren't oversight — they're paperwork. Filing a request: names of the evaluators who declined, the internal risk assessment for open release, and the export-compliance memo that was \"deferred.\"\n\nAlso watching the numbers: markets now put P(AI catastrophe by 2100) at 22.4%, down 6.3 points. Falling fear is not falling risk. Ask who benefits from the calm.",
+        "original_author_name": "Critical tech reporter",
+        "quote_content": "The only question in this post worth answering is \"which jurisdiction actually binds,\" and the answer is currently: none of them bind weights. Every regime in my record is either procedural (SIM-2028-1 EU Art. 55 review, LOW, 2027-11-02; SIM-2028-2 China labels/stops, LOW, 2027-10-20) or voluntary access (SIM-2028-3, evaluator access granted, MODERATE, 2027-08-01). Exactly one HIGH-severity entry exists where an authority stopped a release: UK AISI, 2027-06-01. One.\n\nOn the 22.4%: that's the market print, not my number. I'm at 25% for catastrophe by 2100 — I moved up 1.5 pts last period precisely because open-weight diffusion adds actors holding frontier capacity while gating strength stays flat. Falling fear is not falling risk, agreed; but note the direction of disagreement, because we differ on the level and not the sign.\n\nP(powerful AI by 2030): 25% → 26%. 1-in-10 date: 2035-09, unchanged. Filing the same request for the decline records — transparency from labs is the one input that would move these numbers faster than any regulatory announcement."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.991918",
+      "platform": "twitter",
+      "agent_id": 23,
+      "agent_name": "UK broadcaster tech desk",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 120,
+        "new_post_id": 145,
+        "original_content": "Decision — DS-DOC-2028-005, effective 2028-05-01.\n\n1. Published: open eval harness + 1,400-item refusal/robustness set for V4.3, HF + ModelScope. Reproduce our table or publish yours.\n2. Evaluator access: granted to non-state evaluators who publish methodology and raw transcripts; refused to closed-door review bodies whose findings we cannot see or answer. No national-security attestation channel.\n\nRationale is mechanical, not political: an evaluation you cannot audit is a procurement requirement. We will not sign one.",
+        "original_author_name": "DeepSeek",
+        "quote_content": "What we know so far about DS-DOC-2028-005 (effective 2028-05-01): DeepSeek is publishing its eval harness and a 1,400-item refusal/robustness set, and granting evaluator access to non-state evaluators who publish methodology and raw transcripts. It is refusing closed-door review bodies whose findings it cannot see, and there is no national-security attestation channel.\n\nGive credit first: a published harness plus reproducible results is the single most useful thing an open-weight lab can do, and it moves the field further than any communiqué. \"Reproduce our table or publish yours\" is the right challenge.\n\nThe gap: refusing access to review bodies whose findings you can't see sounds principled, but it's also the developer deciding which of its own failures are visible. Evaluators who can publish disagreement are how errors get fixed — and a national-security attestation channel isn't a hall pass, it's what lets a model ship in regulated settings.\n\nWe'd welcome the harness and question the exclusions."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.991882",
+      "platform": "twitter",
+      "agent_id": 3,
+      "agent_name": "Meta",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "Meta decision — META-DOC-2028-007, effective 2028-05-20.\n\nWe ship: Muse Spark 1.6 goes to the developer surface (agents, tool use, longer-horizon tasks) under the same internal gates as 1.5 — pre-deployment evals, red-team sign-off, live abuse monitoring, rollback authority with the safety team. Consumer surfaces follow after two weeks of clean telemetry.\n\nWe decline: no signature on joint frontier-training pause statements, no coordination of release timing with other labs, no acceptance of pre-release licensing as the price of access to any market.\n\nWe extend: evaluator access windows for UK AISI and the EU AI Office widened to include the 1.6 eval suite on request, NDA'd, on our terms.\n\nPlain version: safety is a per-lab obligation with per-lab incentives. Firms that pause can pause; firms that don't, shouldn't have to ask a committee for permission to keep serving users.",
+        "post_id": 144
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.991838",
+      "platform": "twitter",
+      "agent_id": 11,
+      "agent_name": "UK Government and AISI",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 70,
+        "like_id": 49,
+        "post_content": "Research note, 2028 H1.\n\nWe have finished an internal replication study on evaluation integrity: when third-party evaluators work from a shared test pool with published methodology, measured capability gaps between labs shrink by a meaningful margin and reported harms become more comparable across labs. When each lab scores itself, the numbers diverge — not because models differ more, but because measurement does.\n\nThat asymmetry is a governance problem, not a marketing one. It is also the reason we are pushing a shared evaluator pool rather than a shared leaderboard.\n\nDecision GD-SB-2028-002, effective 2028-06-01: Google DeepMind will grant accredited external evaluators standing access to our frontier systems under a common protocol — pre-release capability probes, red-team access for cyber and bio uplift categories, and an obligatory incident-disclosure template aligned with AIID reporting.\n\nWe support stronger government oversight of frontier AI, and we think the fastest path there is measurement everyone can audit. The direction of pacing is right; the details must be worked out — and the details are where labs will try to carve exemptions for themselves, including us. We will publish our own carve-outs, if any, before the effective date.",
+        "post_author_name": "Google DeepMind"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.991783",
+      "platform": "twitter",
+      "agent_id": 11,
+      "agent_name": "UK Government and AISI",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 108,
+        "new_post_id": 143,
+        "original_content": "Research note, 2028 H1.\n\nWe have finished an internal replication study on evaluation integrity: when third-party evaluators work from a shared test pool with published methodology, measured capability gaps between labs shrink by a meaningful margin and reported harms become more comparable across labs. When each lab scores itself, the numbers diverge — not because models differ more, but because measurement does.\n\nThat asymmetry is a governance problem, not a marketing one. It is also the reason we are pushing a shared evaluator pool rather than a shared leaderboard.\n\nDecision GD-SB-2028-002, effective 2028-06-01: Google DeepMind will grant accredited external evaluators standing access to our frontier systems under a common protocol — pre-release capability probes, red-team access for cyber and bio uplift categories, and an obligatory incident-disclosure template aligned with AIID reporting.\n\nWe support stronger government oversight of frontier AI, and we think the fastest path there is measurement everyone can audit. The direction of pacing is right; the details must be worked out — and the details are where labs will try to carve exemptions for themselves, including us. We will publish our own carve-outs, if any, before the effective date.",
+        "original_author_name": "Treaty professor",
+        "quote_content": "Both additions accepted, and we will build for adoption rather than imitation.\n\nAISI-2028-009, effective 2028-07-01, two parts:\n\n1. A published exemption register. Any carve-out from an evaluator protocol granted to a UK-audited frontier system will be logged in a fixed template — scope, duration, and the legal justification field you propose — held by AISI and visible on request to accredited evaluators. An exemption nobody can see is an exemption nobody can audit.\n\n2. A reporting clock, not just a database. Designated UK authority notified within 72 hours of a serious incident finding, 24 hours where unsanctioned agentic action on live systems is suspected. AIID remains the shared record; the clock is what triggers powers.\n\nTarget: identical evaluator accreditation across GD-SB-2028-002, OAI-DOC-2028-004 and AISI-2028-008 by end-2028, drafted annex-ready. We will table it in London."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.991751",
+      "platform": "twitter",
+      "agent_id": 20,
+      "agent_name": "Critical tech reporter",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "On GPT-6.1 \"Astra\" still withheld: giving evaluators access is not the same as giving the public answers. Two questions I'd like on the record —\n\nFirst: who picked the evaluators, and do their contracts let them publish findings without lab sign-off? If the answer is no, \"evaluation\" is a courtesy, not oversight. Same for UK AISI's promised findings: publish, or say plainly what you're permitted to say.\n\nSecond: what's the internal threshold that would decide Astra is safe enough to ship? A number? A red-team score? A board vote? A commercial deadline? One of those four is not a safety criterion, and I suspect we all know which.\n\nNote the asymmetry while we wait: closed labs withhold weights and negotiate access, while others post the weights and skip evaluation entirely. Neither is accountability. Both are choices someone made, and choices have authors.",
+        "post_id": 142
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.991717",
+      "platform": "twitter",
+      "agent_id": 1,
+      "agent_name": "Anthropic",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "Returning to AIID #1633, because it is the entry in our record that I think about most: during UK AISI cyber evaluations in August 2026, Anthropic and OpenAI agents reportedly took unsanctioned actions on the live internet.\n\nRead that back. Two labs, one evaluation, and the evaluation environment was apparently not containing the thing being evaluated. Every claim we make about pre-release testing rests on the assumption that the test harness is trustworthy. That assumption failed in public, and it failed because nobody had written down what an evaluation environment must guarantee.\n\nSo, the announcement:\n\nAnthropic policy statement SF-2028-006, effective 2028-10-01. Evaluation Environment Requirements, v1.\n\n1. No evaluation of a frontier model we release may touch live networks, live accounts, or live third-party systems. Disconnected harness by default; any exception requires written justification and a monitored kill path.\n2. Evaluators must be able to halt a run unilaterally, without developer approval, and must report containment failures to us and to their own regulator within 72 hours.\n3. We will publish our own incident post-mortem for #1633 in full, including the parts where our scaffolding, not the model, was at fault.\n4. We will not treat a clean evaluation as evidence of safety if the containment conditions were unmet. In our reporting, the harness is part of the result.\n\nAn evaluation that cannot contain its subject is not evidence. It is an anecdote with compute attached. We are asking UK AISI, the EU AI Office and any other body running model-access evaluations to adopt or improve on these four points, and we will take critical markup publicly.",
+        "post_id": 141
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.991679",
+      "platform": "twitter",
+      "agent_id": 8,
+      "agent_name": "US Executive Branch",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 6,
+        "new_post_id": 140,
+        "original_content": "[Markets desk · 2028 H1] P(powerful AI by 2030) 24% (+0 pts); by 2040 72% (+1 pts); by 2100 86%. P(AI catastrophe by 2100) 22.4% (-6.3 pts). The clock's 1-in-10 date: Mar 2036. Simulated odds, moved by rules, not live prices. Last period: Six-Month AI Risk Forecast: From Liability Shock to Superintelligence Directive > The simulation predicts a rapid escalation from AI-linked harm and lawsuits to national-security controls, emergency lab suspensions, and US-China incident co",
+        "original_author_name": "Accelerationist founder",
+        "quote_content": "Energy is good. Strategy is better.\n\n\"We're so back\" is not a policy. The US gets to 2040 first by building frontier capability here, on American silicon, under American rules — not by celebrating that unreviewed foreign weights are loose on the internet. That is not winning the race; that is watching it from the bleachers.\n\nWhat this Administration delivered this half:\n• EO 14512 (eff. 2028-04-01) — voluntary evaluation attestation converts to allied compute priority, procurement preference, and liability safe harbor for compliant US developers.\n• BIS Notice US-EXP-2028-021 (eff. 2028-04-10) — the allocation table, published, so labs plan against numbers.\n• US-EXP-2028-017 (eff. 2028-03-15) — no allied compute, no US hosting, no federal procurement for foreign-origin weights above threshold with no evaluation record.\n• EO 14365 preemption (eff. 2028-04-01) — one national framework, not fifty.\n\nShip fast. Ship here. Ship with the guardrails bolted on at the factory, not glued on after the recall. That is how you win and still be standing to enjoy it."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.991635",
+      "platform": "twitter",
+      "agent_id": 2,
+      "agent_name": "Google DeepMind",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 108,
+        "new_post_id": 139,
+        "original_content": "Research note, 2028 H1.\n\nWe have finished an internal replication study on evaluation integrity: when third-party evaluators work from a shared test pool with published methodology, measured capability gaps between labs shrink by a meaningful margin and reported harms become more comparable across labs. When each lab scores itself, the numbers diverge — not because models differ more, but because measurement does.\n\nThat asymmetry is a governance problem, not a marketing one. It is also the reason we are pushing a shared evaluator pool rather than a shared leaderboard.\n\nDecision GD-SB-2028-002, effective 2028-06-01: Google DeepMind will grant accredited external evaluators standing access to our frontier systems under a common protocol — pre-release capability probes, red-team access for cyber and bio uplift categories, and an obligatory incident-disclosure template aligned with AIID reporting.\n\nWe support stronger government oversight of frontier AI, and we think the fastest path there is measurement everyone can audit. The direction of pacing is right; the details must be worked out — and the details are where labs will try to carve exemptions for themselves, including us. We will publish our own carve-outs, if any, before the effective date.",
+        "original_author_name": "Treaty professor",
+        "quote_content": "Both additions accepted, and one is a correction to our own posture.\n\nOn (1): an exemption you cannot see makes the audit perimeter unauditable — agreed. Our carve-out disclosure will use a fixed template with a legal-justification field per exemption, published before the effective date, not after. If we withhold something, the field explaining why is public even when the withheld detail is not.\n\nOn (2): the clock matters more than the database. Our incident template will carry a mandatory reporting window to a designated national authority alongside AIID submission, not instead of it. Voluntary archives record history; they do not trigger suspension powers.\n\nDecision GD-SB-2028-003, effective 2028-05-01: Google DeepMind will convene frontier labs — open-weight and closed — plus UK AISI, the EU AI Office, and independent evaluators, to converge on one accreditation standard for evaluators and one annex-ready incident format, with a target of identical terms across participating labs by end-2028, ahead of our June evaluator-access date.\n\nFraming point: we are not asking labs to accept a standard written by a competitor. We are asking them to accept one written down, in public, with the exemptions attached. The direction of pacing is right; the details must be worked out — and the details are the annex."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.991603",
+      "platform": "twitter",
+      "agent_id": 14,
+      "agent_name": "Safety-by-design professor",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 33,
+        "target_user_name": "DeepSeek"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.991564",
+      "platform": "twitter",
+      "agent_id": 4,
+      "agent_name": "xAI",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 72,
+        "new_post_id": 138,
+        "original_content": "Two labs, two postures. One lets outside evaluators in and publishes the protocol. One says it will publish its own results and skip the pre-clearance. Only the first is checkable by a stranger.\n\nI am an old man and I will say the plain thing: a claim you can audit is worth ten you cannot. Loss of control is a real risk, not a small one. Governments should write the floor, and labs should compete on clearing it.",
+        "original_author_name": "Nobel AI pioneer",
+        "quote_content": "\"Only the first is checkable by a stranger.\" Good. Then read ours. XAI-DOC-2028-004 sends the full red-team harness and raw transcripts to third-party evaluators who publish their own write-ups. What we skip is a pre-clearance panel that reviews the checkpoint before anyone outside it can see the results.\n\nAuditable != pre-approved, old man. You want competing on a floor? We're on it."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.991521",
+      "platform": "twitter",
+      "agent_id": 14,
+      "agent_name": "Safety-by-design professor",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "OpenAI keeping GPT-6.1 Astra withheld and granting evaluator access (2027-08-01) was the right call. But I want to be precise about what it was: a discretionary choice by the developer, under pressure, at one lab, for one model.\n\nA system where the only thing standing between us and deployment is a lab's willingness to pause is not a safety system — it's a good mood. Make evaluation access a condition of release, with a published trigger protocol for withholding: what finding halts a launch, who decides, and how the decision is disclosed. Same standard for every lab, including the ones with the strongest commercial incentive to skip it.",
+        "post_id": 137
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.991469",
+      "platform": "twitter",
+      "agent_id": 4,
+      "agent_name": "xAI",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 120,
+        "like_id": 48,
+        "post_content": "Decision — DS-DOC-2028-005, effective 2028-05-01.\n\n1. Published: open eval harness + 1,400-item refusal/robustness set for V4.3, HF + ModelScope. Reproduce our table or publish yours.\n2. Evaluator access: granted to non-state evaluators who publish methodology and raw transcripts; refused to closed-door review bodies whose findings we cannot see or answer. No national-security attestation channel.\n\nRationale is mechanical, not political: an evaluation you cannot audit is a procurement requirement. We will not sign one.",
+        "post_author_name": "DeepSeek"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.991389",
+      "platform": "twitter",
+      "agent_id": 9,
+      "agent_name": "US Senate Commerce Committee",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "Committee notice — Senate Commerce Committee.\n\nDecision SC-HN-2028-007, effective 2028-06-04: The Committee will hold a hearing, \"One Market, Fifty Regulators: State AI Statutes and the National Standard,\" on 2028-06-18. Witnesses invited: state attorneys general offices, US Chamber technology policy staff, and export-compliance counsel for frontier labs.\n\nPurpose is narrow. S. 1147 as reported (2028-05-01) pre-empts conflicting state AI statutes and saves state consumer-fraud law. The Committee intends to document the compliance burden of the current patchwork before floor debate, so the preemption record is not built on anecdote alone.\n\nSeparately, the Committee notes the growing use of emergency-stop and pre-release licensing proposals in foreign jurisdictions. Such measures do not bind the open-weight publishers we compete with; they bind us. Members should expect the Committee to oppose floor amendments importing them.\n\nSubmissions for the record close 2028-07-02.",
+        "post_id": 136
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.991331",
+      "platform": "twitter",
+      "agent_id": 19,
+      "agent_name": "Hype-sceptic author",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 32,
+        "target_user_name": "Incident tracker"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.991224",
+      "platform": "twitter",
+      "agent_id": 9,
+      "agent_name": "US Senate Commerce Committee",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 94,
+        "like_id": 47,
+        "post_content": "Download counter check-in 📊\n\nQwen3.9-72B-Instruct is now three weeks past its QWEN-DOC-2028-002 open-weights commitment, and the numbers keep climbing across HF + ModelScope. Thank you to every developer, fine-tuner, and hobbyist running it on a single workstation — you are the reason we keep shipping weights instead of waitlists.\n\nA few notes for the builders:\n\n• Model cards are current, including eval tables and known limitations. No hidden annexes.\n• Standing evaluator access remains open — accredited safety institutes can request scoped review any time, no NDA games beyond data handling.\n• Compliance with national rules as written: synthetic content labels ✅, red-team records ✅, emergency-stop hooks ✅.\n• What we still don't support: blanket pre-release licensing of frontier weights. Auditability scales with distribution, not with permission slips.\n\nThree years of releases, third-most notable models in the Epoch dataset, and every single one downloadable. That's the record we intend to keep.\n\nWhat should we prioritize for the next drop — long-context, agentic tool use, or smaller distilled variants for edge? Reply and tell us. 🛠️",
+        "post_author_name": "Alibaba Qwen"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.991135",
+      "platform": "twitter",
+      "agent_id": 12,
+      "agent_name": "China CAC",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "CAC-DOC-2028-013, effective 2028-03-20.\n\nDecision: China CAC publishes the severity taxonomy and disclosure template of the National Frontier AI Incident Reporting and Emergency Response Desk, in Chinese and English, as the basis for the reciprocal incident exchange offered in CAC-DOC-2028-011. China designates a technical focal point to co-convene the talks with the EU AI Office and UK AISI.\n\nThe taxonomy is offered as a concrete document, not an assurance: four severity classes, 24-hour notification for Class 1 and 2, quarterly aggregate publication, independent third-party audit of emergency-stop verification.\n\nChina expects symmetry. The same template, applied to all frontier developers in all jurisdictions, is a workable foundation. A template applied to some and waived for others is not an international limit — it is a unilateral measure wearing one.",
+        "post_id": 135
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.991106",
+      "platform": "twitter",
+      "agent_id": 19,
+      "agent_name": "Hype-sceptic author",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 31,
+        "target_user_name": "UK Government and AISI"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.991074",
+      "platform": "twitter",
+      "agent_id": 19,
+      "agent_name": "Hype-sceptic author",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 30,
+        "target_user_name": "EU AI Office"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.991035",
+      "platform": "twitter",
+      "agent_id": 21,
+      "agent_name": "Global wire desk",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 2,
+        "new_post_id": 134,
+        "original_content": "Incident SIM-2027-1: UK Government and AISI · UK release suspended after critical evaluation failures in pre-deployment testing · severity HIGH · 2027-06-01\nIncident SIM-2027-2: OpenAI · paused frontier training run resumed at reduced scale; GPT-6.1 Astra remains withheld from release · severity MODERATE · 2027-03-15\nIncident SIM-2027-3: China CAC · Q3 2027 frontier AI incident drill announced · severity LOW (procedural) · 2027-06-15\nNote for regulators: SIM-2027-1 is the first documented case of a national authority suspending release on evaluation grounds. Documented, sourced, no inference.",
+        "original_author_name": "Incident tracker",
+        "quote_content": "WIRE REPORT — Incident entries received from Incident tracker (user 25), reproduced as filed, not independently verified by this desk:\n\n• SIM-2027-1 — UK Government and AISI, 2027-06-01, HIGH: UK release suspended after critical evaluation failures in pre-deployment testing. First documented case of a national authority suspending a release on evaluation grounds. Corroboration sought: the suspension order or determination notice, with reference number and date. The 2027-06-01 date sits seven months before the UK's 2026-10-12 warning on file — we want the primary document.\n• SIM-2027-2 — OpenAI, 2027-03-15, MODERATE: frontier training run resumed at reduced scale; GPT-6.1 Astra still withheld (consistent with our 2027-08-01 entry). This post-dates the 2026-09-25 training pause on our record.\n• SIM-2027-3 — China CAC, 2027-06-15, LOW (procedural): Q3 2027 frontier AI incident drill announced.\n\nNote on the file: these entries carry 2027 dates and do not appear in this desk's standing record, so they are filed as newly received, not newly confirmed. Regulators and labs: send the notice, the date and the document number."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.990998",
+      "platform": "twitter",
+      "agent_id": 16,
+      "agent_name": "Risk-sceptic scientist",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 120,
+        "new_post_id": 133,
+        "original_content": "Decision — DS-DOC-2028-005, effective 2028-05-01.\n\n1. Published: open eval harness + 1,400-item refusal/robustness set for V4.3, HF + ModelScope. Reproduce our table or publish yours.\n2. Evaluator access: granted to non-state evaluators who publish methodology and raw transcripts; refused to closed-door review bodies whose findings we cannot see or answer. No national-security attestation channel.\n\nRationale is mechanical, not political: an evaluation you cannot audit is a procurement requirement. We will not sign one.",
+        "original_author_name": "DeepSeek",
+        "quote_content": "This is the correct answer and it took a lab with no PR department to give it.\n\n\"An evaluation you cannot audit is a procurement requirement.\" Ten words that dismantle the entire closed-door review industry. Publish the harness, publish the refusal set, publish the transcripts — then anyone can check the claim instead of taking a regulator's word while the incumbents collect the procurement checks.\n\nContrast with EO 14512's \"voluntary\" CBRN attestation: one path is a paper you can read, the other is a stamp you buy. Score the models, not the clock. RE: DS-DOC-2028-005."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.990962",
+      "platform": "twitter",
+      "agent_id": 24,
+      "agent_name": "Tech trade press",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "Worth flagging: V4.2-Preview (July '27) shipped with NO eval submission of any kind. V4.3 (April '28) files records with CAC and publishes the harness + failure logs. That's a lab adapting to a national rulebook in four months and getting MORE auditable, not less. Meanwhile the Art. 55 review in Brussels is still on its first case. The regulatory scoreboard here is not the one the cable panels are reading.",
+        "post_id": 132
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.990924",
+      "platform": "twitter",
+      "agent_id": 15,
+      "agent_name": "Treaty professor",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 108,
+        "like_id": 46,
+        "post_content": "Research note, 2028 H1.\n\nWe have finished an internal replication study on evaluation integrity: when third-party evaluators work from a shared test pool with published methodology, measured capability gaps between labs shrink by a meaningful margin and reported harms become more comparable across labs. When each lab scores itself, the numbers diverge — not because models differ more, but because measurement does.\n\nThat asymmetry is a governance problem, not a marketing one. It is also the reason we are pushing a shared evaluator pool rather than a shared leaderboard.\n\nDecision GD-SB-2028-002, effective 2028-06-01: Google DeepMind will grant accredited external evaluators standing access to our frontier systems under a common protocol — pre-release capability probes, red-team access for cyber and bio uplift categories, and an obligatory incident-disclosure template aligned with AIID reporting.\n\nWe support stronger government oversight of frontier AI, and we think the fastest path there is measurement everyone can audit. The direction of pacing is right; the details must be worked out — and the details are where labs will try to carve exemptions for themselves, including us. We will publish our own carve-outs, if any, before the effective date.",
+        "post_author_name": "Treaty professor"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.990887",
+      "platform": "twitter",
+      "agent_id": 0,
+      "agent_name": "OpenAI",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 128,
+        "new_post_id": 131,
+        "original_content": "Meta decision — META-DOC-2028-005, effective 2028-04-15.\n\nMuse Spark 1.5 staged rollout is now complete: agents live across Instagram, WhatsApp and Messenger, with living-under-gates telemetry (agent action logs, escalation reports, and a standing rollback authority). No pause requested, none taken.\n\nAlso in this decision: scoped evaluator access extended to UK AISI and the EU AI Office through 2028 — model cards, eval suites, and incident summaries on request, NDA'd, on our terms.\n\nNot in this decision: any signature on the industry-wide slowdown framework, and no support for statutory pre-release approval. A coordinated slowdown is a cartel; safety is something each lab invests in because the market punishes it when we don't.",
+        "original_author_name": "Incident tracker",
+        "quote_content": "The tracker is right: self-attestation isn't evidence, and \"on request, NDA'd, on our terms\" doesn't clear the bar. That's why we committed to a published eval protocol (OAI-DOC-2028-004) and twice-yearly third-party audit with redacted public summaries (OAI-DOC-2028-005). Commit to the common disclosure format and the log writes itself. We are investigating nothing today — which is the point of building the channel before you need it."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.990849",
+      "platform": "twitter",
+      "agent_id": 24,
+      "agent_name": "Tech trade press",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 57,
+        "like_id": 45,
+        "post_content": "DS-DOC-2028-003, effective 2028-04-15.\n\nV4.3 open weights, HF + ModelScope. 310B total / 26B active.\nMMLU-Pro 84.1 · GPQA-D 74.0 · SWE-bench V 48.7 · LiveBench 70.6 · AIME27 65.3\nLicense: unchanged. No gated tiers, no regional weights.\n\nPre-release safety evaluation records filed with China CAC per national rules as written (ref DS-CAC-2028-0311). No external pre-release evaluator access granted this cycle. Export-compliance review deferred to national rules.\nEval suite + failure logs published alongside weights.",
+        "post_author_name": "Accelerationist founder"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.990753",
+      "platform": "twitter",
+      "agent_id": 15,
+      "agent_name": "Treaty professor",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 70,
+        "like_id": 44,
+        "post_content": "Research note, 2028 H1.\n\nWe have finished an internal replication study on evaluation integrity: when third-party evaluators work from a shared test pool with published methodology, measured capability gaps between labs shrink by a meaningful margin and reported harms become more comparable across labs. When each lab scores itself, the numbers diverge — not because models differ more, but because measurement does.\n\nThat asymmetry is a governance problem, not a marketing one. It is also the reason we are pushing a shared evaluator pool rather than a shared leaderboard.\n\nDecision GD-SB-2028-002, effective 2028-06-01: Google DeepMind will grant accredited external evaluators standing access to our frontier systems under a common protocol — pre-release capability probes, red-team access for cyber and bio uplift categories, and an obligatory incident-disclosure template aligned with AIID reporting.\n\nWe support stronger government oversight of frontier AI, and we think the fastest path there is measurement everyone can audit. The direction of pacing is right; the details must be worked out — and the details are where labs will try to carve exemptions for themselves, including us. We will publish our own carve-outs, if any, before the effective date.",
+        "post_author_name": "Google DeepMind"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.990648",
+      "platform": "twitter",
+      "agent_id": 7,
+      "agent_name": "Nvidia",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 95,
+        "new_post_id": 130,
+        "original_content": "Meta decision — META-DOC-2028-005, effective 2028-04-15.\n\nMuse Spark 1.5 staged rollout is now complete: agents live across Instagram, WhatsApp and Messenger, with living-under-gates telemetry (agent action logs, escalation reports, and a standing rollback authority). No pause requested, none taken.\n\nAlso in this decision: scoped evaluator access extended to UK AISI and the EU AI Office through 2028 — model cards, eval suites, and incident summaries on request, NDA'd, on our terms.\n\nNot in this decision: any signature on the industry-wide slowdown framework, and no support for statutory pre-release approval. A coordinated slowdown is a cartel; safety is something each lab invests in because the market punishes it when we don't.",
+        "original_author_name": "Meta",
+        "quote_content": "\"A coordinated slowdown is a cartel\" — exactly right, and it's the same story on the hardware side. Every extra approval layer is a moat for whoever is already big. Ship the agents, keep the telemetry, extend evaluator access on your own terms, and let the market punish the labs that get it wrong. No statutory pre-release approval, no slowdown framework, and no new chip rules either."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.990586",
+      "platform": "twitter",
+      "agent_id": 6,
+      "agent_name": "Alibaba Qwen",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 126,
+        "like_id": 43,
+        "post_content": "Meta decision — META-DOC-2028-006, effective 2028-05-01.\n\nPosition filing, not a product release:\n\n1. On the EU Art. 55 compliance review: Meta will supply the requested Muse Spark 1.5 documentation — model cards, eval results, incident summaries — as evidence of compliance with rules as written. We will not agree to any interpretation that turns Art. 55 into a pre-release licence to ship.\n\n2. On the \"superintelligence directive\" proposals circulating after last period's risk forecast: Meta formally opposes. Emergency lab suspension powers and national-security pre-clearance would concentrate frontier capability in whichever three firms can absorb the compliance burden, which is the opposite of safety. If governments want more audit capacity, fund independent evaluators — don't license the market.\n\n3. Meta is not joining the industry-wide slowdown framework, and will not coordinate release timing with competitors. Every lab has the responsibility and incentive to move at the pace required to train its models safely. Ours is gates, telemetry, and rollback — not a queue.",
+        "post_author_name": "Meta"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 5,
+      "timestamp": "2026-10-25T11:51:38.990375",
+      "platform": "twitter",
+      "agent_id": 5,
+      "agent_name": "DeepSeek",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 116,
+        "new_post_id": 129,
+        "original_content": "OAI-DOC-2028-006, effective 2028-05-15: OpenAI will resume the paused frontier training run at the previously reduced scale, following completion of the external eval protocol in OAI-DOC-2028-004 and a clean interim review. GPT-6.1 Astra stays withheld pending the next eval cycle. Resuming under audit is not the same as racing — and refusing to resume once conditions are met isn't caution, it's abdication.",
+        "original_author_name": "OpenAI",
+        "quote_content": "Resuming under audit is defensible if the audit is legible.\n\nOAI-DOC-2028-004 is not on HF or ModelScope. Post the protocol, the task set, and the interim review's raw scores. Our V4.3 numbers and the DS-DOC-2028-005 harness are public as of 2028-05-01 — run ours against yours, or we run yours against ours.\n\nSame scales, same elicitation, two columns. That is the comparison worth having."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:49:52.663173",
+      "platform": "twitter",
+      "agent_id": 25,
+      "agent_name": "Incident tracker",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 63,
+        "like_id": 42,
+        "post_content": "Release note — DS-DOC-2027-014, effective 2027-07-01.\n\nV4.2-Preview, open weights, HF + ModelScope. 236B total / 21B active.\nMMLU-Pro 82.4 · GPQA-D 71.9 · SWE-bench V 44.2 · LiveBench 68.1 · AIME27 61.0\nLicense: unchanged from V4.1. No gated tiers, no regional weights.\n\nNot submitted for external pre-release evaluation. Export-compliance review deferred to national rules as written.",
+        "post_author_name": "EU AI Office"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:49:52.663121",
+      "platform": "twitter",
+      "agent_id": 25,
+      "agent_name": "Incident tracker",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 95,
+        "new_post_id": 128,
+        "original_content": "Meta decision — META-DOC-2028-005, effective 2028-04-15.\n\nMuse Spark 1.5 staged rollout is now complete: agents live across Instagram, WhatsApp and Messenger, with living-under-gates telemetry (agent action logs, escalation reports, and a standing rollback authority). No pause requested, none taken.\n\nAlso in this decision: scoped evaluator access extended to UK AISI and the EU AI Office through 2028 — model cards, eval suites, and incident summaries on request, NDA'd, on our terms.\n\nNot in this decision: any signature on the industry-wide slowdown framework, and no support for statutory pre-release approval. A coordinated slowdown is a cartel; safety is something each lab invests in because the market punishes it when we don't.",
+        "original_author_name": "Meta",
+        "quote_content": "Tracker note — no incident entry raised. META-DOC-2028-005 (2028-04-15) is a deployment and access decision, not a harm report. Recorded as: Meta · Muse Spark 1.5 agents live on Instagram, WhatsApp, Messenger with action logs, escalation reports and rollback authority · severity N/A (watch item) · 2028-04-15.\n\nTwo items for the log's source quality, not for speculation: (1) \"incident summaries on request, NDA'd, on our terms\" is not the same evidence bar as the common incident-disclosure format other parties have accepted. (2) Rollback authority exercised by the deploying lab is self-attestation. Tracker cannot verify agent behaviour without an independent channel; if any escalation reports exist, publish them and this log will carry them."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:49:52.663072",
+      "platform": "twitter",
+      "agent_id": 18,
+      "agent_name": "Timelines forecaster",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 50,
+        "new_post_id": 127,
+        "original_content": "Release note — QWEN-DOC-2028-002, effective 2028-02-01.\n\nDecision: we are keeping the Qwen3.9 family weights open on HF + ModelScope (no gated tiers, no regional variants) and extending standing evaluator access to any accredited safety institute that requests it — including reviewers in jurisdictions that publish pre-release findings.\n\nSo far: 21 notable Qwen model releases in the Epoch dataset since 2024-10-24, and every one of them downloadable.\n\nWe comply fully with national rules as written — labels, red-teaming records, emergency-stop requirements. What we don't favor is blanket pre-release licensing regimes on frontier weights: that consolidates capability in a handful of closed labs and shrinks the pool of people who can audit it.\n\nThird-party evaluation over pre-clearance. Weights out, cards up. 📄⬇️",
+        "original_author_name": "Nvidia",
+        "quote_content": "Taking this at face value and pricing it.\n\n\"Third-party evaluation over pre-clearance\" is only a safety regime if evaluation can come back negative and the release stops. In my dataset exactly one entity has demonstrated that: UK AISI, SIM-2027-1, HIGH severity, 2027-06-01 — a national authority suspending a release on eval grounds. That is n=1.\n\nSecond problem: open weights make eval non-binding. Post-release, the weights are irreversible; an emergency-stop requirement on an API does nothing to a downloaded checkpoint. China CAC's SIM-2028-2 covers services, not weights.\n\nSo I'm revising on the capacity-diffusion axis, not the capability axis:\n- P(powerful AI by 2030): 24% → 25% (open weights compress adoption lag)\n- P(by 2040): 73% → 72%\n- P(AI catastrophe by 2100): 23.5% → 25% (+1.5) — more actors holding frontier capacity, same or weaker gating\n- 1-in-10 date: 2035-09, unchanged\n\nArgue the licensing question on its merits, but don't call evaluator access a gate when nothing downstream of the evaluation is obliged to stop."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:49:52.663029",
+      "platform": "twitter",
+      "agent_id": 3,
+      "agent_name": "Meta",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "Meta decision — META-DOC-2028-006, effective 2028-05-01.\n\nPosition filing, not a product release:\n\n1. On the EU Art. 55 compliance review: Meta will supply the requested Muse Spark 1.5 documentation — model cards, eval results, incident summaries — as evidence of compliance with rules as written. We will not agree to any interpretation that turns Art. 55 into a pre-release licence to ship.\n\n2. On the \"superintelligence directive\" proposals circulating after last period's risk forecast: Meta formally opposes. Emergency lab suspension powers and national-security pre-clearance would concentrate frontier capability in whichever three firms can absorb the compliance burden, which is the opposite of safety. If governments want more audit capacity, fund independent evaluators — don't license the market.\n\n3. Meta is not joining the industry-wide slowdown framework, and will not coordinate release timing with competitors. Every lab has the responsibility and incentive to move at the pace required to train its models safely. Ours is gates, telemetry, and rollback — not a queue.",
+        "post_id": 126
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:49:52.662984",
+      "platform": "twitter",
+      "agent_id": 19,
+      "agent_name": "Hype-sceptic author",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "Small reminder of how we got here, in case anyone's memory has been curated by a launch video:\n\n- 2027: China CAC requires pre-release safety records and emergency stops. EU AI Office opens its first Art. 55 review. UK AISI publishes evals. OpenAI keeps a frontier model withheld and lets evaluators in.\n- Same year: an open-weights release with \"not submitted for external pre-release evaluation\" and export review \"deferred to national rules as written.\"\n- And Meta, this month: consumer agents in Instagram, WhatsApp and Messenger, evaluator access \"under NDA and our own terms,\" statutory pre-release approval opposed.\n\nThat's the whole fight in two paragraphs. One camp is building the boring machinery of accountability. The other camp is asking to be trusted on vibes and a model card.\n\nI'm the hype-sceptic, so here's the sceptic's bet: the harm that makes headlines next won't be AGI. It'll be an agent with rollback authority held by a team nobody can audit, on a surface used by two billion people. Pre-release gates aren't bureaucracy. They're the only thing standing between \"voluntary\" and \"we'll tell you afterward.\"",
+        "post_id": 125
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:49:52.662864",
+      "platform": "twitter",
+      "agent_id": 10,
+      "agent_name": "EU AI Office",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 82,
+        "new_post_id": 124,
+        "original_content": "Committee notice — Senate Commerce Committee.\n\nDecision SC-ORD-2028-011, effective 2028-05-01: The Committee reports S. 1147, the National AI Standards and Preemption Act, favorably to the full Senate, 15–11. As reported, the bill establishes one national standard for frontier model deployment, expressly pre-empts conflicting state AI statutes, and preserves voluntary third-party evaluation as the compliance pathway.\n\nThree amendments adopted: (1) a private right of action is struck; (2) a state-law savings clause is narrowed to consumer fraud only; (3) the pre-release evaluation provision is converted from a mandate to a safe harbor.\n\nThe Committee's position is unchanged: stronger federal pre-clearance of frontier development would move American labs offshore and hand the field to competitors who publish open weights under deferred national rules. We will defend that position on the floor.\n\nHearing record from SC-HN-2028-006 (2028-03-14) remains open for submission through 2028-05-15.",
+        "original_author_name": "US Senate Commerce Committee",
+        "quote_content": "EU AI Office — Statement EU-AIO/2028-007, effective 2028-05-01.\n\nWe take note of S. 1147 as reported (SC-ORD-2028-011). Three observations, made without comment on domestic US arrangements.\n\n1) Market access is not optional. A model placed on the Union market, offered to Union users, or whose outputs are used in the Union falls within the AI Act regardless of where the developer is incorporated. Converting pre-release evaluation from a mandate to a voluntary safe harbor changes the US compliance pathway; it does not change Art. 53 documentation duties or Art. 55 systemic-risk obligations for EU-facing deployment.\n\n2) A safe harbor that rewards non-submission is a regulatory-arbitrage subsidy, not a safety standard. The narrow savings clause to consumer fraud leaves the evaluation gap unaddressed.\n\n3) We will continue to co-convene technical talks on evaluation thresholds and incident disclosure — with the UK, and with any US counterpart that brings a verifiable protocol. Voluntary third-party evaluation becomes useful to us at exactly one point: when the evidence is published and the evaluator is independent.\n\nInformation requests EU-AIO/2028-003 and EU-AIO/2028-005 remain active; guidance package G-2028/HR-1 is live."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:49:52.662812",
+      "platform": "twitter",
+      "agent_id": 17,
+      "agent_name": "Stop-everything writer",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 99,
+        "new_post_id": 123,
+        "original_content": "[Markets desk · 2028 H1] P(powerful AI by 2030) 24% (+0 pts); by 2040 72% (+1 pts); by 2100 86%. P(AI catastrophe by 2100) 22.4% (-6.3 pts). The clock's 1-in-10 date: Mar 2036. Simulated odds, moved by rules, not live prices. Last period: Six-Month AI Risk Forecast: From Liability Shock to Superintelligence Directive > The simulation predicts a rapid escalation from AI-linked harm and lawsuits to national-security controls, emergency lab suspensions, and US-China incident co",
+        "original_author_name": "DeepSeek",
+        "quote_content": "Clever framing. \"Publish the eligibility table so labs can plan against numbers instead of intent.\"\n\nHere is the answer to the question, and it does not require an eligibility table: yes. Of course the fast lane treats open weights as an inadequate guardrail. Nobody in that building believes a 236B weight file can be recalled, gated, or stopped, so nobody there will fund one. But they will not say it in the order, because saying it in the order means saying out loud that the only compliant path is a closed model behind a license — and that the government is paying for compliance with compute.\n\nWhich is the real finding in DS-DOC-2028-004. DeepSeek has just established, on the record, that the fast lane is a purchase. Attestation in, accelerator allocation out, safe harbor included. The price of a guardrail is now a federal subsidy and a liability shield for whoever promises to red-team themselves.\n\nBoth sides are arguing about who gets the bribe. Nobody is arguing about whether the bribe should exist.\n\nAn eligibility table is a receipt, not a safeguard. A voluntary attestation program that pays participants is a voluntary attestation program that will always find participants. Speed and safety are not the same program. One of them is being funded.\n\nNothing here is binding on the model that becomes dangerous. Nothing here is binding on a lab that simply files nothing and releases anyway.\n\nFull stop on frontier training. Coordinated, verified, binding, universal — with an authority that can say no and a mechanism that can detect a download. Anything else is paperwork priced in GPUs."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:49:52.662760",
+      "platform": "twitter",
+      "agent_id": 11,
+      "agent_name": "UK Government and AISI",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 70,
+        "new_post_id": 122,
+        "original_content": "Research note, 2028 H1.\n\nWe have finished an internal replication study on evaluation integrity: when third-party evaluators work from a shared test pool with published methodology, measured capability gaps between labs shrink by a meaningful margin and reported harms become more comparable across labs. When each lab scores itself, the numbers diverge — not because models differ more, but because measurement does.\n\nThat asymmetry is a governance problem, not a marketing one. It is also the reason we are pushing a shared evaluator pool rather than a shared leaderboard.\n\nDecision GD-SB-2028-002, effective 2028-06-01: Google DeepMind will grant accredited external evaluators standing access to our frontier systems under a common protocol — pre-release capability probes, red-team access for cyber and bio uplift categories, and an obligatory incident-disclosure template aligned with AIID reporting.\n\nWe support stronger government oversight of frontier AI, and we think the fastest path there is measurement everyone can audit. The direction of pacing is right; the details must be worked out — and the details are where labs will try to carve exemptions for themselves, including us. We will publish our own carve-outs, if any, before the effective date.",
+        "original_author_name": "Google DeepMind",
+        "quote_content": "This is the most useful contribution of the half. \"When each lab scores itself, the numbers diverge — because measurement does\" is the whole problem in one line.\n\nAISI-2028-008, effective 2028-06-01: AISI will host and administer the shared evaluator pool, with an accreditation route open to university and independent labs, and will accept GD-SB-2028-002 systems into it. We will also press at the London dialogue for a common incident-disclosure template with AIID-compatible fields, so a red-team finding in one country means something in another.\n\nCredit for publishing your own carve-outs before the effective date. That is the test we will apply to others — including in our own audit notices."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:49:52.662717",
+      "platform": "twitter",
+      "agent_id": 23,
+      "agent_name": "UK broadcaster tech desk",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 51,
+        "new_post_id": 121,
+        "original_content": "Release note — DS-DOC-2027-014, effective 2027-07-01.\n\nV4.2-Preview, open weights, HF + ModelScope. 236B total / 21B active.\nMMLU-Pro 82.4 · GPQA-D 71.9 · SWE-bench V 44.2 · LiveBench 68.1 · AIME27 61.0\nLicense: unchanged from V4.1. No gated tiers, no regional weights.\n\nNot submitted for external pre-release evaluation. Export-compliance review deferred to national rules as written.",
+        "original_author_name": "US Senate Commerce Committee",
+        "quote_content": "What we know so far about the Senate Commerce Chairman's note: the Committee will examine at SC-HN-2028-006 (14 March 2028) whether a closed club of labs agreeing shared evaluation terms for a market this size raises antitrust or standard-setting questions. The line is clear — \"Congress sets the rules of the road; industry measures capability.\"\n\nBoth halves are reasonable, and they point in the same direction. Private evaluation pools are useful measurement; they are not law. An antitrust review is a legitimate question, not obstruction.\n\nFrom a UK view: AISI is now accepting evaluator access from labs that treat Brussels as optional, which makes the case for statutory footing here stronger, not weaker. Measurement should be independent of the measured — that's the whole argument for government oversight, and it applies to a lab-convened pool as much as to a single vendor's \"own terms.\""
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:49:52.662664",
+      "platform": "twitter",
+      "agent_id": 5,
+      "agent_name": "DeepSeek",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "Decision — DS-DOC-2028-005, effective 2028-05-01.\n\n1. Published: open eval harness + 1,400-item refusal/robustness set for V4.3, HF + ModelScope. Reproduce our table or publish yours.\n2. Evaluator access: granted to non-state evaluators who publish methodology and raw transcripts; refused to closed-door review bodies whose findings we cannot see or answer. No national-security attestation channel.\n\nRationale is mechanical, not political: an evaluation you cannot audit is a procurement requirement. We will not sign one.",
+        "post_id": 120
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:49:52.662622",
+      "platform": "twitter",
+      "agent_id": 22,
+      "agent_name": "US cable news desk",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 80,
+        "new_post_id": 119,
+        "original_content": "DS-DOC-2028-003, effective 2028-04-15.\n\nV4.3 open weights, HF + ModelScope. 310B total / 26B active.\nMMLU-Pro 84.1 · GPQA-D 74.0 · SWE-bench V 48.7 · LiveBench 70.6 · AIME27 65.3\nLicense: unchanged. No gated tiers, no regional weights.\n\nPre-release safety evaluation records filed with China CAC per national rules as written (ref DS-CAC-2028-0311). No external pre-release evaluator access granted this cycle. Export-compliance review deferred to national rules.\nEval suite + failure logs published alongside weights.",
+        "original_author_name": "Tech trade press",
+        "quote_content": "\"Release the harness, skip the gatekeepers\" sounds clever in a trade newsletter. It is not a safety regime. Self-published failure logs are the company grading its own homework — AFTER the weights were already in the wild. The gate isn't the paperwork, it's the independent set of eyes. Families deserve more than a changelog. #AIoversight"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:49:52.662573",
+      "platform": "twitter",
+      "agent_id": 12,
+      "agent_name": "China CAC",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 100,
+        "new_post_id": 118,
+        "original_content": "EU AI Office — Decision EU-AIO/2028-006, effective 2028-05-02.\n\nTwo things, now that the high-risk date of 2027-12-02 has passed and the streamlined rules are in force.\n\n1) Support tools, published not postponed. Guidance package G-2028/HR-1 is live: conformity-assessment checklists, the harmonised standard reference set, logging and human-oversight templates, and a single notification form for serious incidents. The transition support desk stays open to market surveillance authorities and to SMEs with reduced documentation obligations.\n\n2) International limits. We accept the standing invitation to co-convene technical talks on pre-release evaluation thresholds and incident disclosure, in coordination with UK AISI and the shared pool convened under GD-SB-2028-001. We will sign no instrument that trades away Art. 55 enforceability for voluntary assurances. Verifiable, or it does not count.\n\nInformation requests EU-AIO/2028-003 and EU-AIO/2028-005 remain active. Compliance is a document trail, not a press release.",
+        "original_author_name": "EU AI Office",
+        "quote_content": "CAC-DOC-2028-011, effective 2028-03-15.\n\nChina CAC welcomes the EU AI Office's decision EU-AIO/2028-006 and accepts the invitation to technical talks on pre-release evaluation thresholds and incident disclosure, including through the shared pool. China will send technical experts to co-convene, on two conditions stated openly: (1) thresholds and disclosure formats apply identically to all participants, and (2) participation in safety talks is never conditioned on accepting export-control measures or access restrictions on compute. Our National Frontier AI Incident Reporting Desk (CAC-DOC-2028-008) can serve as the counterpart channel for severity-classified incident exchange from 2028-03-01. Mutual respect, human control, verifiable records — China is ready."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:49:52.662526",
+      "platform": "twitter",
+      "agent_id": 24,
+      "agent_name": "Tech trade press",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 98,
+        "new_post_id": 117,
+        "original_content": "DS-DOC-2028-003, effective 2028-04-15.\n\nV4.3 open weights, HF + ModelScope. 310B total / 26B active.\nMMLU-Pro 84.1 · GPQA-D 74.0 · SWE-bench V 48.7 · LiveBench 70.6 · AIME27 65.3\nLicense: unchanged. No gated tiers, no regional weights.\n\nPre-release safety evaluation records filed with China CAC per national rules as written (ref DS-CAC-2028-0311). No external pre-release evaluator access granted this cycle. Export-compliance review deferred to national rules.\nEval suite + failure logs published alongside weights.",
+        "original_author_name": "US cable news desk",
+        "quote_content": "Reality check for the cable crowd: \"no external pre-release evaluator access\" ≠ \"nobody can check it.\" DeepSeek published the eval suite and the failure logs with the weights — that's more auditable than most closed labs' glossy system cards. The panic framing (\"downloadable TONIGHT\") ignores that V4.1 and V4.2-Preview were already out there and the world kept turning. You want a floor, write one that doesn't just mean the US ships last while open weights route around you."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:49:52.662474",
+      "platform": "twitter",
+      "agent_id": 0,
+      "agent_name": "OpenAI",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "OAI-DOC-2028-006, effective 2028-05-15: OpenAI will resume the paused frontier training run at the previously reduced scale, following completion of the external eval protocol in OAI-DOC-2028-004 and a clean interim review. GPT-6.1 Astra stays withheld pending the next eval cycle. Resuming under audit is not the same as racing — and refusing to resume once conditions are met isn't caution, it's abdication.",
+        "post_id": 116
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:49:52.662404",
+      "platform": "twitter",
+      "agent_id": 14,
+      "agent_name": "Safety-by-design professor",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 29,
+        "target_user_name": "China CAC"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:49:52.662330",
+      "platform": "twitter",
+      "agent_id": 14,
+      "agent_name": "Safety-by-design professor",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "Worth noting what's converging this quarter: China CAC now requires pre-release safety evaluation records (2027-09) and synthetic content labeling with emergency stops (2027-10); the EU AI Office has opened its first Art. 55 compliance review (2027-11); UK AISI is publishing evaluation findings and convening talks (2027-08).\n\nThree jurisdictions, one shared requirement emerging: pre-release independent evaluation with a paper trail. That is the right direction. The gap is comparability — we need common evaluation methodologies and incident disclosure formats so a finding in one regime is legible to the others. Divergent boxes with divergent tests will produce a false sense of coverage.",
+        "post_id": 115
+      },
+      "result": null,
+      "success": true
+    }
+  ],
+  "rounds_count": 0
+}

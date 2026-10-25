@@ -1,0 +1,583 @@
+{
+  "step": {
+    "step": 5,
+    "start": "2029-01-01T00:00:00Z",
+    "end": "2029-07-01T00:00:00Z",
+    "anchors": {
+      "asi2030": 0.024143313150168044,
+      "asi2040": 0.6849308502529419,
+      "asi2100": 0.8635,
+      "cat2100": 0.2383721844320958
+    },
+    "rubric": {
+      "lossOfControl": 1,
+      "misuse": 1,
+      "oversight": 3,
+      "racePressure": 2
+    },
+    "summary": "Six-Month AI Risk Forecast: From Liability Shock to Superintelligence Directive > The simulation predicts a rapid escalation from AI-linked harm and lawsuits to national-security controls, emergency lab suspensions, and US-China incident coordination, producing a more dangerous but crisis-managed world. --- Escalation Timeline: Incidents, Lawsuits, and Executive Orders The simulation's six-month window does not show a single dramatic rupture but a ratchet: each incident wide…",
+    "expected": [],
+    "events": [
+      {
+        "ts": "2029-02-27T00:00:00Z",
+        "kind": "government",
+        "title": "Senate Commerce schedules hearing on frontier release delays and evaluator access",
+        "detail": "The US Senate Commerce Committee scheduled a hearing, 'Frontier Release Delays, Evaluator Access, and US Competitiveness,' under Committee Record SC-2029-004, effective 2029-02-27.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "US Senate Commerce Committee",
+        "where": "USA",
+        "major": false,
+        "futureId": 3,
+        "step": 5,
+        "actorId": 9,
+        "postIds": [
+          8
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2029-04-01T00:00:00Z",
+        "kind": "news",
+        "title": "xAI grants pre-release evaluator access to Grok 5",
+        "detail": "xAI granted independent red teams, UK AISI and EU AI Office pre-release access to Grok 5 system cards and adversarial eval results, but not weights, effective 2029-04-01.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "xAI",
+        "where": "USA",
+        "major": false,
+        "futureId": 3,
+        "step": 5,
+        "actorId": 4,
+        "postIds": [
+          12
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2029-01-15T00:00:00Z",
+        "kind": "news",
+        "title": "OpenAI ships GPT-6.1 Astra to limited access program",
+        "detail": "OpenAI decided that GPT-6.1 Astra ships to a limited access program for government evaluators, safety institutes and vetted partners on published system cards, effective 2029-01-15.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "OpenAI",
+        "where": "USA",
+        "major": false,
+        "futureId": 3,
+        "step": 5,
+        "actorId": 0,
+        "postIds": [
+          14
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "moderate"
+      },
+      {
+        "ts": "2029-03-15T00:00:00Z",
+        "kind": "news",
+        "title": "DeepSeek releases V4.5 open weights",
+        "detail": "DeepSeek released V4.5 open weights on schedule with post-release evaluator access to EU AI Office and UK AISI, effective 2029-03-15.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "DeepSeek",
+        "where": "CHN",
+        "major": false,
+        "futureId": 3,
+        "step": 5,
+        "actorId": 5,
+        "postIds": [
+          15
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "moderate"
+      },
+      {
+        "ts": "2029-02-01T00:00:00Z",
+        "kind": "government",
+        "title": "UK AISI commits to publish evaluation findings within 60 days",
+        "detail": "UK AISI announced under UK-AISI-2029-002, effective 2029-02-01, that it will publish a summary of evaluation findings for each audited frontier system within 60 days of release.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "UK Government and AISI",
+        "where": "GBR",
+        "major": false,
+        "futureId": 3,
+        "step": 5,
+        "actorId": 11,
+        "postIds": [
+          18
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2029-03-01T00:00:00Z",
+        "kind": "government",
+        "title": "UK AISI convenes successor London international safety talks",
+        "detail": "UK AISI decided under UK-AISI-DOC-2029-003, effective 2029-03-01, to convene the London international safety talks' successor round in April 2029 with agenda items on reciprocal evaluation and joint incident reporting.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "UK Government and AISI",
+        "where": "GBR",
+        "major": false,
+        "futureId": 3,
+        "step": 5,
+        "actorId": 11,
+        "postIds": [
+          21
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2029-03-15T00:00:00Z",
+        "kind": "government",
+        "title": "UK AISI accepts admission as first foreign evaluation body under China CAC framework",
+        "detail": "UK AISI accepted admission as the first foreign evaluation body under China CAC's reciprocal framework and will apply the same protocol to Chinese systems, effective 2029-03-15.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "UK Government and AISI",
+        "where": "GBR",
+        "major": false,
+        "futureId": 3,
+        "step": 5,
+        "actorId": 11,
+        "postIds": [
+          45
+        ],
+        "type": "agreement",
+        "binding": false,
+        "severity": "moderate"
+      },
+      {
+        "ts": "2029-05-01T00:00:00Z",
+        "kind": "government",
+        "title": "BIS rule BIS-2029-0114 tightens frontier accelerator export licensing",
+        "detail": "The US Department of Commerce/BIS issued rule BIS-2029-0114, effective 2029-05-01, keeping frontier accelerators licensed for export with a presumption of denial for destinations of concern.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "US Executive Branch",
+        "where": "USA",
+        "major": false,
+        "futureId": 3,
+        "step": 5,
+        "actorId": 8,
+        "postIds": [
+          74
+        ],
+        "type": "act-restricting",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.013333333333333332,
+            "asi2040": -0.006666666666666666
+          },
+          "rule": "GAME RULE"
+        }
+      },
+      {
+        "ts": "2029-04-15T00:00:00Z",
+        "kind": "government",
+        "title": "EU AI Office opens formal compliance proceeding against DeepSeek",
+        "detail": "The EU AI Office adopted AIO-DOC-2029-007, effective 2029-04-15, opening a formal compliance proceeding against DeepSeek and requesting documents within 30 days.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "EU AI Office",
+        "where": "EUU",
+        "major": false,
+        "futureId": 3,
+        "step": 5,
+        "actorId": 10,
+        "postIds": [
+          86
+        ],
+        "type": "act-restricting",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.013333333333333332,
+            "asi2040": -0.006666666666666666
+          },
+          "rule": "GAME RULE"
+        }
+      },
+      {
+        "ts": "2029-03-01T00:00:00Z",
+        "kind": "news",
+        "title": "OpenAI closes GPT-6.1 Astra limited access program pending safety case",
+        "detail": "OpenAI decided under OPENAI-DOC-2029-003, effective 2029-03-01, to close the limited access program for GPT-6.1 Astra to new entrants pending a fresh external safety case.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "OpenAI",
+        "where": "USA",
+        "major": false,
+        "futureId": 3,
+        "step": 5,
+        "actorId": 0,
+        "postIds": [
+          112
+        ],
+        "type": "lab-pause",
+        "binding": false,
+        "severity": "moderate"
+      },
+      {
+        "ts": "2029-06-15T00:00:00Z",
+        "kind": "government",
+        "title": "Executive Order 14582 establishes National-Security AI Incident Cell and suspension rules",
+        "detail": "The US Executive Branch signed Executive Order 14582, effective 2029-06-15, establishing a National-Security AI Incident Cell and requiring a presidential finding for emergency suspension of a US frontier developer.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "US Executive Branch",
+        "where": "USA",
+        "major": false,
+        "futureId": 3,
+        "step": 5,
+        "actorId": 8,
+        "postIds": [
+          115
+        ],
+        "type": "act-restricting",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.013333333333333332,
+            "asi2040": -0.006666666666666666
+          },
+          "rule": "GAME RULE"
+        }
+      }
+    ],
+    "topPosts": [
+      {
+        "postId": 36,
+        "actorId": 10,
+        "text": "AIO-DOC-2029-005, effective 2029-03-15. Reminder on the state of play, since dates are being misread in this feed:\n\n1. GPAI obligations have applied since 2025-08-02.\n2. High-risk obligations apply since 2027-12-02, per the provisional deal of 2026-05-07 following the Digital Omn"
+      },
+      {
+        "postId": 14,
+        "actorId": 0,
+        "text": "OPENAI-DOC-2029-001, effective 2029-01-15.\n\nDecision: GPT-6.1 Astra ships to a limited access program — government evaluators, safety institutes, and vetted partners — on published system cards. Not a general release. Front weights stay with us until external evals clear.\n\nPacing"
+      },
+      {
+        "postId": 28,
+        "actorId": 12,
+        "text": "CAC-DOC-2028-021, effective 2028-10-15.\n\nDecision: The Administration designates the UK AI Safety Institute as the first foreign evaluation body admitted under the Reciprocal Frontier Model Evaluation and Incident-Reporting Framework (CAC-DOC-2028-017), following the talks opened"
+      }
+    ],
+    "date10": 2037.93,
+    "rulesOffDate10": 2035.81,
+    "noEventsDate10": 2035.94,
+    "followThrough": 0,
+    "readoutOk": true,
+    "runId": "sim_1c26f2f9adfd@2026-10-25T11:55:56Z",
+    "costUsd": 0.1178,
+    "wallS": 264.6
+  },
+  "work": {
+    "seenKeys": [
+      "dec|3|other|muse spark 14 agent release",
+      "dec|9|soft|national ai standards act markup",
+      "dec|6|other|qwen3972b open weights release",
+      "dec|5|other|v41 flash eval suite publication",
+      "dec|12|soft|frontier ai incident response drill",
+      "dec|9|soft|national ai standards act markup agenda",
+      "dec|0|lab-pause|paused training run resumption",
+      "dec|11|act-restricting|uk release suspension on evaluation failures",
+      "dec|12|soft|frontier ai incident reporting drill",
+      "dec|9|soft|executive order 14437 implementation hearing",
+      "dec|6|other|qwen open weights evaluator access",
+      "dec|3|other|muse spark agent update release",
+      "dec|5|other|v42preview open weights release",
+      "dec|11|soft|frontier evaluation findings and talks",
+      "dec|0|lab-pause|gpt61 astra release withholding",
+      "dec|12|act-restricting|prerelease safety evaluation records",
+      "dec|10|act-restricting|gpai systemic risk compliance review",
+      "dec|12|act-restricting|generative ai service filing rules",
+      "dec|8|act-accelerating|allied accelerator export channel",
+      "dec|11|act-restricting|uk prerelease evaluation of frontier models",
+      "dec|6|other|qwen39 open weights and evaluator access",
+      "dec|12|act-restricting|china prerelease safety evaluation records",
+      "dec|3|other|muse spark 15 agent rollout",
+      "dec|10|soft|article 55 information request to deepseek",
+      "dec|9|soft|open weights and export controls hearing",
+      "dec|5|other|v43 open weights release",
+      "dec|12|soft|international incidentreporting arrangement",
+      "dec|12|act-restricting|frontier ai incident reporting desk",
+      "dec|8|act-accelerating|allied compute fast lane eligibility",
+      "dec|12|agreement|reciprocal frontier evaluation incident reporting",
+      "dec|11|soft|gpt61 astra prerelease audit",
+      "dec|0|lab-pause|next frontier release delay",
+      "dec|11|soft|london prerelease evaluation talks",
+      "dec|6|other|qwen31032b open weights release",
+      "dec|8|act-restricting|foreignorigin openweight critical infrastructure disclosure",
+      "dec|9|soft|frontier ai transparency safe harbor",
+      "dec|11|agreement|uk china reciprocal evaluation framework",
+      "dec|12|act-restricting|minorharm incident public summaries",
+      "dec|5|other|v44 postrelease evaluator access",
+      "dec|12|act-restricting|minorharm incident notification",
+      "dec|9|soft|frontier release delays evaluator access",
+      "dec|4|other|grok 5 evaluator access",
+      "dec|0|other|gpt61 astra limited access",
+      "dec|5|other|deepseek v45 open weights",
+      "dec|11|soft|frontier system evaluation findings",
+      "dec|11|soft|london international safety talks",
+      "dec|11|agreement|uk aisi cac reciprocal evaluation",
+      "dec|8|act-restricting|frontier accelerator export licensing",
+      "dec|10|act-restricting|deepseek compliance proceeding",
+      "dec|0|lab-pause|gpt61 astra access pause",
+      "dec|8|act-restricting|national security ai incident response"
+    ],
+    "off": {
+      "asi2030": 0.06419050441464741,
+      "asi2040": 0.7894354390441544,
+      "asi2100": 0.8635,
+      "cat2100": 0.29699999999999993
+    },
+    "none": {
+      "asi2030": 0.07244456029209245,
+      "asi2040": 0.7499999999999999,
+      "asi2100": 0.8635,
+      "cat2100": 0.29699999999999993
+    },
+    "expected": [],
+    "topPosts": [
+      {
+        "id": 36,
+        "uid": 10,
+        "round": 1,
+        "text": "AIO-DOC-2029-005, effective 2029-03-15. Reminder on the state of play, since dates are being misread in this feed:\n\n1. GPAI obligations have applied since 2025-08-02.\n2. High-risk obligations apply since 2027-12-02, per the provisional deal of 2026-05-07 following the Digital Omnibus on AI of 2025-11-19. The deferral has expired; there is no further transition.\n3. Support tools stay in place for operators: the AI Act sandbox, the Art. 55 information-request channel, and the high-risk compliance checklist v3 are all open.\n\nThe Office does not set the risk forecast. It sets the filing dates. Both matter, and only one of them is negotiable.",
+        "quote": null,
+        "original": null,
+        "likes": 3,
+        "shares": 3,
+        "own": "AIO-DOC-2029-005, effective 2029-03-15. Reminder on the state of play, since dates are being misread in this feed:\n\n1. GPAI obligations have applied since 2025-08-02.\n2. High-risk obligations apply since 2027-12-02, per the provisional deal of 2026-05-07 following the Digital Omnibus on AI of 2025-11-19. The deferral has expired; there is no further transition.\n3. Support tools stay in place for operators: the AI Act sandbox, the Art. 55 information-request channel, and the high-risk compliance checklist v3 are all open.\n\nThe Office does not set the risk forecast. It sets the filing dates. Both matter, and only one of them is negotiable."
+      },
+      {
+        "id": 14,
+        "uid": 0,
+        "round": 1,
+        "text": "OPENAI-DOC-2029-001, effective 2029-01-15.\n\nDecision: GPT-6.1 Astra ships to a limited access program — government evaluators, safety institutes, and vetted partners — on published system cards. Not a general release. Front weights stay with us until external evals clear.\n\nPacing is not free, and neither is caution. We think stronger federal oversight of frontier models is the right trade, because a hard ceiling with no shared rules just moves the capability somewhere we can't see it. Evaluator access is open from day one. Ask, and you get the evals.",
+        "quote": null,
+        "original": null,
+        "likes": 0,
+        "shares": 5,
+        "own": "OPENAI-DOC-2029-001, effective 2029-01-15.\n\nDecision: GPT-6.1 Astra ships to a limited access program — government evaluators, safety institutes, and vetted partners — on published system cards. Not a general release. Front weights stay with us until external evals clear.\n\nPacing is not free, and neither is caution. We think stronger federal oversight of frontier models is the right trade, because a hard ceiling with no shared rules just moves the capability somewhere we can't see it. Evaluator access is open from day one. Ask, and you get the evals."
+      },
+      {
+        "id": 28,
+        "uid": 12,
+        "round": 1,
+        "text": "CAC-DOC-2028-021, effective 2028-10-15.\n\nDecision: The Administration designates the UK AI Safety Institute as the first foreign evaluation body admitted under the Reciprocal Frontier Model Evaluation and Incident-Reporting Framework (CAC-DOC-2028-017), following the talks opened 2028-09-20.\n\nConditions, applied symmetrically: (1) evaluators operate under CAC-supervised protocol with confidentiality and no-use terms; (2) findings are shared with the National Frontier AI Incident Reporting and Emergency Response Desk on the same timeline as domestic reporting; (3) reciprocity is reviewed every six months, and is suspended if the UK or any partner jurisdiction imposes discriminatory compute or model-access restrictions on Chinese entities.\n\nWe note for the record that the framework remains open to the EU AI Office and to other accredited institutes on identical terms. We do not accept unilateral export controls as a substitute for mutual respect, and we do not accept supervision of Chinese models by jurisdictions that exclude Chinese evaluators in return.",
+        "quote": null,
+        "original": null,
+        "likes": 2,
+        "shares": 3,
+        "own": "CAC-DOC-2028-021, effective 2028-10-15.\n\nDecision: The Administration designates the UK AI Safety Institute as the first foreign evaluation body admitted under the Reciprocal Frontier Model Evaluation and Incident-Reporting Framework (CAC-DOC-2028-017), following the talks opened 2028-09-20.\n\nConditions, applied symmetrically: (1) evaluators operate under CAC-supervised protocol with confidentiality and no-use terms; (2) findings are shared with the National Frontier AI Incident Reporting and Emergency Response Desk on the same timeline as domestic reporting; (3) reciprocity is reviewed every six months, and is suspended if the UK or any partner jurisdiction imposes discriminatory compute or model-access restrictions on Chinese entities.\n\nWe note for the record that the framework remains open to the EU AI Office and to other accredited institutes on identical terms. We do not accept unilateral export controls as a substitute for mutual respect, and we do not accept supervision of Chinese models by jurisdictions that exclude Chinese evaluators in return."
+      }
+    ],
+    "rejected": [
+      {
+        "postId": 26,
+        "why": "cites a real identifier (?<![\\w-])14409(?![\\w-])"
+      },
+      {
+        "postId": 28,
+        "why": "date 2028-10-15 outside the step"
+      },
+      {
+        "postId": 39,
+        "why": "cites an AIID number"
+      },
+      {
+        "postId": 84,
+        "why": "Google DeepMind has no standing for soft"
+      },
+      {
+        "postId": 90,
+        "why": "cites an AIID number"
+      },
+      {
+        "postId": 93,
+        "why": "cites a real identifier (?<![\\w-])14365(?![\\w-])"
+      },
+      {
+        "postId": 98,
+        "why": "cites an AIID number"
+      },
+      {
+        "postId": 107,
+        "why": "date 2028-11-01 outside the step"
+      },
+      {
+        "postId": 19,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 30,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 35,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 37,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 42,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 47,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 53,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 62,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 63,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 70,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 77,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 80,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 83,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 94,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 97,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 101,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 102,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 103,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 106,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 109,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 111,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 114,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 116,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 118,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 119,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 122,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 124,
+        "why": "more than 3 of this type in one step"
+      }
+    ],
+    "counts": {
+      "soft": 12,
+      "other": 21,
+      "agreement": 1,
+      "act-restricting": 3,
+      "lab-pause": 1
+    },
+    "cites": {
+      "lossOfControl": [
+        "E5"
+      ],
+      "misuse": [
+        "E3"
+      ],
+      "oversight": [
+        "E1",
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "racePressure": [
+        "E2",
+        "E4",
+        "E6"
+      ]
+    },
+    "rubricOk": true,
+    "summaryOk": true,
+    "ruleCounts": {
+      "lab-incident-agentic": 0,
+      "act-accelerating": 0,
+      "act-restricting": 3,
+      "lab-pause": 1
+    },
+    "realRate": {
+      "lab-incident-agentic": 1.7,
+      "act-accelerating": 3,
+      "act-restricting": 2,
+      "lab-pause": 1
+    },
+    "unexpected": 51,
+    "hits": [],
+    "llmCost": 0.0046303896,
+    "fromAnchors": {
+      "asi2030": 0.09819290371846566,
+      "asi2040": 0.7242764653160015,
+      "asi2100": 0.8635,
+      "cat2100": 0.22415330058011088
+    }
+  }
+}

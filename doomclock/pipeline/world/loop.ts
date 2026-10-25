@@ -31,10 +31,11 @@ export function startBody(simulation_id: string, max_rounds: number) {
 export type Api = (method: "GET" | "POST", path: string, body?: unknown) => Promise<any>
 
 export async function fetchReport(api: Api, simulation_id: string, poll: () => Promise<void>, maxPolls = 60) {
+  // force_regenerate: false returned the first step's report for every step of a run (25 Oct).
   // MiroFish answers 409 while the runner is still stopping or its Zep updater is draining; wait it out.
   let started: { task_id?: string; status?: string; report_id?: string } | undefined
   for (let i = 0; !started; i++) {
-    try { started = await api("POST", "/api/report/generate", { simulation_id, force_regenerate: false }) }
+    try { started = await api("POST", "/api/report/generate", { simulation_id, force_regenerate: true }) }
     catch (e) { if (i >= maxPolls || !String(e).includes("HTTP 409")) throw e; await poll() }
   }
   let status = started.status

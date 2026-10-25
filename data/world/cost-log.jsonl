@@ -35,11 +35,104 @@
 {"ts":"2026-10-25T10:46:03.979Z","event":"step1","label":"step1 f3","future":3,"project_id":"proj_e7fc7c61960a","graph_id":"mirofish_2cef39b66ddb4ae7","nodes":89,"edges":71,"entity_types":10,"edge_types":10,"seedPackChars":5189,"wall_s":180.3,"builtAt":"2026-10-25T10:46:03.978Z","question":"Over the next six months, which AI incidents, government decisions and lab actions happen, and how dangerous does the world become?"}
 {"ts":"2026-10-25T11:12:20.561Z","event":"check","label":"live epoch f1","usage":0.758211429,"laneSpent":0.308818,"CAP_USD":10,"LANE_CAP_USD":1}
 {"ts":"2026-10-25T11:13:37.316Z","event":"run","label":"live epoch f1","sim":"sim_afa73bdd8866","cost_usd":0.039945,"wall_s":70.6,"live":true}
+{"ts":"2026-10-25T11:18:01.898Z","event":"check","label":"f1 s1","usage":0.836976423,"laneSpent":0.308818,"CAP_USD":10,"LANE_CAP_USD":6}
+{"ts":"2026-10-25T11:18:02.437Z","event":"check","label":"f2 s1","usage":0.839891338,"laneSpent":0.308818,"CAP_USD":10,"LANE_CAP_USD":6}
+{"ts":"2026-10-25T11:18:04.471Z","event":"check","label":"f3 s1","usage":0.839891338,"laneSpent":0.308818,"CAP_USD":10,"LANE_CAP_USD":6}
+{"ts":"2026-10-25T11:19:30.692Z","event":"run","label":"f1 s1","sim":"sim_22c9450b9606","cost_usd":0.138542,"wall_s":82.6}
+{"ts":"2026-10-25T11:19:37.192Z","event":"run","label":"f3 s1","sim":"sim_1c26f2f9adfd","cost_usd":0.135627,"wall_s":86.6}
 {"ts":"2026-10-25T11:19:39.794Z","event":"check","label":"live f1","usage":0.991952011,"laneSpent":0.348763,"CAP_USD":10,"LANE_CAP_USD":1}
+{"ts":"2026-10-25T11:19:43.022Z","event":"run","label":"llm readout-f1-s1","cost_usd":0.0062328,"wall_s":0}
+{"ts":"2026-10-25T11:19:47.181Z","event":"run","label":"llm readout-f3-s1","cost_usd":0.00556458,"wall_s":0}
+{"ts":"2026-10-25T11:19:52.145Z","event":"run","label":"f2 s1","sim":"sim_b85ee185988c","cost_usd":0.152061,"wall_s":102.6}
+{"ts":"2026-10-25T11:20:06.738Z","event":"run","label":"llm readout-f2-s1","cost_usd":0.007879911,"wall_s":0}
+{"ts":"2026-10-25T11:20:24.394Z","event":"run","label":"llm readout-f2-s1","cost_usd":0.004462959,"wall_s":0}
 {"ts":"2026-10-25T11:21:10.511Z","event":"run","label":"live f1","sim":"sim_dd8f81aea81a","cost_usd":0.101258,"wall_s":84.6,"live":true}
 {"ts":"2026-10-25T11:21:18.490Z","event":"run","label":"llm readout-f1-s1","cost_usd":0.004950078,"wall_s":0}
 {"ts":"2026-10-25T11:21:19.451Z","event":"run","label":"llm rubric-live sim_dd8f81aea81a","cost_usd":0.00010979,"wall_s":0}
+{"ts":"2026-10-25T11:23:39.595Z","event":"run","label":"llm rubric-f1 s1","cost_usd":0.00104886,"wall_s":0}
+{"ts":"2026-10-25T11:23:39.660Z","event":"check","label":"f1 s2","usage":1.154895186,"laneSpent":0.760237,"CAP_USD":10,"LANE_CAP_USD":6}
+{"ts":"2026-10-25T11:24:11.151Z","event":"run","label":"llm rubric-f3 s1","cost_usd":0.00157794,"wall_s":0}
+{"ts":"2026-10-25T11:24:11.214Z","event":"check","label":"f3 s2","usage":1.181503203,"laneSpent":0.761815,"CAP_USD":10,"LANE_CAP_USD":6}
+{"ts":"2026-10-25T11:25:24.476Z","event":"run","label":"f1 s2","sim":"sim_22c9450b9606","cost_usd":0.119776,"wall_s":98.6}
+{"ts":"2026-10-25T11:25:37.289Z","event":"run","label":"llm readout-f1-s2","cost_usd":0.0102882,"wall_s":0}
 {"ts":"2026-10-25T11:25:41.268Z","event":"check","label":"live f1","usage":1.287931412,"laneSpent":0.455081,"CAP_USD":10,"LANE_CAP_USD":1}
+{"ts":"2026-10-25T11:25:46.055Z","event":"run","label":"f3 s2","sim":"sim_1c26f2f9adfd","cost_usd":0.106428,"wall_s":88.7}
+{"ts":"2026-10-25T11:25:50.979Z","event":"run","label":"llm rubric-f2 s1","cost_usd":0.00310615,"wall_s":0}
+{"ts":"2026-10-25T11:25:51.060Z","event":"check","label":"f2 s2","usage":1.307964624,"laneSpent":1.001414,"CAP_USD":10,"LANE_CAP_USD":6}
+{"ts":"2026-10-25T11:25:55.103Z","event":"run","label":"llm rubric-f1 s2","cost_usd":0.000175656,"wall_s":0}
+{"ts":"2026-10-25T11:25:55.251Z","event":"check","label":"f1 s3","usage":1.307964624,"laneSpent":1.001589,"CAP_USD":10,"LANE_CAP_USD":6}
+{"ts":"2026-10-25T11:26:09.529Z","event":"run","label":"llm readout-f3-s2","cost_usd":0.0039412,"wall_s":0}
+{"ts":"2026-10-25T11:26:34.321Z","event":"run","label":"llm readout-f3-s2","cost_usd":0.003102544,"wall_s":0}
+{"ts":"2026-10-25T11:26:40.946Z","event":"check","label":"f3 s3","usage":1.400276603,"laneSpent":1.008633,"CAP_USD":10,"LANE_CAP_USD":6}
 {"ts":"2026-10-25T11:27:37.764Z","event":"run","label":"live f1","sim":"sim_6410a0a15f9a","cost_usd":0.179192,"wall_s":110.1,"live":true}
 {"ts":"2026-10-25T11:27:47.321Z","event":"run","label":"llm readout-f1-s1","cost_usd":0.0055775664,"wall_s":0}
 {"ts":"2026-10-25T11:27:48.147Z","event":"run","label":"llm rubric-live sim_6410a0a15f9a","cost_usd":0.00024488,"wall_s":0}
+{"ts":"2026-10-25T11:28:08.246Z","event":"run","label":"f1 s3","sim":"sim_22c9450b9606","cost_usd":0.222391,"wall_s":126.8}
+{"ts":"2026-10-25T11:28:19.029Z","event":"run","label":"llm readout-f1-s3","cost_usd":0.008552004,"wall_s":0}
+{"ts":"2026-10-25T11:28:19.970Z","event":"run","label":"f2 s2","sim":"sim_b85ee185988c","cost_usd":0.222391,"wall_s":142.7}
+{"ts":"2026-10-25T11:28:38.587Z","event":"run","label":"llm rubric-f1 s3","cost_usd":0.000174516,"wall_s":0}
+{"ts":"2026-10-25T11:28:38.690Z","event":"check","label":"f1 s4","usage":1.567020178,"laneSpent":1.462142,"CAP_USD":10,"LANE_CAP_USD":6}
+{"ts":"2026-10-25T11:28:45.115Z","event":"run","label":"llm readout-f2-s2","cost_usd":0.00346269,"wall_s":0}
+{"ts":"2026-10-25T11:29:02.537Z","event":"run","label":"llm rubric-f2 s2","cost_usd":0.000377716,"wall_s":0}
+{"ts":"2026-10-25T11:29:02.625Z","event":"check","label":"f2 s3","usage":1.583205179,"laneSpent":1.465982,"CAP_USD":10,"LANE_CAP_USD":6}
+{"ts":"2026-10-25T11:29:15.850Z","event":"run","label":"f3 s3","sim":"sim_1c26f2f9adfd","cost_usd":0.20147,"wall_s":148.7}
+{"ts":"2026-10-25T11:29:29.385Z","event":"run","label":"llm readout-f3-s3","cost_usd":0.0074588892,"wall_s":0}
+{"ts":"2026-10-25T11:29:44.292Z","event":"run","label":"llm readout-f3-s3","cost_usd":0.0048627768,"wall_s":0}
+{"ts":"2026-10-25T11:29:51.683Z","event":"run","label":"llm rubric-f3 s3","cost_usd":0.0002298996,"wall_s":0}
+{"ts":"2026-10-25T11:29:51.787Z","event":"check","label":"f3 s4","usage":1.664901123,"laneSpent":1.680004,"CAP_USD":10,"LANE_CAP_USD":6}
+{"ts":"2026-10-25T11:30:03.468Z","event":"run","label":"f1 s4","sim":"sim_22c9450b9606","cost_usd":0.097881,"wall_s":78.6}
+{"ts":"2026-10-25T11:30:32.789Z","event":"run","label":"llm readout-f1-s4","cost_usd":0.0037717,"wall_s":0}
+{"ts":"2026-10-25T11:30:47.638Z","event":"run","label":"f2 s3","sim":"sim_b85ee185988c","cost_usd":0.14662,"wall_s":98.7}
+{"ts":"2026-10-25T11:30:50.637Z","event":"run","label":"llm rubric-f1 s4","cost_usd":0.000141876,"wall_s":0}
+{"ts":"2026-10-25T11:30:50.724Z","event":"check","label":"f1 s5","usage":1.756818386,"laneSpent":1.928418,"CAP_USD":10,"LANE_CAP_USD":6}
+{"ts":"2026-10-25T11:31:16.588Z","event":"run","label":"llm readout-f2-s3","cost_usd":0.0059815,"wall_s":0}
+{"ts":"2026-10-25T11:31:50.249Z","event":"run","label":"llm readout-f2-s3","cost_usd":0.0059815,"wall_s":0}
+{"ts":"2026-10-25T11:32:07.948Z","event":"check","label":"f2 s4","usage":1.801006585,"laneSpent":1.940381,"CAP_USD":10,"LANE_CAP_USD":6}
+{"ts":"2026-10-25T11:36:37.993Z","event":"run","label":"f1 s5","sim":"sim_22c9450b9606","cost_usd":0.141898,"wall_s":341}
+{"ts":"2026-10-25T11:36:53.134Z","event":"run","label":"llm readout-f1-s5","cost_usd":0.008048925,"wall_s":0}
+{"ts":"2026-10-25T11:37:10.797Z","event":"run","label":"llm readout-f1-s5","cost_usd":0.004874313,"wall_s":0}
+{"ts":"2026-10-25T11:37:28.907Z","event":"run","label":"llm rubric-f1 s5","cost_usd":0.000170196,"wall_s":0}
+{"ts":"2026-10-25T11:37:28.968Z","event":"check","label":"f1 s6","usage":1.938085816,"laneSpent":2.095373,"CAP_USD":10,"LANE_CAP_USD":6}
+{"ts":"2026-10-25T11:38:03.835Z","event":"check","label":"f2 s3","usage":1.938256012,"laneSpent":2.095373,"CAP_USD":10,"LANE_CAP_USD":6}
+{"ts":"2026-10-25T11:38:04.107Z","event":"check","label":"f3 s2","usage":1.938256012,"laneSpent":2.095373,"CAP_USD":10,"LANE_CAP_USD":6}
+{"ts":"2026-10-25T11:43:22.765Z","event":"run","label":"f1 s6","sim":"sim_22c9450b9606","cost_usd":0.121889,"wall_s":347.4}
+{"ts":"2026-10-25T11:43:45.008Z","event":"run","label":"llm readout-f1-s6","cost_usd":0.00449955,"wall_s":0}
+{"ts":"2026-10-25T11:44:07.664Z","event":"run","label":"llm readout-f1-s6","cost_usd":0.00309411,"wall_s":0}
+{"ts":"2026-10-25T11:44:20.456Z","event":"run","label":"f2 s3","sim":"sim_b85ee185988c","cost_usd":0.137539,"wall_s":367.3}
+{"ts":"2026-10-25T11:44:34.609Z","event":"run","label":"llm readout-f2-s3","cost_usd":0.00430972,"wall_s":0}
+{"ts":"2026-10-25T11:44:41.787Z","event":"run","label":"f3 s2","sim":"sim_1c26f2f9adfd","cost_usd":0.151519,"wall_s":390.4}
+{"ts":"2026-10-25T11:44:52.969Z","event":"run","label":"llm readout-f3-s2","cost_usd":0.00385659,"wall_s":0}
+{"ts":"2026-10-25T11:45:04.305Z","event":"run","label":"llm rubric-f3 s2","cost_usd":0.000235368,"wall_s":0}
+{"ts":"2026-10-25T11:45:05.304Z","event":"check","label":"f3 s3","usage":2.109333084,"laneSpent":2.522315,"CAP_USD":10,"LANE_CAP_USD":6}
+{"ts":"2026-10-25T11:45:15.946Z","event":"run","label":"llm rubric-f2 s3","cost_usd":0.000420426,"wall_s":0}
+{"ts":"2026-10-25T11:45:16.116Z","event":"check","label":"f2 s4","usage":2.109333084,"laneSpent":2.522735,"CAP_USD":10,"LANE_CAP_USD":6}
+{"ts":"2026-10-25T11:45:23.152Z","event":"check","label":"f1 s6","usage":2.109568452,"laneSpent":2.522735,"CAP_USD":10,"LANE_CAP_USD":6}
+{"ts":"2026-10-25T11:51:02.527Z","event":"run","label":"f2 s4","sim":"sim_b85ee185988c","cost_usd":0.132285,"wall_s":339}
+{"ts":"2026-10-25T11:51:15.972Z","event":"run","label":"llm readout-f2-s4","cost_usd":0.00451166,"wall_s":0}
+{"ts":"2026-10-25T11:51:43.327Z","event":"run","label":"llm rubric-f2 s4","cost_usd":0.000347206,"wall_s":0}
+{"ts":"2026-10-25T11:51:43.744Z","event":"check","label":"f2 s5","usage":2.254949836,"laneSpent":2.659879,"CAP_USD":10,"LANE_CAP_USD":6}
+{"ts":"2026-10-25T11:51:45.709Z","event":"run","label":"f1 s6","sim":"sim_22c9450b9606","cost_usd":0.167967,"wall_s":375.1}
+{"ts":"2026-10-25T11:51:48.808Z","event":"run","label":"f3 s3","sim":"sim_1c26f2f9adfd","cost_usd":0.168203,"wall_s":395.3}
+{"ts":"2026-10-25T11:52:03.492Z","event":"run","label":"llm readout-f3-s3","cost_usd":0.009367836,"wall_s":0}
+{"ts":"2026-10-25T11:52:07.772Z","event":"run","label":"llm readout-f1-s6","cost_usd":0.00418858,"wall_s":0}
+{"ts":"2026-10-25T11:52:15.862Z","event":"run","label":"llm rubric-f3 s3","cost_usd":0.000241038,"wall_s":0}
+{"ts":"2026-10-25T11:52:15.968Z","event":"check","label":"f3 s4","usage":2.304755841,"laneSpent":3.009847,"CAP_USD":10,"LANE_CAP_USD":6}
+{"ts":"2026-10-25T11:52:34.588Z","event":"run","label":"llm rubric-f1 s6","cost_usd":0.000167336,"wall_s":0}
+{"ts":"2026-10-25T11:55:29.092Z","event":"run","label":"f3 s4","sim":"sim_1c26f2f9adfd","cost_usd":0.089246,"wall_s":186.8}
+{"ts":"2026-10-25T11:55:45.073Z","event":"run","label":"llm readout-f3-s4","cost_usd":0.0082386,"wall_s":0}
+{"ts":"2026-10-25T11:55:56.011Z","event":"run","label":"llm rubric-f3 s4","cost_usd":0.000236418,"wall_s":0}
+{"ts":"2026-10-25T11:55:56.393Z","event":"check","label":"f3 s5","usage":2.407333983,"laneSpent":3.107735,"CAP_USD":10,"LANE_CAP_USD":6}
+{"ts":"2026-10-25T11:56:01.411Z","event":"run","label":"f2 s5","sim":"sim_b85ee185988c","cost_usd":0.152384,"wall_s":250.9}
+{"ts":"2026-10-25T11:56:18.374Z","event":"run","label":"llm readout-f2-s5","cost_usd":0.003365538,"wall_s":0}
+{"ts":"2026-10-25T11:56:45.628Z","event":"run","label":"llm rubric-f2 s5","cost_usd":0.000371736,"wall_s":0}
+{"ts":"2026-10-25T11:56:46.336Z","event":"check","label":"f2 s6","usage":2.441952148,"laneSpent":3.263856,"CAP_USD":10,"LANE_CAP_USD":6}
+{"ts":"2026-10-25T11:59:35.575Z","event":"run","label":"f3 s5","sim":"sim_1c26f2f9adfd","cost_usd":0.113188,"wall_s":212.8}
+{"ts":"2026-10-25T12:00:09.260Z","event":"run","label":"llm readout-f3-s5","cost_usd":0.00440196,"wall_s":0}
+{"ts":"2026-10-25T12:00:20.579Z","event":"run","label":"llm rubric-f3 s5","cost_usd":0.0002284296,"wall_s":0}
+{"ts":"2026-10-25T12:00:20.724Z","event":"check","label":"f3 s6","usage":2.550056668,"laneSpent":3.381675,"CAP_USD":10,"LANE_CAP_USD":6}
+{"ts":"2026-10-25T12:00:55.369Z","event":"run","label":"f2 s6","sim":"sim_b85ee185988c","cost_usd":0.108333,"wall_s":242.8}
+{"ts":"2026-10-25T12:01:05.039Z","event":"run","label":"llm readout-f2-s6","cost_usd":0.0060762492,"wall_s":0}
+{"ts":"2026-10-25T12:01:23.099Z","event":"run","label":"llm rubric-f2 s6","cost_usd":0.000382016,"wall_s":0}
+{"ts":"2026-10-25T12:04:42.645Z","event":"run","label":"f3 s6","sim":"sim_1c26f2f9adfd","cost_usd":0.067191,"wall_s":255}
+{"ts":"2026-10-25T12:05:19.898Z","event":"run","label":"llm readout-f3-s6","cost_usd":0.00879175,"wall_s":0}
+{"ts":"2026-10-25T12:05:27.736Z","event":"run","label":"llm rubric-f3 s6","cost_usd":0.000233058,"wall_s":0}

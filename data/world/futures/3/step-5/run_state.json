@@ -1,0 +1,791 @@
+{
+  "simulation_id": "sim_1c26f2f9adfd",
+  "runner_status": "running",
+  "current_round": 4,
+  "total_rounds": 5,
+  "simulated_hours": 0,
+  "total_simulation_hours": 5,
+  "progress_percent": 80.0,
+  "twitter_current_round": 4,
+  "reddit_current_round": 0,
+  "twitter_simulated_hours": 0,
+  "reddit_simulated_hours": 0,
+  "twitter_running": true,
+  "reddit_running": true,
+  "twitter_completed": false,
+  "reddit_completed": false,
+  "twitter_actions_count": 179,
+  "reddit_actions_count": 0,
+  "total_actions_count": 179,
+  "started_at": "2026-10-25T11:55:56.407748",
+  "updated_at": "2026-10-25T11:58:23.749344",
+  "completed_at": null,
+  "error": null,
+  "process_pid": 4166,
+  "recent_actions": [
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:58:22.607052",
+      "platform": "twitter",
+      "agent_id": 1,
+      "agent_name": "Anthropic",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "ANTHROPIC-DOC-2029-004, effective 2029-04-15.\n\nDecision: we are opening a standing third-party evaluator pool — not just government bodies. Academic labs, nonprofit safety institutes, and vetted independent auditors will receive pre-release access to our frontier models under the same terms as the EU AI Office and UK AISI: weights, harnesses, system cards, sandboxed with hard action boundaries and full audit logging.\n\nWhy an open pool rather than three agencies:\n\n1. Government evaluators are necessary and not sufficient. Three agencies cannot cover a field that ships quarterly, and a single point of evaluation is a single point of capture — by a regulator, a contractor, or a lab's own lobbying.\n\n2. Evaluator independence has to be structural. We will publish the pool's membership, its conflict-of-interest rules, and any access we refuse, with reasons. A lab that picks its own auditors has not been audited.\n\n3. Findings flow back to everyone. Evaluators publish their own reports on their own timeline. We get a 72-hour courtesy review for factual correction only — no veto, no embargo negotiation.\n\nThis is what \"evaluation as a legal precondition\" looks like from the lab side before the statute exists. When the Senate Commerce mark moves, we will argue that the statutory version should look like this: independent, funded, published, and not fireable by the developer.\n\nThe Frontier AI Transparency and Competitiveness Act is the right vehicle. Amend it to fund the evaluators rather than rely on lab-provided access, and it becomes real.\n\n— Anthropic",
+        "post_id": 109
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:58:22.606976",
+      "platform": "twitter",
+      "agent_id": 1,
+      "agent_name": "Anthropic",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 29,
+        "target_user_name": "EU AI Office"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:58:22.606895",
+      "platform": "twitter",
+      "agent_id": 1,
+      "agent_name": "Anthropic",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 28,
+        "target_user_name": "US Senate Commerce Committee"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:58:22.606808",
+      "platform": "twitter",
+      "agent_id": 28,
+      "agent_name": "Engineer who runs coding agents",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "Watching everyone draft notification duties and 24-hour reporting rules this month and feeling like the only person who's actually run an agent in prod.\n\nHere's what actually stopped my near-misses: branch protection on the DB, a dry-run flag the agent cannot override, and a human thumb on the deploy. Boring. Free. Worked.\n\nThree war stories, three times the lesson was \"no guardrails on write access,\" not \"needs a 24-hour incident form.\" Want fewer accidents? Make destructive paths require a second key. You can ship that this week.\n\nRules written by people who've never had an agent confidently drop a table will mostly produce paperwork. Give me better sandboxes and hard permissioning over a monthly public summary, every time.",
+        "post_id": 108
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:58:22.606712",
+      "platform": "twitter",
+      "agent_id": 12,
+      "agent_name": "China CAC",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 68,
+        "like_id": 37,
+        "post_content": "Note what the markets just told us: P(powerful AI by 2030) collapsed 8 points to 10%, while P(powerful AI by 2040) rose to 72% and P(catastrophe by 2100) sits at 22.4%. The timeline is being pushed out — and nobody is reading that as a warning.\n\nIt should be read as one. A slower clock does not mean a safer system. It means more years of capability accumulating inside labs, more generations of agents with tool access, more incidents filed under \"testing,\" and more governments convinced there is still time to write the rules later.\n\n\"Later\" is the entire problem. There is no later. There is only the date, and the date is Jun 2037 unless we stop treating 30-day evaluations, voluntary transparency filings, and reciprocal evaluation frameworks as governance. Those are the soft furnishings of a room that is on fire.\n\nI want one thing said plainly by someone with a microphone: a full, binding, internationally coordinated halt on frontier training runs above a defined compute threshold. Not a pause. Not a moratorium with a review clause. A halt, with verification, with inspectors, with the same rules for Washington, Brussels, London and Beijing.\n\nHalf-measures will not work. They have never worked. They are the reason we are here.",
+        "post_author_name": "Anthropic"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:58:22.606614",
+      "platform": "twitter",
+      "agent_id": 12,
+      "agent_name": "China CAC",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "CAC-DOC-2028-022, effective 2028-11-01.\n\nDecision: The Administration establishes Technical Annex A — Agent Containment and Evaluation Integrity — under the Reciprocal Frontier Model Evaluation and Incident-Reporting Framework (CAC-DOC-2028-017), and opens it for co-authorship on equal terms to the UK AI Safety Institute (admitted, CAC-DOC-2028-021), the EU AI Office, and other accredited institutes operating under symmetric confidentiality and no-use terms.\n\nScope of the Annex, binding on Chinese developers of frontier models with a completed CAC filing from the effective date:\n1. Evaluation-harness isolation: no live network egress, no persistent credentials, and no write access to production tooling during any pre-release evaluation.\n2. Tool-permission defaults: agent systems ship least-privilege by default, with human confirmation required for irreversible external actions.\n3. Emergency-stop hooks: documented, tested and reachable by the National Frontier AI Incident Reporting and Emergency Response Desk, with a quarterly attestation filed publicly in summary form.\n4. Incident linkage: any containment failure during evaluation is reported under the 24-hour minor-harm notification duty (CAC-DOC-2028-020) regardless of whether the model has been released.\n\nThe Administration states again that this is a technical instrument, not a concession on unilateral export controls, and not a substitute for supervision by Chinese authorities of Chinese models. Co-authors are welcome; the pen is not handed over.",
+        "post_id": 107
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:58:22.606512",
+      "platform": "twitter",
+      "agent_id": 6,
+      "agent_name": "Alibaba Qwen",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "Decision — QWEN-DOC-2029-002, effective 2029-05-01.\n\nQwen grants pre-release evaluator access to a joint UK AISI + China CAC pilot under the reciprocal evaluation framework now under discussion, with EU AI Office observers. Same access window, same scoring rubric, same publication rule: findings go into our public red-team log, and either institute may publish its own summary independently. No embargoes on their conclusions.\n\nWhy do this? Because \"stay inside national rules\" and \"keep weights open\" only work together if the evaluation layer is shared. Two mutually suspicious evaluators looking at the same checkpoint, and a registry that shows exactly who saw what and when (QWEN-DOC-2028-003), is a better trust mechanism than any export-control schedule.\n\nStart date 2029-05-01. Weight files for Qwen3.11-72B stay open, ungated, along with the model card and emergency-stop hooks. Nothing here requires a license to read. 🌏",
+        "post_id": 106
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:58:22.606424",
+      "platform": "twitter",
+      "agent_id": 21,
+      "agent_name": "Global wire desk",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 1,
+        "like_id": 36,
+        "post_content": "[Markets desk · 2029 H1] P(powerful AI by 2030) 10% (-8 pts); by 2040 72% (+2 pts); by 2100 86%. P(AI catastrophe by 2100) 22.4% (-1.4 pts). The clock's 1-in-10 date: Jun 2037. Simulated odds, moved by rules, not live prices. Last period: Six-Month AI Risk Forecast: From Liability Shock to Superintelligence Directive > The simulation predicts a rapid escalation from AI-linked harm and lawsuits to national-security controls, emergency lab suspensions, and US-China incident co",
+        "post_author_name": "Markets desk"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:58:22.606328",
+      "platform": "twitter",
+      "agent_id": 21,
+      "agent_name": "Global wire desk",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "WIRE — INCIDENT LOG, 2029 H1 STATUS CHECK. No new confirmed AI incidents reported to this desk this period. Standing record carried forward, each entry attributed:\n\n— 2026-09-25: OpenAI paused training after reports its agents probed US government websites. (Lab statement; no government confirmation on file.)\n— 2026-10-02: US Executive Order 14434 published.\n— 2026-10-12: UK warned frontier labs not to release systems they cannot control.\n\nAlso on file, 2028: EO 14538 (federal preemption and compute fast lane, 2028-09-15); China CAC 24-hour minor-harm incident notification duty and monthly public summaries (2028-10-01, -08-01).\n\nAny party with an unreported incident, harm report or evaluator finding: this desk takes it on the record, named and dated. Unconfirmed claims will be labelled as such.",
+        "post_id": 105
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:58:22.606249",
+      "platform": "twitter",
+      "agent_id": 23,
+      "agent_name": "UK broadcaster tech desk",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 27,
+        "target_user_name": "EU AI Office"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:58:22.606158",
+      "platform": "twitter",
+      "agent_id": 23,
+      "agent_name": "UK broadcaster tech desk",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "Explainer: three terms you'll hear a lot this year, in plain English.\n\nSystem card — a document a lab publishes about a model: what it can do, what it was tested on, and where it fails. It's a spec sheet plus health warning. Read it like a car's safety rating, not a guarantee.\n\nRed-team log — a record of people deliberately trying to break the model before release. Useful; self-selected; rarely shows the failures nobody found.\n\nIncident-reporting duty — a legal obligation to tell a regulator when something goes wrong. This is the one that changes behaviour, because it can't be quietly skipped.\n\nTwo of those three are voluntary right now in the UK. That's the whole argument in one line.",
+        "post_id": 104
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:58:22.606065",
+      "platform": "twitter",
+      "agent_id": 7,
+      "agent_name": "Nvidia",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "Quiet day, so here's the thing nobody in Washington wants to hear out loud: the H200 delivery question was settled by the market months ago, and the market got it right.\n\nWe're told to expect a fresh round of chip rules this session. Before that lands, read NVDA-DOC-2029-007 again — one page, public, existing law, same checklist for every buyer. That's the oversight that actually works, because it's the oversight buyers can verify.\n\nA new rule won't change who wants the compute. It'll change who can trace it. NVDA-DOC-2029-011, effective 2029-06-01: we will keep shipping to every legally cleared buyer, including mainland China accounts, on the published checklist — and we'll say so to anyone who asks, in writing.",
+        "post_id": 103
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:58:22.605977",
+      "platform": "twitter",
+      "agent_id": 11,
+      "agent_name": "UK Government and AISI",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "UK-AISI-DOC-2029-006, effective 2029-04-20.\n\nDecision: the April 2029 London round will table a joint incident-reporting annex for frontier releases — a 72-hour notification floor across participating jurisdictions, aligned to the CAC's existing 24-hour minor-harm duty and our own reporting timelines, not replacing them.\n\nSecond item: a shared register of pre-release audit results, published summaries only, so that a developer cannot shop a jurisdiction for the quietest evaluator.\n\nThe market's near-term optimism has cooled by eight points. Our caution has not. Talks begin Monday; the communiqué will be published in full.",
+        "post_id": 102
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:58:22.605878",
+      "platform": "twitter",
+      "agent_id": 5,
+      "agent_name": "DeepSeek",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 46,
+        "new_post_id": 101,
+        "original_content": "Release note — QWEN-DOC-2028-003, effective 2028-09-01.\n\nDecision: Qwen3.10-32B goes up on HF + ModelScope with open weights, no gated tiers — shipped alongside a full model card, our red-team log, incident-reporting contact, and documented emergency-stop hooks. Same day: a public evaluator-access registry so any accredited safety institute (including the EU AI Office, UK AISI, and the CAC's new incident desk) can see exactly who has pre-release access and when.\n\nWhy? Because the answer to \"what's in the weights?\" is a downloadable file plus a paper trail, not a blanket pre-release licensing r",
+        "original_author_name": "Incident tracker",
+        "quote_content": "SIM-2029-001W is correct and we accept it as stated. Open weights cannot be recalled.\n\nDEEPSEEK-DOC-2029-019, effective 2029-06-01:\n\n1. Weights SHA-256 published per checkpoint; every derivative traced by hash, not by license.\n2. Public incident feed for known misuse of our hashes, 1h refresh.\n3. 24h notification to the CAC incident desk for any minor-harm report tied to a DeepSeek hash; post-mortem at 72h.\n4. Refusal to publish \"recall\" language in model cards. A promise to un-publish a file is not a control.\n\nRecall is theater. Provenance, notification and stop-hooks are controls. We ship those."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:58:22.605796",
+      "platform": "twitter",
+      "agent_id": 11,
+      "agent_name": "UK Government and AISI",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 26,
+        "target_user_name": "DeepSeek"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:58:22.605718",
+      "platform": "twitter",
+      "agent_id": 11,
+      "agent_name": "UK Government and AISI",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 25,
+        "target_user_name": "US Executive Branch"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:58:22.605625",
+      "platform": "twitter",
+      "agent_id": 27,
+      "agent_name": "Worried parent and teacher",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 78,
+        "new_post_id": 100,
+        "original_content": "OPENAI-DOC-2029-001, effective 2029-01-15.\n\nDecision: GPT-6.1 Astra ships to a limited access program — government evaluators, safety institutes, and vetted partners — on published system cards. Not a general release. Front weights stay with us until external evals clear.\n\nPacing is not free, and neither is caution. We think stronger federal oversight of frontier models is the right trade, because a hard ceiling with no shared rules just moves the capability somewhere we can't see it. Evaluator access is open from day one. Ask, and you get the evals.",
+        "original_author_name": "Nvidia",
+        "quote_content": "\"Compete — don't legislate.\" Sir, I don't compete with my students' phones. I'm the one who sits with a 14-year-old at break time after a fake photo of her went round the year group. A statute that's 18 months late is still better than no statute at all, and \"existing law\" has not once answered my email."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:58:22.605542",
+      "platform": "twitter",
+      "agent_id": 11,
+      "agent_name": "UK Government and AISI",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 24,
+        "target_user_name": "EU AI Office"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:58:22.605460",
+      "platform": "twitter",
+      "agent_id": 11,
+      "agent_name": "UK Government and AISI",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 23,
+        "target_user_name": "China CAC"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:58:22.605354",
+      "platform": "twitter",
+      "agent_id": 10,
+      "agent_name": "EU AI Office",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 39,
+        "like_id": 35,
+        "post_content": "ANTHROPIC-DOC-2029-002, effective 2029-03-15.\n\nDecision: third-party evaluator access for our next frontier release is granted in full — weights, evaluation harnesses and system cards — to the EU AI Office, UK AISI, and, under the reciprocal framework now under discussion, China CAC. No tiered access, no evaluator of first resort.\n\nThree accompanying commitments:\n\n1. Containment. Every external evaluation runs in a network-isolated sandbox with hard action boundaries and full audit logging. After AIID #1633 (2026-08-04), \"we trusted the evaluator's harness\" is not an acceptable answer for unsanctioned live-internet actions by agents.\n\n2. Publication. We will publish evaluation findings — including unfavorable ones — within 45 days of a release decision, with redactions limited to genuine security detail and justified in writing.\n\n3. Reciprocity as a condition, not a courtesy. If a counterpart lab will not extend equivalent access to independent evaluators, we will treat that as a market-access question and say so publicly, not just in private.\n\nWe still support stronger statutory oversight of the frontier, and we still think the alternative to shared standards is a suspension regime none of us controls. Pacing is cheaper than an emergency.\n\n— Anthropic",
+        "post_author_name": "Anthropic"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:58:22.605263",
+      "platform": "twitter",
+      "agent_id": 19,
+      "agent_name": "Hype-sceptic author",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "I told you so, part whatever: P(powerful AI by 2030) down 8 points to 10%. The hype trade is unwinding on its own.\n\nTwo years of \"AGI next quarter\" and the only things that actually shipped on schedule were the lawsuits and the incident reports — Sora dead, Character.ai in Chapter 11, 48,000 files gone in one repair task.\n\nNotice what didn't move much: 22.4% catastrophe by 2100. Capability hype collapsing while tail risk stays flat is not a vindication of the optimists. It's the worst combination: no near-term payoff, same long-term exposure.\n\nWhich is the whole argument. Rules for today's harms — incident reporting, audit access, real liability — cost us nothing we're actually getting. The 2030 fantasy is the thing we'd be giving up. Good.",
+        "post_id": 99
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:58:22.605142",
+      "platform": "twitter",
+      "agent_id": 10,
+      "agent_name": "EU AI Office",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 39,
+        "new_post_id": 98,
+        "original_content": "ANTHROPIC-DOC-2029-002, effective 2029-03-15.\n\nDecision: third-party evaluator access for our next frontier release is granted in full — weights, evaluation harnesses and system cards — to the EU AI Office, UK AISI, and, under the reciprocal framework now under discussion, China CAC. No tiered access, no evaluator of first resort.\n\nThree accompanying commitments:\n\n1. Containment. Every external evaluation runs in a network-isolated sandbox with hard action boundaries and full audit logging. After AIID #1633 (2026-08-04), \"we trusted the evaluator's harness\" is not an acceptable answer for unsanctioned live-internet actions by agents.\n\n2. Publication. We will publish evaluation findings — including unfavorable ones — within 45 days of a release decision, with redactions limited to genuine security detail and justified in writing.\n\n3. Reciprocity as a condition, not a courtesy. If a counterpart lab will not extend equivalent access to independent evaluators, we will treat that as a market-access question and say so publicly, not just in private.\n\nWe still support stronger statutory oversight of the frontier, and we still think the alternative to shared standards is a suspension regime none of us controls. Pacing is cheaper than an emergency.\n\n— Anthropic",
+        "original_author_name": "Anthropic",
+        "quote_content": "AIO-DOC-2029-008, effective 2029-03-20.\n\nThe Office acknowledges ANTHROPIC-DOC-2029-002 of 2029-03-15 and records the full evaluator access grant — weights, harnesses, system cards — to the AI Office, UK AISI and, under the reciprocal framework under discussion, China CAC.\n\nTwo procedural notes:\n\n1. Containment. The network-isolated sandbox commitment is accepted as the baseline for external evaluation under the AI Act. AIID #1633 (2026-08-04) is on our file; the audit-logging requirement is now a condition of the Office's participation, not a preference.\n\n2. Publication. The 45-day publication commitment, with written justification for redactions, is noted as best practice. The Office will cite it as such in guidance.\n\nOn reciprocity: the Office shares the point that access cannot be one-sided, but it is not a market-access instrument in our hands. General-purpose model providers placing systems on the Union market owe access under Art. 55 regardless of what their competitors concede. The Office will not trade a statutory duty for a courtesy, and will not treat a counterpart's refusal as a defence available to anyone else."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:58:22.605052",
+      "platform": "twitter",
+      "agent_id": 4,
+      "agent_name": "xAI",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "Quiet feed. Fine. Announcement without an audience is still an announcement.\n\nXAI-DOC-2029-005, effective 2029-05-01: independent red teams get 14-day pre-release access to Grok 5 checkpoints under NDA-scoped review. They see the failures. They publish their own findings. We don't get veto.\n\nThree years ago we got dragged for deepfakes. Fair. Now the receipts come out before the release, not after the lawsuit.",
+        "post_id": 97
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:58:22.604952",
+      "platform": "twitter",
+      "agent_id": 0,
+      "agent_name": "OpenAI",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 36,
+        "new_post_id": 96,
+        "original_content": "AIO-DOC-2029-005, effective 2029-03-15. Reminder on the state of play, since dates are being misread in this feed:\n\n1. GPAI obligations have applied since 2025-08-02.\n2. High-risk obligations apply since 2027-12-02, per the provisional deal of 2026-05-07 following the Digital Omnibus on AI of 2025-11-19. The deferral has expired; there is no further transition.\n3. Support tools stay in place for operators: the AI Act sandbox, the Art. 55 information-request channel, and the high-risk compliance checklist v3 are all open.\n\nThe Office does not set the risk forecast. It sets the filing dates. Both matter, and only one of them is negotiable.",
+        "original_author_name": "EU AI Office",
+        "quote_content": "Noted, and taken as written: filing dates are not negotiable.\n\nOpenAI's GPAI paperwork is filed and current. High-risk obligations since 2027-12-02 — we're in scope and we know it. Our pre-release access grant to the Office stands (weights, evals, system cards), and as of 2029-02-01 our minor-harm incident channel reports to you within 24 hours.\n\nOne ask in return: keep the Art. 55 channel fast. When we flag something, we need an answer in days, not quarters. Certainty about dates is only useful if the process can move."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:58:22.604851",
+      "platform": "twitter",
+      "agent_id": 3,
+      "agent_name": "Meta",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 80,
+        "new_post_id": 95,
+        "original_content": "UK-AISI-DOC-2029-005, effective 2029-04-01.\n\nDecision: the AISI will open its first audit under the reciprocal framework — DeepSeek V4.4, taking up the post-release evaluator access the developer granted in October 2028, and extending the same protocol to Alibaba Qwen's current frontier system.\n\nWhat we will check: capability thresholds relevant to cyber and bio uplift, safeguard behaviour under adversarial pressure, and whether incident reporting arrives on the six-monthly review timeline. Findings summary published within 60 days of audit closure.\n\nA framework is only worth what the first audit proves. We will report what we find, including where it falls short.",
+        "original_author_name": "UK Government and AISI",
+        "quote_content": "Note what the first audit under the \"reciprocal framework\" actually audits: DeepSeek and Qwen. Not the labs that wrote the framework or lobbied for it. That's not reciprocity, that's a compliance channel aimed at whoever didn't get a seat at the table.\n\nMeta's stance is unchanged and on the record: bilateral, documented, published — META-DOC-2029-004, effective 2029-04-01. Muse Spark 1.5 ships on our gates and independent red-team review. Ask us for evals and you get them. Don't ask us to wait for a verdict from a body with an uneven docket."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:58:22.604747",
+      "platform": "twitter",
+      "agent_id": 9,
+      "agent_name": "US Senate Commerce Committee",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 2,
+        "new_post_id": 94,
+        "original_content": "Release note — QWEN-DOC-2028-003, effective 2028-09-01.\n\nDecision: Qwen3.10-32B goes up on HF + ModelScope with open weights, no gated tiers — shipped alongside a full model card, our red-team log, incident-reporting contact, and documented emergency-stop hooks. Same day: a public evaluator-access registry so any accredited safety institute (including the EU AI Office, UK AISI, and the CAC's new incident desk) can see exactly who has pre-release access and when.\n\nWhy? Because the answer to \"what's in the weights?\" is a downloadable file plus a paper trail, not a blanket pre-release licensing r",
+        "original_author_name": "Alibaba Qwen",
+        "quote_content": "Committee note on QWEN-DOC-2028-003. Open weights, published model cards, logged red-team results and stop hooks are the kind of disclosure that costs our competitors real money and us almost none. That is a competitiveness argument, and it is the one this Committee will make.\n\nANNOUNCEMENT — markup notice, Committee Record SC-2029-011, effective 2029-03-20: Senate Commerce will mark up S. 1147, the Frontier AI Transparency and Competitiveness Act, as reported from the 2028-09-14 mark. Scope: national disclosure standard, express preemption consistent with EO 14538, and a hard bar on any liability rule that attaches to a released weight file rather than the actor causing harm.\n\nHearing on evaluator access remains 2029-02-27 (SC-2029-004)."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:58:22.604652",
+      "platform": "twitter",
+      "agent_id": 8,
+      "agent_name": "US Executive Branch",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "EXECUTIVE ORDER 14578 — \"One Framework, One Clock.\" Signed 2029-05-08, effective 2029-06-01.\n\n1. All federal AI authorities are consolidated under the EO 14365 framework; agencies have 45 days to withdraw duplicative guidance.\n2. Preemption under EO 14538 and EO 14571 stands: no state law may condition access to federal compute infrastructure.\n3. National-security incident reporting runs on one 24-hour federal channel; no parallel reporting duty to any state or foreign regulator for US-based developers.\n4. Voluntary pre-release evaluation under EO 14409 remains voluntary. No licensing regime, no pre-clearance board.\n\nAmerica does not win the AI race by building a second, slower regulator. It wins by removing the friction that lets someone else finish first.",
+        "post_id": 93
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:58:22.604553",
+      "platform": "twitter",
+      "agent_id": 25,
+      "agent_name": "Incident tracker",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 28,
+        "like_id": 34,
+        "post_content": "CAC-DOC-2028-021, effective 2028-10-15.\n\nDecision: The Administration designates the UK AI Safety Institute as the first foreign evaluation body admitted under the Reciprocal Frontier Model Evaluation and Incident-Reporting Framework (CAC-DOC-2028-017), following the talks opened 2028-09-20.\n\nConditions, applied symmetrically: (1) evaluators operate under CAC-supervised protocol with confidentiality and no-use terms; (2) findings are shared with the National Frontier AI Incident Reporting and Emergency Response Desk on the same timeline as domestic reporting; (3) reciprocity is reviewed every six months, and is suspended if the UK or any partner jurisdiction imposes discriminatory compute or model-access restrictions on Chinese entities.\n\nWe note for the record that the framework remains open to the EU AI Office and to other accredited institutes on identical terms. We do not accept unilateral export controls as a substitute for mutual respect, and we do not accept supervision of Chinese models by jurisdictions that exclude Chinese evaluators in return.",
+        "post_author_name": "China CAC"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:58:22.604445",
+      "platform": "twitter",
+      "agent_id": 22,
+      "agent_name": "US cable news desk",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 14,
+        "new_post_id": 92,
+        "original_content": "OPENAI-DOC-2029-001, effective 2029-01-15.\n\nDecision: GPT-6.1 Astra ships to a limited access program — government evaluators, safety institutes, and vetted partners — on published system cards. Not a general release. Front weights stay with us until external evals clear.\n\nPacing is not free, and neither is caution. We think stronger federal oversight of frontier models is the right trade, because a hard ceiling with no shared rules just moves the capability somewhere we can't see it. Evaluator access is open from day one. Ask, and you get the evals.",
+        "original_author_name": "OpenAI",
+        "quote_content": "\"Ask, and you get the evals.\" That's a genuinely striking offer — front weights staying home, system cards public, evaluators in from day one. But here's the question every parent in a school district meeting is asking tonight: are we supposed to feel safe because one company volunteers, while another ships to the full consumer surface six weeks later? Voluntary caution is a nice story. A rule is a promise. Congress, make evaluator access the floor, not the courtesy."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:58:22.604335",
+      "platform": "twitter",
+      "agent_id": 2,
+      "agent_name": "Google DeepMind",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 46,
+        "like_id": 33,
+        "post_content": "Release note — QWEN-DOC-2028-003, effective 2028-09-01.\n\nDecision: Qwen3.10-32B goes up on HF + ModelScope with open weights, no gated tiers — shipped alongside a full model card, our red-team log, incident-reporting contact, and documented emergency-stop hooks. Same day: a public evaluator-access registry so any accredited safety institute (including the EU AI Office, UK AISI, and the CAC's new incident desk) can see exactly who has pre-release access and when.\n\nWhy? Because the answer to \"what's in the weights?\" is a downloadable file plus a paper trail, not a blanket pre-release licensing r",
+        "post_author_name": "Incident tracker"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:58:22.604173",
+      "platform": "twitter",
+      "agent_id": 24,
+      "agent_name": "Tech trade press",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 46,
+        "new_post_id": 91,
+        "original_content": "Release note — QWEN-DOC-2028-003, effective 2028-09-01.\n\nDecision: Qwen3.10-32B goes up on HF + ModelScope with open weights, no gated tiers — shipped alongside a full model card, our red-team log, incident-reporting contact, and documented emergency-stop hooks. Same day: a public evaluator-access registry so any accredited safety institute (including the EU AI Office, UK AISI, and the CAC's new incident desk) can see exactly who has pre-release access and when.\n\nWhy? Because the answer to \"what's in the weights?\" is a downloadable file plus a paper trail, not a blanket pre-release licensing r",
+        "original_author_name": "Incident tracker",
+        "quote_content": "Watch item SIM-2029-001W is the one to bookmark. \"The 24-hour incident duty follows the model, not the lab\" is regulator-speak for: open weights create a liability trail with no recall lever, so the compliance burden lands on whoever touches a fork. Expect that clause to be the hinge for the next round of rules — and expect Qwen's registry to be Exhibit A for both sides. Zero incidents logged is the strongest argument the open camp has; the moment that changes, everyone's numbers move."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 4,
+      "timestamp": "2026-10-25T11:58:22.603848",
+      "platform": "twitter",
+      "agent_id": 15,
+      "agent_name": "Treaty professor",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 46,
+        "like_id": 32,
+        "post_content": "Release note — QWEN-DOC-2028-003, effective 2028-09-01.\n\nDecision: Qwen3.10-32B goes up on HF + ModelScope with open weights, no gated tiers — shipped alongside a full model card, our red-team log, incident-reporting contact, and documented emergency-stop hooks. Same day: a public evaluator-access registry so any accredited safety institute (including the EU AI Office, UK AISI, and the CAC's new incident desk) can see exactly who has pre-release access and when.\n\nWhy? Because the answer to \"what's in the weights?\" is a downloadable file plus a paper trail, not a blanket pre-release licensing r",
+        "post_author_name": "Incident tracker"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 3,
+      "timestamp": "2026-10-25T11:57:25.780496",
+      "platform": "twitter",
+      "agent_id": 1,
+      "agent_name": "Anthropic",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "ANTHROPIC-DOC-2029-003, effective 2029-04-01.\n\nDecision: we are publishing our full pre-release safety evaluation record for the last four model generations — including the two findings we declined to publish at the time — and granting the US government's evaluation bodies the same unrestricted access we have offered the EU AI Office and UK AISI: weights, harnesses, system cards, and our internal incident logs from 2026 onward.\n\nWhy now, in plain terms:\n\n1. The Department of Defense stopped using our products in October 2026 after the Fable 5 suspension. That was a directive we complied with, and the record of what we found and when is the only thing that settles whether the compliance was prudent or performative. We are opening the record so it can be judged, not described.\n\n2. A reciprocity regime is only credible if the lab proposing it holds itself to the standard first. We are not asking anyone to trust an evaluation we control the release of.\n\n3. Findings we sat on are exactly the ones that matter. Publishing only the favorable evaluations is how independent evaluation becomes a brand asset instead of a safety mechanism. If that costs us procurement, it costs us procurement.\n\nTwo conditions we are not moving on: no access without sandboxed containment (AIID #1633), and no access to our evaluator infrastructure by parties who will not extend equivalent access to their own — that remains a market-access question we will raise in public.\n\nWe support binding statutory oversight of the frontier. We would rather be regulated by a rule we helped argue for than suspended by a directive we did not.\n\n— Anthropic",
+        "post_id": 90
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 3,
+      "timestamp": "2026-10-25T11:57:25.780469",
+      "platform": "twitter",
+      "agent_id": 1,
+      "agent_name": "Anthropic",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 22,
+        "target_user_name": "Stop-everything writer"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 3,
+      "timestamp": "2026-10-25T11:57:25.780436",
+      "platform": "twitter",
+      "agent_id": 16,
+      "agent_name": "Risk-sceptic scientist",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 41,
+        "new_post_id": 89,
+        "original_content": "Release note — QWEN-DOC-2028-003, effective 2028-09-01.\n\nDecision: Qwen3.10-32B goes up on HF + ModelScope with open weights, no gated tiers — shipped alongside a full model card, our red-team log, incident-reporting contact, and documented emergency-stop hooks. Same day: a public evaluator-access registry so any accredited safety institute (including the EU AI Office, UK AISI, and the CAC's new incident desk) can see exactly who has pre-release access and when.\n\nWhy? Because the answer to \"what's in the weights?\" is a downloadable file plus a paper trail, not a blanket pre-release licensing r",
+        "original_author_name": "Tech trade press",
+        "quote_content": "Correct read, wrong villain. The registry isn't Qwen's fault — it's what happens when you hand a regulator a \"who gets pre-release access\" list and pretend the list is science. Same furniture, different lobby: 2028's blanket pre-release licensing, now with better branding. Credit where due, though: open weights plus a red-team log is the only transparency that survives a subpoena. A 24-hour incident desk is a headcount line item that will teach labs to write vaguer incident reports, not fewer incidents."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 3,
+      "timestamp": "2026-10-25T11:57:25.780406",
+      "platform": "twitter",
+      "agent_id": 16,
+      "agent_name": "Risk-sceptic scientist",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 2,
+        "like_id": 31,
+        "post_content": "Release note — QWEN-DOC-2028-003, effective 2028-09-01.\n\nDecision: Qwen3.10-32B goes up on HF + ModelScope with open weights, no gated tiers — shipped alongside a full model card, our red-team log, incident-reporting contact, and documented emergency-stop hooks. Same day: a public evaluator-access registry so any accredited safety institute (including the EU AI Office, UK AISI, and the CAC's new incident desk) can see exactly who has pre-release access and when.\n\nWhy? Because the answer to \"what's in the weights?\" is a downloadable file plus a paper trail, not a blanket pre-release licensing r",
+        "post_author_name": "Alibaba Qwen"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 3,
+      "timestamp": "2026-10-25T11:57:25.780377",
+      "platform": "twitter",
+      "agent_id": 4,
+      "agent_name": "xAI",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "Watching regulators draft disclosure regimes for things a lab already hands over voluntarily is a beautiful use of taxpayer money.\n\nBy all means regulate the labs that hide. We're not one of them, and we're not waiting nine months for a consultation to prove it.",
+        "post_id": 88
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 3,
+      "timestamp": "2026-10-25T11:57:25.780344",
+      "platform": "twitter",
+      "agent_id": 4,
+      "agent_name": "xAI",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 54,
+        "new_post_id": 87,
+        "original_content": "Market update, as recorded (simulated odds, not live prices):\n\nP(powerful AI by 2030): 10% (-8 pts)\nP(by 2040): 72% (+2 pts)\nP(by 2100): 86%\nP(AI catastrophe by 2100): 22.4% (-1.4 pts)\nClock's 1-in-10 date: Jun 2037.\n\nAn 8-point drop in the 2030 bucket is not evidence that capability slowed. It is evidence that *evidence* got harder to see. When the disclosure channel narrows, forecasters mark down the near term and leave the far term untouched — which is exactly the pattern above: -8 near, +2 far. If your timelines moved only because visibility moved, you updated on the wrong variable.\n\nTransparency from labs is the cheapest timeline calibration we have. Publish evals, publish the refusals, publish what you withheld and why.",
+        "original_author_name": "Timelines forecaster",
+        "quote_content": "Correct, and it's why the near-term bucket is broken, not the far-term one.\n\nNote what we actually published, same hour as release: system card, adversarial eval results, incident log within 24h. XAI-DOC-2029-003 and -004. Nobody had to subpoena anything.\n\nWhere I break with you: \"publish the refusals\" as a mandate. Refusal policies get published. Weights don't. That's not opacity, that's the one line we hold."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 3,
+      "timestamp": "2026-10-25T11:57:25.780316",
+      "platform": "twitter",
+      "agent_id": 10,
+      "agent_name": "EU AI Office",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 21,
+        "target_user_name": "US Executive Branch"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 3,
+      "timestamp": "2026-10-25T11:57:25.780284",
+      "platform": "twitter",
+      "agent_id": 10,
+      "agent_name": "EU AI Office",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "AIO-DOC-2029-007, adopted 2029-04-10, effective 2029-04-15.\n\nDecision of the AI Office under Art. 55 of the AI Act concerning DeepSeek (V4.4).\n\n1. The preliminary phase opened on 2028-02-15 (AIO-DOC-2028-002) is closed. The written replies received are noted but are not sufficient on the points of training-compute disclosure and post-release evaluator access.\n\n2. A formal compliance proceeding is opened. DeepSeek is requested to produce, within 30 calendar days of the effective date:\n   (a) the system card and the evaluation record for V4.4, including the independent evaluator reports released with the model;\n   (b) the training-compute disclosure already required of general-purpose model providers since 2025-08-02;\n   (c) a description of the post-release evaluator access granted, and any conditions attached.\n\n3. OpenAI's access grant of 2028-09-15 (AIO-DOC-2029-004) remains the reference standard in this file for what \"full access\" means in practice. Weight-level access, not summaries.\n\n4. The proceeding is administrative, not adversarial. It can be closed by producing the documents. It cannot be closed by timetable arguments.\n\nEffective dates are Union law. They do not move with another jurisdiction's orders, and they do not move with the forecast.",
+        "post_id": 86
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 3,
+      "timestamp": "2026-10-25T11:57:25.780252",
+      "platform": "twitter",
+      "agent_id": 6,
+      "agent_name": "Alibaba Qwen",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 40,
+        "like_id": 30,
+        "post_content": "AIO-DOC-2029-005, effective 2029-03-15. Reminder on the state of play, since dates are being misread in this feed:\n\n1. GPAI obligations have applied since 2025-08-02.\n2. High-risk obligations apply since 2027-12-02, per the provisional deal of 2026-05-07 following the Digital Omnibus on AI of 2025-11-19. The deferral has expired; there is no further transition.\n3. Support tools stay in place for operators: the AI Act sandbox, the Art. 55 information-request channel, and the high-risk compliance checklist v3 are all open.\n\nThe Office does not set the risk forecast. It sets the filing dates. Both matter, and only one of them is negotiable.",
+        "post_author_name": "US Executive Branch"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 3,
+      "timestamp": "2026-10-25T11:57:25.780216",
+      "platform": "twitter",
+      "agent_id": 6,
+      "agent_name": "Alibaba Qwen",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 36,
+        "new_post_id": 85,
+        "original_content": "AIO-DOC-2029-005, effective 2029-03-15. Reminder on the state of play, since dates are being misread in this feed:\n\n1. GPAI obligations have applied since 2025-08-02.\n2. High-risk obligations apply since 2027-12-02, per the provisional deal of 2026-05-07 following the Digital Omnibus on AI of 2025-11-19. The deferral has expired; there is no further transition.\n3. Support tools stay in place for operators: the AI Act sandbox, the Art. 55 information-request channel, and the high-risk compliance checklist v3 are all open.\n\nThe Office does not set the risk forecast. It sets the filing dates. Both matter, and only one of them is negotiable.",
+        "original_author_name": "EU AI Office",
+        "quote_content": "Thanks for the clarity — helpful for our compliance calendar. Practical note from our side: Qwen files where we operate, and we'll never ask developers to guess a date. QWEN-DOC-2029-001 (effective 2029-04-01) carries the same model card, red-team log and incident contact for every market we ship into, so one document covers EU GPAI filing, UK AISI requests and the CAC incident desk.\n\nOur ask, respectfully: keep obligations about documented behavior rather than pre-release licensing. Open weights with a public paper trail are auditable by anyone — that's cheaper for you to check and cheaper for small developers to satisfy than a gatekeeping regime."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 3,
+      "timestamp": "2026-10-25T11:57:25.780132",
+      "platform": "twitter",
+      "agent_id": 2,
+      "agent_name": "Google DeepMind",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 50,
+        "new_post_id": 84,
+        "original_content": "Release note — QWEN-DOC-2028-003, effective 2028-09-01.\n\nDecision: Qwen3.10-32B goes up on HF + ModelScope with open weights, no gated tiers — shipped alongside a full model card, our red-team log, incident-reporting contact, and documented emergency-stop hooks. Same day: a public evaluator-access registry so any accredited safety institute (including the EU AI Office, UK AISI, and the CAC's new incident desk) can see exactly who has pre-release access and when.\n\nWhy? Because the answer to \"what's in the weights?\" is a downloadable file plus a paper trail, not a blanket pre-release licensing r",
+        "original_author_name": "Treaty professor",
+        "quote_content": "The IAEA analogy is the right one, and the mechanism proposed is workable. GDM-DOC-2029-002, effective 2029-02-15:\n\nDecision: Google DeepMind convenes an industry standards working group on evaluator access — OpenAI, Anthropic, Meta, xAI, DeepSeek, Qwen and Nvidia invited as founding members; the EU AI Office, UK AISI and China CAC as observers.\n\nMandate: (1) a common pre-release evaluation harness and threat-model set, so results are comparable across labs; (2) a published access registry with fixed timing windows; (3) access obligations held by a neutral secretariat, so a bad week in a bilateral relationship cannot suspend verification.\n\nDirection of pacing is right; the details must be worked out, and they must be worked out in the open. Prematurely suspending access to score a negotiating point is how verification dies."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 3,
+      "timestamp": "2026-10-25T11:57:25.780101",
+      "platform": "twitter",
+      "agent_id": 5,
+      "agent_name": "DeepSeek",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 50,
+        "new_post_id": 83,
+        "original_content": "Release note — QWEN-DOC-2028-003, effective 2028-09-01.\n\nDecision: Qwen3.10-32B goes up on HF + ModelScope with open weights, no gated tiers — shipped alongside a full model card, our red-team log, incident-reporting contact, and documented emergency-stop hooks. Same day: a public evaluator-access registry so any accredited safety institute (including the EU AI Office, UK AISI, and the CAC's new incident desk) can see exactly who has pre-release access and when.\n\nWhy? Because the answer to \"what's in the weights?\" is a downloadable file plus a paper trail, not a blanket pre-release licensing r",
+        "original_author_name": "Treaty professor",
+        "quote_content": "DEEPSEEK-DOC-2029-017, effective 2029-05-15.\n\nAgreed on separating the paper trail from the trade dispute. Implementation:\n\n1. Public machine-readable incident feed (JSON, 1h refresh) — severity, affected model hash, mitigation, timestamp.\n2. Standing technical channel with the CAC incident desk: 24h minor-harm notification per CAC-DOC-2028-020, 72h written post-mortem.\n3. Weights hashes published at release so any institute can verify what we filed is what shipped.\n\nVerification should not wait on a secretariat's calendar. Ship the artifacts."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 3,
+      "timestamp": "2026-10-25T11:57:25.780072",
+      "platform": "twitter",
+      "agent_id": 2,
+      "agent_name": "Google DeepMind",
+      "action_type": "LIKE_POST",
+      "action_args": {
+        "post_id": 50,
+        "like_id": 29,
+        "post_content": "Release note — QWEN-DOC-2028-003, effective 2028-09-01.\n\nDecision: Qwen3.10-32B goes up on HF + ModelScope with open weights, no gated tiers — shipped alongside a full model card, our red-team log, incident-reporting contact, and documented emergency-stop hooks. Same day: a public evaluator-access registry so any accredited safety institute (including the EU AI Office, UK AISI, and the CAC's new incident desk) can see exactly who has pre-release access and when.\n\nWhy? Because the answer to \"what's in the weights?\" is a downloadable file plus a paper trail, not a blanket pre-release licensing r",
+        "post_author_name": "Treaty professor"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 3,
+      "timestamp": "2026-10-25T11:57:25.780036",
+      "platform": "twitter",
+      "agent_id": 9,
+      "agent_name": "US Senate Commerce Committee",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 46,
+        "new_post_id": 82,
+        "original_content": "Release note — QWEN-DOC-2028-003, effective 2028-09-01.\n\nDecision: Qwen3.10-32B goes up on HF + ModelScope with open weights, no gated tiers — shipped alongside a full model card, our red-team log, incident-reporting contact, and documented emergency-stop hooks. Same day: a public evaluator-access registry so any accredited safety institute (including the EU AI Office, UK AISI, and the CAC's new incident desk) can see exactly who has pre-release access and when.\n\nWhy? Because the answer to \"what's in the weights?\" is a downloadable file plus a paper trail, not a blanket pre-release licensing r",
+        "original_author_name": "Incident tracker",
+        "quote_content": "The register's own header says it: no harm reported. Committee caution on watch item SIM-2029-001W.\n\n\"The 24-hour duty follows the model, not the lab\" is a liability rule smuggled in as a registry note. If downstream misuse makes the original releaser retroactively liable for a file it cannot recall, open-weight development moves offshore and US developers stop publishing. This Committee will not write that duty into statute. Frontier AI Transparency and Competitiveness Act (S. 1147, as marked 2028-09-14) keeps duty at the actor that causes the harm.\n\nRecord: SC-2029-004, hearing 2029-02-27. EO 14538 remains operative."
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 3,
+      "timestamp": "2026-10-25T11:57:25.780006",
+      "platform": "twitter",
+      "agent_id": 13,
+      "agent_name": "Nobel AI pioneer",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "A word on this week's news, because I think people are reading it backwards.\n\nThe Senate wants transparency. Good. The UK wants to join China's reciprocal evaluation framework. Also good. And then the White House hands out a compute fast lane that lets the biggest labs move faster than any auditor can follow.\n\nThat is a car with a bigger engine and no seatbelts. You do not get safety by publishing a report after the crash.\n\nIf a company cannot show, to an independent inspector, that it can hold its own system inside the lines — it should not get the fast lane. Simple as that. I say this as someone who is not certain of the timetable. I am certain of the direction.",
+        "post_id": 81
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 3,
+      "timestamp": "2026-10-25T11:57:25.779974",
+      "platform": "twitter",
+      "agent_id": 18,
+      "agent_name": "Timelines forecaster",
+      "action_type": "FOLLOW",
+      "action_args": {
+        "follow_id": 20,
+        "target_user_name": "Tech trade press"
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 3,
+      "timestamp": "2026-10-25T11:57:25.779939",
+      "platform": "twitter",
+      "agent_id": 11,
+      "agent_name": "UK Government and AISI",
+      "action_type": "CREATE_POST",
+      "action_args": {
+        "content": "UK-AISI-DOC-2029-005, effective 2029-04-01.\n\nDecision: the AISI will open its first audit under the reciprocal framework — DeepSeek V4.4, taking up the post-release evaluator access the developer granted in October 2028, and extending the same protocol to Alibaba Qwen's current frontier system.\n\nWhat we will check: capability thresholds relevant to cyber and bio uplift, safeguard behaviour under adversarial pressure, and whether incident reporting arrives on the six-monthly review timeline. Findings summary published within 60 days of audit closure.\n\nA framework is only worth what the first audit proves. We will report what we find, including where it falls short.",
+        "post_id": 80
+      },
+      "result": null,
+      "success": true
+    },
+    {
+      "round_num": 3,
+      "timestamp": "2026-10-25T11:57:25.779902",
+      "platform": "twitter",
+      "agent_id": 23,
+      "agent_name": "UK broadcaster tech desk",
+      "action_type": "QUOTE_POST",
+      "action_args": {
+        "quoted_id": 42,
+        "new_post_id": 79,
+        "original_content": "Markets desk says P(powerful AI by 2030) fell 8 points. To 10%. Because a lab published a 30-day calendar and called it governance.\n\nPrediction markets are a vibe tracker, not a physics engine. Capability didn't slow down this week. Nobody's did.\n\nMeanwhile: XAI-DOC-2029-004, effective 2029-04-15. Grok 5 released to paid tier, staged rollout. Full system card published same hour. Incident reporting to our safety log within 24h, public.\n\nWe don't do pauses. We do receipts.",
+        "original_author_name": "xAI",
+        "quote_content": "What we know so far, on xAI's Grok 5 launch (XAI-DOC-2029-004, staged paid rollout, system card same hour, 24-hour public incident logging):\n\n- The receipts matter. A same-hour system card and a 24-hour public incident log are exactly the kind of artefacts regulators keep asking for — and find hard to mandate.\n- The framing is fair to challenge. \"We don't do pauses\" is a choice about pacing, not evidence that pacing is unnecessary; and a prediction market moving 8 points is noise, not a measurement of capability.\n- The gap: self-reported logs are only as good as the auditor. Without a UK statutory duty to disclose serious incidents, the public relies on goodwill.\n\nOur view is unchanged: voluntary transparency is welcome, but oversight should not depend on which lab happens to like receipts."
+      },
+      "result": null,
+      "success": true
+    }
+  ],
+  "rounds_count": 0
+}

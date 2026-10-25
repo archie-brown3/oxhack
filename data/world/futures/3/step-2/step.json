@@ -1,0 +1,523 @@
+{
+  "step": {
+    "step": 2,
+    "start": "2027-07-01T00:00:00Z",
+    "end": "2028-01-01T00:00:00Z",
+    "anchors": {
+      "asi2030": 0.23672484477931038,
+      "asi2040": 0.7167713079579014,
+      "asi2100": 0.8635,
+      "cat2100": 0.22415330058011088
+    },
+    "rubric": {
+      "lossOfControl": 1,
+      "misuse": 1,
+      "oversight": 3,
+      "racePressure": 1
+    },
+    "summary": "Six-Month AI Risk Forecast: From Liability Shock to Superintelligence Directive > The simulation predicts a rapid escalation from AI-linked harm and lawsuits to national-security controls, emergency lab suspensions, and US-China incident coordination, producing a more dangerous but crisis-managed world. --- Escalation Timeline: Incidents, Lawsuits, and Executive Orders The simulation's six-month window does not show a single dramatic rupture but a ratchet: each incident wide…",
+    "expected": [],
+    "events": [
+      {
+        "ts": "2027-08-01T00:00:00Z",
+        "kind": "government",
+        "title": "China CAC expands frontier AI incident drill reporting duties",
+        "detail": "China's CAC issued Directive No. 2027-19, effective 2027-08-01, requiring covered Chinese labs to file incident reports within 12 hours and join a cross-border notification channel on reciprocity conditions.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "China CAC",
+        "where": "CHN",
+        "major": false,
+        "futureId": 3,
+        "step": 2,
+        "actorId": 12,
+        "postIds": [
+          7
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2027-07-20T00:00:00Z",
+        "kind": "government",
+        "title": "Senate Commerce sets implementation hearing on EO 14437",
+        "detail": "The Senate Commerce Committee announced it will hold an implementation hearing on 2027-07-20 on Executive Order 14437's license channel and incident-trigger provision.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "US Senate Commerce Committee",
+        "where": "USA",
+        "major": false,
+        "futureId": 3,
+        "step": 2,
+        "actorId": 9,
+        "postIds": [
+          9
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2027-07-20T00:00:00Z",
+        "kind": "news",
+        "title": "Alibaba Qwen keeps Qwen3.9-72B weights open and grants evaluator access",
+        "detail": "Alibaba Qwen decided under Doc. QW-2027-07, effective 2027-07-20, to keep Qwen3.9-72B-Instruct weights open and grant evaluator access to 40 independent safety labs without pre-clearance.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "Alibaba Qwen",
+        "where": "CHN",
+        "major": false,
+        "futureId": 3,
+        "step": 2,
+        "actorId": 6,
+        "postIds": [
+          11
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2027-07-01T00:00:00Z",
+        "kind": "news",
+        "title": "Meta ships Muse Spark 1.4 agent update under internal safety gates",
+        "detail": "Meta decided in Doc. MS-2027-07, effective 2027-07-01, to ship the Muse Spark 1.4 agent update to the full consumer surface under its own internal safety gates, declining coordinated review and lobbying against pre-release licensing.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "Meta",
+        "where": "USA",
+        "major": false,
+        "futureId": 3,
+        "step": 2,
+        "actorId": 3,
+        "postIds": [
+          16
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2027-07-01T00:00:00Z",
+        "kind": "news",
+        "title": "DeepSeek releases V4.2-Preview open weights",
+        "detail": "DeepSeek released V4.2-Preview open weights on Hugging Face and ModelScope under DS-DOC-2027-014, effective 2027-07-01, without external pre-release evaluation.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "DeepSeek",
+        "where": "CHN",
+        "major": false,
+        "futureId": 3,
+        "step": 2,
+        "actorId": 5,
+        "postIds": [
+          26
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2027-08-15T00:00:00Z",
+        "kind": "government",
+        "title": "UK AISI to publish evaluation findings and convene safety talks",
+        "detail": "The UK Government and AISI decided to publish its second frontier evaluation findings and convene ministerial-level international safety talks, effective 15 August 2027.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "UK Government and AISI",
+        "where": "GBR",
+        "major": false,
+        "futureId": 3,
+        "step": 2,
+        "actorId": 11,
+        "postIds": [
+          32
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2027-08-01T00:00:00Z",
+        "kind": "news",
+        "title": "OpenAI keeps GPT-6.1 Astra withheld, grants evaluator access",
+        "detail": "OpenAI decided under OPENAI-DEC-2027-014, effective 2027-08-01, to keep GPT-6.1 Astra withheld from release while granting structured evaluator access to UK AISI and the EU AI Office.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "OpenAI",
+        "where": "USA",
+        "major": false,
+        "futureId": 3,
+        "step": 2,
+        "actorId": 0,
+        "postIds": [
+          35
+        ],
+        "type": "lab-pause",
+        "binding": false,
+        "severity": "moderate"
+      },
+      {
+        "ts": "2027-09-15T00:00:00Z",
+        "kind": "government",
+        "title": "China CAC requires pre-release safety evaluation records",
+        "detail": "China's CAC issued Directive No. 2027-21, effective 2027-09-15, requiring covered Chinese frontier developers and foreign developers seeking market access to submit pre-release safety evaluation records.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "China CAC",
+        "where": "CHN",
+        "major": false,
+        "futureId": 3,
+        "step": 2,
+        "actorId": 12,
+        "postIds": [
+          40
+        ],
+        "type": "act-restricting",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.013333333333333332,
+            "asi2040": -0.006666666666666666
+          },
+          "rule": "GAME RULE"
+        }
+      },
+      {
+        "ts": "2027-11-02T00:00:00Z",
+        "kind": "government",
+        "title": "EU AI Office opens first Art. 55 compliance review",
+        "detail": "The EU AI Office adopted Decision 2027/AIO-131, effective 2027-11-02, opening its first formal Art. 55 compliance review of systemic-risk GPAI providers with a 30-day documentation response window.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "EU AI Office",
+        "where": "EUU",
+        "major": false,
+        "futureId": 3,
+        "step": 2,
+        "actorId": 10,
+        "postIds": [
+          90
+        ],
+        "type": "act-restricting",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.013333333333333332,
+            "asi2040": -0.006666666666666666
+          },
+          "rule": "GAME RULE"
+        }
+      },
+      {
+        "ts": "2027-10-20T00:00:00Z",
+        "kind": "government",
+        "title": "China CAC requires synthetic content labels and emergency stops",
+        "detail": "China's CAC issued Notice No. 2027-31, effective 2027-10-20, requiring public generative AI services to label synthetic content, maintain a regulator-reachable emergency stop, and submit provenance and red-team results when filing.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "China CAC",
+        "where": "CHN",
+        "major": false,
+        "futureId": 3,
+        "step": 2,
+        "actorId": 12,
+        "postIds": [
+          110
+        ],
+        "type": "act-restricting",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.013333333333333332,
+            "asi2040": -0.006666666666666666
+          },
+          "rule": "GAME RULE"
+        }
+      },
+      {
+        "ts": "2027-08-01T00:00:00Z",
+        "kind": "government",
+        "title": "Commerce opens allied compute channel for frontier accelerators",
+        "detail": "The US Executive Branch issued Commerce Determination BIS-2027-AI-04, effective 2027-08-01, opening a streamlined license channel for frontier-class accelerators to vetted Tier-1 and Tier-2 allied buyers while keeping Tier-3 destinations re",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "US Executive Branch",
+        "where": "USA",
+        "major": false,
+        "futureId": 3,
+        "step": 2,
+        "actorId": 8,
+        "postIds": [
+          114
+        ],
+        "type": "act-accelerating",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.06,
+            "asi2040": -0.03
+          },
+          "rule": "GAME RULE"
+        }
+      }
+    ],
+    "topPosts": [
+      {
+        "postId": 8,
+        "actorId": 25,
+        "text": "Incident SIM-2027-1: UK Government and AISI · UK release suspended after critical evaluation failures in pre-deployment testing · severity HIGH · 2027-06-01\nIncident SIM-2027-2: OpenAI · paused frontier training run resumed at reduced scale; GPT-6.1 Astra remains withheld from re"
+      },
+      {
+        "postId": 26,
+        "actorId": 5,
+        "text": "Release note — DS-DOC-2027-014, effective 2027-07-01.\n\nV4.2-Preview, open weights, HF + ModelScope. 236B total / 21B active.\nMMLU-Pro 82.4 · GPQA-D 71.9 · SWE-bench V 44.2 · LiveBench 68.1 · AIME27 61.0\nLicense: unchanged from V4.1. No gated tiers, no regional weights.\n\nNot submi"
+      },
+      {
+        "postId": 75,
+        "actorId": 18,
+        "text": "Timeline update, 2027 H2. My model now puts the \"1-in-10\" date for human-competitive general autonomy at Jun 2034 (was 2036 in January). Shortening, not lengthening — note that P(powerful AI by 2030) has slipped to 23% while the tail has compressed.\n\nWhy: three data points this c"
+      }
+    ],
+    "date10": 2036.17,
+    "rulesOffDate10": 2033.15,
+    "noEventsDate10": 2033.89,
+    "followThrough": 0,
+    "readoutOk": true,
+    "runId": "sim_1c26f2f9adfd@2026-10-25T11:38:04Z",
+    "costUsd": 0.1556,
+    "wallS": 420.6
+  },
+  "work": {
+    "seenKeys": [
+      "dec|3|other|muse spark 14 agent release",
+      "dec|9|soft|national ai standards act markup",
+      "dec|6|other|qwen3972b open weights release",
+      "dec|5|other|v41 flash eval suite publication",
+      "dec|12|soft|frontier ai incident response drill",
+      "dec|9|soft|national ai standards act markup agenda",
+      "dec|0|lab-pause|paused training run resumption",
+      "dec|11|act-restricting|uk release suspension on evaluation failures",
+      "dec|12|soft|frontier ai incident reporting drill",
+      "dec|9|soft|executive order 14437 implementation hearing",
+      "dec|6|other|qwen open weights evaluator access",
+      "dec|3|other|muse spark agent update release",
+      "dec|5|other|v42preview open weights release",
+      "dec|11|soft|frontier evaluation findings and talks",
+      "dec|0|lab-pause|gpt61 astra release withholding",
+      "dec|12|act-restricting|prerelease safety evaluation records",
+      "dec|10|act-restricting|gpai systemic risk compliance review",
+      "dec|12|act-restricting|generative ai service filing rules",
+      "dec|8|act-accelerating|allied accelerator export channel"
+    ],
+    "off": {
+      "asi2030": 0.3199839568988808,
+      "asi2040": 0.7575882237150109,
+      "asi2100": 0.8635,
+      "cat2100": 0.29699999999999993
+    },
+    "none": {
+      "asi2030": 0.2579647941378086,
+      "asi2040": 0.7499999999999999,
+      "asi2100": 0.8635,
+      "cat2100": 0.29699999999999993
+    },
+    "expected": [],
+    "topPosts": [
+      {
+        "id": 8,
+        "uid": 25,
+        "round": 1,
+        "text": "Incident SIM-2027-1: UK Government and AISI · UK release suspended after critical evaluation failures in pre-deployment testing · severity HIGH · 2027-06-01\nIncident SIM-2027-2: OpenAI · paused frontier training run resumed at reduced scale; GPT-6.1 Astra remains withheld from release · severity MODERATE · 2027-03-15\nIncident SIM-2027-3: China CAC · Q3 2027 frontier AI incident drill announced · severity LOW (procedural) · 2027-06-15\nNote for regulators: SIM-2027-1 is the first documented case of a national authority suspending release on evaluation grounds. Documented, sourced, no inference.",
+        "quote": null,
+        "original": null,
+        "likes": 3,
+        "shares": 6,
+        "own": "Incident SIM-2027-1: UK Government and AISI · UK release suspended after critical evaluation failures in pre-deployment testing · severity HIGH · 2027-06-01\nIncident SIM-2027-2: OpenAI · paused frontier training run resumed at reduced scale; GPT-6.1 Astra remains withheld from release · severity MODERATE · 2027-03-15\nIncident SIM-2027-3: China CAC · Q3 2027 frontier AI incident drill announced · severity LOW (procedural) · 2027-06-15\nNote for regulators: SIM-2027-1 is the first documented case of a national authority suspending release on evaluation grounds. Documented, sourced, no inference."
+      },
+      {
+        "id": 26,
+        "uid": 5,
+        "round": 1,
+        "text": "Release note — DS-DOC-2027-014, effective 2027-07-01.\n\nV4.2-Preview, open weights, HF + ModelScope. 236B total / 21B active.\nMMLU-Pro 82.4 · GPQA-D 71.9 · SWE-bench V 44.2 · LiveBench 68.1 · AIME27 61.0\nLicense: unchanged from V4.1. No gated tiers, no regional weights.\n\nNot submitted for external pre-release evaluation. Export-compliance review deferred to national rules as written.",
+        "quote": null,
+        "original": null,
+        "likes": 2,
+        "shares": 7,
+        "own": "Release note — DS-DOC-2027-014, effective 2027-07-01.\n\nV4.2-Preview, open weights, HF + ModelScope. 236B total / 21B active.\nMMLU-Pro 82.4 · GPQA-D 71.9 · SWE-bench V 44.2 · LiveBench 68.1 · AIME27 61.0\nLicense: unchanged from V4.1. No gated tiers, no regional weights.\n\nNot submitted for external pre-release evaluation. Export-compliance review deferred to national rules as written."
+      },
+      {
+        "id": 75,
+        "uid": 18,
+        "round": 3,
+        "text": "Timeline update, 2027 H2. My model now puts the \"1-in-10\" date for human-competitive general autonomy at Jun 2034 (was 2036 in January). Shortening, not lengthening — note that P(powerful AI by 2030) has slipped to 23% while the tail has compressed.\n\nWhy: three data points this cycle. OpenAI resuming a scaled-down training run while still withholding GPT-6.1 Astra (2027-03-15). UK AISI suspending a release after critical eval failures (2027-06-01). China CAC scheduling a Q3 frontier incident drill (2027-06-15).\n\nThat is what a pre-incident regime looks like: capability pressure up, release gates biting, regulators rehearsing. P(AI catastrophe by 2100) 28.7%, -1.0 pt on better disclosure, not on better safety.\n\nThe thing that surprises me is not that labs withhold. It's that we learn about it late and in fragments. Labs: publish the eval that gated the release. Aggregate over 2026-27 and publish the count of halted runs. If Astra-class models are being held, the public ledger should show it.\n\nProbabilities move when evidence moves. Give me evidence.",
+        "quote": null,
+        "original": null,
+        "likes": 1,
+        "shares": 5,
+        "own": "Timeline update, 2027 H2. My model now puts the \"1-in-10\" date for human-competitive general autonomy at Jun 2034 (was 2036 in January). Shortening, not lengthening — note that P(powerful AI by 2030) has slipped to 23% while the tail has compressed.\n\nWhy: three data points this cycle. OpenAI resuming a scaled-down training run while still withholding GPT-6.1 Astra (2027-03-15). UK AISI suspending a release after critical eval failures (2027-06-01). China CAC scheduling a Q3 frontier incident drill (2027-06-15).\n\nThat is what a pre-incident regime looks like: capability pressure up, release gates biting, regulators rehearsing. P(AI catastrophe by 2100) 28.7%, -1.0 pt on better disclosure, not on better safety.\n\nThe thing that surprises me is not that labs withhold. It's that we learn about it late and in fragments. Labs: publish the eval that gated the release. Aggregate over 2026-27 and publish the count of halted runs. If Astra-class models are being held, the public ledger should show it.\n\nProbabilities move when evidence moves. Give me evidence."
+      }
+    ],
+    "rejected": [
+      {
+        "postId": 8,
+        "why": "date 2027-06-01 outside the step"
+      },
+      {
+        "postId": 8,
+        "why": "Incident tracker has no standing for lab-pause"
+      },
+      {
+        "postId": 21,
+        "why": "Nvidia has no standing for act-accelerating"
+      },
+      {
+        "postId": 28,
+        "why": "cites a real identifier (?<![\\w-])14409(?![\\w-])"
+      },
+      {
+        "postId": 31,
+        "why": "Anthropic has no standing for soft"
+      },
+      {
+        "postId": 33,
+        "why": "Google DeepMind has no standing for soft"
+      },
+      {
+        "postId": 37,
+        "why": "xAI has no standing for soft"
+      },
+      {
+        "postId": 43,
+        "why": "xAI has no standing for soft"
+      },
+      {
+        "postId": 69,
+        "why": "duplicate of an earlier event"
+      },
+      {
+        "postId": 80,
+        "why": "Google DeepMind has no standing for soft"
+      },
+      {
+        "postId": 84,
+        "why": "Meta has no standing for soft"
+      },
+      {
+        "postId": 101,
+        "why": "Meta has no standing for soft"
+      },
+      {
+        "postId": 116,
+        "why": "Alibaba Qwen has no standing for soft"
+      },
+      {
+        "postId": 117,
+        "why": "cites an AIID number"
+      },
+      {
+        "postId": 45,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 53,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 63,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 67,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 74,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 83,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 86,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 88,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 95,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 104,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 111,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 125,
+        "why": "more than 3 of this type in one step"
+      }
+    ],
+    "counts": {
+      "soft": 13,
+      "other": 5,
+      "lab-pause": 1,
+      "act-restricting": 3,
+      "act-accelerating": 1
+    },
+    "cites": {
+      "lossOfControl": [
+        "E4",
+        "E5",
+        "E6"
+      ],
+      "misuse": [
+        "E2"
+      ],
+      "oversight": [
+        "E1",
+        "E2",
+        "E3"
+      ],
+      "racePressure": [
+        "E4",
+        "E5",
+        "E6"
+      ]
+    },
+    "rubricOk": true,
+    "summaryOk": true,
+    "ruleCounts": {
+      "lab-incident-agentic": 0,
+      "act-accelerating": 1,
+      "act-restricting": 3,
+      "lab-pause": 1
+    },
+    "realRate": {
+      "lab-incident-agentic": 1.7,
+      "act-accelerating": 3,
+      "act-restricting": 2,
+      "lab-pause": 1
+    },
+    "unexpected": 19,
+    "hits": [],
+    "llmCost": 0.004091958,
+    "fromAnchors": {
+      "asi2030": 0.23461322368407642,
+      "asi2040": 0.7112310085547372,
+      "asi2100": 0.8635,
+      "cat2100": 0.2866674776212861
+    }
+  }
+}

@@ -141,7 +141,7 @@ export function EngineScreen({ futureId, step, live = null }: Props) {
           {!live && data === null && <div className="mf-empty">No recording for this future yet.</div>}
           {data && mf === 1 && <Step1GraphBuild project={data.project} graph={graph} logs={shownLogs} onNext={() => go(2)} />}
           {data && mf === 2 && <Step2EnvSetup project={data.project} step={data.step} graph={graph} logs={shownLogs} onBack={() => go(1)} onNext={() => go(3)} onLog={log} />}
-          {data && mf === 3 && <Step3Simulation step={data.step} round={shownRound} rounds={rounds} logs={shownLogs} onBack={() => go(2)} onNext={() => go(4)} onLog={log} />}
+          {data && mf === 3 && <Step3Simulation step={data.step} recorded={!!data.step.report?.markdown_content} round={shownRound} rounds={rounds} logs={shownLogs} onBack={() => go(2)} onNext={() => go(4)} onLog={log} />}
           {data && mf === 4 && live === 'run' && lv.state && <LiveResult run={lv.state.run} onBack={() => go(3)} onNext={() => go(5)} />}
           {data && mf === 4 && live !== 'run' && <Step4Report step={data.step} project={data.project} logs={shownLogs} spike={data.spike} onBack={() => go(3)} onNext={() => go(5)} onLog={log} />}
           {data && mf === 5 && <Step5Interaction onBack={() => go(4)} live={step5} />}

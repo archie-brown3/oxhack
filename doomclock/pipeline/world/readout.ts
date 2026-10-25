@@ -75,7 +75,7 @@ export async function readOut(a: ReadoutArgs): Promise<Readout> {
   const list = posts.slice(0, 80).map((p) => { const c = byId.get(p.uid)!; return `P${p.id} [${c.name}; powers: ${c.powers.join(", ")}] ${p.own.slice(0, 600).replace(/\s+/g, " ")}`; }).join("\n");
   const ids = new Set(posts.map((p) => p.id));
   const r = await askJson(`readout-f${a.futureId}-s${a.step}`, [{ role: "system", content: SYSTEM }, { role: "user", content: `Window: ${a.start.slice(0, 10)} to ${a.end.slice(0, 10)}.\n${list}` }], SCHEMA,
-    (v) => (Array.isArray(v?.events) ? v.events : null), { temperature: 0, maxTokens: 6000 });
+    (v) => (Array.isArray(v?.events) ? v.events : null), { temperature: 0, maxTokens: 16000 }); // 6000 truncated busy steps (finish: length, 25 Oct)
   if (r.value === null) return { ok: false, events: [], rejected, cost: r.cost, counts: {}, keys: [] };
 
   const t0 = Date.parse(a.start), t1 = Date.parse(a.end);

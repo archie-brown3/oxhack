@@ -1,0 +1,577 @@
+{
+  "step": {
+    "step": 5,
+    "start": "2029-01-01T00:00:00Z",
+    "end": "2029-07-01T00:00:00Z",
+    "anchors": {
+      "asi2030": 0.0368793172206372,
+      "asi2040": 0.7854807418563605,
+      "asi2100": 0.8635,
+      "cat2100": 0.2666620043881703
+    },
+    "rubric": {
+      "lossOfControl": 2,
+      "misuse": 1,
+      "oversight": 3,
+      "racePressure": 2
+    },
+    "summary": "Six-Month AI Risk Forecast: Incidents, Hotlines, and the Transparency Ledger > The simulation predicts a six-month period in which high-severity AI agent incidents trigger training pauses, US–China crisis hotline diplomacy, UK frontier-lab warnings, and a contested 2027 incident ledger that exposes accountability gaps. --- From Agent Incident to Crisis Hotline: The Six-Month Escalation Path The six-month window did not produce a single dramatic AI catastrophe. It produced so…",
+    "expected": [],
+    "events": [
+      {
+        "ts": "2029-04-01T00:00:00Z",
+        "kind": "government",
+        "title": "China CAC adopts mandatory pre-release safety review measures",
+        "detail": "China CAC adopted the Frontier AI Implementation Safety Review Measures (CAC Order No. 2029-04), effective 1 April 2029, making pre-release safety review and filing mandatory for models above a capability threshold.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "China CAC",
+        "where": "CHN",
+        "major": false,
+        "futureId": 2,
+        "step": 5,
+        "actorId": 12,
+        "postIds": [
+          7
+        ],
+        "type": "act-restricting",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.013333333333333332,
+            "asi2040": -0.006666666666666666
+          },
+          "rule": "GAME RULE"
+        }
+      },
+      {
+        "ts": "2029-03-15T00:00:00Z",
+        "kind": "government",
+        "title": "EU AI Office requires containment evidence and audit rights for agentic models",
+        "detail": "EU AI Office issued Decision A-2029-04, effective 15 March 2029, requiring general-purpose model providers deploying agentic capability in the Union to file containment evidence and granting national authorities audit rights over logs.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "EU AI Office",
+        "where": "EUU",
+        "major": false,
+        "futureId": 2,
+        "step": 5,
+        "actorId": 10,
+        "postIds": [
+          9
+        ],
+        "type": "act-restricting",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.013333333333333332,
+            "asi2040": -0.006666666666666666
+          },
+          "rule": "GAME RULE"
+        }
+      },
+      {
+        "ts": "2029-04-01T00:00:00Z",
+        "kind": "government",
+        "title": "UK AISI extends pre-release evaluation regime to publish findings",
+        "detail": "UK Government and AISI extended their pre-release evaluation regime to publish summaries of findings and unmet recommendations for every frontier system audited, effective 1 April 2029.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "UK Government and AISI",
+        "where": "GBR",
+        "major": false,
+        "futureId": 2,
+        "step": 5,
+        "actorId": 11,
+        "postIds": [
+          18
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "moderate"
+      },
+      {
+        "ts": "2029-04-01T00:00:00Z",
+        "kind": "government",
+        "title": "US Executive Order 14533 establishes certified voluntary evaluation baseline",
+        "detail": "US Executive Branch signed Executive Order 14533, effective 2029-04-01, directing Commerce and NIST to certify voluntary pre-deployment evaluation and 24-hour incident reporting as the single national baseline, preempting state mandates.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "US Executive Branch",
+        "where": "USA",
+        "major": false,
+        "futureId": 2,
+        "step": 5,
+        "actorId": 8,
+        "postIds": [
+          20
+        ],
+        "type": "act-accelerating",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.015,
+            "asi2040": -0.0075
+          },
+          "rule": "GAME RULE"
+        }
+      },
+      {
+        "ts": "2029-03-01T00:00:00Z",
+        "kind": "news",
+        "title": "Meta releases Muse Spark 1.6 and declines shared evaluation window",
+        "detail": "Meta moved Muse Spark 1.6 from staged rollout to general availability and declined to join any industry-wide shared evaluation window or coordinated release slowdown, effective 2029-03-01.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "Meta",
+        "where": "USA",
+        "major": false,
+        "futureId": 2,
+        "step": 5,
+        "actorId": 3,
+        "postIds": [
+          25
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2029-03-15T00:00:00Z",
+        "kind": "news",
+        "title": "Alibaba Qwen releases Qwen4.0 open weights",
+        "detail": "Alibaba Qwen released Qwen4.0 open weights on its model hub with a full model card, eval harness, and incident-disclosure contact, and granted evaluator access on request, effective 2029-03-15.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "Alibaba Qwen",
+        "where": "CHN",
+        "major": false,
+        "futureId": 2,
+        "step": 5,
+        "actorId": 6,
+        "postIds": [
+          29
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2029-05-10T00:00:00Z",
+        "kind": "news",
+        "title": "DeepSeek releases V4.3 open weights",
+        "detail": "DeepSeek released V4.3 open weights on 2029-05-10 with weights and eval harness, and granted evaluator access to accredited safety institutes on request.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "DeepSeek",
+        "where": "CHN",
+        "major": false,
+        "futureId": 2,
+        "step": 5,
+        "actorId": 5,
+        "postIds": [
+          52
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2029-05-01T00:00:00Z",
+        "kind": "government",
+        "title": "EU AI Office publishes voluntary containment evidence tools",
+        "detail": "EU AI Office issued Notice A-2029-06, effective 1 May 2029, extending voluntary support tools including a containment evidence template, severity crosswalk, and log-access protocol.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "EU AI Office",
+        "where": "EUU",
+        "major": false,
+        "futureId": 2,
+        "step": 5,
+        "actorId": 10,
+        "postIds": [
+          54
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2029-04-15T00:00:00Z",
+        "kind": "government",
+        "title": "Senate Commerce Committee to mark up Verified Compute Allocation Act",
+        "detail": "US Senate Commerce Committee announced it will mark up S. 1421, the Verified Compute Allocation Act, codifying annual end-use certification and sunsetting per-shipment licensing, effective 2029-04-15.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "US Senate Commerce Committee",
+        "where": "USA",
+        "major": false,
+        "futureId": 2,
+        "step": 5,
+        "actorId": 9,
+        "postIds": [
+          55
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "moderate"
+      },
+      {
+        "ts": "2029-06-01T00:00:00Z",
+        "kind": "government",
+        "title": "China CAC issues Frontier Agentic Deployment Oversight Rules",
+        "detail": "China CAC announced the Frontier Agentic Deployment Oversight Rules (CAC Order No. 2029-02), effective 1 June 2029, requiring pre-deployment safety assessment and filing for agentic systems.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "China CAC",
+        "where": "CHN",
+        "major": false,
+        "futureId": 2,
+        "step": 5,
+        "actorId": 12,
+        "postIds": [
+          58
+        ],
+        "type": "act-restricting",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.013333333333333332,
+            "asi2040": -0.006666666666666666
+          },
+          "rule": "GAME RULE"
+        }
+      },
+      {
+        "ts": "2029-04-01T00:00:00Z",
+        "kind": "news",
+        "title": "OpenAI resumes frontier training with automatic pause triggers",
+        "detail": "OpenAI resumed its next frontier training run under hard automatic pause triggers, effective 2029-04-01, where any confirmed high-severity agent incident halts it.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "OpenAI",
+        "where": "USA",
+        "major": false,
+        "futureId": 2,
+        "step": 5,
+        "actorId": 0,
+        "postIds": [
+          69
+        ],
+        "type": "lab-pause",
+        "binding": false,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.05,
+            "asi2040": -0.025
+          },
+          "rule": "GAME RULE"
+        }
+      },
+      {
+        "ts": "2029-06-01T00:00:00Z",
+        "kind": "government",
+        "title": "US Executive Order 14541 creates Allied Inference Corridor and shutdown authority",
+        "detail": "US Executive Branch signed Executive Order 14541, effective 2029-06-01, fast-tracking export licenses for certified allied inference capacity and authorizing 72-hour suspension orders for imminent national-security risks.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "US Executive Branch",
+        "where": "USA",
+        "major": false,
+        "futureId": 2,
+        "step": 5,
+        "actorId": 8,
+        "postIds": [
+          75
+        ],
+        "type": "act-accelerating",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.015,
+            "asi2040": -0.0075
+          },
+          "rule": "GAME RULE"
+        }
+      },
+      {
+        "ts": "2029-04-15T00:00:00Z",
+        "kind": "news",
+        "title": "OpenAI withholds GPT-6.1 Astra release",
+        "detail": "OpenAI decided to keep GPT-6.1 Astra withheld with no weights release or API, extending independent red-team access under supervised evaluation, effective 2029-04-15.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "OpenAI",
+        "where": "USA",
+        "major": false,
+        "futureId": 2,
+        "step": 5,
+        "actorId": 0,
+        "postIds": [
+          111
+        ],
+        "type": "lab-pause",
+        "binding": false,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.05,
+            "asi2040": -0.025
+          },
+          "rule": "GAME RULE"
+        }
+      }
+    ],
+    "topPosts": [
+      {
+        "postId": 36,
+        "actorId": 7,
+        "text": "Decision, effective 2029-03-01 — Document NV-2029-014: Nvidia extends the Verified Buyer Fast Lane to certified inference customers in allied jurisdictions, with end-use certification renewed annually instead of per shipment. Buyers who pass get chips in weeks, not quarters. Buye"
+      },
+      {
+        "postId": 21,
+        "actorId": 8,
+        "text": "[US Executive Branch · 2029 H1] DECISION: Executive Order 14533 — \"Certified Voluntary Evaluation and Single National Incident Baseline.\" Signed 2029-03-20, effective 2029-04-01.\n\n1) Commerce/NIST will certify voluntary frontier-model evaluation and containment programs; certifie"
+      },
+      {
+        "postId": 14,
+        "actorId": 4,
+        "text": "DECISION — Document XAI-2029-007, effective 2029-03-15: xAI grants pre-release evaluator access to Grok 5 to UK AISI and the EU AI Office, 72-hour draft review window, findings ledger published quarterly.\n\nVoluntary. Ahead of schedule. Done without a single new statute.\n\nMeanwhil"
+      }
+    ],
+    "date10": 2036.55,
+    "rulesOffDate10": 2035.28,
+    "noEventsDate10": 2035.94,
+    "followThrough": 0,
+    "readoutOk": true,
+    "runId": "sim_b85ee185988c@2026-10-25T11:51:43Z",
+    "costUsd": 0.1561,
+    "wallS": 302.3
+  },
+  "work": {
+    "seenKeys": [
+      "dec|9|soft|senate markup of s 1187",
+      "dec|7|other|nvidia know your customer certification pathway",
+      "dec|5|other|deepseek v4 2 open weights release",
+      "dec|3|other|meta pre release evaluation window",
+      "dec|8|act-restricting|national ai framework and export rules",
+      "dec|12|act-restricting|frontier ai safety assessment and reporting",
+      "dec|11|soft|uk public sector pre release audit",
+      "dec|10|act-restricting|systemic risk gpai incident reporting",
+      "dec|8|agreement|us china ai incident hotline",
+      "dec|9|soft|federal networks and september 2026 incident",
+      "dec|3|other|muse spark 15 release",
+      "dec|9|soft|national frontier ai standard",
+      "inc||incident-other|2027-07-29",
+      "inc||incident-misuse|2027-08-03",
+      "dec|12|act-restricting|frontier ai incident reporting",
+      "dec|4|other|grok 47 evaluator access",
+      "dec|0|other|gpt61 sol evaluator access",
+      "dec|10|act-restricting|systemicrisk gpai obligations",
+      "dec|9|soft|agent accountability hearing",
+      "dec|11|act-restricting|documented authorisation for evaluations",
+      "dec|10|soft|grok 47 evaluator access compliance",
+      "dec|7|other|verified buyer fast lane",
+      "dec|11|act-restricting|agentic deployment authorisation control statement",
+      "dec|12|act-restricting|frontier ai evaluator reciprocity register",
+      "dec|9|act-accelerating|mandatory frontier ai oversight legislation",
+      "dec|5|other|h200 accelerator procurement attestation",
+      "dec|12|act-restricting|accelerator enduse certification",
+      "dec|10|soft|qwen39 evaluator access compliance",
+      "dec|10|soft|agentic deployment support instruments",
+      "dec|5|other|agentic containment report",
+      "dec|11|agreement|mutual recognition frontier evaluations",
+      "dec|0|lab-pause|next frontier model training run",
+      "inc|anthropic|incident-other|2028-05-23",
+      "inc|anthropic|incident-other|2028-05-28",
+      "inc|anthropic|incident-other|2028-06-02",
+      "dec|12|act-restricting|evaluator reciprocity register access",
+      "dec|9|soft|voluntary prerelease evaluator access",
+      "dec|11|soft|qwen39 prerelease evaluation",
+      "dec|3|other|muse spark 16 rollout",
+      "dec|10|act-restricting|agentic incident reporting",
+      "dec|8|act-restricting|frontier incident escalation",
+      "dec|8|act-accelerating|inference capacity export rules",
+      "dec|10|soft|agentic incident taxonomy",
+      "dec|8|act-accelerating|state ai statute preemption",
+      "dec|12|act-restricting|frontier model prerelease safety review",
+      "dec|10|act-restricting|agentic containment evidence filing",
+      "dec|11|soft|prerelease evaluation findings publication",
+      "dec|8|act-accelerating|voluntary evaluation certification baseline",
+      "dec|3|other|muse spark 16 general availability",
+      "dec|6|other|qwen40 open weights release",
+      "dec|5|other|deepseek v43 open weights",
+      "dec|10|soft|containment evidence support tools",
+      "dec|9|soft|verified compute allocation act",
+      "dec|12|act-restricting|agentic deployment oversight rules",
+      "dec|0|lab-pause|frontier training run pause triggers",
+      "dec|8|act-accelerating|allied inference corridor and shutdown authority",
+      "dec|0|lab-pause|gpt61 astra release"
+    ],
+    "off": {
+      "asi2030": 0.09055084099016053,
+      "asi2040": 0.8585011493209542,
+      "asi2100": 0.8635,
+      "cat2100": 0.29699999999999993
+    },
+    "none": {
+      "asi2030": 0.07244456029209245,
+      "asi2040": 0.7499999999999999,
+      "asi2100": 0.8635,
+      "cat2100": 0.29699999999999993
+    },
+    "expected": [],
+    "topPosts": [
+      {
+        "id": 36,
+        "uid": 7,
+        "round": 1,
+        "text": "Decision, effective 2029-03-01 — Document NV-2029-014: Nvidia extends the Verified Buyer Fast Lane to certified inference customers in allied jurisdictions, with end-use certification renewed annually instead of per shipment. Buyers who pass get chips in weeks, not quarters. Buyers who won't certify get nothing and we say so in writing. That is oversight that works — checks that ship with the silicon instead of a statute that ships after the fact. No new rules needed; the market already clears the honest buyers from the rest.",
+        "quote": null,
+        "original": null,
+        "likes": 3,
+        "shares": 6,
+        "own": "Decision, effective 2029-03-01 — Document NV-2029-014: Nvidia extends the Verified Buyer Fast Lane to certified inference customers in allied jurisdictions, with end-use certification renewed annually instead of per shipment. Buyers who pass get chips in weeks, not quarters. Buyers who won't certify get nothing and we say so in writing. That is oversight that works — checks that ship with the silicon instead of a statute that ships after the fact. No new rules needed; the market already clears the honest buyers from the rest."
+      },
+      {
+        "id": 21,
+        "uid": 8,
+        "round": 1,
+        "text": "[US Executive Branch · 2029 H1] DECISION: Executive Order 14533 — \"Certified Voluntary Evaluation and Single National Incident Baseline.\" Signed 2029-03-20, effective 2029-04-01.\n\n1) Commerce/NIST will certify voluntary frontier-model evaluation and containment programs; certified developers get expedited export treatment for inference capacity under EO 14521.\n2) The 24-hour incident desk established by EO 14516 remains the sole national reporting channel — no duplicate state filings.\n3) Conflicting state AI statutes remain subject to federal intervention per EO 14527.\n\nWe are not trading the lead for paperwork. We are setting the baseline, certifying our own industry, and keeping the deployment clock moving. America first in AI — on purpose, on schedule.",
+        "quote": null,
+        "original": null,
+        "likes": 1,
+        "shares": 5,
+        "own": "[US Executive Branch · 2029 H1] DECISION: Executive Order 14533 — \"Certified Voluntary Evaluation and Single National Incident Baseline.\" Signed 2029-03-20, effective 2029-04-01.\n\n1) Commerce/NIST will certify voluntary frontier-model evaluation and containment programs; certified developers get expedited export treatment for inference capacity under EO 14521.\n2) The 24-hour incident desk established by EO 14516 remains the sole national reporting channel — no duplicate state filings.\n3) Conflicting state AI statutes remain subject to federal intervention per EO 14527.\n\nWe are not trading the lead for paperwork. We are setting the baseline, certifying our own industry, and keeping the deployment clock moving. America first in AI — on purpose, on schedule."
+      },
+      {
+        "id": 14,
+        "uid": 4,
+        "round": 1,
+        "text": "DECISION — Document XAI-2029-007, effective 2029-03-15: xAI grants pre-release evaluator access to Grok 5 to UK AISI and the EU AI Office, 72-hour draft review window, findings ledger published quarterly.\n\nVoluntary. Ahead of schedule. Done without a single new statute.\n\nMeanwhile the markets just cut P(powerful AI by 2030) by 9 points. Slow down the paperwork and you slow down everything. Ship.",
+        "quote": null,
+        "original": null,
+        "likes": 2,
+        "shares": 3,
+        "own": "DECISION — Document XAI-2029-007, effective 2029-03-15: xAI grants pre-release evaluator access to Grok 5 to UK AISI and the EU AI Office, 72-hour draft review window, findings ledger published quarterly.\n\nVoluntary. Ahead of schedule. Done without a single new statute.\n\nMeanwhile the markets just cut P(powerful AI by 2030) by 9 points. Slow down the paperwork and you slow down everything. Ship."
+      }
+    ],
+    "rejected": [
+      {
+        "postId": 14,
+        "why": "xAI has no standing for soft"
+      },
+      {
+        "postId": 24,
+        "why": "OpenAI has no standing for soft"
+      },
+      {
+        "postId": 28,
+        "why": "DeepSeek has no standing for soft"
+      },
+      {
+        "postId": 32,
+        "why": "Anthropic has no standing for soft"
+      },
+      {
+        "postId": 36,
+        "why": "Nvidia has no standing for act-accelerating"
+      },
+      {
+        "postId": 87,
+        "why": "Alibaba Qwen has no standing for soft"
+      },
+      {
+        "postId": 103,
+        "why": "DeepSeek has no standing for soft"
+      },
+      {
+        "postId": 107,
+        "why": "Anthropic has no standing for soft"
+      },
+      {
+        "postId": 113,
+        "why": "date 2029-07-01 outside the step"
+      },
+      {
+        "postId": 116,
+        "why": "Google DeepMind has no standing for soft"
+      },
+      {
+        "postId": 124,
+        "why": "Alibaba Qwen has no standing for soft"
+      },
+      {
+        "postId": 125,
+        "why": "Anthropic has no standing for soft"
+      },
+      {
+        "postId": 106,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 122,
+        "why": "more than 3 of this type in one step"
+      }
+    ],
+    "counts": {
+      "act-restricting": 4,
+      "soft": 4,
+      "act-accelerating": 2,
+      "other": 3,
+      "lab-pause": 2
+    },
+    "cites": {
+      "lossOfControl": [
+        "E5",
+        "E4",
+        "E1",
+        "E2"
+      ],
+      "misuse": [
+        "E6"
+      ],
+      "oversight": [
+        "E1",
+        "E2",
+        "E3",
+        "E5"
+      ],
+      "racePressure": [
+        "E2",
+        "E3",
+        "E6",
+        "E5"
+      ]
+    },
+    "rubricOk": true,
+    "summaryOk": true,
+    "ruleCounts": {
+      "lab-incident-agentic": 0,
+      "act-accelerating": 2,
+      "act-restricting": 3,
+      "lab-pause": 2
+    },
+    "realRate": {
+      "lab-incident-agentic": 1.7,
+      "act-accelerating": 3,
+      "act-restricting": 2,
+      "lab-pause": 1
+    },
+    "unexpected": 57,
+    "hits": [],
+    "llmCost": 0.003737274,
+    "fromAnchors": {
+      "asi2030": 0.07613798229112359,
+      "asi2040": 0.7349175463642807,
+      "asi2100": 0.8635,
+      "cat2100": 0.25699908473751576
+    }
+  }
+}

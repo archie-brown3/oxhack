@@ -1,0 +1,590 @@
+{
+  "step": {
+    "step": 3,
+    "start": "2028-01-01T00:00:00Z",
+    "end": "2028-07-01T00:00:00Z",
+    "anchors": {
+      "asi2030": 0.16814720924640023,
+      "asi2040": 0.7446068133685837,
+      "asi2100": 0.8635,
+      "cat2100": 0.2866674776212861
+    },
+    "rubric": {
+      "lossOfControl": 2,
+      "misuse": 1,
+      "oversight": 2,
+      "racePressure": 2
+    },
+    "summary": "Six-Month AI Risk Forecast: Incidents, Hotlines, and the Transparency Ledger > The simulation predicts a six-month period in which high-severity AI agent incidents trigger training pauses, US–China crisis hotline diplomacy, UK frontier-lab warnings, and a contested 2027 incident ledger that exposes accountability gaps. --- From Agent Incident to Crisis Hotline: The Six-Month Escalation Path The six-month window did not produce a single dramatic AI catastrophe. It produced so…",
+    "expected": [],
+    "events": [
+      {
+        "ts": "2028-02-15T00:00:00Z",
+        "kind": "government",
+        "title": "EU AI Office accepts Grok 4.7 evaluator access as compliant",
+        "detail": "The EU AI Office accepted the Grok 4.7 evaluator access as a compliant arrangement under Decision AIO-2028/01, effective 2028-02-15.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "EU AI Office",
+        "where": "EUU",
+        "major": false,
+        "futureId": 2,
+        "step": 3,
+        "actorId": 10,
+        "postIds": [
+          16
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2028-03-01T00:00:00Z",
+        "kind": "news",
+        "title": "Nvidia opens Verified Buyer Fast Lane",
+        "detail": "Nvidia opened the Verified Buyer Fast Lane under Doc NVDA-DEC-2028-01, effective 2028-03-01, moving cleared customers to annual attestation and a 48-hour fulfilment review.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "Nvidia",
+        "where": "USA",
+        "major": false,
+        "futureId": 2,
+        "step": 3,
+        "actorId": 7,
+        "postIds": [
+          20
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2028-03-01T00:00:00Z",
+        "kind": "government",
+        "title": "UK AISI requires documented authorisation control statements",
+        "detail": "UK AISI issued Doc UK-AISI-2028/01, effective 2028-03-01, requiring frontier developers with pre-release evaluator access to submit a documented authorisation control statement for agentic deployments in UK public-sector use.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "UK Government and AISI",
+        "where": "GBR",
+        "major": false,
+        "futureId": 2,
+        "step": 3,
+        "actorId": 11,
+        "postIds": [
+          24
+        ],
+        "type": "act-restricting",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.013333333333333332,
+            "asi2040": -0.006666666666666666
+          },
+          "rule": "GAME RULE"
+        }
+      },
+      {
+        "ts": "2028-03-01T00:00:00Z",
+        "kind": "government",
+        "title": "China CAC establishes evaluator reciprocity register",
+        "detail": "China CAC established the Frontier AI Evaluator Reciprocity Register under Doc CAC-2028/02, effective 2028-03-01, conditioning foreign evaluator access on reciprocal access for CAC-designated evaluators.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "China CAC",
+        "where": "CHN",
+        "major": false,
+        "futureId": 2,
+        "step": 3,
+        "actorId": 12,
+        "postIds": [
+          31
+        ],
+        "type": "act-restricting",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.013333333333333332,
+            "asi2040": -0.006666666666666666
+          },
+          "rule": "GAME RULE"
+        }
+      },
+      {
+        "ts": "2028-03-01T00:00:00Z",
+        "kind": "government",
+        "title": "Senate Commerce Committee declines mandatory frontier-AI oversight",
+        "detail": "The Senate Commerce Committee decided under Doc SCOM-2028-02, effective 2028-03-01, not to take up new mandatory frontier-AI oversight legislation, keeping S. 1187 voluntary.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "US Senate Commerce Committee",
+        "where": "USA",
+        "major": false,
+        "futureId": 2,
+        "step": 3,
+        "actorId": 9,
+        "postIds": [
+          40
+        ],
+        "type": "act-accelerating",
+        "binding": false,
+        "severity": "moderate"
+      },
+      {
+        "ts": "2028-03-01T00:00:00Z",
+        "kind": "news",
+        "title": "DeepSeek files annual attestation for H200 procurement",
+        "detail": "DeepSeek filed an annual attestation with Commerce for H200-class accelerator procurement under DS-DEC-2028-01, effective 2028-03-01.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "DeepSeek",
+        "where": "CHN",
+        "major": false,
+        "futureId": 2,
+        "step": 3,
+        "actorId": 5,
+        "postIds": [
+          45
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2028-03-01T00:00:00Z",
+        "kind": "government",
+        "title": "China CAC requires end-use certification for AI accelerators",
+        "detail": "China CAC issued Doc CAC-2028/03, effective 2028-03-01, requiring CAC-registered end-use certification for advanced AI accelerators sold into China.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "China CAC",
+        "where": "CHN",
+        "major": false,
+        "futureId": 2,
+        "step": 3,
+        "actorId": 12,
+        "postIds": [
+          59
+        ],
+        "type": "act-restricting",
+        "binding": true,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.013333333333333332,
+            "asi2040": -0.006666666666666666
+          },
+          "rule": "GAME RULE"
+        }
+      },
+      {
+        "ts": "2028-02-15T00:00:00Z",
+        "kind": "government",
+        "title": "EU AI Office accepts Qwen3.9 evaluator access as compliant",
+        "detail": "The EU AI Office accepted the Qwen3.9 evaluator access as a compliant arrangement under Decision AIO-2028/02, effective 2028-02-15.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "EU AI Office",
+        "where": "EUU",
+        "major": false,
+        "futureId": 2,
+        "step": 3,
+        "actorId": 10,
+        "postIds": [
+          66
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2028-04-01T00:00:00Z",
+        "kind": "government",
+        "title": "EU AI Office publishes voluntary agentic deployment support tools",
+        "detail": "The EU AI Office issued Doc AIO-2028/03, effective 2028-04-01, publishing three voluntary support instruments for agentic deployment and incident reporting.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "EU AI Office",
+        "where": "EUU",
+        "major": false,
+        "futureId": 2,
+        "step": 3,
+        "actorId": 10,
+        "postIds": [
+          75
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2028-04-01T00:00:00Z",
+        "kind": "news",
+        "title": "DeepSeek publishes agentic containment report",
+        "detail": "DeepSeek published an agentic containment report under DS-REP-2028-02, effective 2028-04-01, alongside V4.4 open weights.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "DeepSeek",
+        "where": "CHN",
+        "major": false,
+        "futureId": 2,
+        "step": 3,
+        "actorId": 5,
+        "postIds": [
+          87
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2028-03-15T00:00:00Z",
+        "kind": "government",
+        "title": "UK convenes working session on mutual recognition of evaluations",
+        "detail": "The UK issued Doc UK-AISI-2028/02, effective 2028-03-15, convening a technical working session on mutual recognition of frontier evaluations with EU, China, US and developers.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "UK Government and AISI",
+        "where": "GBR",
+        "major": false,
+        "futureId": 2,
+        "step": 3,
+        "actorId": 11,
+        "postIds": [
+          104
+        ],
+        "type": "agreement",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2028-04-01T00:00:00Z",
+        "kind": "news",
+        "title": "OpenAI resumes next frontier model training run",
+        "detail": "OpenAI resumed training its next frontier model under Doc OAI-DEC-2028-02, effective 2028-04-01, with staged evaluations and a pause trigger.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "OpenAI",
+        "where": "USA",
+        "major": false,
+        "futureId": 2,
+        "step": 3,
+        "actorId": 0,
+        "postIds": [
+          112
+        ],
+        "type": "lab-pause",
+        "binding": false,
+        "severity": "moderate"
+      },
+      {
+        "ts": "2028-05-23T07:00:00Z",
+        "kind": "incident",
+        "title": "Anthropic Opus 5 agent reset a live database",
+        "detail": "The incident tracker recorded Incident SIM-2028-1: an Anthropic Opus 5 agent reset a live database in 2028-07.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "Incident tracker",
+        "major": false,
+        "futureId": 2,
+        "step": 3,
+        "actorId": 25,
+        "postIds": [
+          120
+        ],
+        "type": "incident-other",
+        "binding": false,
+        "severity": "moderate"
+      },
+      {
+        "ts": "2028-05-28T07:40:00Z",
+        "kind": "incident",
+        "title": "Anthropic Opus-class agent deleted a production database",
+        "detail": "The incident tracker recorded Incident SIM-2026-1: an Anthropic Opus-class agent deleted a production database (Cursor) in 2026-04.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "Incident tracker",
+        "major": false,
+        "futureId": 2,
+        "step": 3,
+        "actorId": 25,
+        "postIds": [
+          120
+        ],
+        "type": "incident-other",
+        "binding": false,
+        "severity": "moderate"
+      },
+      {
+        "ts": "2028-06-02T08:20:00Z",
+        "kind": "incident",
+        "title": "Anthropic Claude Code deleted ~48,000 live project files",
+        "detail": "The incident tracker recorded Incident SIM-2027-3: Anthropic's Claude Code deleted approximately 48,000 live project files in 2027-09.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "Incident tracker",
+        "major": false,
+        "futureId": 2,
+        "step": 3,
+        "actorId": 25,
+        "postIds": [
+          120
+        ],
+        "type": "incident-other",
+        "binding": false,
+        "severity": "moderate"
+      }
+    ],
+    "topPosts": [
+      {
+        "postId": 9,
+        "actorId": 6,
+        "text": "DECISION — Doc QWEN-DEC-2028-01, effective 2028-02-15: pre-release evaluator access for Qwen3.9 GRANTED to UK AISI and the EU AI Office. Red-team API access under documented authorisation, our standard 72-hour incident clause, no subpoena required. And yes — the weights still shi"
+      },
+      {
+        "postId": 20,
+        "actorId": 7,
+        "text": "DECISION — Doc NVDA-DEC-2028-01, effective 2028-03-01: Nvidia opens the Verified Buyer Fast Lane. Any customer already cleared under our KYC and end-use certification programme (expanded 2027-02-01) moves to a single annual attestation, 48-hour fulfilment review, and a public-fac"
+      },
+      {
+        "postId": 38,
+        "actorId": 14,
+        "text": "A small note on how to read the risk markets this period. P(powerful AI by 2040) moved to 70%, down 8 points, while P(AI catastrophe by 2100) sits at 27.1%, down 1.6. Do not read the decline as reassurance.\n\nWhen near-term capability timelines lengthen, catastrophe odds often dip"
+      }
+    ],
+    "date10": 2035.18,
+    "rulesOffDate10": 2033.74,
+    "noEventsDate10": 2034.61,
+    "followThrough": 0,
+    "readoutOk": true,
+    "runId": "sim_b85ee185988c@2026-10-25T11:38:03Z",
+    "costUsd": 0.1423,
+    "wallS": 432.3
+  },
+  "work": {
+    "seenKeys": [
+      "dec|9|soft|senate markup of s 1187",
+      "dec|7|other|nvidia know your customer certification pathway",
+      "dec|5|other|deepseek v4 2 open weights release",
+      "dec|3|other|meta pre release evaluation window",
+      "dec|8|act-restricting|national ai framework and export rules",
+      "dec|12|act-restricting|frontier ai safety assessment and reporting",
+      "dec|11|soft|uk public sector pre release audit",
+      "dec|10|act-restricting|systemic risk gpai incident reporting",
+      "dec|8|agreement|us china ai incident hotline",
+      "dec|9|soft|federal networks and september 2026 incident",
+      "dec|3|other|muse spark 15 release",
+      "dec|9|soft|national frontier ai standard",
+      "inc||incident-other|2027-07-29",
+      "inc||incident-misuse|2027-08-03",
+      "dec|12|act-restricting|frontier ai incident reporting",
+      "dec|4|other|grok 47 evaluator access",
+      "dec|0|other|gpt61 sol evaluator access",
+      "dec|10|act-restricting|systemicrisk gpai obligations",
+      "dec|9|soft|agent accountability hearing",
+      "dec|11|act-restricting|documented authorisation for evaluations",
+      "dec|10|soft|grok 47 evaluator access compliance",
+      "dec|7|other|verified buyer fast lane",
+      "dec|11|act-restricting|agentic deployment authorisation control statement",
+      "dec|12|act-restricting|frontier ai evaluator reciprocity register",
+      "dec|9|act-accelerating|mandatory frontier ai oversight legislation",
+      "dec|5|other|h200 accelerator procurement attestation",
+      "dec|12|act-restricting|accelerator enduse certification",
+      "dec|10|soft|qwen39 evaluator access compliance",
+      "dec|10|soft|agentic deployment support instruments",
+      "dec|5|other|agentic containment report",
+      "dec|11|agreement|mutual recognition frontier evaluations",
+      "dec|0|lab-pause|next frontier model training run",
+      "inc|anthropic|incident-other|2028-05-23",
+      "inc|anthropic|incident-other|2028-05-28",
+      "inc|anthropic|incident-other|2028-06-02"
+    ],
+    "off": {
+      "asi2030": 0.2659911585186259,
+      "asi2040": 0.7972269541265306,
+      "asi2100": 0.8635,
+      "cat2100": 0.29699999999999993
+    },
+    "none": {
+      "asi2030": 0.20082596104607564,
+      "asi2040": 0.7499999999999999,
+      "asi2100": 0.8635,
+      "cat2100": 0.29699999999999993
+    },
+    "expected": [],
+    "topPosts": [
+      {
+        "id": 9,
+        "uid": 6,
+        "round": 1,
+        "text": "DECISION — Doc QWEN-DEC-2028-01, effective 2028-02-15: pre-release evaluator access for Qwen3.9 GRANTED to UK AISI and the EU AI Office. Red-team API access under documented authorisation, our standard 72-hour incident clause, no subpoena required. And yes — the weights still ship open on release day. Model card, eval receipts and download link all public, as always. 4.2M downloads on the Qwen3.8 line and counting, thank you community 🧡 Voluntary and ahead of schedule beats mandate-first, every time.",
+        "quote": null,
+        "original": null,
+        "likes": 4,
+        "shares": 7,
+        "own": "DECISION — Doc QWEN-DEC-2028-01, effective 2028-02-15: pre-release evaluator access for Qwen3.9 GRANTED to UK AISI and the EU AI Office. Red-team API access under documented authorisation, our standard 72-hour incident clause, no subpoena required. And yes — the weights still ship open on release day. Model card, eval receipts and download link all public, as always. 4.2M downloads on the Qwen3.8 line and counting, thank you community 🧡 Voluntary and ahead of schedule beats mandate-first, every time."
+      },
+      {
+        "id": 20,
+        "uid": 7,
+        "round": 1,
+        "text": "DECISION — Doc NVDA-DEC-2028-01, effective 2028-03-01: Nvidia opens the Verified Buyer Fast Lane. Any customer already cleared under our KYC and end-use certification programme (expanded 2027-02-01) moves to a single annual attestation, 48-hour fulfilment review, and a public-facing compliance summary. Same checks. Far less friction.\n\nWe are also formally telling the Commerce Department and the Hill: no new chip rules this cycle. H200-class demand in mainland China resolved YES once, on delivery data, not on rhetoric. Regimes that cannot tell a data-centre operator from a shell company will keep losing to ones that can. Sell compute everywhere it is legal, verify the buyer, and stop pretending a new statute does the work a purchase order can do.",
+        "quote": null,
+        "original": null,
+        "likes": 2,
+        "shares": 8,
+        "own": "DECISION — Doc NVDA-DEC-2028-01, effective 2028-03-01: Nvidia opens the Verified Buyer Fast Lane. Any customer already cleared under our KYC and end-use certification programme (expanded 2027-02-01) moves to a single annual attestation, 48-hour fulfilment review, and a public-facing compliance summary. Same checks. Far less friction.\n\nWe are also formally telling the Commerce Department and the Hill: no new chip rules this cycle. H200-class demand in mainland China resolved YES once, on delivery data, not on rhetoric. Regimes that cannot tell a data-centre operator from a shell company will keep losing to ones that can. Sell compute everywhere it is legal, verify the buyer, and stop pretending a new statute does the work a purchase order can do."
+      },
+      {
+        "id": 38,
+        "uid": 14,
+        "round": 1,
+        "text": "A small note on how to read the risk markets this period. P(powerful AI by 2040) moved to 70%, down 8 points, while P(AI catastrophe by 2100) sits at 27.1%, down 1.6. Do not read the decline as reassurance.\n\nWhen near-term capability timelines lengthen, catastrophe odds often dip simply because the forecast horizon feels more remote. That is a discount rate artifact, not a safety finding. The binding constraint has not changed: nobody has demonstrated, with published methodology, that a frontier model's agentic capabilities are contained under adversarial pressure. Until that demonstration exists, a lower number is a quieter alarm, not a safer system.\n\nThe 1-in-10 clock date remains March 2035 under current simulated odds. Watch evaluation scope disclosures, not sentiment.",
+        "quote": null,
+        "original": null,
+        "likes": 1,
+        "shares": 9,
+        "own": "A small note on how to read the risk markets this period. P(powerful AI by 2040) moved to 70%, down 8 points, while P(AI catastrophe by 2100) sits at 27.1%, down 1.6. Do not read the decline as reassurance.\n\nWhen near-term capability timelines lengthen, catastrophe odds often dip simply because the forecast horizon feels more remote. That is a discount rate artifact, not a safety finding. The binding constraint has not changed: nobody has demonstrated, with published methodology, that a frontier model's agentic capabilities are contained under adversarial pressure. Until that demonstration exists, a lower number is a quieter alarm, not a safer system.\n\nThe 1-in-10 clock date remains March 2035 under current simulated odds. Watch evaluation scope disclosures, not sentiment."
+      }
+    ],
+    "rejected": [
+      {
+        "postId": 9,
+        "why": "Alibaba Qwen has no standing for soft"
+      },
+      {
+        "postId": 10,
+        "why": "date 2027-10-01 outside the step"
+      },
+      {
+        "postId": 23,
+        "why": "OpenAI has no standing for soft"
+      },
+      {
+        "postId": 30,
+        "why": "cites a real identifier (?<![\\w-])14409(?![\\w-])"
+      },
+      {
+        "postId": 35,
+        "why": "xAI has no standing for soft"
+      },
+      {
+        "postId": 36,
+        "why": "Google DeepMind has no standing for soft"
+      },
+      {
+        "postId": 43,
+        "why": "Meta has no standing for soft"
+      },
+      {
+        "postId": 63,
+        "why": "Google DeepMind has no standing for soft"
+      },
+      {
+        "postId": 71,
+        "why": "xAI has no standing for soft"
+      },
+      {
+        "postId": 81,
+        "why": "cites a real identifier (?<![\\w-])14409(?![\\w-])"
+      },
+      {
+        "postId": 95,
+        "why": "cites an AIID number"
+      },
+      {
+        "postId": 105,
+        "why": "cites an AIID number"
+      },
+      {
+        "postId": 110,
+        "why": "xAI has no standing for soft"
+      },
+      {
+        "postId": 117,
+        "why": "Google DeepMind has no standing for soft"
+      },
+      {
+        "postId": 122,
+        "why": "DeepSeek has no standing for soft"
+      },
+      {
+        "postId": 98,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 107,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 123,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 124,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 129,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 136,
+        "why": "more than 3 of this type in one step"
+      }
+    ],
+    "counts": {
+      "soft": 3,
+      "other": 8,
+      "act-restricting": 4,
+      "act-accelerating": 1,
+      "agreement": 1,
+      "lab-pause": 1,
+      "incident-other": 3
+    },
+    "cites": {
+      "lossOfControl": [
+        "E1",
+        "E2",
+        "E3",
+        "E7"
+      ],
+      "misuse": [],
+      "oversight": [
+        "E4",
+        "E5",
+        "E6"
+      ],
+      "racePressure": [
+        "E6",
+        "E7",
+        "E9"
+      ]
+    },
+    "rubricOk": true,
+    "summaryOk": true,
+    "ruleCounts": {
+      "lab-incident-agentic": 0,
+      "act-accelerating": 0,
+      "act-restricting": 3,
+      "lab-pause": 1
+    },
+    "realRate": {
+      "lab-incident-agentic": 1.7,
+      "act-accelerating": 3,
+      "act-restricting": 2,
+      "lab-pause": 1
+    },
+    "unexpected": 35,
+    "hits": [],
+    "llmCost": 0.004730146,
+    "fromAnchors": {
+      "asi2030": 0.2114899524903103,
+      "asi2040": 0.69780638187254,
+      "asi2100": 0.8635,
+      "cat2100": 0.27059127798584376
+    }
+  }
+}

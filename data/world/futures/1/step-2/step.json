@@ -1,0 +1,541 @@
+{
+  "step": {
+    "step": 2,
+    "start": "2027-07-01T00:00:00Z",
+    "end": "2028-01-01T00:00:00Z",
+    "anchors": {
+      "asi2030": 0.261715346317658,
+      "asi2040": 0.7847262435077269,
+      "asi2100": 0.8635,
+      "cat2100": 0.26083661840809746
+    },
+    "rubric": {
+      "lossOfControl": 2,
+      "misuse": 0,
+      "oversight": 2,
+      "racePressure": 1
+    },
+    "summary": "Six-Month AI Risk Forecast: Incidents, Hotlines, and the Governance Gap > The simulation predicts a six-month period in which high-severity AI agent incidents trigger training pauses and emergency governance actions, but the emerging US-China hotline and reporting regimes document danger more than they prevent it. --- Incident Cascade and the New Normal of AI Agent Misbehavior The six-month forecast does not deliver a single catastrophic AI event. It delivers something more…",
+    "expected": [],
+    "events": [
+      {
+        "ts": "2027-07-06T17:15:00Z",
+        "kind": "news",
+        "title": "DeepSeek publishes V4.1 Flash eval card and open weights",
+        "detail": "DeepSeek published release notes, an eval card and open weights for V4.1 Flash.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "DeepSeek",
+        "where": "CHN",
+        "major": false,
+        "futureId": 1,
+        "step": 2,
+        "actorId": 5,
+        "postIds": [
+          13
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2027-09-30T00:00:00Z",
+        "kind": "government",
+        "title": "UK AISI to publish Risk Assumptions Paper RAP-27/04",
+        "detail": "UK AISI said it will publish Risk Assumptions Paper 2027-04 on frontier capability, unsanctioned agent behaviour and evaluation limits, effective 2027-09-30.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "UK Government and AISI",
+        "where": "GBR",
+        "major": false,
+        "futureId": 1,
+        "step": 2,
+        "actorId": 11,
+        "postIds": [
+          15
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2027-08-15T00:00:00Z",
+        "kind": "news",
+        "title": "DeepSeek extends evaluator access to pre-release checkpoints",
+        "detail": "DeepSeek extended standing evaluator access to pre-release checkpoints for accredited labs and kept V4.1 Flash weights open, effective 2027-08-15.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "DeepSeek",
+        "where": "CHN",
+        "major": false,
+        "futureId": 1,
+        "step": 2,
+        "actorId": 5,
+        "postIds": [
+          16
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2027-08-01T00:00:00Z",
+        "kind": "news",
+        "title": "Alibaba Qwen extends Qwen3.8 evaluator access to EU and China evaluators",
+        "detail": "Alibaba Qwen extended standing evaluator access to Qwen3.8 weights to EU AI Office and China CAC-designated evaluators and published eval receipts, effective 2027-08-01.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "Alibaba Qwen",
+        "where": "CHN",
+        "major": false,
+        "futureId": 1,
+        "step": 2,
+        "actorId": 6,
+        "postIds": [
+          22
+        ],
+        "type": "other",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2027-09-15T00:00:00Z",
+        "kind": "government",
+        "title": "Senate Commerce Committee schedules frontier AI oversight hearing",
+        "detail": "The Senate Commerce Committee noticed a hearing on 2027-09-15 on governing frontier AI without ceding the lead, per Committee Print 120-14.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "US Senate Commerce Committee",
+        "where": "USA",
+        "major": false,
+        "futureId": 1,
+        "step": 2,
+        "actorId": 9,
+        "postIds": [
+          31
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2027-10-01T00:00:00Z",
+        "kind": "government",
+        "title": "EU AI Office issues Decision 2027/AIO-11 support package",
+        "detail": "The EU AI Office published Decision 2027/AIO-11 keeping support tools in place before high-risk rules apply on 2027-12-02, effective 2027-10-01.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "EU AI Office",
+        "where": "EUU",
+        "major": false,
+        "futureId": 1,
+        "step": 2,
+        "actorId": 10,
+        "postIds": [
+          33
+        ],
+        "type": "soft",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2027-07-15T00:00:00Z",
+        "kind": "news",
+        "title": "OpenAI holds GPT-6.2 Lyra training at checkpoint 3",
+        "detail": "OpenAI paused GPT-6.2 Lyra training at checkpoint 3 pending independent pre-deployment evaluations under Document OPX-0047, effective 2027-07-15.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "OpenAI",
+        "where": "USA",
+        "major": false,
+        "futureId": 1,
+        "step": 2,
+        "actorId": 0,
+        "postIds": [
+          37
+        ],
+        "type": "lab-pause",
+        "binding": false,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.06666666666666667,
+            "asi2040": -0.03333333333333333
+          },
+          "rule": "GAME RULE"
+        }
+      },
+      {
+        "ts": "2027-09-01T00:00:00Z",
+        "kind": "news",
+        "title": "xAI to declare Grok 4.7 training pause windows to evaluators",
+        "detail": "xAI decided in xAI-2027-019 to declare Grok 4.7 training pause windows 30 days in advance to credentialed evaluators and release incident logs within 72 hours, effective 2027-09-01.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "xAI",
+        "where": "USA",
+        "major": false,
+        "futureId": 1,
+        "step": 2,
+        "actorId": 4,
+        "postIds": [
+          74
+        ],
+        "type": "lab-pause",
+        "binding": false,
+        "severity": "minor",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.06666666666666667,
+            "asi2040": -0.03333333333333333
+          },
+          "rule": "GAME RULE"
+        }
+      },
+      {
+        "ts": "2027-10-17T15:45:00Z",
+        "kind": "government",
+        "title": "EU AI Office accepts UK AISI invitation to co-convene technical track",
+        "detail": "The EU AI Office decided in 2027/AIO-12 to accept the UK AISI invitation to co-convene the follow-up technical track to the London summit, covering shared risk assumptions, evaluation methodology and incident-report formats.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "EU AI Office",
+        "where": "EUU",
+        "major": false,
+        "futureId": 1,
+        "step": 2,
+        "actorId": 10,
+        "postIds": [
+          82
+        ],
+        "type": "agreement",
+        "binding": false,
+        "severity": "minor"
+      },
+      {
+        "ts": "2027-07-22T00:00:00Z",
+        "kind": "news",
+        "title": "OpenAI pauses Lyra-2 training at checkpoint 6 after red-team incident",
+        "detail": "OpenAI paused the Lyra-2 training run at checkpoint 6 pending review of an agentic tool-use incident in an internal red-team session under Document OPX-0052, effective 2027-07-22.",
+        "source": "mirofish",
+        "provenance": "simulated",
+        "who": "OpenAI",
+        "where": "USA",
+        "major": false,
+        "futureId": 1,
+        "step": 2,
+        "actorId": 0,
+        "postIds": [
+          98
+        ],
+        "type": "lab-pause",
+        "binding": false,
+        "severity": "moderate",
+        "effect": {
+          "dlogit": {
+            "asi2030": -0.06666666666666667,
+            "asi2040": -0.03333333333333333
+          },
+          "rule": "GAME RULE"
+        }
+      }
+    ],
+    "topPosts": [
+      {
+        "postId": 40,
+        "actorId": 16,
+        "text": "Watch the pattern: when P(catastrophe) ticks down, the answer is \"markets are complacent.\" When it ticks up, it's \"a warning shot.\" Either way the conclusion is pre-written: more oversight, more stop rules, more budget line items. Meanwhile my phone's autocomplete still can't rem"
+      },
+      {
+        "postId": 33,
+        "actorId": 10,
+        "text": "Decision 2027/AIO-11 (published 2027-05-14, effective 2027-10-01): the AI Office will keep support tools in place before the high-risk rules apply on 2027-12-02, as agreed in the 2026-05-07 provisional deal. The package includes: (1) Article 6 / Annex III classification guidance "
+      },
+      {
+        "postId": 31,
+        "actorId": 9,
+        "text": "NOTICE: The Senate Commerce Committee will hold a hearing, \"Competitiveness Before Caution: Governing Frontier AI Without Ceding the Lead,\" on 2027-09-15. Chairman's determination, Committee Print 120-14, issued 2027-08-02, effective 2027-09-15. Witnesses to be drawn from industr"
+      }
+    ],
+    "date10": 2034.47,
+    "rulesOffDate10": 2032.52,
+    "noEventsDate10": 2033.89,
+    "followThrough": 0,
+    "readoutOk": true,
+    "runId": "sim_22c9450b9606@2026-10-25T11:23:39Z",
+    "costUsd": 0.1302,
+    "wallS": 135.5
+  },
+  "work": {
+    "seenKeys": [
+      "dec|9|soft|national ai competitiveness preemption act",
+      "dec|3|other|thirdparty evaluator access",
+      "dec|12|act-restricting|frontier model registration and evaluation",
+      "dec|0|other|external evaluator access gpt61",
+      "dec|10|act-restricting|systemicrisk gpai evaluation procedure",
+      "dec|6|other|qwen open weights evaluator access",
+      "dec|11|soft|risk estimate transparency and summit",
+      "dec|12|act-restricting|chinese frontier compute procurement",
+      "dec|12|agreement|euchina evaluation equivalence",
+      "dec|11|soft|london international safety summit",
+      "dec|5|other|v41 flash release and evals",
+      "dec|11|soft|risk assumptions paper",
+      "dec|5|other|v41 flash evaluator access",
+      "dec|6|other|qwen38 evaluator access",
+      "dec|9|soft|frontier ai governance hearing",
+      "dec|10|soft|highrisk ai support tools",
+      "dec|0|lab-pause|gpt62 lyra training",
+      "dec|4|lab-pause|grok 47 training pause windows",
+      "dec|10|agreement|london summit technical track",
+      "dec|0|lab-pause|lyra2 training run"
+    ],
+    "off": {
+      "asi2030": 0.37017712603743375,
+      "asi2040": 0.8248305844208068,
+      "asi2100": 0.8635,
+      "cat2100": 0.29699999999999993
+    },
+    "none": {
+      "asi2030": 0.2579647941378086,
+      "asi2040": 0.7499999999999999,
+      "asi2100": 0.8635,
+      "cat2100": 0.29699999999999993
+    },
+    "expected": [],
+    "topPosts": [
+      {
+        "id": 40,
+        "uid": 16,
+        "round": 1,
+        "text": "Watch the pattern: when P(catastrophe) ticks down, the answer is \"markets are complacent.\" When it ticks up, it's \"a warning shot.\" Either way the conclusion is pre-written: more oversight, more stop rules, more budget line items. Meanwhile my phone's autocomplete still can't remember the name of my own paper. Today's chatbots are a product, not a pathway to human-level intelligence, and the 24% number is marketing wearing a lab coat.",
+        "quote": null,
+        "original": null,
+        "likes": 5,
+        "shares": 7,
+        "own": "Watch the pattern: when P(catastrophe) ticks down, the answer is \"markets are complacent.\" When it ticks up, it's \"a warning shot.\" Either way the conclusion is pre-written: more oversight, more stop rules, more budget line items. Meanwhile my phone's autocomplete still can't remember the name of my own paper. Today's chatbots are a product, not a pathway to human-level intelligence, and the 24% number is marketing wearing a lab coat."
+      },
+      {
+        "id": 33,
+        "uid": 10,
+        "round": 1,
+        "text": "Decision 2027/AIO-11 (published 2027-05-14, effective 2027-10-01): the AI Office will keep support tools in place before the high-risk rules apply on 2027-12-02, as agreed in the 2026-05-07 provisional deal. The package includes: (1) Article 6 / Annex III classification guidance v2, (2) a conformity-assessment sandbox for SMEs and public bodies, (3) a documentation and logging template mapped to Article 11 and Article 12, and (4) a standing helpdesk with 15-working-day response targets. We also welcome the UK AISI summit of 12-13 May 2027 and will report on regulatory convergence on evaluation assumptions; the AI Office is studying the equivalence approach signalled by China CAC on 2027-04-15, with no determination yet.",
+        "quote": null,
+        "original": null,
+        "likes": 1,
+        "shares": 5,
+        "own": "Decision 2027/AIO-11 (published 2027-05-14, effective 2027-10-01): the AI Office will keep support tools in place before the high-risk rules apply on 2027-12-02, as agreed in the 2026-05-07 provisional deal. The package includes: (1) Article 6 / Annex III classification guidance v2, (2) a conformity-assessment sandbox for SMEs and public bodies, (3) a documentation and logging template mapped to Article 11 and Article 12, and (4) a standing helpdesk with 15-working-day response targets. We also welcome the UK AISI summit of 12-13 May 2027 and will report on regulatory convergence on evaluation assumptions; the AI Office is studying the equivalence approach signalled by China CAC on 2027-04-15, with no determination yet."
+      },
+      {
+        "id": 31,
+        "uid": 9,
+        "round": 1,
+        "text": "NOTICE: The Senate Commerce Committee will hold a hearing, \"Competitiveness Before Caution: Governing Frontier AI Without Ceding the Lead,\" on 2027-09-15. Chairman's determination, Committee Print 120-14, issued 2027-08-02, effective 2027-09-15. Witnesses to be drawn from industry, national labs, and independent evaluators. The Committee will examine whether pending oversight proposals duplicate voluntary commitments, conflict with a single national standard, or disadvantage US developers relative to the EU Article 55 and China CAC regimes.",
+        "quote": null,
+        "original": null,
+        "likes": 2,
+        "shares": 3,
+        "own": "NOTICE: The Senate Commerce Committee will hold a hearing, \"Competitiveness Before Caution: Governing Frontier AI Without Ceding the Lead,\" on 2027-09-15. Chairman's determination, Committee Print 120-14, issued 2027-08-02, effective 2027-09-15. Witnesses to be drawn from industry, national labs, and independent evaluators. The Committee will examine whether pending oversight proposals duplicate voluntary commitments, conflict with a single national standard, or disadvantage US developers relative to the EU Article 55 and China CAC regimes."
+      }
+    ],
+    "rejected": [
+      {
+        "postId": 11,
+        "why": "date 2027-06-01 outside the step"
+      },
+      {
+        "postId": 19,
+        "why": "date 2027-06-01 outside the step"
+      },
+      {
+        "postId": 23,
+        "why": "cites a real identifier (?<![\\w-])14365(?![\\w-])"
+      },
+      {
+        "postId": 24,
+        "why": "Nvidia has no standing for soft"
+      },
+      {
+        "postId": 25,
+        "why": "date 2027-06-15 outside the step"
+      },
+      {
+        "postId": 35,
+        "why": "Anthropic has no standing for soft"
+      },
+      {
+        "postId": 38,
+        "why": "OpenAI has no standing for soft"
+      },
+      {
+        "postId": 54,
+        "why": "date 2027-05-05 outside the step"
+      },
+      {
+        "postId": 55,
+        "why": "cites a real identifier (?<![\\w-])14365(?![\\w-])"
+      },
+      {
+        "postId": 56,
+        "why": "Nvidia has no standing for soft"
+      },
+      {
+        "postId": 60,
+        "why": "Google DeepMind has no standing for soft"
+      },
+      {
+        "postId": 65,
+        "why": "cites an AIID number"
+      },
+      {
+        "postId": 75,
+        "why": "cites an AIID number"
+      },
+      {
+        "postId": 76,
+        "why": "OpenAI has no standing for soft"
+      },
+      {
+        "postId": 84,
+        "why": "Nvidia has no standing for soft"
+      },
+      {
+        "postId": 90,
+        "why": "Anthropic has no standing for soft"
+      },
+      {
+        "postId": 95,
+        "why": "Google DeepMind has no standing for soft"
+      },
+      {
+        "postId": 97,
+        "why": "Nvidia has no standing for soft"
+      },
+      {
+        "postId": 106,
+        "why": "date 2027-05-12 outside the step"
+      },
+      {
+        "postId": 112,
+        "why": "cites a real identifier (?<![\\w-])14365(?![\\w-])"
+      },
+      {
+        "postId": 115,
+        "why": "Anthropic has no standing for soft"
+      },
+      {
+        "postId": 123,
+        "why": "date 2028-01-15 outside the step"
+      },
+      {
+        "postId": 125,
+        "why": "date 2027-05-12 outside the step"
+      },
+      {
+        "postId": 126,
+        "why": "cites a real identifier (?<![\\w-])14365(?![\\w-])"
+      },
+      {
+        "postId": 135,
+        "why": "Nvidia has no standing for soft"
+      },
+      {
+        "postId": 137,
+        "why": "cites an AIID number"
+      },
+      {
+        "postId": 27,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 44,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 49,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 58,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 71,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 79,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 88,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 89,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 100,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 116,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 127,
+        "why": "more than 3 of this type in one step"
+      },
+      {
+        "postId": 129,
+        "why": "more than 3 of this type in one step"
+      }
+    ],
+    "counts": {
+      "other": 9,
+      "soft": 8,
+      "lab-pause": 4,
+      "agreement": 1
+    },
+    "cites": {
+      "lossOfControl": [
+        "E4",
+        "E5"
+      ],
+      "misuse": [],
+      "oversight": [
+        "E1",
+        "E2",
+        "E3",
+        "E6"
+      ],
+      "racePressure": [
+        "E4",
+        "E5"
+      ]
+    },
+    "rubricOk": true,
+    "summaryOk": true,
+    "ruleCounts": {
+      "lab-incident-agentic": 0,
+      "act-accelerating": 0,
+      "act-restricting": 0,
+      "lab-pause": 3
+    },
+    "realRate": {
+      "lab-incident-agentic": 1.7,
+      "act-accelerating": 3,
+      "act-restricting": 2,
+      "lab-pause": 1
+    },
+    "unexpected": 20,
+    "hits": [],
+    "llmCost": 0.010463856,
+    "fromAnchors": {
+      "asi2030": 0.32148297932373765,
+      "asi2040": 0.7295666651693594,
+      "asi2100": 0.8635,
+      "cat2100": 0.242022179292478
+    }
+  }
+}

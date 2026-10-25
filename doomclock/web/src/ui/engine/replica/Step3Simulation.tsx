@@ -105,7 +105,7 @@ function Card({ a }: { a: SimAction }) {
   )
 }
 
-export function Step3Simulation({ step, round, rounds, logs, onBack, onNext }: Step3Props) {
+export function Step3Simulation({ step, round, rounds, logs, onBack, onNext, recorded }: Step3Props) {
   const shown = useMemo(() => actionsBy(step, round), [step, round])
   const tw = shown.filter((a) => a.platform === 'twitter').length
   const rd = shown.filter((a) => a.platform === 'reddit').length
@@ -126,8 +126,8 @@ export function Step3Simulation({ step, round, rounds, logs, onBack, onNext }: S
         </div>
         <div className={c('action-controls')}>
           <button className={c('back')} onClick={onBack}>{t('common.back')}</button>
-          <button className={c('action-btn', 'primary')} disabled={!done} onClick={onNext}>
-            {t('step3.startGenerateReportBtn')}<span className={c('arrow-icon')}>→</span>
+          <button className={c('action-btn', 'primary')} disabled={!done && !recorded} onClick={onNext}>
+            {t(recorded ? 'step3.viewReportBtn' : 'step3.startGenerateReportBtn')}<span className={c('arrow-icon')}>→</span>
           </button>
         </div>
       </div>

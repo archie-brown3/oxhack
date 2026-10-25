@@ -205,6 +205,7 @@
     "forceStopSuccess": "Simulation force stopped",
     "forceStopFailed": "Force stop failed: {error}",
     "startGenerateReportBtn": "Generate Report",
+    "viewReportBtn": "View Report",
     "generatingReportBtn": "Starting..."
   },
   "step4": {

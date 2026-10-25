@@ -21,7 +21,7 @@ export function tourSteps(c: TourContext): TourStep[] {
     {
       id: 'clock', target: '#clock', enter: c.closeSheets,
       title: 'This clock counts down',
-      body: <p>It counts down to <b>{c.date10 ? dmy(c.date10) : 'after 2100'}</b>, the day the chance of an AI catastrophe passes 1 in 10. The date comes from today's prediction-market prices only.{c.daysPerSecond ? ` Each second on the face is about ${Math.round(c.daysPerSecond)} days.` : ''}</p>,
+      body: <p>It counts down to <b>{c.date10 ? dmy(c.date10) : 'after 2100'}</b>, the day the chance of an AI catastrophe passes 1 in 10. The date comes from today's prediction-market prices plus one labelled game rule.{c.daysPerSecond ? ` Each second on the face is about ${Math.round(c.daysPerSecond)} days.` : ''}</p>,
       ask: 'Look at the hand and the countdown under it.',
       next: { label: 'Got it' },
     },
