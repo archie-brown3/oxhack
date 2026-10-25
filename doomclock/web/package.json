@@ -12,6 +12,8 @@
     "tokens": "node ../../.lavish/prototype/gen-tokens.mjs src/styles/tokens.css && grep -v fonts.googleapis ../../context/design-system/components/bundle.css > src/styles/ds.css"
   },
   "dependencies": {
+    "@types/d3": "^7.4.3",
+    "d3": "^7.9.0",
     "globe.gl": "^2.46.2",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"

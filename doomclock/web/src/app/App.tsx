@@ -9,7 +9,6 @@ import { bulletinAt, closeness, scaleOf } from '../ui/clock/scale.ts'
 import { dmy, qName, sourceName } from '../ui/format.ts'
 import { InputsSheet } from '../ui/inputs/InputsSheet.tsx'
 import { WhySheet, type WhyTab } from '../ui/why/WhySheet.tsx'
-import type { Member } from '../ui/engine/EngineScreen.tsx'
 import { locate, type Flare, type Located } from '../ui/world/locate.ts'
 import { NewsFeed, FeedPage, type FeedPost } from '../ui/world/NewsFeed.tsx'
 import { EventPop, FutureSwitcher, Legend, Newsflash, Spine, Ticker, type Flash } from '../ui/world/Hud.tsx'
@@ -27,7 +26,6 @@ const EngineScreen = lazy(() => import('../ui/engine/EngineScreen.tsx').then((m)
 const params = new URLSearchParams(location.search)
 const STEP_MS = 5000 // one simulated step (6 months): time to read its events before the next
 const FIRST_MS = 1200 // today to the first step, so the first step lands at once
-const PCTS = [0.05, 0.1, 0.25, 0.5, 0.9] // the Engine's society list is keyed by these
 
 export function App() {
   const [data, setData] = useState<Data | null>(null)
@@ -64,7 +62,6 @@ function World({ data }: { data: Data }) {
   const [feedOpen, setFeedOpen] = useState(false)
   const [maxed, setMaxed] = useState<'graph' | 'cast' | null>(null)
   // The Engine screen (owner redesign in progress) still takes its old props.
-  const ensemble = useMemo<Member[]>(() => futures.map((f, i) => { const q = PCTS[Math.round((i / Math.max(1, futures.length - 1)) * 4)]; return { k: i + 1, q, future: { id: f.id, percentile: q, asiDate: null, catDate: null } } }), [futures])
 
   const frame = frames[cur]
   const future = futures[fi]
@@ -171,8 +168,7 @@ function World({ data }: { data: Data }) {
           <button aria-pressed={sheet !== 'inputs' && view === 'engine'} onClick={() => { setSheet(null); setView('engine') }}>Engine<kbd>E</kbd></button>
         </div>
       </nav>
-      {view === 'engine' && <Suspense fallback={null}><EngineScreen future={timeline.future} ensemble={ensemble} quarter={frame.quarter} firstSim={frames[today + 1].quarter} live={null} avatars={data.avatars} maxed={maxed} onMax={setMaxed}
-        onWatch={(m) => choose(Math.min(futures.length - 1, m.k - 1))} /></Suspense>}
+      {view === 'engine' && <Suspense fallback={null}><EngineScreen futureId={futures[fi]?.id ?? 1} step={step?.step ?? 1} /></Suspense>}
       <FutureSwitcher futures={futures} current={fi} endDate={frames.at(-1)?.clock?.date10 ?? null} onPick={choose} />
       {view === 'world' && <Legend />}
       <NewsFeed events={feed.events} playing={playing} freshFrom={Date.parse(frame.start)} onExpand={() => setFeedOpen(true)} />

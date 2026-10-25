@@ -1,0 +1,48 @@
+/* MiroFish's own look (light, JetBrains Mono / Space Grotesk), scoped to .mf. Values copied from
+   MirFish frontend App.vue and MainView.vue. Component styles live next to their components. */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@100..800&family=Noto+Sans+SC:wght@300;400;500;700;800;900&family=Space+Grotesk:wght@300..700&display=swap');
+
+#engine-replica { position: fixed; z-index: 15; top: 76px; bottom: 150px; left: var(--space-5, 16px); right: var(--space-5, 16px); border-radius: 8px; box-shadow: 0 8px 40px rgba(0,0,0,.45); }
+.mf, .mf * { box-sizing: border-box; }
+.mf { display: flex; flex-direction: column; background: #FFF; color: #000; overflow: hidden; font-family: 'Space Grotesk', 'Noto Sans SC', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+.mf button { font-family: inherit; }
+.mf ::-webkit-scrollbar { width: 8px; height: 8px; }
+.mf ::-webkit-scrollbar-track { background: #f1f1f1; }
+.mf ::-webkit-scrollbar-thumb { background: #000; }
+.mf ::-webkit-scrollbar-thumb:hover { background: #333; }
+
+.mf-header { height: 60px; flex: none; border-bottom: 1px solid #EAEAEA; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; background: #FFF; z-index: 100; position: relative; }
+.mf-header-left { display: flex; align-items: baseline; gap: 12px; }
+.mf-header-center { position: absolute; left: 50%; transform: translateX(-50%); }
+.mf-brand { font-family: 'JetBrains Mono', monospace; font-weight: 800; font-size: 18px; letter-spacing: 1px; }
+.mf-tag { font: 600 10px 'JetBrains Mono', monospace; letter-spacing: .5px; color: #FF5722; }
+.mf-view-switcher { display: flex; background: #F5F5F5; padding: 4px; border-radius: 6px; gap: 4px; }
+.mf-switch-btn { border: none; background: transparent; padding: 6px 16px; font-size: 12px; font-weight: 600; color: #666; border-radius: 4px; cursor: pointer; transition: all .2s; }
+.mf-switch-btn.active { background: #FFF; color: #000; box-shadow: 0 2px 4px rgba(0,0,0,.05); }
+.mf-header-right { display: flex; align-items: center; gap: 16px; }
+.mf-workflow-step { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+.mf-step-num { font-family: 'JetBrains Mono', monospace; font-weight: 700; color: #999; }
+.mf-step-name { font-weight: 700; color: #000; }
+.mf-step-divider { width: 1px; height: 14px; background: #E0E0E0; }
+.mf-status { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #666; font-weight: 500; }
+.mf-dot { width: 8px; height: 8px; border-radius: 50%; background: #CCC; }
+.mf-status.processing .mf-dot { background: #FF5722; animation: mf-pulse 1s infinite; }
+.mf-status.completed .mf-dot { background: #4CAF50; }
+.mf-status.error .mf-dot { background: #F44336; }
+@keyframes mf-pulse { 50% { opacity: .5; } }
+
+.mf-content { flex: 1; display: flex; position: relative; overflow: hidden; min-height: 0; }
+.mf-panel { height: 100%; overflow: hidden; position: relative; transition: width .4s cubic-bezier(.25,.8,.25,1), opacity .3s ease; }
+.mf-panel.left { border-right: 1px solid #EAEAEA; }
+.mf-empty { padding: 48px; color: #999; font: 500 13px 'JetBrains Mono', monospace; }
+
+.mf-btn { border: 1px solid #000; background: #FFF; padding: 6px 14px; font: 600 12px 'JetBrains Mono', monospace; cursor: pointer; }
+.mf-btn:hover { background: #000; color: #FFF; }
+.mf-replay { position: absolute; left: 16px; bottom: 16px; right: 16px; display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,.94); border: 1px solid #EAEAEA; padding: 8px 12px; z-index: 20; }
+.mf-replay input { flex: 1; accent-color: #FF5722; }
+.mf-replay-n { font: 600 12px 'JetBrains Mono', monospace; color: #666; white-space: nowrap; }
+.mf-step5 { display: grid; place-items: center; height: 100%; }
+.mf-step5-card { max-width: 420px; padding: 24px; border: 1px solid #EAEAEA; display: grid; gap: 12px; }
+.mf-step5-title { font: 700 14px 'JetBrains Mono', monospace; }
+.mf-step5-note { color: #FF5722; font: 600 12px 'JetBrains Mono', monospace; }
+.mf-stub { padding: 24px; font: 12px 'JetBrains Mono', monospace; color: #999; }
