@@ -1,0 +1,13 @@
+{
+  "future": 2,
+  "project_id": "proj_ff68638460e6",
+  "graph_id": "mirofish_20f2fd9ac5e44753",
+  "nodes": 83,
+  "edges": 68,
+  "entity_types": 10,
+  "edge_types": 10,
+  "seedPackChars": 5189,
+  "wall_s": 189,
+  "builtAt": "2026-10-25T10:43:03.658Z",
+  "question": "Over the next six months, which AI incidents, government decisions and lab actions happen, and how dangerous does the world become?"
+}

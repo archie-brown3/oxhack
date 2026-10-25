@@ -1,0 +1,20 @@
+{
+  "created_at": "2026-10-25T10:41:09.574312",
+  "error": null,
+  "message": "Graph build complete",
+  "metadata": {},
+  "progress": 100,
+  "progress_detail": {},
+  "result": {
+    "chunk_count": 13,
+    "edge_count": 68,
+    "graph_id": "mirofish_20f2fd9ac5e44753",
+    "node_count": 83,
+    "project_id": "proj_ff68638460e6",
+    "zep_batch_id": "3c66f554-2106-4dd6-96c3-79a04a5a954f"
+  },
+  "status": "completed",
+  "task_id": "e0f4a813-751e-41cb-bc37-fa754af554e2",
+  "task_type": "构建图谱: Doom Clock future 2",
+  "updated_at": "2026-10-25T10:43:01.456801"
+}

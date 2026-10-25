@@ -1,0 +1,705 @@
+{
+  "analysis_summary": "The document describes a 2026 world of frontier AI labs, aggressive government action, a dense stream of AI incidents (evaluation escapes, deepfakes, chatbot-caused harm, algorithmic pricing), and a noisy information layer of media, trackers, prediction markets, expert voices and covert advocacy networks. The entity design therefore separates labs, government bodies, media, expert commentators, advocacy and sock-puppet groups, affected individuals, implicated non-frontier companies, and monitoring bodies, with Person and Organization as fallbacks. Relations model the core social-media dynamics: reporting, commenting, official response, support/opposition, litigation, lobbying and deceptive impersonation.",
+  "chunk_overlap": 50,
+  "chunk_size": 500,
+  "created_at": "2026-10-25T10:37:54.609408",
+  "error": null,
+  "files": [
+    {
+      "filename": "world-today.md",
+      "size": 5227
+    }
+  ],
+  "graph_build_task_id": "a441b80c-47a5-4ed4-afb1-394cf3ba57ff",
+  "graph_id": "mirofish_65312b733d8c462a",
+  "name": "Doom Clock future 1",
+  "ontology": {
+    "edge_types": [
+      {
+        "attributes": [
+          {
+            "description": "Additional details about this ontology type.",
+            "name": "details",
+            "type": "text"
+          }
+        ],
+        "description": "An individual is employed by or formally affiliated with an organization or lab.",
+        "name": "WORKS_FOR",
+        "source_targets": [
+          {
+            "source": "ExpertCommentator",
+            "target": "Ailab"
+          },
+          {
+            "source": "ExpertCommentator",
+            "target": "MediaOutlet"
+          },
+          {
+            "source": "ExpertCommentator",
+            "target": "Organization"
+          },
+          {
+            "source": "Person",
+            "target": "Ailab"
+          },
+          {
+            "source": "Person",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "Person",
+            "target": "TechCompany"
+          },
+          {
+            "source": "Person",
+            "target": "Organization"
+          }
+        ]
+      },
+      {
+        "attributes": [
+          {
+            "description": "Additional details about this ontology type.",
+            "name": "details",
+            "type": "text"
+          }
+        ],
+        "description": "A government body imposes rules, orders, licensing or enforcement on a lab, company or organization.",
+        "name": "REGULATES",
+        "source_targets": [
+          {
+            "source": "GovernmentBody",
+            "target": "Ailab"
+          },
+          {
+            "source": "GovernmentBody",
+            "target": "TechCompany"
+          },
+          {
+            "source": "GovernmentBody",
+            "target": "Organization"
+          },
+          {
+            "source": "GovernmentBody",
+            "target": "AdvocacyGroup"
+          }
+        ]
+      },
+      {
+        "attributes": [
+          {
+            "description": "Additional details about this ontology type.",
+            "name": "details",
+            "type": "text"
+          }
+        ],
+        "description": "A media outlet or monitoring body publishes coverage, incident logs or market prices about a target.",
+        "name": "REPORTS_ON",
+        "source_targets": [
+          {
+            "source": "MediaOutlet",
+            "target": "Ailab"
+          },
+          {
+            "source": "MediaOutlet",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "MediaOutlet",
+            "target": "TechCompany"
+          },
+          {
+            "source": "MediaOutlet",
+            "target": "AffectedIndividual"
+          },
+          {
+            "source": "MediaOutlet",
+            "target": "AdvocacyGroup"
+          },
+          {
+            "source": "MonitoringBody",
+            "target": "Ailab"
+          },
+          {
+            "source": "MonitoringBody",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "MonitoringBody",
+            "target": "TechCompany"
+          }
+        ]
+      },
+      {
+        "attributes": [
+          {
+            "description": "Additional details about this ontology type.",
+            "name": "details",
+            "type": "text"
+          }
+        ],
+        "description": "An actor publicly reacts to another actor's action, statement or incident in posts and interviews.",
+        "name": "COMMENTS_ON",
+        "source_targets": [
+          {
+            "source": "ExpertCommentator",
+            "target": "Ailab"
+          },
+          {
+            "source": "ExpertCommentator",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "ExpertCommentator",
+            "target": "MediaOutlet"
+          },
+          {
+            "source": "AdvocacyGroup",
+            "target": "Ailab"
+          },
+          {
+            "source": "AdvocacyGroup",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "AffectedIndividual",
+            "target": "Ailab"
+          },
+          {
+            "source": "AffectedIndividual",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "MediaOutlet",
+            "target": "MonitoringBody"
+          },
+          {
+            "source": "Person",
+            "target": "Ailab"
+          }
+        ]
+      },
+      {
+        "attributes": [
+          {
+            "description": "Additional details about this ontology type.",
+            "name": "details",
+            "type": "text"
+          }
+        ],
+        "description": "A lab, company or agency issues an official reply, correction or statement answering criticism or...",
+        "name": "RESPONDS_TO",
+        "source_targets": [
+          {
+            "source": "Ailab",
+            "target": "MediaOutlet"
+          },
+          {
+            "source": "Ailab",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "Ailab",
+            "target": "MonitoringBody"
+          },
+          {
+            "source": "Ailab",
+            "target": "AffectedIndividual"
+          },
+          {
+            "source": "TechCompany",
+            "target": "MediaOutlet"
+          },
+          {
+            "source": "GovernmentBody",
+            "target": "MediaOutlet"
+          },
+          {
+            "source": "GovernmentBody",
+            "target": "AffectedIndividual"
+          },
+          {
+            "source": "Organization",
+            "target": "MediaOutlet"
+          }
+        ]
+      },
+      {
+        "attributes": [
+          {
+            "description": "Additional details about this ontology type.",
+            "name": "details",
+            "type": "text"
+          }
+        ],
+        "description": "An actor publicly endorses another actor's position, campaign or policy proposal.",
+        "name": "SUPPORTS",
+        "source_targets": [
+          {
+            "source": "AdvocacyGroup",
+            "target": "Ailab"
+          },
+          {
+            "source": "AdvocacyGroup",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "ExpertCommentator",
+            "target": "AdvocacyGroup"
+          },
+          {
+            "source": "ExpertCommentator",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "AffectedIndividual",
+            "target": "AdvocacyGroup"
+          },
+          {
+            "source": "Person",
+            "target": "AdvocacyGroup"
+          },
+          {
+            "source": "GovernmentBody",
+            "target": "Ailab"
+          }
+        ]
+      },
+      {
+        "attributes": [
+          {
+            "description": "Additional details about this ontology type.",
+            "name": "details",
+            "type": "text"
+          }
+        ],
+        "description": "An actor publicly attacks or campaigns against another actor's position, product or regulatory move.",
+        "name": "OPPOSES",
+        "source_targets": [
+          {
+            "source": "AdvocacyGroup",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "AdvocacyGroup",
+            "target": "Ailab"
+          },
+          {
+            "source": "ExpertCommentator",
+            "target": "Ailab"
+          },
+          {
+            "source": "ExpertCommentator",
+            "target": "AdvocacyGroup"
+          },
+          {
+            "source": "AffectedIndividual",
+            "target": "Ailab"
+          },
+          {
+            "source": "Person",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "Ailab",
+            "target": "GovernmentBody"
+          }
+        ]
+      },
+      {
+        "attributes": [
+          {
+            "description": "Additional details about this ontology type.",
+            "name": "details",
+            "type": "text"
+          }
+        ],
+        "description": "A government body, company or individual files legal action against a lab, company or organization.",
+        "name": "SUES",
+        "source_targets": [
+          {
+            "source": "GovernmentBody",
+            "target": "Ailab"
+          },
+          {
+            "source": "GovernmentBody",
+            "target": "TechCompany"
+          },
+          {
+            "source": "AffectedIndividual",
+            "target": "Ailab"
+          },
+          {
+            "source": "AffectedIndividual",
+            "target": "TechCompany"
+          },
+          {
+            "source": "TechCompany",
+            "target": "Ailab"
+          },
+          {
+            "source": "Organization",
+            "target": "Ailab"
+          }
+        ]
+      },
+      {
+        "attributes": [
+          {
+            "description": "Additional details about this ontology type.",
+            "name": "details",
+            "type": "text"
+          }
+        ],
+        "description": "An advocacy group or company pressures a government body or lab to adopt its preferred rules or s...",
+        "name": "LOBBIES",
+        "source_targets": [
+          {
+            "source": "AdvocacyGroup",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "AdvocacyGroup",
+            "target": "Ailab"
+          },
+          {
+            "source": "TechCompany",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "Ailab",
+            "target": "GovernmentBody"
+          },
+          {
+            "source": "Organization",
+            "target": "GovernmentBody"
+          }
+        ]
+      },
+      {
+        "attributes": [
+          {
+            "description": "Additional details about this ontology type.",
+            "name": "details",
+            "type": "text"
+          }
+        ],
+        "description": "A covert campaign or sock-puppet network presents itself as an ordinary person, insider or grassr...",
+        "name": "MASQUERADES_AS",
+        "source_targets": [
+          {
+            "source": "AdvocacyGroup",
+            "target": "Person"
+          },
+          {
+            "source": "AdvocacyGroup",
+            "target": "AffectedIndividual"
+          },
+          {
+            "source": "AdvocacyGroup",
+            "target": "Organization"
+          },
+          {
+            "source": "Organization",
+            "target": "Person"
+          }
+        ]
+      }
+    ],
+    "entity_types": [
+      {
+        "attributes": [
+          {
+            "description": "Official name of the lab, e.g. OpenAI, Anthropic, DeepSeek",
+            "name": "org_name",
+            "type": "text"
+          },
+          {
+            "description": "Country where the lab is headquartered or primarily governed",
+            "name": "home_country",
+            "type": "text"
+          },
+          {
+            "description": "Stated competitive or safety objective the lab pursues",
+            "name": "strategic_goal",
+            "type": "text"
+          },
+          {
+            "description": "Relative frontier position: leader, close follower, or challenger",
+            "name": "capability_tier",
+            "type": "text"
+          }
+        ],
+        "description": "Frontier AI developer company that trains, ships and defends models; a primary actor in incidents...",
+        "examples": [
+          "OpenAI",
+          "Anthropic",
+          "Google DeepMind",
+          "Meta",
+          "xAI",
+          "DeepSeek",
+          "Alibaba Qwen",
+          "Nvidia"
+        ],
+        "name": "Ailab"
+      },
+      {
+        "attributes": [
+          {
+            "description": "Name of the department, agency, committee or office",
+            "name": "org_name",
+            "type": "text"
+          },
+          {
+            "description": "Territory or level of authority, e.g. United States, European Union, China",
+            "name": "jurisdiction",
+            "type": "text"
+          },
+          {
+            "description": "Core mission such as safety enforcement, competitiveness or international coordination",
+            "name": "mandate",
+            "type": "text"
+          }
+        ],
+        "description": "Executive, legislative, regulatory or agency actor that writes rules, issues orders, sues or nego...",
+        "examples": [
+          "US Executive Branch",
+          "US Senate Commerce Committee",
+          "EU AI Office",
+          "UK Government and AISI",
+          "China CAC",
+          "Florida Attorney General",
+          "UK Cabinet Office"
+        ],
+        "name": "GovernmentBody"
+      },
+      {
+        "attributes": [
+          {
+            "description": "Name of the publication, desk or broadcast network",
+            "name": "org_name",
+            "type": "text"
+          },
+          {
+            "description": "Format such as wire service, cable news, broadcaster or trade press",
+            "name": "outlet_type",
+            "type": "text"
+          },
+          {
+            "description": "Reach and audience: global, national or specialist industry",
+            "name": "audience_scope",
+            "type": "text"
+          }
+        ],
+        "description": "News organization, wire service, broadcaster or trade publication that reports on labs, incidents...",
+        "examples": [
+          "Global wire desk",
+          "US cable news desk",
+          "UK broadcaster tech desk",
+          "Tech trade press"
+        ],
+        "name": "MediaOutlet"
+      },
+      {
+        "attributes": [
+          {
+            "description": "Public name or professional pseudonym of the commentator",
+            "name": "full_name",
+            "type": "text"
+          },
+          {
+            "description": "Field of authority such as AI safety, treaty law, forecasting or technology journalism",
+            "name": "expertise_area",
+            "type": "text"
+          },
+          {
+            "description": "Signature position, e.g. loss-of-control warning, open research, hype scepticism",
+            "name": "public_stance",
+            "type": "text"
+          }
+        ],
+        "description": "Named individual expert, academic, public intellectual or prominent reporter who shapes opinion; ...",
+        "examples": [
+          "Nobel AI pioneer",
+          "Safety-by-design professor",
+          "Treaty professor",
+          "Risk-sceptic scientist",
+          "Stop-everything writer",
+          "Timelines forecaster",
+          "Hype-sceptic author",
+          "Critical tech reporter"
+        ],
+        "name": "ExpertCommentator"
+      },
+      {
+        "attributes": [
+          {
+            "description": "Name of the coalition, campaign or account network",
+            "name": "org_name",
+            "type": "text"
+          },
+          {
+            "description": "Policy outcome the group campaigns for, e.g. deregulation or a training halt",
+            "name": "cause",
+            "type": "text"
+          },
+          {
+            "description": "Whether funding and identity are disclosed, opaque, or deliberately disguised",
+            "name": "transparency_level",
+            "type": "text"
+          }
+        ],
+        "description": "Organized campaign, coalition, grassroots front or coordinated inauthentic account network pushin...",
+        "examples": [
+          "Innovation-first coalition",
+          "Anonymous ML engineer",
+          "AI safety advocacy coalition",
+          "Open-weights lobby"
+        ],
+        "name": "AdvocacyGroup"
+      },
+      {
+        "attributes": [
+          {
+            "description": "Name or public handle of the individual",
+            "name": "full_name",
+            "type": "text"
+          },
+          {
+            "description": "Relation to the issue: victim, parent, teacher, engineer, hiker, author",
+            "name": "personal_role",
+            "type": "text"
+          },
+          {
+            "description": "Country or region where the person lives and speaks from",
+            "name": "location",
+            "type": "text"
+          }
+        ],
+        "description": "Ordinary person directly touched by an AI incident or policy, such as a victim, parent, teacher o...",
+        "examples": [
+          "Worried parent and teacher",
+          "Engineer who runs coding agents",
+          "Teen hiker in British Columbia",
+          "Simbarashe Steyn Kundizeza",
+          "Kyrgyzstan deepfake victim"
+        ],
+        "name": "AffectedIndividual"
+      },
+      {
+        "attributes": [
+          {
+            "description": "Company name, e.g. Marathon Petroleum, Hugging Face",
+            "name": "org_name",
+            "type": "text"
+          },
+          {
+            "description": "Industry such as energy retail, cloud infrastructure or cybersecurity",
+            "name": "sector",
+            "type": "text"
+          },
+          {
+            "description": "How the firm was affected: compromised systems, algorithmic pricing, reputational damage",
+            "name": "incident_exposure",
+            "type": "text"
+          }
+        ],
+        "description": "Non-frontier commercial firm whose products, infrastructure or pricing were implicated in an AI-r...",
+        "examples": [
+          "Marathon Petroleum",
+          "Kalibrate",
+          "Hugging Face",
+          "Compromised security company",
+          "Philadelphia police department"
+        ],
+        "name": "TechCompany"
+      },
+      {
+        "attributes": [
+          {
+            "description": "Name of the tracker, index or markets desk",
+            "name": "org_name",
+            "type": "text"
+          },
+          {
+            "description": "What it measures: incident counts, catastrophe odds, capability timelines",
+            "name": "data_domain",
+            "type": "text"
+          },
+          {
+            "description": "How figures are produced, e.g. sourced incident log or thin play-money market",
+            "name": "methodology",
+            "type": "text"
+          }
+        ],
+        "description": "Tracker, index or prediction-market desk that logs incidents and prices expectations, feeding the...",
+        "examples": [
+          "Incident tracker",
+          "Markets desk",
+          "AI catastrophe prediction market",
+          "Powerful-AI-by-2030 market"
+        ],
+        "name": "MonitoringBody"
+      },
+      {
+        "attributes": [
+          {
+            "description": "Name or handle used in public posts",
+            "name": "full_name",
+            "type": "text"
+          },
+          {
+            "description": "Job or social role if known",
+            "name": "occupation",
+            "type": "text"
+          },
+          {
+            "description": "Country or city the person posts from",
+            "name": "location",
+            "type": "text"
+          }
+        ],
+        "description": "Fallback for any natural person not matching a more specific type, such as a bystander, unnamed o...",
+        "examples": [
+          "Unnamed government spokesperson",
+          "Random social media user",
+          "Local police officer in Seoul"
+        ],
+        "name": "Person"
+      },
+      {
+        "attributes": [
+          {
+            "description": "Name of the organization or ad-hoc group",
+            "name": "org_name",
+            "type": "text"
+          },
+          {
+            "description": "Broad category such as startup, association, task force or informal collective",
+            "name": "org_type",
+            "type": "text"
+          },
+          {
+            "description": "Country or region of operation",
+            "name": "location",
+            "type": "text"
+          }
+        ],
+        "description": "Fallback for any organization not matching a more specific type, such as a small startup, ad-hoc ...",
+        "examples": [
+          "Sextortion gang network",
+          "Ad-hoc safety review committee",
+          "Regional university AI ethics centre"
+        ],
+        "name": "Organization"
+      }
+    ]
+  },
+  "project_id": "proj_140bde512ce4",
+  "simulation_requirement": "Over the next six months, which AI incidents, government decisions and lab actions happen, and how dangerous does the world become?",
+  "status": "graph_completed",
+  "total_text_length": 5213,
+  "updated_at": "2026-10-25T10:39:53.311576",
+  "zep_batch_id": "ab2ddf2d-95d4-46f2-8a76-f6325ee0ea5c",
+  "zep_batch_operation_id": "e8b05565a0b85188fe8e28af9c70ed31b5ab3feb342d587ba4a257e1b8741a9a"
+}

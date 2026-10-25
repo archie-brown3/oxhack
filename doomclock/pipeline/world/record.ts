@@ -199,25 +199,34 @@ async function recordStep(sim: string, project: FutureProject, f: { id: number }
   const used = new Set([MARKETS]);
   for (const p of carry.topPosts) if (!used.has(p.uid) && cast.accounts[p.uid]?.activity > 0) { used.add(p.uid); seeds.push({ uid: p.uid, kind: "carry_over", text: ((p.original ? p.quote : p.text) ?? "").slice(0, 600) }); }
 
-  await ensureIdle(sim);
+  // Resume: a step whose run was saved (artifacts.json) but stopped before step.json reuses that run.
+  const resumed = existsSync(join(dir, "artifacts.json"));
   const u0 = await guard(`${label}`);
-  writeSimFiles(sim, project, mem, seeds);
-  const ts = Date.now();
-  await call("POST", "/api/simulation/start", startBody(sim, MAX_ROUNDS));
-  await waitForEnd(sim, ts - 1000, 600_000);
-  await closeEnv(sim).catch(() => null);
-  const runS = (Date.now() - ts) / 1000;
+  let ts = Date.now(), runS = 0, runCost = 0;
+  if (resumed) ts = Date.parse(JSON.parse(readFileSync(join(dir, "api-run-status.json"), "utf8")).data?.started_at ?? new Date().toISOString());
+  else {
+    await ensureIdle(sim);
+    writeSimFiles(sim, project, mem, seeds);
+    ts = Date.now();
+    await call("POST", "/api/simulation/start", startBody(sim, MAX_ROUNDS));
+    await waitForEnd(sim, ts - 1000, 600_000);
+    await closeEnv(sim).catch(() => null);
+    runS = (Date.now() - ts) / 1000;
+  }
   const { posts } = readDb(join(SIM_ROOT, sim), new Map(seeds.map((x) => [x.text, x.kind])));
-  await saveArtifacts(sim, dir);
-  await sleep(6000);
-  const runCost = +((await keyInfo()).usage - u0).toFixed(6);
-  logCost({ event: "run", label, sim, cost_usd: runCost, wall_s: +runS.toFixed(1) });
+  if (!resumed) {
+    await saveArtifacts(sim, dir);
+    await sleep(6000);
+    runCost = +((await keyInfo()).usage - u0).toFixed(6);
+    logCost({ event: "run", label, sim, cost_usd: runCost, wall_s: +runS.toFixed(1) });
+  }
 
   // Read out events, wait until Zep's two settled reads match, then MiroFish's report agent.
   const ro = await readOut({ cast, posts, futureId: f.id, step: s, start: startIso, end: endIso, seenKeys: prev?.work.seenKeys ?? [], realIds: REAL_IDS });
   const graph = await fetchGraphWhenDrained(call, project.graph_id, () => sleep(4000));
   jsonOut(join(dir, "graph-data.json"), graph);
-  const reportPack = await fetchReport(call, sim, () => sleep(4000));
+  // The Zep drain (STOPPING) and the report agent each take minutes: allow 15 min.
+  const reportPack = await fetchReport(call, sim, () => sleep(4000), 225);
   jsonOut(join(dir, "report.json"), reportPack.report);
   jsonOut(join(dir, "agent-log.json"), reportPack.agentLog);
   jsonOut(join(dir, "console-log.json"), reportPack.consoleLog);

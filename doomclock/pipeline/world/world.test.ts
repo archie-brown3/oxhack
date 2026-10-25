@@ -78,6 +78,18 @@ test("Amendments 2: one project per future, graph memory on, report files named"
   assert.match(rubricPrompt("Risk is 40%.", "E1 a pause"), /E1 a pause/);
 });
 
+test("report: a 409 while the run is stopping is retried, other errors are not", async () => {
+  let n = 0;
+  const api: Api = async (_m, path) => {
+    if (path === "/api/report/generate" && n++ < 2) throw new Error("POST /api/report/generate: HTTP 409 Simulation or Zep graph ingestion is still active");
+    if (path === "/api/report/generate") return { status: "completed", report_id: "rep_1" };
+    return {};
+  };
+  assert.equal((await fetchReport(api, "sim_1", async () => {})).report_id, "rep_1");
+  const bad: Api = async () => { throw new Error("POST /api/report/generate: HTTP 500 boom"); };
+  await assert.rejects(fetchReport(bad, "sim_1", async () => {}), /HTTP 500/);
+});
+
 test("Zep drain: a pending graph is not saved; two settled reads with the same counts are", async () => {
   const busy = { node_count: 10, edge_count: 4, pending: 3 };
   const calm = { node_count: 12, edge_count: 5, pending: 0 };

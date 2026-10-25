@@ -21,3 +21,12 @@
 {"ts":"2026-10-25T02:25:58.308Z","event":"run","label":"llm readout-f99-s1","cost_usd":0.0061926,"wall_s":0}
 {"ts":"2026-10-25T02:25:59.564Z","event":"run","label":"llm rubric-f99 s1","cost_usd":0.000112328,"wall_s":0}
 {"ts":"2026-10-25T02:26:03.183Z","event":"run","label":"llm summary-f99 s1","cost_usd":0.000378651,"wall_s":0}
+{"ts":"2026-10-25T10:38:11.322Z","event":"check","label":"check","usage":0.621006174,"laneSpent":0.196276,"CAP_USD":10,"LANE_CAP_USD":1}
+{"ts":"2026-10-25T10:39:54.656Z","event":"step1","label":"step1 f1","future":1,"project_id":"proj_140bde512ce4","graph_id":"mirofish_65312b733d8c462a","nodes":92,"edges":73,"entity_types":10,"edge_types":10,"seedPackChars":5189,"wall_s":120.1,"builtAt":"2026-10-25T10:39:54.652Z","question":"Over the next six months, which AI incidents, government decisions and lab actions happen, and how dangerous does the world become?"}
+{"ts":"2026-10-25T10:40:04.638Z","event":"check","label":"f1 s1","usage":0.62429637,"laneSpent":0.196276,"CAP_USD":10,"LANE_CAP_USD":3}
+{"ts":"2026-10-25T10:41:37.511Z","event":"run","label":"f1 s1","sim":"sim_5b8036272bc7","cost_usd":0.054197,"wall_s":86.6}
+{"ts":"2026-10-25T10:41:52.006Z","event":"run","label":"llm readout-f1-s1","cost_usd":0.00381127,"wall_s":0}
+{"ts":"2026-10-25T10:43:03.658Z","event":"step1","label":"step1 f2","future":2,"project_id":"proj_ff68638460e6","graph_id":"mirofish_20f2fd9ac5e44753","nodes":83,"edges":68,"entity_types":10,"edge_types":10,"seedPackChars":5189,"wall_s":189,"builtAt":"2026-10-25T10:43:03.658Z","question":"Over the next six months, which AI incidents, government decisions and lab actions happen, and how dangerous does the world become?"}
+{"ts":"2026-10-25T10:43:33.930Z","event":"check","label":"f1 s1","usage":0.69578092,"laneSpent":0.254284,"CAP_USD":10,"LANE_CAP_USD":3}
+{"ts":"2026-10-25T10:43:35.002Z","event":"check","label":"f2 s1","usage":0.69578092,"laneSpent":0.254284,"CAP_USD":10,"LANE_CAP_USD":3}
+{"ts":"2026-10-25T10:43:51.992Z","event":"run","label":"llm readout-f1-s1","cost_usd":0.002433178,"wall_s":0}
