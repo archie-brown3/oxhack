@@ -1,0 +1,46 @@
+{
+  "test": "force:true restart smoke",
+  "task": 105,
+  "ts": "2026-10-25T00:19:17Z",
+  "simulation_id": "sim_908b44137fec",
+  "request": {
+    "platform": "parallel",
+    "max_rounds": 1,
+    "force": true
+  },
+  "method": "force",
+  "pass": true,
+  "checks": {
+    "actionsResetAtStart": true,
+    "newSimulationEndLater": true,
+    "runStatusNewRun": true,
+    "closeEnvOk": true
+  },
+  "evidence": {
+    "actionsLinesBefore": 160,
+    "actionsLinesJustAfterStart": 0,
+    "actionsLinesAtEnd": 42,
+    "previousSimulationEnd": "2026-10-24T18:51:09.175Z",
+    "newSimulationEnd": "2026-10-25T00:18:29.929Z",
+    "newRunActions": 36,
+    "startResponse": {
+      "runner_status": "running",
+      "force_restarted": true
+    },
+    "runStatusDuringRun": "running",
+    "closeEnv": "ok",
+    "wall_s": 15.5,
+    "cost_usd": 0.058463,
+    "runStatusAfterClose": {
+      "runner_status": "completed",
+      "started_at": "2026-10-25T00:18:16.394Z",
+      "current_round": 1,
+      "total_actions_count": 36
+    }
+  },
+  "notes": [
+    "The runner keeps the env alive for interviews after simulation_end, so /run-status says 'running' until close-env. Read right after close-env (00:19 UTC), it said 'completed' for the new run (new started_at). The script's first pass read it before close-env; the order is fixed in force-smoke.ts and no second paid run was made.",
+    "cost_usd is the key-usage delta over the run, on a key other lanes were using at the same time, so it is an upper bound (spike S1 measured about $0.006 per round).",
+    "turn.ts: restart with POST /start {platform:'parallel', max_rounds, force:true}; detect the end from the new simulation_end line in twitter/actions.jsonl; read run-status only after close-env."
+  ]
+}

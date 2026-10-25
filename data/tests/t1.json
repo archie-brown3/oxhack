@@ -1,0 +1,15 @@
+{
+  "test": "T1 credit check",
+  "task": 102,
+  "ts": "2026-10-25T00:15:25Z",
+  "endpoint": "GET https://openrouter.ai/api/v1/key",
+  "key": "MiroFish LLM_API_KEY (not stored)",
+  "rule": "pass if limit_remaining is null or >= $10 and is_free_tier is false",
+  "usage": 0.171809088,
+  "limit": null,
+  "limit_remaining": null,
+  "is_free_tier": false,
+  "pass": true,
+  "cap_usd": 10,
+  "lane_cap_usd": 1
+}
