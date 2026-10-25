@@ -1,9 +1,9 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { eventEffects, readClock, REAL_RATE, RULE_TYPES, ruleCounts, stepAnchors, whenPush } from "./index.ts";
 import type { Anchors, StepArgs } from "./index.ts";
-import type { Rubric, SimEventType, World, WorldEvent } from "../contracts.ts";
+import type { RecordedFuture, Rubric, SimEventType, World, WorldEvent } from "../contracts.ts";
 
 const world: World = JSON.parse(readFileSync(new URL("./fixtures/world.fixture.json", import.meta.url), "utf8"));
 const flat: Rubric = { lossOfControl: 1, misuse: 2, oversight: 1, racePressure: 2 };
@@ -104,4 +104,40 @@ test("the rule sum is clipped, and asi2030 decays to ~0 by 2030.0 without throwi
 test("the clock reads after 2030.0 (the resolved knot is dropped)", () => {
   const c = readClock({ ...world, asOf: "2030-03-01T00:00:00Z" });
   assert.ok(c.date10 !== null && c.date10 > "2030-03");
+});
+
+// A saved recording reproduces step by step: each step's anchors come from the previous step's, its events
+// and rubric, by stepAnchors. Runs on public/cache/futures.json once the recorder has written it.
+function reproduce(f: RecordedFuture) {
+  let from = f.startAnchors;
+  for (const s of f.steps) {
+    const args: StepArgs = { from, today: f.startAnchors, start: s.start, end: s.end, events: s.events, rubric: s.rubric, baseline: f.baselineRef, future: f.id, step: s.step };
+    const got = stepAnchors(args);
+    for (const k of Object.keys(got) as (keyof Anchors)[]) assert.ok(Math.abs(got[k] - s.anchors[k]) < 5e-4, `future ${f.id} step ${s.step} ${k}: ${got[k]} vs ${s.anchors[k]}`);
+    from = s.anchors; // the saved value, so one rounded step cannot drift into the next
+  }
+}
+
+test("a saved recording is reproduced step by step", (t) => {
+  const url = new URL("../../public/cache/futures.json", import.meta.url);
+  if (!existsSync(url)) return t.skip("no recording yet (public/cache/futures.json)");
+  const futures: RecordedFuture[] = JSON.parse(readFileSync(url, "utf8"));
+  assert.ok(futures.length > 0);
+  futures.forEach(reproduce);
+});
+
+test("a recording made with stepAnchors reproduces, and a tampered anchor does not", () => {
+  const f: RecordedFuture = { schema: "doomclock.future/1", id: 2, seed: 2, startAnchors: world.anchors, baselineRef: flat, rulesVersion: "t", steps: [] };
+  let from = f.startAnchors;
+  const edges = ["2027-01-01", "2027-07-01", "2028-01-01", "2028-07-01"].map((d) => d + "T00:00:00Z");
+  for (let i = 0; i < 3; i++) {
+    const events = i === 1 ? [ev("lab-pause"), ev("act-restricting")] : [ev("lab-incident-agentic")];
+    const rubric = { ...flat, lossOfControl: 1 + i };
+    const anchors = stepAnchors({ from, today: f.startAnchors, start: edges[i], end: edges[i + 1], events, rubric, baseline: flat, future: 2, step: i + 1 });
+    f.steps.push({ step: i + 1, start: edges[i], end: edges[i + 1], anchors, rubric, summary: "", expected: [], events: events as WorldEvent[], topPosts: [], date10: 0, rulesOffDate10: 0, noEventsDate10: 0, readoutOk: true, runId: "t", costUsd: 0, wallS: 0 });
+    from = anchors;
+  }
+  assert.doesNotThrow(() => reproduce(f));
+  f.steps[1].anchors = { ...f.steps[1].anchors, cat2100: f.steps[1].anchors.cat2100 + 0.01 };
+  assert.throws(() => reproduce(f));
 });

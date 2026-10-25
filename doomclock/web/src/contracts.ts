@@ -673,6 +673,9 @@ export interface WorldFrame {
   timeDays: number
   /** What the drivers taken one at a time don't explain: their interaction. */
   residualDays: number
+  /** Projected and simulated frames: AI incidents expected in the quarter at the real (AIID) rate.
+   *  A count, not events: nothing after today is copied from a real incident. */
+  incidentsExpected?: number
 }
 
 /** One market move behind a change in the clock (leave-one-out: only this anchor moved). */

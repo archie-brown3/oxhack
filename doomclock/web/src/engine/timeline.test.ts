@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
 import { buildTimeline, FUTURES, PICKS, readClock, worldFrom } from "./index.ts";
 import { simPaths } from "./sim.ts";
-import type { AnchorQuarter, NodeId, Timeline, World } from "../contracts.ts";
+import type { AnchorQuarter, NodeId, RecordedFuture, Timeline, World } from "../contracts.ts";
 
 const read = (u: URL) => JSON.parse(readFileSync(u, "utf8"));
 const world: World = read(new URL("./fixtures/world.fixture.json", import.meta.url));
@@ -152,13 +152,11 @@ test("percentile picks are ordered: early < typical < late, typical ranked over 
   assert.ok(early.future.id >= 1 && early.future.id <= FUTURES);
 });
 
-test("projected incidents arrive at the AIID rate and stop at the future's catastrophe", () => {
-  const full = typical.frames.filter((f) => Date.parse(f.start) >= asOf);
-  const mean = full.reduce((s, f) => s + f.events.length, 0) / full.length;
-  assert.ok(Math.abs(mean / world.warningRate.perQuarter - 1) < 0.1, `${mean} per quarter`);
-  const projected = events(early).filter((e) => e.provenance === "projected");
-  assert.ok(projected.length > 0 && projected.every((e) => e.ts < early.future.catDate! && e.source === "engine" && e.kind === "incident"));
-  assert.ok(projected.every((e) => e.title.startsWith("Projected incident, like: ")));
+test("future quarters carry the real incident rate as a count, never invented events", () => {
+  const future = typical.frames.filter((f) => Date.parse(f.start) >= asOf);
+  assert.ok(future.length > 0 && future.every((f) => f.incidentsExpected === Math.round(world.warningRate.perQuarter) && f.events.length === 0));
+  assert.ok(typical.frames.filter((f) => Date.parse(f.start) < asOf).every((f) => f.incidentsExpected === undefined));
+  assert.ok(events(early).every((e) => e.provenance === "real" && e.source !== "engine"));
 });
 
 test("per-frame clocks: real frames read the quarter's prices; projected frames only count down", () => {
@@ -251,4 +249,52 @@ test("the timeline builds from the real data files", (t) => {
   assert.equal(tl.frames.length, 45);
   assert.ok(tl.clock.date10 !== null && tl.frames.every((f) => f.clock !== null));
   assert.ok(tl.frames.flatMap((f) => f.drivers).length > 0);
+});
+
+// ---------- a recorded future (the coupled loop) ----------
+
+const fixtureFutures: RecordedFuture[] = read(new URL("../../public/cache/futures.fixture.json", import.meta.url));
+const rec = fixtureFutures[0];
+const NODEIDS: NodeId[] = ["asi2030", "asi2040", "asi2100", "cat2100"];
+const recorded = buildTimeline(world, { percentile: 0.5 }, rec);
+
+test("a recording replaces the Monte Carlo: no ASI or catastrophe date, 'simulated' frames, the recording's events", () => {
+  assert.deepEqual(recorded.future, { id: rec.id, percentile: 0, asiDate: null, catDate: null });
+  assert.equal(recorded.frames.length, 45);
+  assert.deepEqual(recorded.clock, typical.clock, "today's reading is unchanged: it is the ghost hand");
+  const sim = recorded.frames.filter((f) => f.provenance === "simulated");
+  assert.equal(sim.length, rec.steps.length * 2);
+  assert.equal(sim[0].quarter, "2027Q1");
+  assert.deepEqual(events(recorded).filter((e) => e.provenance === "simulated"), rec.steps.flatMap((s) => s.events).sort((a, b) => Date.parse(a.ts) - Date.parse(b.ts)));
+  assert.ok(events(recorded).every((e) => e.provenance !== "projected"));
+  assert.deepEqual(recorded.frames.filter((f) => f.provenance !== "simulated" && Date.parse(f.start) < asOf), typical.frames.filter((f) => Date.parse(f.start) < asOf), "real frames are untouched");
+});
+
+test("quarter 1 of a step reads the incoming anchors, quarter 2 the outgoing ones", () => {
+  const at = (q: string) => recorded.frames.find((f) => f.quarter === q)!;
+  rec.steps.forEach((s, i) => {
+    const q1 = at(`${new Date(s.start).getUTCFullYear()}Q${new Date(s.start).getUTCMonth() / 3 + 1}`);
+    const into = i ? rec.steps[i - 1].anchors : rec.startAnchors;
+    const k = recorded.frames.indexOf(q1);
+    const read = (a: Record<NodeId, number>, f: typeof q1) => readClock({ ...world, asOf: f.start, anchors: a }).date10;
+    assert.equal(q1.clock!.date10, read(into, q1), `step ${s.step} q1`);
+    assert.equal(recorded.frames[k + 1].clock!.date10, read(s.anchors, recorded.frames[k + 1]), `step ${s.step} q2`);
+    // The step's price move shows in quarter 2 (outgoing); quarter 1 only carries time, as it reads what quarter 2 of the last step did.
+    if (i) assert.deepEqual(q1.drivers, [], `step ${s.step} q1 has no price move`);
+    const moved = NODEIDS.filter((id) => s.anchors[id] !== into[id]).sort();
+    assert.deepEqual(recorded.frames[k + 1].drivers.map((d) => d.anchorId).sort(), moved, `step ${s.step} q2 drivers`);
+  });
+});
+
+test("a recording changes the hand: the fixture's step 1 moves cat2100, and the frames after the window hold the last reading", () => {
+  const first = recorded.frames.find((f) => f.quarter === "2027Q1")!;
+  assert.ok(first.pCat > 0);
+  const last = recorded.frames.at(-1)!;
+  assert.equal(last.provenance, "projected");
+  assert.equal(last.clock!.date10, readClock({ ...world, asOf: rec.steps.at(-1)!.end, anchors: rec.steps.at(-1)!.anchors }).date10);
+  assert.ok(last.incidentsExpected! > 0);
+});
+
+test("no recording: the output is byte-identical to buildTimeline(world, pick)", () => {
+  assert.deepEqual(buildTimeline(world, { percentile: 0.5 }, undefined), typical);
 });

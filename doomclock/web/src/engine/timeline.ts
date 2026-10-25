@@ -9,6 +9,7 @@ import type {
   NodeId,
   Prob,
   QuarterLabel,
+  RecordedFuture,
   Region,
   SampledFuture,
   Timeline,
@@ -54,48 +55,80 @@ function withSeconds(clock: ClockReading, k: number | null): ClockReading {
   return { ...clock, secondsToMidnight: k === null || m === null ? null : k * m };
 }
 
-export function buildTimeline(world: World, pick: Pick): Timeline {
+// With a recording (`sim`), the quarters of its steps read that future's saved anchors instead of
+// today's, and the Monte Carlo is skipped: the future has no ASI or catastrophe date (null), its
+// events are the recording's, and its frames are 'simulated'. Without one the output is today's.
+export function buildTimeline(world: World, pick: Pick, sim?: RecordedFuture): Timeline {
   const asOf = parseTime(world.asOf);
   const now = msToYear(asOf);
   const L = world.lagMeanYears;
   const input = simInput(world.anchors, now, L);
-  const future = choose(simPaths(input, { seed: MC_SEED, paths: FUTURES }).paths, pick);
+  const future = sim ? { id: sim.id, percentile: 0, asiDate: null, catDate: null } : choose(simPaths(input, { seed: MC_SEED, paths: FUTURES }).paths, pick);
   const today = reading(world.anchors, now, L, todayRanges(world));
   const perYear = secondsPerYear(world, today.clock);
   const quarters = Array.from({ length: FRAMES }, (_, k) => quarter(k));
   const capability = capabilityCurve(world, quarters);
   const regions = normalise(world.regions);
-  const events = frameEvents(world, asOf, future);
+  const events = frameEvents(world, asOf, sim);
+  const incidents = Math.round(world.warningRate.perQuarter);
 
   // The markets behind each frame's clock: real frames read the quarter's readings; projected
   // frames keep today's anchors and date10, so only the minutes move.
   const todayTs = {} as Record<NodeId, IsoTime>;
   for (const id of NODES) todayTs[id] = world.anchorHistory[id].lastTradeTs;
-  const snaps = quarters.map((q): Snap | null =>
-    q.start >= asOf ? { a: world.anchors, ts: todayTs, at: now, ...today } : quarterSnap(world, q.label, L),
-  );
+  const ranges = todayRanges(world);
+  const simmed = quarters.map((q) => (sim && q.start >= asOf ? simStep(sim, q.start) : null));
+  const snaps = quarters.map((q, k): Snap | null => {
+    const st = simmed[k];
+    if (st) {
+      // Quarter 1 of a step reads the incoming anchors, quarter 2 the outgoing ones.
+      const first = q.start === Date.parse(st.step.start);
+      const a = first ? st.prev : st.step.anchors;
+      const ts = {} as Record<NodeId, IsoTime>;
+      for (const id of NODES) ts[id] = first ? st.step.start : st.step.end;
+      const at = msToYear(q.start);
+      return { a, ts, at, ...reading(a, at, L, ranges) };
+    }
+    if (sim && q.start >= asOf) {
+      // Past the recording: hold its final anchors, so only the minutes move.
+      const last = sim.steps.at(-1)!;
+      const at = msToYear(Date.parse(last.end));
+      const ts = Object.fromEntries(NODES.map((id) => [id, last.end])) as Record<NodeId, IsoTime>;
+      return { a: last.anchors, ts, at, ...reading(last.anchors, at, L, ranges) };
+    }
+    return q.start >= asOf ? { a: world.anchors, ts: todayTs, at: now, ...today } : quarterSnap(world, q.label, L);
+  });
 
   const frames = quarters.map((q, k): WorldFrame => {
     const snap = snaps[k];
     const projected = q.start >= asOf;
+    const held = projected && !simmed[k];
     const clock =
       snap &&
-      withSeconds(projected ? { ...snap.clock, minutesToMidnight: minutesTo(snap.clock.date10, msToYear(q.start)) } : snap.clock, perYear);
-    return {
+      withSeconds(held ? { ...snap.clock, minutesToMidnight: minutesTo(snap.clock.date10, msToYear(q.start)) } : snap.clock, perYear);
+    const f: WorldFrame = {
       quarter: q.label,
       start: iso(q.start),
-      provenance: projected ? "projected" : "real",
+      provenance: simmed[k] ? "simulated" : projected ? "projected" : "real",
       capability: capability[k],
       regions,
       // The CDF the paths sample, as the clock reads it, so date10 lands in the first frame past 1 in 10.
-      pCat: analyticCdf(input, Math.max(now, msToYear(q.end))),
+      pCat: analyticCdf(snap && simmed[k] ? simInput(snap.a, snap.at, L) : input, Math.max(simmed[k] && snap ? snap.at : now, msToYear(q.end))),
       events: events[k],
       clock,
       ...explain(world, snaps[k - 1] ?? null, snap, L),
     };
+    if (projected) f.incidentsExpected = incidents;
+    return f;
   });
 
   return { schema: "doomclock.timeline/1", asOf: world.asOf, frames, clock: withSeconds(today.clock, perYear), line: "real", future };
+}
+
+// The recorded step that covers a time, with the anchors going into it. Null outside the recording.
+function simStep(sim: RecordedFuture, ms: number) {
+  const i = sim.steps.findIndex((s) => ms >= Date.parse(s.start) && ms < Date.parse(s.end));
+  return i < 0 ? null : { step: sim.steps[i], prev: i ? sim.steps[i - 1].anchors : sim.startAnchors };
 }
 
 // ---------- the clock ----------
@@ -301,38 +334,19 @@ function normalise({ US, China, rest }: Record<Region, number>): Record<Region, 
   return { US: US / sum, China: China / sum, rest: rest / sum };
 }
 
-// Real events before asOf, plus projected incidents after it: a Poisson process at the AIID rate,
-// seeded by the future, each one resampled from a real incident. They stop at the catastrophe.
-function frameEvents(world: World, asOf: number, future: SampledFuture): WorldEvent[][] {
+// Real events before asOf, plus the recording's simulated events. No incidents are invented for the
+// future quarters: the frame carries the real rate as a count (`incidentsExpected`).
+function frameEvents(world: World, asOf: number, sim?: RecordedFuture): WorldEvent[][] {
   const out: WorldEvent[][] = Array.from({ length: FRAMES }, () => []);
-  const templates: WorldEvent[] = [];
   for (const e of world.events) {
     const t = Date.parse(e.ts);
     if (!(t < asOf)) continue; // never show anything after asOf as real
     const k = frameOf(t);
     if (k >= 0) out[k].push(e);
-    if (e.kind === "incident") templates.push(e);
   }
-  const perYear = world.warningRate.perQuarter * 4;
-  const stop = Math.min(future.catDate ? Date.parse(future.catDate) : Infinity, quarter(FRAMES - 1).end);
-  if (perYear > 0 && templates.length > 0) {
-    const rand = mulberry32(Math.imul(future.id, 0x9e3779b9));
-    for (let y = msToYear(asOf) - Math.log(1 - rand()) / perYear; ; y -= Math.log(1 - rand()) / perYear) {
-      const t = Math.max(asOf, yearToMs(y));
-      if (t >= stop) break;
-      const tpl = templates[Math.floor(rand() * templates.length)];
-      const e: WorldEvent = {
-        ts: iso(t),
-        kind: "incident",
-        title: `Projected incident, like: ${tpl.title}`,
-        source: "engine",
-        provenance: "projected",
-      };
-      if (tpl.url) e.url = tpl.url;
-      if (tpl.region) e.region = tpl.region;
-      if (tpl.where) e.where = tpl.where;
-      out[frameOf(t)].push(e);
-    }
+  for (const e of sim?.steps.flatMap((s) => s.events) ?? []) {
+    const k = frameOf(Date.parse(e.ts));
+    if (k >= 0) out[k].push(e);
   }
   for (const b of out) b.sort((x, y) => Date.parse(x.ts) - Date.parse(y.ts));
   return out;
