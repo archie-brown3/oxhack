@@ -17,6 +17,7 @@ import type {
   WorldFrame,
 } from "../contracts.ts";
 import { mulberry32 } from "./rng.ts";
+import { msToYear } from "./step.ts";
 import { analyticCdf, asiKnots, HORIZON, simPaths } from "./sim.ts";
 import type { Paths, SimInput } from "./sim.ts";
 
@@ -107,7 +108,7 @@ function simInput(a: Anchors, startYear: number, lagMeanYears: number): SimInput
       { year: 2030, p: a.asi2030 },
       { year: 2040, p: a.asi2040 },
       { year: 2100, p: a.asi2100 },
-    ],
+    ].filter((k) => k.year > startYear), // a resolved market has no knot (reading after 2030.0 would throw)
     pCat2100: a.cat2100,
     lagMeanYears,
   };
@@ -346,12 +347,6 @@ function parseTime(s: IsoTime): number {
 }
 
 // Decimal year <-> epoch ms, by calendar-year fraction (as sim.ts's yearToIso).
-function msToYear(ms: number): number {
-  const y = new Date(ms).getUTCFullYear();
-  const a = Date.UTC(y, 0, 1);
-  return y + (ms - a) / (Date.UTC(y + 1, 0, 1) - a);
-}
-
 function yearToMs(year: number): number {
   const y = Math.floor(year);
   const a = Date.UTC(y, 0, 1);
