@@ -215,7 +215,8 @@
    "role": "lab",
    "provenance": "simulated",
    "aliases": [
-    "alibaba_440"
+    "alibaba_440",
+    "alibaba_qwen"
    ],
    "mono": "AL"
   },
@@ -380,6 +381,231 @@
    "name": "Prediction traders",
    "role": "market",
    "provenance": "simulated"
+  },
+  {
+   "id": "nvidia",
+   "name": "Nvidia",
+   "role": "lab",
+   "provenance": "simulated",
+   "aliases": [
+    "nvidia"
+   ]
+  },
+  {
+   "id": "us-executive-branch",
+   "name": "US Executive Branch",
+   "role": "government",
+   "provenance": "simulated",
+   "aliases": [
+    "us_exec_branch"
+   ]
+  },
+  {
+   "id": "us-senate-commerce-committee",
+   "name": "US Senate Commerce Committee",
+   "role": "government",
+   "provenance": "simulated",
+   "aliases": [
+    "senate_commerce"
+   ]
+  },
+  {
+   "id": "eu-ai-office",
+   "name": "EU AI Office",
+   "role": "government",
+   "provenance": "simulated",
+   "aliases": [
+    "eu_ai_office"
+   ]
+  },
+  {
+   "id": "uk-government-and-aisi",
+   "name": "UK Government and AISI",
+   "role": "government",
+   "provenance": "simulated",
+   "aliases": [
+    "uk_gov_aisi"
+   ]
+  },
+  {
+   "id": "china-cac",
+   "name": "China CAC",
+   "role": "government",
+   "provenance": "simulated",
+   "aliases": [
+    "china_cac"
+   ]
+  },
+  {
+   "id": "nobel-ai-pioneer",
+   "name": "Nobel AI pioneer",
+   "role": "researcher",
+   "provenance": "simulated",
+   "aliases": [
+    "nobel_ai_pioneer"
+   ]
+  },
+  {
+   "id": "safety-by-design-professor",
+   "name": "Safety-by-design professor",
+   "role": "researcher",
+   "provenance": "simulated",
+   "aliases": [
+    "safety_by_design_prof"
+   ]
+  },
+  {
+   "id": "treaty-professor",
+   "name": "Treaty professor",
+   "role": "researcher",
+   "provenance": "simulated",
+   "aliases": [
+    "treaty_prof"
+   ]
+  },
+  {
+   "id": "risk-sceptic-scientist",
+   "name": "Risk-sceptic scientist",
+   "role": "researcher",
+   "provenance": "simulated",
+   "aliases": [
+    "risk_skeptic_scientist"
+   ]
+  },
+  {
+   "id": "stop-everything-writer",
+   "name": "Stop-everything writer",
+   "role": "researcher",
+   "provenance": "simulated",
+   "aliases": [
+    "stop_everything_writer"
+   ]
+  },
+  {
+   "id": "timelines-forecaster",
+   "name": "Timelines forecaster",
+   "role": "researcher",
+   "provenance": "simulated",
+   "aliases": [
+    "timelines_forecaster"
+   ]
+  },
+  {
+   "id": "hype-sceptic-author",
+   "name": "Hype-sceptic author",
+   "role": "researcher",
+   "provenance": "simulated",
+   "aliases": [
+    "hype_skeptic_author"
+   ]
+  },
+  {
+   "id": "critical-tech-reporter",
+   "name": "Critical tech reporter",
+   "role": "researcher",
+   "provenance": "simulated",
+   "aliases": [
+    "critical_tech_reporter"
+   ]
+  },
+  {
+   "id": "global-wire-desk",
+   "name": "Global wire desk",
+   "role": "media",
+   "provenance": "simulated",
+   "aliases": [
+    "global_wire_desk"
+   ]
+  },
+  {
+   "id": "us-cable-news-desk",
+   "name": "US cable news desk",
+   "role": "media",
+   "provenance": "simulated",
+   "aliases": [
+    "us_cable_desk"
+   ]
+  },
+  {
+   "id": "uk-broadcaster-tech-desk",
+   "name": "UK broadcaster tech desk",
+   "role": "media",
+   "provenance": "simulated",
+   "aliases": [
+    "uk_broadcast_tech"
+   ]
+  },
+  {
+   "id": "tech-trade-press",
+   "name": "Tech trade press",
+   "role": "media",
+   "provenance": "simulated",
+   "aliases": [
+    "tech_trade_press"
+   ]
+  },
+  {
+   "id": "incident-tracker",
+   "name": "Incident tracker",
+   "role": "researcher",
+   "provenance": "simulated",
+   "aliases": [
+    "incident_tracker"
+   ]
+  },
+  {
+   "id": "markets-desk",
+   "name": "Markets desk",
+   "role": "market",
+   "provenance": "simulated",
+   "aliases": [
+    "markets_desk"
+   ]
+  },
+  {
+   "id": "worried-parent-and-teacher",
+   "name": "Worried parent and teacher",
+   "role": "public",
+   "provenance": "simulated",
+   "aliases": [
+    "worried_parent_teacher"
+   ]
+  },
+  {
+   "id": "engineer-who-runs-coding-agents",
+   "name": "Engineer who runs coding agents",
+   "role": "public",
+   "provenance": "simulated",
+   "aliases": [
+    "agent_engineer"
+   ]
+  },
+  {
+   "id": "accelerationist-founder",
+   "name": "Accelerationist founder",
+   "role": "public",
+   "provenance": "simulated",
+   "aliases": [
+    "accel_founder"
+   ]
+  },
+  {
+   "id": "innovation-first-coalition",
+   "name": "Innovation-first coalition",
+   "role": "public",
+   "provenance": "simulated",
+   "aliases": [
+    "innovation_first"
+   ]
+  },
+  {
+   "id": "anonymous-ml-engineer",
+   "name": "Anonymous ML engineer",
+   "role": "public",
+   "provenance": "simulated",
+   "aliases": [
+    "anon_ml_engineer"
+   ]
   }
  ]
 }

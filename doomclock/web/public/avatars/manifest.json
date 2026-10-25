@@ -227,7 +227,8 @@
   "provenance": "simulated",
   "file": "alibaba.svg",
   "aliases": [
-   "alibaba_440"
+   "alibaba_440",
+   "alibaba_qwen"
   ]
  },
  {
@@ -405,5 +406,255 @@
   "role": "market",
   "provenance": "simulated",
   "file": "prediction-traders.svg"
+ },
+ {
+  "id": "nvidia",
+  "name": "Nvidia",
+  "role": "lab",
+  "provenance": "simulated",
+  "file": "nvidia.svg",
+  "aliases": [
+   "nvidia"
+  ]
+ },
+ {
+  "id": "us-executive-branch",
+  "name": "US Executive Branch",
+  "role": "government",
+  "provenance": "simulated",
+  "file": "us-executive-branch.svg",
+  "aliases": [
+   "us_exec_branch"
+  ]
+ },
+ {
+  "id": "us-senate-commerce-committee",
+  "name": "US Senate Commerce Committee",
+  "role": "government",
+  "provenance": "simulated",
+  "file": "us-senate-commerce-committee.svg",
+  "aliases": [
+   "senate_commerce"
+  ]
+ },
+ {
+  "id": "eu-ai-office",
+  "name": "EU AI Office",
+  "role": "government",
+  "provenance": "simulated",
+  "file": "eu-ai-office.svg",
+  "aliases": [
+   "eu_ai_office"
+  ]
+ },
+ {
+  "id": "uk-government-and-aisi",
+  "name": "UK Government and AISI",
+  "role": "government",
+  "provenance": "simulated",
+  "file": "uk-government-and-aisi.svg",
+  "aliases": [
+   "uk_gov_aisi"
+  ]
+ },
+ {
+  "id": "china-cac",
+  "name": "China CAC",
+  "role": "government",
+  "provenance": "simulated",
+  "file": "china-cac.svg",
+  "aliases": [
+   "china_cac"
+  ]
+ },
+ {
+  "id": "nobel-ai-pioneer",
+  "name": "Nobel AI pioneer",
+  "role": "researcher",
+  "provenance": "simulated",
+  "file": "nobel-ai-pioneer.svg",
+  "aliases": [
+   "nobel_ai_pioneer"
+  ]
+ },
+ {
+  "id": "safety-by-design-professor",
+  "name": "Safety-by-design professor",
+  "role": "researcher",
+  "provenance": "simulated",
+  "file": "safety-by-design-professor.svg",
+  "aliases": [
+   "safety_by_design_prof"
+  ]
+ },
+ {
+  "id": "treaty-professor",
+  "name": "Treaty professor",
+  "role": "researcher",
+  "provenance": "simulated",
+  "file": "treaty-professor.svg",
+  "aliases": [
+   "treaty_prof"
+  ]
+ },
+ {
+  "id": "risk-sceptic-scientist",
+  "name": "Risk-sceptic scientist",
+  "role": "researcher",
+  "provenance": "simulated",
+  "file": "risk-sceptic-scientist.svg",
+  "aliases": [
+   "risk_skeptic_scientist"
+  ]
+ },
+ {
+  "id": "stop-everything-writer",
+  "name": "Stop-everything writer",
+  "role": "researcher",
+  "provenance": "simulated",
+  "file": "stop-everything-writer.svg",
+  "aliases": [
+   "stop_everything_writer"
+  ]
+ },
+ {
+  "id": "timelines-forecaster",
+  "name": "Timelines forecaster",
+  "role": "researcher",
+  "provenance": "simulated",
+  "file": "timelines-forecaster.svg",
+  "aliases": [
+   "timelines_forecaster"
+  ]
+ },
+ {
+  "id": "hype-sceptic-author",
+  "name": "Hype-sceptic author",
+  "role": "researcher",
+  "provenance": "simulated",
+  "file": "hype-sceptic-author.svg",
+  "aliases": [
+   "hype_skeptic_author"
+  ]
+ },
+ {
+  "id": "critical-tech-reporter",
+  "name": "Critical tech reporter",
+  "role": "researcher",
+  "provenance": "simulated",
+  "file": "critical-tech-reporter.svg",
+  "aliases": [
+   "critical_tech_reporter"
+  ]
+ },
+ {
+  "id": "global-wire-desk",
+  "name": "Global wire desk",
+  "role": "media",
+  "provenance": "simulated",
+  "file": "global-wire-desk.svg",
+  "aliases": [
+   "global_wire_desk"
+  ]
+ },
+ {
+  "id": "us-cable-news-desk",
+  "name": "US cable news desk",
+  "role": "media",
+  "provenance": "simulated",
+  "file": "us-cable-news-desk.svg",
+  "aliases": [
+   "us_cable_desk"
+  ]
+ },
+ {
+  "id": "uk-broadcaster-tech-desk",
+  "name": "UK broadcaster tech desk",
+  "role": "media",
+  "provenance": "simulated",
+  "file": "uk-broadcaster-tech-desk.svg",
+  "aliases": [
+   "uk_broadcast_tech"
+  ]
+ },
+ {
+  "id": "tech-trade-press",
+  "name": "Tech trade press",
+  "role": "media",
+  "provenance": "simulated",
+  "file": "tech-trade-press.svg",
+  "aliases": [
+   "tech_trade_press"
+  ]
+ },
+ {
+  "id": "incident-tracker",
+  "name": "Incident tracker",
+  "role": "researcher",
+  "provenance": "simulated",
+  "file": "incident-tracker.svg",
+  "aliases": [
+   "incident_tracker"
+  ]
+ },
+ {
+  "id": "markets-desk",
+  "name": "Markets desk",
+  "role": "market",
+  "provenance": "simulated",
+  "file": "markets-desk.svg",
+  "aliases": [
+   "markets_desk"
+  ]
+ },
+ {
+  "id": "worried-parent-and-teacher",
+  "name": "Worried parent and teacher",
+  "role": "public",
+  "provenance": "simulated",
+  "file": "worried-parent-and-teacher.svg",
+  "aliases": [
+   "worried_parent_teacher"
+  ]
+ },
+ {
+  "id": "engineer-who-runs-coding-agents",
+  "name": "Engineer who runs coding agents",
+  "role": "public",
+  "provenance": "simulated",
+  "file": "engineer-who-runs-coding-agents.svg",
+  "aliases": [
+   "agent_engineer"
+  ]
+ },
+ {
+  "id": "accelerationist-founder",
+  "name": "Accelerationist founder",
+  "role": "public",
+  "provenance": "simulated",
+  "file": "accelerationist-founder.svg",
+  "aliases": [
+   "accel_founder"
+  ]
+ },
+ {
+  "id": "innovation-first-coalition",
+  "name": "Innovation-first coalition",
+  "role": "public",
+  "provenance": "simulated",
+  "file": "innovation-first-coalition.svg",
+  "aliases": [
+   "innovation_first"
+  ]
+ },
+ {
+  "id": "anonymous-ml-engineer",
+  "name": "Anonymous ML engineer",
+  "role": "public",
+  "provenance": "simulated",
+  "file": "anonymous-ml-engineer.svg",
+  "aliases": [
+   "anon_ml_engineer"
+  ]
  }
 ]
