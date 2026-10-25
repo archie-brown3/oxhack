@@ -35,12 +35,12 @@ export function WhySheet({ world, timeline, hand, pin, backtest, future, step, l
   const body = {
     when: <>
       <div className="lede"><Label kind="real" /><span className="dc-data">prices as of {dmy(world.asOf)}</span></div>
-      <h3>Market prices say when</h3>
+      <h3>Where the date comes from</h3>
       <MarketCurve anchors={world.anchors} at={msToYear(Date.parse(world.asOf))} lagMeanYears={world.lagMeanYears} date10={timeline.clock.date10} />
-      <p>The clock counts down to one date: the first day the chance of an AI catastrophe passes 1 in 10. Today that is {timeline.clock.date10 ? longDate(timeline.clock.date10) : 'after 2100'}.</p>
-      <p>Four prediction markets set it: superintelligence by 2030, 2040 and 2100, and an AI catastrophe by 2100. We add one assumption no market prices, an average {world.lagMeanYears}-year gap from superintelligence to catastrophe <Label kind="game-rule" />. 10,000 simulated futures turn them into the curve above.</p>
-      <p>On the face, today is pinned to the Bulletin's own setting. A later date adds seconds and the hand moves back from midnight; an earlier date moves it closer.</p>
-      <p>The backtest scores these market prices 30 days out{score ? ` (Brier ${score.brier}, a coin scores ${score.coin})` : ''}, not the clock's date. The catastrophe market is thin: {catTraders} traders, play money.</p>
+      <p>The clock counts down to the first day the chance of an AI catastrophe passes 1 in 10. Today that day is {timeline.clock.date10 ? longDate(timeline.clock.date10) : 'after 2100'}.</p>
+      <p>Four Manifold markets set it. Traders give superintelligence a {pct(world.anchors.asi2030)} chance by 2030, {pct(world.anchors.asi2040)} by 2040 and {pct(world.anchors.asi2100)} by 2100, and an AI catastrophe {pct(world.anchors.cat2100)} by 2100. No market prices how long after superintelligence a catastrophe would come, so we assume {world.lagMeanYears} years on average <Label kind="game-rule" />. We run 10,000 simulated futures from these numbers to draw the curve above.</p>
+      <p>The face starts from the Bulletin of the Atomic Scientists' current setting, {pin} seconds. When the markets push the date later, the hand moves away from midnight. When they pull it earlier, the hand moves toward midnight.</p>
+      <p>We checked AI prediction markets against {measured?.scores.test.market.n?.toLocaleString('en-GB') ?? 'past'} questions that have since resolved. Thirty days before each answer was known, the market price{score ? ` scored a Brier of ${score.brier}, where a coin scores ${score.coin} (lower is better)` : ' was scored against a coin'}. That tests the markets, not the clock's date, which hasn't happened yet. The catastrophe market itself is thin, with {catTraders} traders betting play money.</p>
       <div>
         {NODES.map((id) => { const h = world.anchorHistory[id]
           return <div className="anc" key={id}><div><a href={h.url} target="_blank" rel="noopener">{h.question}</a></div><b>{pct(world.anchors[id])}</b>
@@ -79,7 +79,7 @@ export function WhySheet({ world, timeline, hand, pin, backtest, future, step, l
         <div className="split">
           <div className="lead">
             <div className="dc-tabs">{TABS.map(([k, t]) => <button key={k} aria-pressed={tab === k} onClick={() => onTab(k)}>{t}</button>)}</div>
-            <div className="dc-thumb"><div className="box" dangerouslySetInnerHTML={{ __html: clockFace(hand, pin, false) }} /><div className="cap">It is {Math.round(hand.seconds)} seconds to midnight</div><div className="dc-data">real forecast · {dmy(world.asOf)}</div></div>
+            <div className="dc-thumb"><div className="box" dangerouslySetInnerHTML={{ __html: clockFace(hand, pin, false) }} /><div className="cap">It is {Math.round(hand.seconds)} seconds to midnight</div><div className="dc-data">{hand.source === 'bulletin' ? "Bulletin's setting" : hand.source === 'forecast' ? 'real forecast' : 'simulated'} · {dmy(world.asOf)}</div></div>
           </div>
           <article className="story">{body}</article>
         </div>
