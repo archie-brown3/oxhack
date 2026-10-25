@@ -7,7 +7,7 @@ import { readClock } from '../engine/index.ts'
 const get = async (path: string): Promise<RecordedFuture[] | null> => {
   try { const r = await fetch(path); const j = r.ok ? await r.json() : null; return Array.isArray(j) && j.length ? (j as RecordedFuture[]) : null } catch { return null }
 }
-export const loadFutures = async () => (await get('cache/futures.json')) ?? (await get('cache/futures.fixture.json')) ?? []
+export const loadFutures = async () => (__RECORDED__ ? await get('cache/futures.json') : null) ?? (await get('cache/futures.fixture.json')) ?? []
 
 /** The timeline ends here: 2029Q4 (frame 20). */
 export const LAST_QUARTER = '2029Q4'

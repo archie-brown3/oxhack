@@ -16,7 +16,7 @@ export interface ReplicaData { project: ReplicaProject; step: ReplicaStep; /** T
 
 /** The project (Step 1) and the saved step `step` (1-based) of future `future`; the spike when absent. */
 export async function loadReplica(future: number, step: number): Promise<ReplicaData | null> {
-  const [project, s] = await Promise.all([json<ReplicaProject>(`${base}/${future}/project.json`), json<ReplicaStep>(`${base}/${future}/step-${step}.json`)])
+  const [project, s] = __RECORDED__ ? await Promise.all([json<ReplicaProject>(`${base}/${future}/project.json`), json<ReplicaStep>(`${base}/${future}/step-${step}.json`)]) : [null, null]
   if (project && s) return { project, step: s, spike: false }
   const [sp, ss] = await Promise.all([json<ReplicaProject>(`${base}/spike/project.json`), json<ReplicaStep>(`${base}/spike/step-1.json`)])
   return sp && ss ? { project: sp, step: ss, spike: true } : null

@@ -19,5 +19,4 @@ If asked what is left: record three futures on the local MiroFish backend, then 
 - 140: play the path and list must-fix bugs. 141 waits on that list.
 - 142: submit this draft (`docs/devpost.md`) by 11:45 GMT. Attach a screen recording.
 - 143: rehearse offline. 144: the judged demo.
-- Vercel (task 13): set the project Root Directory back to `doomclock/web`. Until then, pushes do not update production.
 - On the Mac: tasks 152–154 and 156. The seed pack is now under 12 KB (`data/world/seed-pack/world-today.md`; the stalled build used 38 KB and 115 episodes). Re-run `node doomclock/pipeline/world/step1.ts`, then record.
