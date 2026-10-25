@@ -1,0 +1,19 @@
+{
+  "schema": "doomclock.t10/1",
+  "at": "2026-10-25T03:45:00Z",
+  "build": "doomclock/web static preview, http://127.0.0.1:4173, after npm run build",
+  "offline": "Chrome Fetch domain failed every request whose host was not 127.0.0.1 or localhost. After the Engine CSS stopped importing fonts.googleapis.com, blocked external requests: 0. Console errors on the pages below: 0.",
+  "gamePaths": "Dropped with the game. No tree, no off-tree turn, no RULES-ONLY node.",
+  "labels": "Counted [data-label] and any .lede, .drv, .fi, .anc or .fm with more than one. Doubles: 0. This does not give every globe dot its own label; the feed row, the popover and the map key carry those.",
+  "pages": [
+    { "name": "world today", "url": "/?fut=1", "widths": [1440, 390], "labels": 45, "errors": 0 },
+    { "name": "inputs early quarter", "url": "/?sheet=inputs&q=2", "widths": [1440], "labels": 46, "errors": 0 },
+    { "name": "inputs today", "url": "/?sheet=inputs", "widths": [1440, 390], "labels": 46, "errors": 0 },
+    { "name": "future stand-in", "url": "/?q=18", "widths": [1440, 390], "labels": 45, "errors": 0, "note": "Clock caption: illustrative stand-in" },
+    { "name": "why when", "url": "/?sheet=why&tab=when&q=18", "widths": [1440], "labels": 47, "errors": 0 },
+    { "name": "why danger", "url": "/?sheet=why&tab=danger&q=18", "widths": [1440], "labels": 48, "errors": 0 },
+    { "name": "why track", "url": "/?sheet=why&tab=track&q=18", "widths": [1440, 390], "labels": 45, "errors": 0, "note": "Brier 0.085 vs coin 0.250, n=1186, from data/backtest.json" },
+    { "name": "engine steps 1-4, Graph Split Workbench", "url": "/?view=engine&q=18", "widths": [1440], "errors": 0, "note": "Step 4 reached from Generate Report. Phone width shot of step 3. No 'still processing' toast on the recording." }
+  ],
+  "shots": "/opt/cursor/artifacts/judge/"
+}
