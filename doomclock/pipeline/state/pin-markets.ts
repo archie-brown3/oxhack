@@ -2,6 +2,7 @@
 // Pins only: prices live in data/state.json (build-state.ts). Keeps the Manifold ids, url and question already in
 // the file, because fetch/manifold.ts and fetch/clean-manifold.ts read `.manifold[].id`. Method: docs/data/state.md.
 // Run: node doomclock/pipeline/state/pin-markets.ts   (plain node, no deps; reads data/clean read-only)
+// derivePins() is what the file should hold; fetch/assert-p2.ts checks the file against it (drift = 0).
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
@@ -22,47 +23,53 @@ const PINS: Record<string, { role: "anchor" | "warning"; label: string; node?: s
   nZNhbZsrUglzyUWclEiS: { role: "warning", label: "AI incident with severe backlash by 2040" },
 };
 
-const old = JSON.parse(readFileSync(FILE, "utf8"));
-const mf = jsonl("manifold.jsonl");
-const manifold = old.manifold.map(({ id, url, question }: { id: string; url: string; question: string }) => {
-  const pin = PINS[id];
-  if (!pin) throw new Error(`no label for Manifold pin ${id}`);
-  const market = mf.find((r) => r.kind === "market" && r.id === `manifold:${id}`);
-  if (!market) throw new Error(`no market row for manifold:${id} in data/clean/manifold.jsonl`);
-  let criteriaNote: string | undefined;
-  if (pin.node === "cat2100") {
-    const closes = mf.filter((r) => r.kind === "price" && r.id === market.id).map((r) => r.ts).sort();
-    criteriaNote = `Play money, thin market: ${market.traders} traders, ${closes.length} daily closes since ${closes[0].slice(0, 10)}`;
-  } else if (pin.node) criteriaNote = ASI_NOTE;
-  return { id, ...pin, url, question, deadline: noMs(market.close_time), ...(criteriaNote && { criteriaNote }) };
-});
+export function derivePins() {
+  const old = JSON.parse(readFileSync(FILE, "utf8"));
+  const mf = jsonl("manifold.jsonl");
+  const manifold = old.manifold.map(({ id, url, question }: { id: string; url: string; question: string }) => {
+    const pin = PINS[id];
+    if (!pin) throw new Error(`no label for Manifold pin ${id}`);
+    const market = mf.find((r) => r.kind === "market" && r.id === `manifold:${id}`);
+    if (!market) throw new Error(`no market row for manifold:${id} in data/clean/manifold.jsonl`);
+    let criteriaNote: string | undefined;
+    if (pin.node === "cat2100") {
+      const closes = mf.filter((r) => r.kind === "price" && r.id === market.id).map((r) => r.ts).sort();
+      criteriaNote = `Play money, thin market: ${market.traders} traders, ${closes.length} daily closes since ${closes[0].slice(0, 10)}`;
+    } else if (pin.node) criteriaNote = ASI_NOTE;
+    return { id, ...pin, url, question, deadline: noMs(market.close_time), ...(criteriaNote && { criteriaNote }) };
+  });
 
-// The latest-closing market of a Kalshi series stands for the series' question.
-const ks = jsonl("kalshi.jsonl");
-const lastMarket = (series: string) =>
-  ks.filter((r) => r.kind === "market" && r.series === series).sort((a, b) => Date.parse(a.close_time) - Date.parse(b.close_time)).at(-1);
-const agi = lastMarket("KXAGICO"), takeover = lastMarket("KXUSTAKEOVER");
+  // The latest-closing market of a Kalshi series stands for the series' question.
+  const ks = jsonl("kalshi.jsonl");
+  const lastMarket = (series: string) =>
+    ks.filter((r) => r.kind === "market" && r.series === series).sort((a, b) => Date.parse(a.close_time) - Date.parse(b.close_time)).at(-1);
+  const agi = lastMarket("KXAGICO"), takeover = lastMarket("KXUSTAKEOVER");
 
-const out = {
-  manifold,
-  kalshi: [
-    {
-      ticker: "KXAGICO",
-      role: "capability_curve",
-      label: "Any company announces AGI",
-      url: "https://kalshi.com/markets/kxagico",
-      question: agi.title,
-      criteriaNote: agi.rules_primary.split(/(?<=\.)\s+/)[0] + " AGI-like/near-AGI statements do not count.",
-    },
-    {
-      ticker: "KXUSTAKEOVER",
-      role: "card",
-      label: "US government takes control of an AI company",
-      url: "https://kalshi.com/markets/kxustakeover",
-      question: takeover.title,
-    },
-  ],
-  polymarket: [],
-};
-writeFileSync(FILE, JSON.stringify(out, null, 2) + "\n");
-console.log("markets.json:", manifold.length, "manifold,", out.kalshi.length, "kalshi pins");
+  return {
+    manifold,
+    kalshi: [
+      {
+        ticker: "KXAGICO",
+        role: "capability_curve",
+        label: "Any company announces AGI",
+        url: "https://kalshi.com/markets/kxagico",
+        question: agi.title,
+        criteriaNote: agi.rules_primary.split(/(?<=\.)\s+/)[0] + " AGI-like/near-AGI statements do not count.",
+      },
+      {
+        ticker: "KXUSTAKEOVER",
+        role: "card",
+        label: "US government takes control of an AI company",
+        url: "https://kalshi.com/markets/kxustakeover",
+        question: takeover.title,
+      },
+    ],
+    polymarket: [],
+  };
+}
+
+if (import.meta.main) {
+  const out = derivePins();
+  writeFileSync(FILE, JSON.stringify(out, null, 2) + "\n");
+  console.log("markets.json:", out.manifold.length, "manifold,", out.kalshi.length, "kalshi pins");
+}

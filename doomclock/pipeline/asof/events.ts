@@ -149,8 +149,11 @@ export function buildEvents(src: EventSources, start: string, T: string) {
 
   // A Wikipedia duplicate of a government record is dropped (the primary source wins), and the kept event takes
   // the earlier of the two dates: Wikipedia dates an EO's signing, the Federal Register its later publication.
+  // A Wikipedia line that cites the same article as a checked world fact is the same event: the fact wins.
   let deduped = 0;
+  const factUrls = new Set(src.facts.map((r) => r.url).filter(Boolean));
   for (const r of src.wikipedia) {
+    if (factUrls.has(r.url)) { deduped++; continue; }
     const t = iso(r.ts);
     const eo = String(r.title ?? "").match(/\bExecutive Order (\d{5})\b/)?.[1];
     const aiAct = /\b(AI|Artificial Intelligence) Act\b/.test(`${r.title ?? ""} ${r.description ?? ""}`);

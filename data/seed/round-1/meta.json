@@ -2,14 +2,14 @@
   "T": "2026-10-24T20:51:00Z",
   "recentDays": 60,
   "events": {
-    "government": 3,
-    "news": 11,
+    "government": 4,
+    "news": 12,
     "incidents": 12,
     "turning": 18
   },
   "marketLines": 13,
   "bytes": {
-    "world-events.md": 9569,
+    "world-events.md": 9719,
     "market-odds.md": 1177,
     "scenario-brief.md": 855,
     "requirement.txt": 408

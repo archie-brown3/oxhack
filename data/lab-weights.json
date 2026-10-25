@@ -1,0 +1,85 @@
+{
+  "schema": "doomclock.lab-weights/1",
+  "asOf": "2026-10-24T20:51:00Z",
+  "window": {
+    "from": "2024-10-24T20:51:00Z",
+    "to": "2026-10-24T20:51:00Z"
+  },
+  "metric": "Share of Epoch AI notable models published in the window, normalised over the 8 labs (a model count, not compute).",
+  "source": "https://epoch.ai/data/notable-ai-models",
+  "labs": [
+    {
+      "lab": "OpenAI",
+      "region": "US",
+      "orgs": [
+        "OpenAI"
+      ],
+      "count": 44,
+      "weight": 0.3385
+    },
+    {
+      "lab": "Google DeepMind",
+      "region": "US",
+      "orgs": [
+        "Google DeepMind",
+        "Google"
+      ],
+      "count": 22,
+      "weight": 0.1692
+    },
+    {
+      "lab": "Alibaba",
+      "region": "China",
+      "orgs": [
+        "Alibaba"
+      ],
+      "count": 21,
+      "weight": 0.1615
+    },
+    {
+      "lab": "Anthropic",
+      "region": "US",
+      "orgs": [
+        "Anthropic"
+      ],
+      "count": 16,
+      "weight": 0.1231
+    },
+    {
+      "lab": "Meta",
+      "region": "US",
+      "orgs": [
+        "Meta AI"
+      ],
+      "count": 8,
+      "weight": 0.0615
+    },
+    {
+      "lab": "DeepSeek",
+      "region": "China",
+      "orgs": [
+        "DeepSeek"
+      ],
+      "count": 8,
+      "weight": 0.0615
+    },
+    {
+      "lab": "xAI",
+      "region": "US",
+      "orgs": [
+        "xAI"
+      ],
+      "count": 7,
+      "weight": 0.0538
+    },
+    {
+      "lab": "Nvidia",
+      "region": "US",
+      "orgs": [
+        "Nvidia"
+      ],
+      "count": 4,
+      "weight": 0.0308
+    }
+  ]
+}

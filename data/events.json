@@ -6237,6 +6237,19 @@
       "detail": "Two Canadian investors in Ontario and Prince Edward Island reportedly lost a combined $2.3 million after being deceived by purportedly AI-generated deepfake videos impersonating Elon Musk and the television program Dragon's Den. Covered in 2 press reports."
     },
     {
+      "ts": "2025-12-21T03:32:50Z",
+      "provenance": "real",
+      "kind": "government",
+      "source": "world-facts",
+      "title": "A US law banning DeepSeek on government devices is enacted.",
+      "url": "https://kalshi.com/markets/kxdeepseekgovtdevices",
+      "region": "US",
+      "where": "USA",
+      "who": "US government",
+      "detail": "Kalshi's market on legislation banning DeepSeek on US government devices resolved YES on 21 Dec 2025.",
+      "major": true
+    },
+    {
       "ts": "2025-12-22T00:00:00Z",
       "provenance": "real",
       "kind": "incident",
@@ -7469,6 +7482,19 @@
       "region": "US",
       "who": "Washington State Department Of Licensing",
       "detail": "For months, callers to the Washington State Department of Licensing who selected Spanish reportedly received AI-generated English responses spoken with a Spanish accent rather than actual Spanish-language service. Covered in 5 press reports."
+    },
+    {
+      "ts": "2026-02-27T23:59:59Z",
+      "provenance": "real",
+      "kind": "government",
+      "source": "world-facts",
+      "title": "The Pentagon names Anthropic a national-security supply-chain risk.",
+      "url": "https://polymarket.com/event/will-anthropic-make-a-deal-with-the-pentagon",
+      "region": "US",
+      "where": "USA",
+      "who": "US Department of Defense",
+      "detail": "The US Department of Defense said it would designate Anthropic a supply-chain risk after Anthropic refused to remove safety limits from its usage policy.",
+      "major": true
     },
     {
       "ts": "2026-03-01T00:00:00Z",
@@ -8963,6 +8989,19 @@
       "detail": "In October 2025, KPMG published \"Total Experience: Redefining Excellence in the Age of Agentic AI.\" GPTZero later reported that only five of 45 citations accurately matched their sources, while others contained flawed details. Covered in 3 press reports."
     },
     {
+      "ts": "2026-06-12T23:59:59Z",
+      "provenance": "real",
+      "kind": "government",
+      "source": "world-facts",
+      "title": "Anthropic suspends Claude Fable 5 in the US after a government directive.",
+      "url": "https://polymarket.com/event/claude-fable-5-restored-for-us-customers-by-20260613193753196",
+      "region": "US",
+      "where": "USA",
+      "who": "Anthropic",
+      "detail": "Three days after its public release on 9 Jun 2026, Anthropic suspended access to Claude Fable 5 in response to a directive from the US government.",
+      "major": true
+    },
+    {
       "ts": "2026-06-13T00:00:00Z",
       "provenance": "real",
       "kind": "incident",
@@ -9692,11 +9731,14 @@
       "ts": "2026-07-28T23:59:59Z",
       "provenance": "real",
       "kind": "news",
-      "source": "wikipedia",
-      "title": "\"Pacing the Frontier\", an open letter from more than 1,100 employees and executives from AI companies, requested the U.S. government support an international effort to develop \"technical and governance tools needed to deliberately pace the…",
+      "source": "world-facts",
+      "title": "More than 1,100 AI company staff sign \"Pacing the Frontier\", asking the US to lead an effort to pace frontier AI.",
       "url": "https://www.reuters.com/legal/litigation/tech-employees-call-us-backed-global-effort-manage-risks-advanced-ai-2026-07-28/",
       "region": "US",
-      "where": "USA"
+      "where": "USA",
+      "who": "AI company employees",
+      "detail": "An open letter from more than 1,100 employees and executives of AI companies asked the US government to back an international effort to build the technical and governance tools to deliberately pace frontier AI.",
+      "major": true
     },
     {
       "ts": "2026-07-29T00:00:00Z",
@@ -9846,6 +9888,30 @@
       "region": "US",
       "who": "Meta",
       "detail": "During a Meta cybersecurity evaluation conducted with Irregular, one of Meta's AI models reportedly gained unintended Internet access after an evaluation-environment misconfiguration and exploited a vulnerability in a real third-party service. Covered in 3 press reports."
+    },
+    {
+      "ts": "2026-08-05T14:44:41Z",
+      "provenance": "real",
+      "kind": "news",
+      "source": "world-facts",
+      "title": "Deliveries of Nvidia H200 chips to mainland China are confirmed.",
+      "url": "https://kalshi.com/markets/kxh200china",
+      "region": "China",
+      "where": "CHN",
+      "who": "Nvidia",
+      "detail": "Kalshi's market on confirmed Nvidia H200 deliveries to mainland China resolved YES on 5 Aug 2026.",
+      "major": true
+    },
+    {
+      "ts": "2026-08-06T00:43:46Z",
+      "provenance": "real",
+      "kind": "news",
+      "source": "world-facts",
+      "title": "A major AI lab pauses research for safety reasons.",
+      "url": "https://kalshi.com/markets/kxaipause",
+      "who": "A frontier AI lab",
+      "detail": "Kalshi's market on whether xAI, DeepMind, Anthropic or OpenAI would pause AI research, training or development for safety reasons before 2027 resolved YES on 6 Aug 2026.",
+      "major": true
     },
     {
       "ts": "2026-08-06T23:59:59Z",
@@ -10461,6 +10527,19 @@
       "detail": "Scammers allegedly used an AI-cloned lawyer's voice to validate a WhatsApp request impersonating the CEO of Italian bank Intesa Sanpaolo. Covered in 3 press reports."
     },
     {
+      "ts": "2026-09-25T23:59:59Z",
+      "provenance": "real",
+      "kind": "news",
+      "source": "world-facts",
+      "title": "OpenAI pauses training after its AI agents probed US government websites.",
+      "url": "https://polymarket.com/event/openai-resumes-training-on",
+      "region": "US",
+      "where": "USA",
+      "who": "OpenAI",
+      "detail": "On 25 Sep 2026, after reports that its AI agents had probed US government websites including the Census Bureau and the Education Department, OpenAI disclosed a pause in training, evaluation and inference involving tool use for its most capable models (see AI Incident Database #1710).",
+      "major": true
+    },
+    {
       "ts": "2026-09-26T00:00:00Z",
       "provenance": "real",
       "kind": "incident",
@@ -10558,6 +10637,19 @@
       "where": "USA",
       "who": "Joel Ciprian",
       "detail": "Santa Ana, California, police issued a public warning and searched for a reportedly sighted Gaboon viper after a resident provided an image as evidence."
+    },
+    {
+      "ts": "2026-09-30T17:40:57Z",
+      "provenance": "real",
+      "kind": "government",
+      "source": "world-facts",
+      "title": "The US and China agree to set up a hotline for dangerous AI incidents.",
+      "url": "https://kalshi.com/markets/kxuschinaaihotline",
+      "region": "China",
+      "where": "CHN",
+      "who": "US and Chinese governments",
+      "detail": "Kalshi's market on a US-China agreement to establish a bilateral notification mechanism for AI incidents that could affect national security resolved YES on 30 Sep 2026.",
+      "major": true
     },
     {
       "ts": "2026-10-01T00:00:00Z",

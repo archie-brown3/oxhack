@@ -55,9 +55,9 @@
         "id": 3,
         "title": "[P1 \u00b7 engine] Timeline builder (the simulation)",
         "description": "Pure engine/timeline.ts: (state, events, seed) -> Timeline (contracts.ts). Quarterly frames Oct 2024 -> 2035: real frames up to asOf, projected after. capability from the Kalshi curve (cummax), regions from the derive/regions metric, pCat per quarter from sim.ts, projected incidents sampled at the AIID base rate (seeded, provenance 'projected'). ClockReading: continuous date10, a range across lag 1..10 y, minutesToMidnight = years to date10. MONTE CARLO (owner, 24 Oct): the engine samples 10,000 futures; buildTimeline(seed|percentile) returns ONE sampled future as a Timeline (futureId + percentile), and the clock reads the distribution across all futures. Built as the deep Timeline module (architecture candidate 2): buildTimeline(world, {seed|percentile}) -> Timeline and readClock(world) -> ClockReading; sim.ts becomes internal; the prototype and the app import it.",
-        "details": "Scope: doomclock/web/src/engine/**. Write engine/fixtures/timeline.fixture.json FIRST so ui and clock can start. Extension point: buildTimeline(..., actions?) \u2014 phase 2 passes game actions to get the 'yours' line.\nSCOPE CUT 24 Oct 22:20: Fold in architecture candidate 3 (one source of types; npm test runs the engine tests). Checkpoint 00:00.\nSPECIFICITY (Archie, 22:30): Per-frame clock from the anchors as of each quarter (world.anchorHistory), plus drivers by leave-one-out attribution (anchor, from->to, ts, traders, url, effectDays, residualDays). Events are context, never causes. Contract fields: WorldFrame.clock, WorldFrame.drivers, WorldEvent.{who, where, major, detail}.\nData sign-off asks: add StateNode extras (traders, nPrices, lastTradeTs, pRange12m, history[{q,T,p}]), ManifoldPin node/horizonYear, an EventsFile type {schema:'doomclock.events/1', asOf, events} to contracts.ts, and fix the fixture \u03bb (4.2 -> ~109/quarter). Show the 12-month price ranges as the clock's market uncertainty.",
+        "details": "Scope: doomclock/web/src/engine/**. Write engine/fixtures/timeline.fixture.json FIRST so ui and clock can start. Extension point: buildTimeline(..., actions?) \u2014 phase 2 passes game actions to get the 'yours' line.\nSCOPE CUT 24 Oct 22:20: Fold in architecture candidate 3 (one source of types; npm test runs the engine tests). Checkpoint 00:00.\nSPECIFICITY (Archie, 22:30): Per-frame clock from the anchors as of each quarter (world.anchorHistory), plus drivers by leave-one-out attribution (anchor, from->to, ts, traders, url, effectDays, residualDays). Events are context, never causes. Contract fields: WorldFrame.clock, WorldFrame.drivers, WorldEvent.{who, where, major, detail}.\nData sign-off asks: add StateNode extras (traders, nPrices, lastTradeTs, pRange12m, history[{q,T,p}]), ManifoldPin node/horizonYear, an EventsFile type {schema:'doomclock.events/1', asOf, events} to contracts.ts, and fix the fixture \u03bb (4.2 -> ~109/quarter). Show the 12-month price ranges as the clock's market uncertainty.\n2026-10-25T00:30:32Z: Checked every acceptance item against timeline.ts and the sign-off notes; all were already built: buildTimeline/readClock/worldFrom seam, quarterly 2024Q4-2035Q4 frames, real/projected split at asOf, Kalshi cummax capability, regions, pCat from the model CDF, projected AIID incidents at lambda ~109/quarter (fixture fixed), per-frame clock from anchorHistory, leave-one-out drivers with time and residual days, 12-month price ranges as the clock's market uncertainty (date10RangeBy.market), StateNode extras, ManifoldPin node/horizonYear and EventsFile in contracts.ts. The one gap was data: AnchorQuarter.ts was never supplied, so drivers dated a move by the quarter start; asOf(T) (task 14) now writes the daily close behind each reading, so drivers show the real trade date (e.g. asi2030 0.2752->0.3608 on 2026-09-08). Checks: node --test src/engine 31 pass, buildTimeline on the real cache world 11 ms. The actions? extension point is left to the game-core lane.",
         "testStrategy": "node --test: deterministic per seed; frames contiguous; real/projected split at asOf; date10 monotone in the anchors; under 100 ms.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           2,
           10,
@@ -65,7 +65,7 @@
         ],
         "priority": "high",
         "subtasks": [],
-        "updatedAt": "2026-10-24T21:50:00Z"
+        "updatedAt": "2026-10-25T00:30:32Z"
       },
       {
         "id": 4,
@@ -248,15 +248,15 @@
         "id": 103,
         "title": "[P2 \u00b7 data] world-facts.jsonl (plus optional T0 RSS headlines)",
         "description": "Dated real facts for the starting state, the turn-0 seeds and the lab personas. Optionally adds REAL outlet headlines for the Newswire.",
-        "details": "Write data/clean/world-facts.jsonl with rows {id, text, ts, source, url}. The 8 facts from plan \u00a76:\n- DeepSeek US government-device ban, 2025-12-21\n- DoD names Anthropic a supply-chain risk, 2026-02-27\n- Fable 5 suspended by US directive, 2026-06-12 (pm:2534929)\n- H200 sales to China resolved YES, 2026-08-05\n- KXAIPAUSE resolved YES, 2026-08-06\n- Pace essay, 2026-09-12\n- OpenAI training pause, 2026-09-25 (pm:5008726, AIID #1710)\n- US\u2013China hotline resolved YES, 2026-09-30\n\nOptional, at most 30 min, and skip it on any failure: fetch the Guardian AI, BBC Technology and NYT Technology RSS feeds (no key, $0). Write data/clean/rss.jsonl with rows {title, link, ts=pubDate, source}.\n\nDo not refresh prices or feeds after the 00:30 freeze.\nDeadline (from plan): Sat 24 Oct 20:15 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "details": "Write data/clean/world-facts.jsonl with rows {id, text, ts, source, url}. The 8 facts from plan \u00a76:\n- DeepSeek US government-device ban, 2025-12-21\n- DoD names Anthropic a supply-chain risk, 2026-02-27\n- Fable 5 suspended by US directive, 2026-06-12 (pm:2534929)\n- H200 sales to China resolved YES, 2026-08-05\n- KXAIPAUSE resolved YES, 2026-08-06\n- Pace essay, 2026-09-12\n- OpenAI training pause, 2026-09-25 (pm:5008726, AIID #1710)\n- US\u2013China hotline resolved YES, 2026-09-30\n\nOptional, at most 30 min, and skip it on any failure: fetch the Guardian AI, BBC Technology and NYT Technology RSS feeds (no key, $0). Write data/clean/rss.jsonl with rows {title, link, ts=pubDate, source}.\n\nDo not refresh prices or feeds after the 00:30 freeze.\nDeadline (from plan): Sat 24 Oct 20:15 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.\n2026-10-25T00:30:32Z: Wrote data/clean/world-facts.jsonl: 8 rows {ts, id, kind, text, detail, who, where, source, url}, each backed by a record in our data (Kalshi settlement_ts from the raw market responses for the 4 YES resolutions, Polymarket market text for the Pentagon, Fable 5 and OpenAI-pause facts, Reuters for the letter). One substitution: no record backs the plan's 'pace essay 2026-09-12', so that row is the 'Pacing the Frontier' open letter of 2026-07-28 (Wikipedia/Reuters); the duplicate Wikipedia line is dropped. The facts flow into events.json as major events (now 973 events, 70 major) and into the MiroFish seed. RSS half cut: the demo review cut it and the data freeze had passed. Check: node doomclock/pipeline/fetch/assert-p2.ts exits 0 (8 rows, every ts < 2026-10-24, every source a market id, AIID id or URL, every market source a market row in data/clean). Docs: docs/data/world-facts.md. UI note: format.ts SOURCE has no 'world-facts' entry yet, so the source shows as the raw id until the ui lane adds one.",
         "testStrategy": "An assert script exits 0 when:\n- there are 8 rows;\n- every ts < 2026-10-24T00:00:00Z;\n- every source is a market id, an AIID id or a URL;\n- if rss.jsonl exists, every row parses and has ts < T0.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           9
         ],
         "priority": "medium",
         "subtasks": [],
-        "updatedAt": "2026-10-24T19:50:00Z"
+        "updatedAt": "2026-10-25T00:30:32Z"
       },
       {
         "id": 104,
@@ -346,16 +346,16 @@
         "id": 110,
         "title": "[P2 \u00b7 data] P2 data fixes: AIID ts, KXAGICO cummax, markets drift, derive/weights.ts",
         "description": "The data asserts that must pass before any real data enters the game.",
-        "details": "- AIID: set ts = max(first report, event_date) in the clean step for data/clean/aiid.jsonl.\n- Build the KXAGICO cummax curve from data/clean/kalshi.jsonl at T0. Expected values: 0.06, 0.18, 0.28, 0.33, 0.39, 0.58, 0.73.\n- Fix the drift between doomclock/pipeline/markets.json and the data/clean pins.\n- Add doomclock/pipeline/derive/weights.ts: Epoch notable-model share for the 8 labs, 24 Oct 2024 to 24 Oct 2026, normalised. Expected: OpenAI 0.34, GDM 0.17, Alibaba 0.16, Anthropic 0.12, Meta 0.06, DeepSeek 0.06, xAI 0.05, Nvidia 0.03; GDM includes the 2 models listed as Google.\n\nLabel the datacentre coverage (US 66, China 3, rest 8).\nDeadline (from plan): Sat 24 Oct 21:15 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "details": "- AIID: set ts = max(first report, event_date) in the clean step for data/clean/aiid.jsonl.\n- Build the KXAGICO cummax curve from data/clean/kalshi.jsonl at T0. Expected values: 0.06, 0.18, 0.28, 0.33, 0.39, 0.58, 0.73.\n- Fix the drift between doomclock/pipeline/markets.json and the data/clean pins.\n- Add doomclock/pipeline/derive/weights.ts: Epoch notable-model share for the 8 labs, 24 Oct 2024 to 24 Oct 2026, normalised. Expected: OpenAI 0.34, GDM 0.17, Alibaba 0.16, Anthropic 0.12, Meta 0.06, DeepSeek 0.06, xAI 0.05, Nvidia 0.03; GDM includes the 2 models listed as Google.\n\nLabel the datacentre coverage (US 66, China 3, rest 8).\nDeadline (from plan): Sat 24 Oct 21:15 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.\n2026-10-25T00:30:32Z: One assert script, node doomclock/pipeline/fetch/assert-p2.ts, exits 0 with 14 checks: 0 of 821 AIID records with ts < event_date and every ts = max(first report, event date) (the clean step already did this); KXAGICO cummax curve monotone, 2026Q4..2028Q2 = 0.0598, 0.1798, 0.2798, 0.3299, 0.3899, 0.5797, 0.7297 (expected 0.06..0.73 within 0.005); markets.json drift = 0 (pin-markets.ts now exports derivePins(), compared byte for byte); derive/weights.ts writes data/lab-weights.json: OpenAI 0.3385, GDM 0.1692 (20 + 2 Google), Alibaba 0.1615, Anthropic 0.1231, Meta 0.0615, DeepSeek 0.0615, xAI 0.0538, Nvidia 0.0308, all within 0.01; datacentre coverage US 66, China 3, rest 8 with the coverage label in docs/data/datacentres.md (the globe tooltip already says 'not compute share'; a sheet-level line is for the ui lane). Docs: docs/data/lab-weights.md.",
         "testStrategy": "The P2 assert script exits 0:\n- 0 AIID records with ts < event_date;\n- cummax is monotone and matches the expected curve;\n- every world-fact ts < T0;\n- markets.json drift = 0;\n- weights.ts output is within 0.01 of the expected weights.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           101,
           103
         ],
         "priority": "medium",
         "subtasks": [],
-        "updatedAt": "2026-10-24T19:50:00Z"
+        "updatedAt": "2026-10-25T00:30:32Z"
       },
       {
         "id": 111,
@@ -980,9 +980,9 @@
       "created": "2026-10-24T19:50:00Z",
       "description": "Doom Clock. P1 = the Monte Carlo simulation (10,000 futures; the globe plays one sampled future; a MiroFish society ensemble for ~5 representative futures): a Plague Inc-style world view of a quarterly Timeline (real -> projected), with the analog clock in the corner (build now). P2 = the game on the same screen (deferred, gated by task 9). Game plan: docs/superpowers/plans/2026-10-24-doom-clock-game-plan-full.md Demo path: Inputs (seed data, as-of slider) -> live run (Monte Carlo in the browser + one live MiroFish quarter) -> replay recorded futures -> Why this time? + Track record. SCOPE CUT 22:20 BST: checkpoints 00:00 engine+asOf+mockup OK, 03:00 World+clock+Why on real data, 06:00 Inputs+track record+recorded runs, 09:00 polish+Devpost (live run if ahead), freeze 11:30 GMT, submit 11:45 GMT. OVERNIGHT RUN (25 Oct 00:15 GMT, owner instruction): build the whole product as one demo; every task including the former deferred P2 game tasks is now active. Lanes (one workflow, git worktrees, each lane lands on main): core-data (14,3,103,110), backtest (6,106,118), game-core (101,107,108,115,116,117,119,124,125,129), society (102,105,11,112,109 then 113,114,120-123,128,131,132,134), ui (8,15,4,5,18,111 + first-launch walkthrough, then 126,127,133,135,7,136), ship (17,137,138,139). Owner-only tasks (130,140,142,143,144) are prepared but need Archie.",
       "version": "1.0.0",
-      "lastModified": "2026-10-25T00:27:57Z",
+      "lastModified": "2026-10-25T00:30:32Z",
       "taskCount": 66,
-      "completedCount": 19,
+      "completedCount": 22,
       "tags": [
         "master"
       ]
