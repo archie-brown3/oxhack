@@ -107,7 +107,7 @@ export function EngineScreen({ futureId, step }: Props) {
           {data === null && <div className="mf-empty">No recording for this future yet.</div>}
           {data && mf === 1 && <Step1GraphBuild project={data.project} graph={graph} logs={logs} onNext={() => go(2)} />}
           {data && mf === 2 && <Step2EnvSetup project={data.project} step={data.step} graph={graph} logs={logs} onBack={() => go(1)} onNext={() => go(3)} onLog={log} />}
-          {data && mf === 3 && <Step3Simulation step={data.step} round={round} rounds={rounds} logs={logs} onBack={() => go(2)} onNext={() => go(4)} onLog={log} />}
+          {data && mf === 3 && <Step3Simulation step={data.step} recorded={!!data.step.report?.markdown_content} round={round} rounds={rounds} logs={logs} onBack={() => go(2)} onNext={() => go(4)} onLog={log} />}
           {data && mf === 4 && <Step4Report step={data.step} project={data.project} logs={logs} spike={data.spike} onBack={() => go(3)} onNext={() => go(5)} onLog={log} />}
           {data && mf === 5 && <Step5Interaction onBack={() => go(4)} />}
         </div>

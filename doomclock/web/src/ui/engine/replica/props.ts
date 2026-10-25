@@ -19,6 +19,8 @@ export interface Step1Props { project: ReplicaProject; graph: GraphData | null; 
 export interface Step2Props { project: ReplicaProject; step: ReplicaStep; graph: GraphData | null; logs: LogLine[]; onBack: () => void; onNext: () => void; onLog: (msg: string) => void }
 export interface Step3Props {
   step: ReplicaStep
+  /** A recorded run: its report already exists, so the button opens it instead of generating one. */
+  recorded?: boolean
   /** Replay position: 0 = before round 1 .. rounds = finished. Show only what happened by then. */
   round: number
   rounds: number
