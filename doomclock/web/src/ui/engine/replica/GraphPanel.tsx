@@ -110,7 +110,7 @@ export function GraphPanel({ graph, currentPhase, isSimulating, loading = false,
   const D = useRef<Draw | null>(null)
   const [selected, setSelected] = useState<Selected | null>(null)
   const [conn, setConn] = useState<string | null>(null) // uuid whose connections are shown
-  const [showEdgeLabels, setShowEdgeLabels] = useState(true)
+  const [showEdgeLabels, setShowEdgeLabels] = useState(false) // off by default: the labels hid the graph (toggle stays)
   const [expanded, setExpanded] = useState<Set<string | number>>(new Set())
   const [finishedHint, setFinishedHint] = useState(false)
   const [spin, setSpin] = useState(false)
@@ -318,7 +318,8 @@ export function GraphPanel({ graph, currentPhase, isSimulating, loading = false,
         <div className="mf-g-view" style={{ display: graph ? 'block' : 'none' }}>
           <svg ref={svgRef} className="mf-g-svg" />
         </div>
-        {graph && (currentPhase === 1 || isSimulating) && (
+        {/* A replayed recording is not building or updating anything (and ran with graph memory off): no live-memory hint. */}
+        {graph && !recorded && (currentPhase === 1 || isSimulating) && (
           <div className="mf-g-hint">
             <div className="mf-g-memory-wrap">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="mf-g-memory">

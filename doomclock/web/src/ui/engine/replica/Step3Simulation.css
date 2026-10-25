@@ -25,6 +25,9 @@
   display: flex;
   gap: 12px;
 }
+/* Doom Clock: in the half-width Split panel the action buttons ran off the right edge; let the bar wrap. */
+.mf-s3-control-bar { flex-wrap: wrap; height: auto; min-height: 64px; row-gap: 8px; }
+.mf-s3-action-controls { margin-left: auto; }
 
 /* Platform Status Cards */
 .mf-s3-platform-status {

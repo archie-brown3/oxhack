@@ -160,7 +160,7 @@ function World({ data }: { data: Data }) {
       </Suspense>
       <div id="vignette" />
       <Clock hand={hand} pin={scale.pin} daysPerSecond={scale.daysPerSecond} today={timeline.clock} isToday={isToday} frame={frame} prev={frames[cur - 1] ?? null}
-        sim={step ? { n: fi + 1, of: futures.length, step, move: sheet ? null : move, live: live && !sheet, standIn: !!future.fixture } : null} onWhy={() => setSheet('why')} />
+        sim={step ? { n: fi + 1, of: futures.length, step, move: sheet ? null : move, live: live && !sheet && view !== 'engine', standIn: !!future.fixture } : null} onWhy={() => setSheet('why')} />
       <nav id="viewseg" className="dc-panel" aria-label="View">
         <div className="dc-tabs">
           <button aria-pressed={sheet === 'inputs'} onClick={() => setSheet('inputs')}>Inputs</button>
