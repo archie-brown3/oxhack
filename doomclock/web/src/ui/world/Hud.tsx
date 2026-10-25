@@ -13,15 +13,12 @@ const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(
 const avatarFor = (e: WorldEvent, avatars: AvatarRef[]) =>
   avatars.find((a) => (e.who && a.aliases?.includes(e.who)) || a.id === slug(sourceName(e.source)))
 
-/** One switcher for the recorded futures: "Future 3 of 3: 1 in 10 by Mar 2031". The count comes from the data. */
+/** One switcher for the recorded futures, in the top bar. The count comes from the data. */
 export function FutureSwitcher({ futures, current, endDate, onPick }: { futures: { id: number }[]; current: number; endDate: string | null; onPick: (i: number) => void }) {
   return (
-    <section id="future" className="dc-panel" aria-label="Simulated futures">
-      <div className="t"><b>Future {current + 1} of {futures.length}</b></div>
-      <div className="dc-dim">{endDate ? `1 in 10 by ${monthYear(endDate)} at the end of this future.` : 'A scenario, not a prediction.'}</div>
-      <div className="row"><div className="dc-tabs">{futures.map((f, i) => <button key={f.id} aria-pressed={i === current} onClick={() => onPick(i)}>Future {i + 1}</button>)}</div></div>
-      <span className="dc-data">Simulated by MiroFish. Nothing here moves the real clock.</span>
-    </section>
+    <nav id="futseg" className="dc-panel" aria-label="Simulated futures" title={endDate ? `Future ${current + 1} of ${futures.length}: 1 in 10 by ${monthYear(endDate)}. A scenario, not a prediction.` : undefined}>
+      <div className="dc-tabs">{futures.map((f, i) => <button key={f.id} aria-pressed={i === current} onClick={() => onPick(i)}>Future {i + 1}</button>)}</div>
+    </nav>
   )
 }
 

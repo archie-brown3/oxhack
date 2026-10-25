@@ -11,6 +11,7 @@ import { InputsSheet } from '../ui/inputs/InputsSheet.tsx'
 import { WhySheet, type WhyTab } from '../ui/why/WhySheet.tsx'
 import type { Member } from '../ui/engine/EngineScreen.tsx'
 import { locate, type Flare, type Located } from '../ui/world/locate.ts'
+import { NewsFeed, FeedPage, type FeedPost } from '../ui/world/NewsFeed.tsx'
 import { EventPop, FutureSwitcher, Legend, Newsflash, Spine, Ticker, type Flash } from '../ui/world/Hud.tsx'
 import { backtest } from '../fixtures/backtest.ts'
 import { countryAt, countryName, load, loadTrack, type Data } from './data.ts'
@@ -61,6 +62,7 @@ function World({ data }: { data: Data }) {
   const [focus, setFocus] = useState<[number, number] | null>(null)
   const [pop, setPop] = useState<{ e: Located; anchor: HTMLElement } | null>(null)
   const [view, setView] = useState<'world' | 'engine'>(params.get('view') === 'engine' ? 'engine' : 'world')
+  const [feedOpen, setFeedOpen] = useState(false)
   const [maxed, setMaxed] = useState<'graph' | 'cast' | null>(null)
   // The Engine screen (owner redesign in progress) still takes its old props.
   const ensemble = useMemo<Member[]>(() => futures.map((f, i) => { const q = PCTS[Math.round((i / Math.max(1, futures.length - 1)) * 4)]; return { k: i + 1, q, future: { id: f.id, percentile: q, asiDate: null, catDate: null } } }), [futures])
@@ -73,6 +75,14 @@ function World({ data }: { data: Data }) {
   const step = frame.provenance === 'simulated' ? stepAt(future, frame.start) : null
   const move = useMemo(() => (step ? moveOf(world, future, step, base.clock.date10) : null), [world, future, step, base])
   const luck = useMemo(() => luckShare(futures), [futures])
+
+  // The feed: real events up to this quarter (never past today), then each simulated step that has landed.
+  const feed = useMemo(() => {
+    const real = frames.slice(0, Math.min(cur, today) + 1).flatMap((f) => f.events.filter((e) => e.provenance === 'real'))
+    const n = step?.step ?? 0
+    const steps = future.steps.filter((x) => x.step <= n)
+    return { events: [...real, ...steps.flatMap((x) => x.events)], posts: steps.flatMap((x) => x.topPosts.map((p): FeedPost => ({ ...p, step: x.step }))) }
+  }, [frames, cur, today, step, future])
 
   // Turning points for a quarter: the Bulletin's settings, major real events, today, and one simulated event per step.
   const flashesFor = useCallback((f: WorldFrame, k: number): Flash[] => {
@@ -125,7 +135,7 @@ function World({ data }: { data: Data }) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.metaKey || e.ctrlKey || e.altKey || (e.target as HTMLElement).closest('input,textarea')) return
-      if (e.key === 'Escape') { if (maxed) return setMaxed(null); setSheet(null); setPop(null); return }
+      if (e.key === 'Escape') { if (feedOpen) return setFeedOpen(false); if (maxed) return setMaxed(null); setSheet(null); setPop(null); return }
       if (sheet) return
       const k = e.key.toLowerCase()
       if (k === 'e') setView(view === 'engine' ? 'world' : 'engine')
@@ -164,6 +174,8 @@ function World({ data }: { data: Data }) {
         onWatch={(m) => choose(Math.min(futures.length - 1, m.k - 1))} /></Suspense>}
       <FutureSwitcher futures={futures} current={fi} endDate={frames.at(-1)?.clock?.date10 ?? null} onPick={choose} />
       {view === 'world' && <Legend />}
+      <NewsFeed events={feed.events} playing={playing} freshFrom={Date.parse(frame.start)} onExpand={() => setFeedOpen(true)} />
+      {feedOpen && <FeedPage events={feed.events} posts={feed.posts} onClose={() => setFeedOpen(false)} />}
       <footer id="dock" className="dc-panel">
         <Ticker key={frame.quarter + fi} events={frame.events} real={frame.provenance === 'real'} onRead={() => setPlaying(false)} />
         <div className="dc-timebar">

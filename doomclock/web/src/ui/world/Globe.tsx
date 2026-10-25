@@ -6,6 +6,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import type { WorldFrame } from '../../contracts.ts'
 import type { Countries, Datacentre } from '../../app/data.ts'
 import type { Flare, Located } from './locate.ts'
+import { bySeverity, MAX_MAJOR_TITLES, severityOf, shortLabel } from './severity.ts'
 import './globe-zoom.css'
 
 // A token's colour as [r, g, b], resolved by the browser (the minifier may write #808080 as "gray").
@@ -209,24 +210,32 @@ export function GlobeView({ hidden, countries, dcs, frame, closeness, ended, eve
   useEffect(() => {
     const globe = g.current
     if (!globe) return
-    const ringRgb = { real: rgb('ink').join(','), sim: rgb('sim').join(',') }
+    const ringRgb = { real: rgb('ink').join(','), sim: rgb('sim').join(','), major: rgb('alarm').join(',') }
     let rings: object[] = [], bubs: object[] = []
     const timers: number[] = []
+    // Severity drives legibility: major = title beside a large red ping (3 at most), moderate = a short
+    // label (5 at most, so a busy real quarter stays readable), minor = a dot you hover or click.
+    const sev = (e: Located) => severityOf(e)
+    const list = [...events].sort(bySeverity).slice(0, 24)
+    const majorTitled = new Set(list.filter((e) => sev(e) === 'major').slice(0, MAX_MAJOR_TITLES))
+    const labelled = new Set(list.filter((e) => sev(e) === 'moderate').slice(0, 5))
     const add = (e: Located) => {
       const real = e.provenance === 'real'
+      const s = sev(e)
       const kind = ['incident', 'government', 'news', 'post'].includes(e.kind) ? e.kind : 'news'
-      const r = { lat: e.lat, lng: e.lng, c: real ? ringRgb.real : ringRgb.sim, max: e.major ? 14 : 5 }
+      const r = { lat: e.lat, lng: e.lng, c: s === 'major' ? ringRgb.major : real ? ringRgb.real : ringRgb.sim, max: s === 'major' ? 14 : s === 'moderate' ? 5 : 2.5 }
       rings = [...rings, r]; globe.ringsData(rings)
       timers.push(window.setTimeout(() => { rings = rings.filter((x) => x !== r); globe.ringsData(rings) }, 2000))
       const el = document.createElement('div')
-      el.className = `bub kind-${kind} ${real ? 'real' : 'sim'}${e.major ? ' major' : ''}`
+      el.className = `bub kind-${kind} ${real ? 'real' : 'sim'} sev-${s}${s === 'major' ? ' major' : ''}`
       const label = `${kind}: ${e.title}`.replace(/"/g, '&quot;').slice(0, 110)
-      el.innerHTML = `<button class="b" aria-label="${label}"><span aria-hidden="true"></span></button>`
+      const text = majorTitled.has(e) ? (e.title.length > 64 ? e.title.slice(0, 62) + '…' : e.title) : labelled.has(e) ? shortLabel(e.title) : ''
+      el.innerHTML = `<button class="b" aria-label="${label}" title="${label}"><span aria-hidden="true"></span></button>`
+      if (text) { const t = document.createElement('span'); t.className = 'lbl'; t.textContent = text; el.append(t) }
       el.onclick = (ev) => { ev.stopPropagation(); pick.current(e, el) }
-      bubs = [...bubs, { lat: e.lat, lng: e.lng, el }].slice(-10); globe.htmlElementsData(bubs)
+      bubs = [...bubs, { lat: e.lat, lng: e.lng, el }].slice(-24); globe.htmlElementsData(bubs)
     }
     globe.htmlElementsData([]); globe.ringsData([])
-    const list = events.slice(0, 10)
     if (spanMs == null) list.forEach(add)
     else list.forEach((e, k) => timers.push(window.setTimeout(() => add(e), ((k + 0.3) / list.length) * spanMs * 0.9)))
     return () => timers.forEach(clearTimeout)
