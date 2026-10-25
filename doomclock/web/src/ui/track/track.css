@@ -1,0 +1,35 @@
+/* Track record tab (Paper). Shared sheet styles (.story, .tbl, .lede, .verdict) live in app.css / ds.css. */
+.track { display: grid; gap: var(--space-4); align-content: start; min-width: 0; }
+.track h4 { font: 700 20px/26px var(--font-sans); margin: var(--space-4) 0 0; }
+.track .tr-small { font: var(--type-body); color: var(--ink-2); }
+.track .tbl th { font: 600 14px/20px var(--font-sans); letter-spacing: normal; text-transform: none; color: var(--ink-2); }
+.tr-tbl td { font: var(--type-body); }
+.tr-tbl td.n { font-size: 18px; font-weight: 700; white-space: nowrap; }
+.tr-tbl td.n small { font-weight: 400; font-size: 12px; color: var(--ink-3); }
+.tr-tbl .tr-strip-h { position: relative; width: 140px; text-align: left; font-weight: 400; color: var(--ink-3); }
+.tr-tbl .tr-strip-h span { position: absolute; right: var(--space-3); }
+.tr-strip { width: 140px; vertical-align: middle !important; }
+.tr-strip svg { display: block; }
+.tr-axis { stroke: var(--rule-strong); stroke-width: 1; }
+.tr-ci { stroke: var(--ink-2); stroke-width: 2; stroke-linecap: round; }
+.tr-dot { fill: var(--ink); stroke: var(--ground); stroke-width: 1.5; }
+.tr-ring { fill: none; stroke: var(--ink-3); stroke-width: 2; }
+.tr-rel { margin: 0; max-width: 400px; }
+.tr-rel svg { width: 100%; height: auto; display: block; overflow: visible; }
+.tr-rel text { fill: var(--ink-3); font: 400 12px var(--font-sans); }
+.tr-grid { stroke: var(--rule); }
+.tr-diag { stroke: var(--ink-3); stroke-dasharray: 4 4; }
+.tr-line { fill: none; stroke: var(--ink); stroke-width: 2; stroke-linejoin: round; }
+.tr-line--model { stroke: var(--ink-3); stroke-dasharray: 2 3; }
+.tr-legend { display: flex; gap: var(--space-4); font: var(--type-body); color: var(--ink-2); margin-bottom: var(--space-2); }
+.tr-legend span { display: inline-flex; align-items: center; gap: var(--space-2); }
+.tr-key { width: 10px; height: 10px; border-radius: var(--radius-round); background: var(--ink); display: inline-block; }
+.tr-key--ring { background: none; border: 2px solid var(--ink-3); }
+.tr-checks, .tr-caveats { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--space-2); font: var(--type-body); max-width: 64ch; }
+.tr-checks b { font-weight: 700; margin-right: var(--space-1); }
+.tr-checks small { display: block; color: var(--ink-3); font-size: 12px; line-height: 16px; }
+.tr-caveats li { color: var(--ink-2); padding-left: var(--space-4); position: relative; }
+.tr-caveats li::before { content: ""; position: absolute; left: 2px; top: 10px; width: 5px; height: 1px; background: var(--ink-3); }
+@media (max-width: 600px) {
+  .tr-tbl .tr-strip-h, .tr-strip { display: none; }
+}

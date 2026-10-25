@@ -1,5 +1,5 @@
 // Copies the pipeline's data/*.json into public/cache/ so the built app can load them offline.
-import { copyFileSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 
 const dataDir = fileURLToPath(new URL('../../../data/', import.meta.url))
@@ -9,6 +9,10 @@ mkdirSync(cacheDir, { recursive: true })
 const files = readdirSync(dataDir).filter((f) => f.endsWith('.json'))
 for (const f of files) copyFileSync(dataDir + f, cacheDir + f)
 console.log(`publish:cache copied ${files.length} file(s): ${files.join(', ') || '(none)'}`)
+
+// The society test result for the Track record tab, or null until it has run (so the fetch never 404s).
+const t7 = fileURLToPath(new URL('../../../data/tests/t7.json', import.meta.url))
+writeFileSync(cacheDir + 't7.json', existsSync(t7) ? readFileSync(t7, 'utf8') : 'null\n')
 
 // Datacentres (Epoch AI's frontier sites, clean JSONL) as one JSON array for the globe.
 // ponytail: swap in datacentres-public.jsonl here when it lands (label: publicly mapped sites, not compute share).

@@ -174,16 +174,16 @@
         "id": 7,
         "title": "[P1 \u00b7 clock] Track record view",
         "description": "One click from the clock: a Brier table (market vs coin vs base rate, with CIs), the reliability curve, n, and caveats.",
-        "details": "Scope: doomclock/web/src/ui/track/**.\nSCOPE CUT 24 Oct 22:20: Not its own screen: a Track record tab inside the 'Why this time?' Paper sheet.\nBUILD (ui, 2026-10-24T21:27:19Z): ui/track/TrackRecord.tsx as a tab in the Why sheet: market vs base rate vs 50% coin with 95% CIs, n, reliability, caveats. Reads src/fixtures/backtest.ts (fixture) until backtest.json lands.",
+        "details": "Scope: doomclock/web/src/ui/track/**.\nSCOPE CUT 24 Oct 22:20: Not its own screen: a Track record tab inside the 'Why this time?' Paper sheet.\nBUILD (ui, 2026-10-24T21:27:19Z): ui/track/TrackRecord.tsx as a tab in the Why sheet: market vs base rate vs 50% coin with 95% CIs, n, reliability, caveats. Reads src/fixtures/backtest.ts (fixture) until backtest.json lands.\n2026-10-25T00:29:48Z: Landed: ui/track/TrackRecord.tsx now reads the real public/cache/backtest.json via loadTrack() in app/data.ts (the fixture is only a fallback and is never shown as a result). Shows a computed headline, the Brier table with 95% intervals and a small interval strip per row (market 0.085, blind model 0.185, base rate 0.183, coin 0.250), n, per-site scores, the w result, a two-series reliability chart in inline SVG with a calibration-gap sentence (market 2 points, model 11), the five leakage checks and the caveats. Own styles in ui/track/track.css (table headers in plain sans, not eyebrow). Headless check at 1440x900 and 390x844: no horizontal scroll, 0 console errors from the app (the only one is /favicon.ico 404, not this tab); 23 of 23 numbers in the tab match backtest.json exactly.",
         "testStrategy": "Headless screenshot on fixture, then on the real backtest.json.",
-        "status": "in-progress",
+        "status": "done",
         "dependencies": [
           5,
           6
         ],
         "priority": "medium",
         "subtasks": [],
-        "updatedAt": "2026-10-24T21:27:19Z"
+        "updatedAt": "2026-10-25T00:29:48Z"
       },
       {
         "id": 8,
@@ -749,9 +749,9 @@
         "id": 136,
         "title": "[P2 \u00b7 backtest] Track record tab: backtest table and the T7 result",
         "description": "The REAL evidence screen at the end of the judge path.",
-        "details": "Render backtest.json (or the pilot, labelled 'pilot'): n, the leakage asserts, and the model against the blind Gemini baseline at short horizons.\n\nRender data/tests/t7.json with its effect size, p and the claim wording it supports, whatever the result.\n\nFiles go in doomclock/web/src/app/track-record/.\nDeadline (from plan): Sun 25 Oct 06:00 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "details": "Render backtest.json (or the pilot, labelled 'pilot'): n, the leakage asserts, and the model against the blind Gemini baseline at short horizons.\n\nRender data/tests/t7.json with its effect size, p and the claim wording it supports, whatever the result.\n\nFiles go in doomclock/web/src/app/track-record/.\nDeadline (from plan): Sun 25 Oct 06:00 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.\n2026-10-25T00:29:48Z: Landed in ui/track/ (lane scope) rather than app/track-record/. Renders backtest.json labelled REAL (or 'pilot sample' when label is pilot), n, the leakage checks with their computed details, and the blind Gemini baseline against the market (30-day horizon). T7: publish-cache now writes public/cache/t7.json from data/tests/t7.json, or null until it exists (so the fetch never 404s); the tab shows its claim, p and mean difference whatever the result, under a SIMULATED label, and today says plainly that the test has not run. Field names it reads (pass, p, meanDiff, claim) are documented as T7File in contracts.ts for the mirofish-world lane. Each section carries one label (REAL, SIMULATED). Numbers check: 23 of 23 match the JSON. Caveat for ui lane: at 390 px the World HUD clock panel overlaps the Why sheet (not this tab's code).",
         "testStrategy": "The tab renders from the real files with 0 console errors, every item has exactly one label, and the numbers shown match the JSON files exactly (snapshot test).",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           111,
           118,
@@ -759,7 +759,7 @@
         ],
         "priority": "medium",
         "subtasks": [],
-        "updatedAt": "2026-10-24T19:50:00Z"
+        "updatedAt": "2026-10-25T00:29:48Z"
       },
       {
         "id": 137,
@@ -982,7 +982,7 @@
       "version": "1.0.0",
       "lastModified": "2026-10-25T00:32:48Z",
       "taskCount": 66,
-      "completedCount": 27,
+      "completedCount": 29,
       "tags": [
         "master"
       ]

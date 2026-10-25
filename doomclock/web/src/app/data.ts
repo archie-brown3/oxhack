@@ -1,7 +1,7 @@
 // Runtime data. The World input comes from public/cache/world.json once the asOf(T) module writes
 // it; until then, the engine's frozen fixture (real data, frozen 24 Oct). Everything else is
 // public/cache (npm run publish:cache) plus the Natural Earth countries. Works offline.
-import type { World } from '../contracts.ts'
+import type { BacktestFile, T7File, World } from '../contracts.ts'
 import type { BulletinSetting } from '../ui/clock/scale.ts'
 import type { Avatar } from '../ui/engine/EngineScreen.tsx'
 
@@ -23,6 +23,11 @@ export async function load(): Promise<Data> {
   const world = cached ?? (JSON.parse((await import('../engine/fixtures/world.fixture.json?raw')).default) as World)
   return { avatars: avatars ?? [], world, worldSource: cached ? 'cache' : 'fixture', dcs: dcs ?? [], bulletin: bulletin ?? [], countries, centroids: centroids(countries) }
 }
+
+// Track record inputs (task 136): data/backtest.json and data/tests/t7.json (null until T7 runs),
+// fetched once, when the tab first opens.
+let track: Promise<{ bt: BacktestFile | null; t7: T7File | null }> | null = null
+export const loadTrack = () => (track ??= Promise.all([get<BacktestFile>('cache/backtest.json'), get<T7File>('cache/t7.json')]).then(([bt, t7]) => ({ bt, t7 })))
 
 // A country's label point: the centre of its largest ring's bounding box.
 function centroids(c: Countries) {
