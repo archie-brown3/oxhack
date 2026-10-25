@@ -99,4 +99,6 @@ export const liveChat = (simulation_id: string, message: string, chat_history: C
 /** POST /api/simulation/interview (twitter): one agent answers in character. Needs the run's environment alive. */
 export const liveInterview = (simulation_id: string, agent_id: number, prompt: string) =>
   post<{ result?: { response?: string }; response?: string }>('/live/interview', { simulation_id, agent_id, prompt })
+/** POST /live/env-open: a sibling environment on the same graph with the same personas, for interviews on a recorded step. */
+export const liveEnvOpen = (simulation_id: string) => post<{ simulation_id: string; phase: 'starting' | 'ready' | 'failed'; error: string | null; label: string }>('/live/env-open', { simulation_id })
 export const liveEnvStatus = (simulation_id: string) => post<{ env_alive: boolean; message: string }>('/live/env-status', { simulation_id })

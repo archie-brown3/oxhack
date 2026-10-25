@@ -11,7 +11,8 @@
 // Usage: node doomclock/pipeline/world/live.ts prepare [--future=1] [--epoch] [--rounds=5]
 //        node doomclock/pipeline/world/live.ts serve [--port=5055]
 // Step 5 (chat with the report agent, interview an agent) goes through POST /live/chat, /live/interview and
-// /live/env-status, which forward to MiroFish's own routes; interviews need the run's environment alive.
+// /live/env-status, which forward to MiroFish's own routes; interviews need the run's environment alive, and
+// POST /live/env-open opens a sibling environment (same personas, one round) for a recorded step.
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
 import { join } from "node:path";
@@ -51,17 +52,44 @@ const startAnchors = () => ({ ...world.anchors }) as Anchors;
 
 // ---------- prepare ----------
 
-/** A fresh simulation on the future's Step 1 graph, with this step's personas, config and seeds written. */
-async function arm(future: number, rounds: number, requirement: string): Promise<Armed> {
-  const project = projectOf(future);
-  // Re-arm: the previous live sim's environment (kept alive for interviews) goes; the prepared epoch's stays.
-  if (existsSync(ARMED)) { const prev: Armed = readJson(ARMED); if (prev.usedAt) await closeEnv(prev.simulation_id).catch(() => null); }
+/** A fresh simulation on a project's Step 1 graph, with the step-1 personas, config and seeds written (no LLM). */
+async function createSim(project: FutureProject, rounds: number, requirement: string): Promise<Armed> {
   const created = await call("POST", "/api/simulation/create", simulationCreateBody(project));
   const sim: string = created.simulation_id;
   const mem = memoryFor(1, { events: [], summary: "", expected: [], anchors: startAnchors(), prevAnchors: null, date10: date10Year(startAnchors(), msToYear(T0)), topPosts: [] });
   const seeds: Seed[] = [{ uid: MARKETS, kind: "markets", text: `[Markets desk · ${period(1)}] ${mem.markets}` }];
   writeSimFiles(sim, project, mem, seeds, requirement);
-  return { simulation_id: sim, future, project_id: project.project_id, graph_id: project.graph_id, rounds, seeds, preparedAt: new Date().toISOString(), usedAt: null };
+  return { simulation_id: sim, future: project.future, project_id: project.project_id, graph_id: project.graph_id, rounds, seeds, preparedAt: new Date().toISOString(), usedAt: null };
+}
+const arm = (future: number, rounds: number, requirement: string) => createSim(projectOf(future), rounds, requirement);
+/** Re-arm: the previous live sim's environment (kept alive for interviews) goes; the prepared epoch's stays. */
+async function closePreviousArmed() { if (existsSync(ARMED)) { const prev: Armed = readJson(ARMED); if (prev.usedAt) await closeEnv(prev.simulation_id).catch(() => null); } }
+
+// ---------- Step 5 on recorded steps: a fresh environment with the same personas ----------
+// A recorded run's environment is gone, and re-running it would overwrite its data. Interviews go instead to a
+// sibling sim on the same graph with the same 32 personas, run one round so MiroFish keeps its environment
+// alive in wait-command mode. One per graph, reused while alive. Labelled "fresh environment, same personas".
+interface Sibling { simulation_id: string; graph_id: string; project_id: string; phase: "starting" | "ready" | "failed"; error: string | null; startedAt: string; label: string }
+const siblings = new Map<string, Sibling>();
+
+async function openSibling(b: { simulation_id?: string; project_id?: string; graph_id?: string }): Promise<Sibling> {
+  let { project_id, graph_id } = b;
+  if ((!project_id || !graph_id) && b.simulation_id) { const st = await call("GET", `/api/simulation/${b.simulation_id}`); project_id = st.project_id; graph_id = st.graph_id; }
+  if (!project_id || !graph_id) throw Object.assign(new Error("env-open needs simulation_id, or project_id and graph_id"), { status: 400 });
+  const have = siblings.get(graph_id);
+  if (have?.phase === "starting") return have;
+  if (have?.phase === "ready") {
+    const st = await call("POST", "/api/simulation/env-status", { simulation_id: have.simulation_id }).catch(() => null);
+    if (st?.env_alive) return have;
+  }
+  const a = await createSim({ future: 0, project_id, graph_id }, 1, "Doom Clock interviews: a fresh environment with the same personas on this future's graph.");
+  const sib: Sibling = { simulation_id: a.simulation_id, graph_id, project_id, phase: "starting", error: null, startedAt: new Date().toISOString(), label: "fresh environment, same personas" };
+  siblings.set(graph_id, sib);
+  (async () => {
+    try { await runSim(a, `interview env ${graph_id}`, console.log); sib.phase = "ready"; console.log(`Interview environment ${a.simulation_id} ready on ${graph_id}`); }
+    catch (e) { sib.phase = "failed"; sib.error = String((e as Error).message ?? e); }
+  })();
+  return sib;
 }
 
 /** The replica's step payload, from MiroFish's own GET endpoints, as they stand now. */
@@ -199,6 +227,7 @@ function serve(port: number) {
         if (!p) reportCache.set("epoch", (p = Promise.resolve({ project: readJson(join(EPOCH, "project.json")), step: readJson(join(EPOCH, "step-1.json")), epoch: readJson(join(EPOCH, "epoch.json")) })));
         return send(res, 200, await p);
       }
+      if (req.method === "POST" && url.pathname === "/live/env-open") return send(res, 200, await openSibling(await body(req)));
       if (req.method === "POST" && STEP5[url.pathname]) { const [path, payload] = STEP5[url.pathname](await body(req)); return send(res, 200, await call("POST", path, payload)); }
       if (req.method === "OPTIONS") { res.writeHead(204, { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Methods": "GET,POST", "Access-Control-Allow-Headers": "*" }); return res.end(); }
       send(res, 404, { error: `no ${req.method} ${url.pathname}` });
@@ -211,6 +240,7 @@ if (import.meta.main) {
   const cmd = process.argv[2];
   const future = Number(arg("future") ?? 1), rounds = Number(arg("rounds") ?? MAX_ROUNDS);
   if (cmd === "prepare") {
+    await closePreviousArmed();
     if (process.argv.includes("--epoch")) await epoch(future, rounds);
     const a = await arm(future, rounds, `Doom Clock live demo: how the 32 accounts react in ${period(1)}.`);
     writeJson(ARMED, a);

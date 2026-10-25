@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { t } from './i18n.ts'
-import { liveChat, liveEnvStatus, liveInterview, type ChatTurn } from '../live.ts'
+import { liveChat, liveEnvOpen, liveEnvStatus, liveInterview, type ChatTurn } from '../live.ts'
 
 // Step 5 (chat with the report agent, interview an individual) needs the live MiroFish backend. The replica shows
 // MiroFish's own header and tool names, and says so. Locally (task 156, `live`), both talk to MiroFish's real
@@ -75,22 +75,38 @@ function Interview({ sim, agents, env }: { sim: string; agents: { id: number; na
   const [busy, setBusy] = useState(false)
   const [err, setErr] = useState<string | null>(null)
   const [answers, setAnswers] = useState<{ who: string; q: string; a: string }[]>([])
+  // A recorded run's environment is gone: open a sibling on the same graph with the same personas (one round,
+  // about 30 s, cached per graph on the server) and interview there, labelled as such.
+  const [fresh, setFresh] = useState<{ simulation_id: string; phase: 'starting' | 'ready' | 'failed'; error: string | null } | null>(null)
+  useEffect(() => {
+    if (!env || env.env_alive) return
+    let on = true
+    let timer: ReturnType<typeof setTimeout> | undefined
+    const tick = async () => {
+      try { const s = await liveEnvOpen(sim); if (!on) return; setFresh(s); if (s.phase === 'starting') timer = setTimeout(tick, 2500) }
+      catch (e) { if (on) setFresh({ simulation_id: '', phase: 'failed', error: String((e as Error).message ?? e) }) }
+    }
+    tick()
+    return () => { on = false; clearTimeout(timer) }
+  }, [env, sim])
+  const target = env?.env_alive ? sim : fresh?.phase === 'ready' ? fresh.simulation_id : null
+  const where = env?.env_alive ? 'environment alive: interviews on' : fresh?.phase === 'ready' ? `fresh environment, same personas · ${fresh.simulation_id} · interviews on` : fresh?.phase === 'failed' ? `could not open a fresh environment: ${fresh.error}` : fresh ? 'opening a fresh environment with the same personas (one round, about 30 s)…' : env ? 'environment closed: opening a fresh one…' : 'checking the environment…'
   const ask = async () => {
-    const q = text.trim(); if (!q || busy) return
+    const q = text.trim(); if (!q || busy || !target) return
     setErr(null); setBusy(true)
-    const who = agents.find((a) => a.id === agent)?.name ?? `agent ${agent}`
-    try { const r = await liveInterview(sim, agent, q); setAnswers((l) => [{ who, q, a: r.result?.response ?? r.response ?? t('step5.noResponse') }, ...l]); setText('') }
+    const who = (agents.find((a) => a.id === agent)?.name ?? `agent ${agent}`) + (target === sim ? '' : ' (fresh environment, same personas)')
+    try { const r = await liveInterview(target, agent, q); setAnswers((l) => [{ who, q, a: r.result?.response ?? r.response ?? t('step5.noResponse') }, ...l]); setText('') }
     catch (e) { setErr(t('step5.errorOccurred', { error: String((e as Error).message ?? e) })) }
     setBusy(false)
   }
   return (
     <div className="mf-step5-card mf-live-card">
       <div className="mf-step5-title">{t('step5.chatWithAgent')}</div>
-      <p className="mf-step5-note">{t('step5.agentsAvailable', { count: agents.length })} · {env ? (env.env_alive ? 'environment alive: interviews on' : "environment closed: this run's agents are no longer loaded, so interviews need a live run whose environment is still open (the latest one on the live tab); the report agent above still answers") : 'checking the environment…'}</p>
+      <p className="mf-step5-note">{t('step5.agentsAvailable', { count: agents.length })} · {where}</p>
       <form className="mf-live-ask" onSubmit={(e) => { e.preventDefault(); ask() }}>
         <select value={agent} onChange={(e) => setAgent(+e.target.value)} aria-label={t('step5.selectChatTarget')}>{agents.map((a) => <option key={a.id} value={a.id}>{a.name}</option>)}</select>
-        <input value={text} onChange={(e) => setText(e.target.value)} placeholder={t('step5.chatInputPlaceholder')} disabled={busy || env?.env_alive === false} />
-        <button className="mf-btn" type="submit" disabled={busy || !text.trim() || env?.env_alive === false}>Ask</button>
+        <input value={text} onChange={(e) => setText(e.target.value)} placeholder={t('step5.chatInputPlaceholder')} disabled={busy || !target} />
+        <button className="mf-btn" type="submit" disabled={busy || !text.trim() || !target}>Ask</button>
       </form>
       {busy && <p className="mf-live-wait">Interviewing… (the agent answers in character, 10–60 s)</p>}
       {err && <p className="mf-live-err">{err}</p>}
