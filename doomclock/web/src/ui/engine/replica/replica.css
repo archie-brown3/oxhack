@@ -54,3 +54,6 @@
 .mf-stub { padding: 24px; font: 12px 'JetBrains Mono', monospace; color: #999; }
 .mf-nav { border: 1px solid #EAEAEA; background: #FFF; width: 22px; height: 22px; line-height: 1; cursor: pointer; font: 700 14px 'JetBrains Mono', monospace; }
 .mf-nav:disabled { opacity: .3; cursor: default; }
+
+/* Doom Clock: the console / log panels at the foot of each MiroFish step are hidden (owner, 25 Oct). */
+.mf .mf-s1-system-logs, .mf .mf-s2-system-logs, .mf-s3-system-logs, .mf-s4-console-logs { display: none !important; }

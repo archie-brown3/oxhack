@@ -104,7 +104,7 @@ interface Draw {
   first: boolean
 }
 
-export function GraphPanel({ graph, currentPhase, isSimulating, loading = false, recorded = false, onToggleMaximize }: GraphPanelProps) {
+export function GraphPanel({ graph, currentPhase, isSimulating, loading = false, recorded = false, legend = true, onToggleMaximize }: GraphPanelProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const svgRef = useRef<SVGSVGElement>(null)
   const D = useRef<Draw | null>(null)
@@ -360,7 +360,7 @@ export function GraphPanel({ graph, currentPhase, isSimulating, loading = false,
         ))}
       </div>
 
-      {graph && entityTypes.length > 0 && (
+      {graph && legend && entityTypes.length > 0 && (
         <div className="mf-g-legend">
           <span className="mf-g-legend-title">Entity Types</span>
           <div className="mf-g-legend-items">

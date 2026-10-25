@@ -10,6 +10,9 @@ import type { GraphData, ReplicaProject, ReplicaStep } from './replica/types.ts'
 export type LiveMode = 'run' | 'report'
 const LOCAL = new Set(['localhost', '127.0.0.1', '[::1]'])
 
+/** True on localhost, where the live server can be reached; the recorded Engine tab's Step 5 is on only here. */
+export const isLocal = () => LOCAL.has(location.hostname)
+
 /** `run` for ?live=1 (or any value but `report`), `report` for ?live=report, null elsewhere or off localhost. */
 export function liveMode(url: URL): LiveMode | null {
   const v = url.searchParams.get('live')

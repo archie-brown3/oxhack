@@ -6,25 +6,32 @@ import { liveChat, liveEnvStatus, liveInterview, type ChatTurn } from '../live.t
 // MiroFish's own header and tool names, and says so. Locally (task 156, `live`), both talk to MiroFish's real
 // routes through the pipeline's live server: the report agent for any sim, interviews while the run's
 // environment is alive. SIMULATED: these are simulated accounts answering in character.
-export interface Step5Live { simulationId: string; agents: { id: number; name: string }[]; label: string }
+export interface Step5Live { simulationId: string; reportId?: string | null; agents: { id: number; name: string }[]; label: string }
+export const SERVER_HINT = 'node doomclock/pipeline/world/live.ts serve'
 
 export function Step5Interaction({ onBack, live = null }: { onBack: () => void; live?: Step5Live | null }) {
-  if (!live) return (
+  // Is the live server there? One env-status call answers; until it does the pane waits, and when it fails the
+  // recording's stub stands (this is also what production shows, where `live` is always null).
+  const [env, setEnv] = useState<{ env_alive: boolean; message: string } | null | 'down' | undefined>(undefined)
+  const sim = live?.simulationId
+  useEffect(() => { if (!sim) return; let on = true; setEnv(undefined); liveEnvStatus(sim).then((s) => { if (on) setEnv(s) }, () => { if (on) setEnv('down') }); return () => { on = false } }, [sim])
+  if (!live || env === 'down') return (
     <div className="mf-step5">
       <div className="mf-step5-card">
         <div className="mf-step5-title">{t('step5.interactiveTools')}</div>
         <p>{t('step5.chatWithReportAgent')} · {t('step5.chatWithAgent')}</p>
         <p className="mf-step5-note">Available when running live. This recording has no backend to answer.</p>
+        {live && <p className="mf-live-note">On this Mac: start the live server ({SERVER_HINT}) with the MiroFish backend running, then come back to this step.</p>}
         <button className="mf-btn" onClick={onBack}>← Back</button>
       </div>
     </div>
   )
   return (
     <div className="mf-step5 mf-live-step5">
-      <div className="mf-live-head"><button className="mf-btn" onClick={onBack}>← Back</button><h2>{t('step5.interactiveTools')} <small>{live.label} · {live.simulationId} · simulated</small></h2></div>
+      <div className="mf-live-head"><button className="mf-btn" onClick={onBack}>← Back</button><h2>{t('step5.interactiveTools')} <small>{live.label} · {live.simulationId}{live.reportId ? ` · ${live.reportId}` : ''} · simulated</small></h2></div>
       <div className="mf-live-chat">
         <ReportChat sim={live.simulationId} />
-        <Interview sim={live.simulationId} agents={live.agents} />
+        <Interview sim={live.simulationId} agents={live.agents} env={env ?? null} />
       </div>
     </div>
   )
@@ -62,14 +69,12 @@ function ReportChat({ sim }: { sim: string }) {
   )
 }
 
-function Interview({ sim, agents }: { sim: string; agents: { id: number; name: string }[] }) {
+function Interview({ sim, agents, env }: { sim: string; agents: { id: number; name: string }[]; env: { env_alive: boolean; message: string } | null }) {
   const [agent, setAgent] = useState<number>(agents[0]?.id ?? 0)
   const [text, setText] = useState('')
   const [busy, setBusy] = useState(false)
   const [err, setErr] = useState<string | null>(null)
-  const [env, setEnv] = useState<{ env_alive: boolean; message: string } | null>(null)
   const [answers, setAnswers] = useState<{ who: string; q: string; a: string }[]>([])
-  useEffect(() => { let on = true; liveEnvStatus(sim).then((s) => { if (on) setEnv(s) }, () => { if (on) setEnv({ env_alive: false, message: 'env-status failed' }) }); return () => { on = false } }, [sim])
   const ask = async () => {
     const q = text.trim(); if (!q || busy) return
     setErr(null); setBusy(true)
@@ -81,7 +86,7 @@ function Interview({ sim, agents }: { sim: string; agents: { id: number; name: s
   return (
     <div className="mf-step5-card mf-live-card">
       <div className="mf-step5-title">{t('step5.chatWithAgent')}</div>
-      <p className="mf-step5-note">{t('step5.agentsAvailable', { count: agents.length })} · {env ? (env.env_alive ? 'environment alive: interviews on' : 'environment closed: interviews need a run whose environment is still open (the latest live run)') : 'checking the environment…'}</p>
+      <p className="mf-step5-note">{t('step5.agentsAvailable', { count: agents.length })} · {env ? (env.env_alive ? 'environment alive: interviews on' : "environment closed: this run's agents are no longer loaded, so interviews need a live run whose environment is still open (the latest one on the live tab); the report agent above still answers") : 'checking the environment…'}</p>
       <form className="mf-live-ask" onSubmit={(e) => { e.preventDefault(); ask() }}>
         <select value={agent} onChange={(e) => setAgent(+e.target.value)} aria-label={t('step5.selectChatTarget')}>{agents.map((a) => <option key={a.id} value={a.id}>{a.name}</option>)}</select>
         <input value={text} onChange={(e) => setText(e.target.value)} placeholder={t('step5.chatInputPlaceholder')} disabled={busy || env?.env_alive === false} />

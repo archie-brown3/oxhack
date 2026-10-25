@@ -7,6 +7,9 @@ import { knownAt, NODES } from './known.ts'
 import type { Datacentre } from '../../app/data.ts'
 import { dmy, fmt, pct, sourceName } from '../format.ts'
 import { Label } from '../Label.tsx'
+import { MarketCurve } from '../chart/MarketCurve.tsx'
+import { msToYear } from '../../engine/index.ts'
+import type { NodeId, Prob } from '../../contracts.ts'
 
 const DAY = 864e5
 const D0 = Date.UTC(2024, 9, 24)
@@ -23,6 +26,9 @@ export function InputsSheet({ world, dcs, worldSource, onClose }: Props) {
   const T = Math.min(asOf, D0 + (day + 1) * DAY) // the end of the chosen day; read ts < T
   const known = useMemo(() => knownAt(world, dcs, T), [world, dcs, T])
   const count = (k: Src) => (k === 'markets' ? NODES.length : known[k].length)
+  // The four prices as they stood before T, for the chart; absent until every market has one.
+  const priced = NODES.map((id) => known.prices[id].at(-1)?.p)
+  const anchorsAtT = priced.every((p) => p !== undefined) ? (Object.fromEntries(NODES.map((id, i) => [id, priced[i]])) as Record<NodeId, Prob>) : null
   const rows = <T,>(list: T[], row: (x: T, i: number) => React.ReactNode) => list.length
     ? <>{list.slice(0, 40).map(row)}{list.length > 40 && <p className="dc-faint" style={{ margin: 0 }}>and {fmt(list.length - 40)} earlier items</p>}</>
     : <p className="dc-faint">Nothing yet at this date.</p>
@@ -51,6 +57,7 @@ export function InputsSheet({ world, dcs, worldSource, onClose }: Props) {
           <article className="story">
             {src === 'markets' ? <>
               {head('Market anchors', 'Manifold · priced at each quarter', 'The four prices the Monte Carlo is built on, as each stood before the as-of date.')}
+              {anchorsAtT && <MarketCurve anchors={anchorsAtT} at={msToYear(T)} lagMeanYears={world.lagMeanYears} />}
               <table className="tbl"><thead><tr><th>Question</th><th className="n">Price</th><th className="n">Quarterly readings</th><th className="n">Traders today</th></tr></thead>
                 <tbody>{NODES.map((id) => { const h = world.anchorHistory[id], p = known.prices[id], l = p.at(-1)
                   return <tr key={id}><td><a href={h.url} target="_blank" rel="noopener">{h.question}</a>{l && <small>price on {dmy(l.ts ?? l.T)}</small>}</td>

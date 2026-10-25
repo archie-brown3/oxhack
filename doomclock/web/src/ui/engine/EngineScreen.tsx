@@ -14,7 +14,7 @@ import { Step2EnvSetup } from './replica/Step2EnvSetup.tsx'
 import { Step3Simulation } from './replica/Step3Simulation.tsx'
 import { Step4Report } from './replica/Step4Report.tsx'
 import { Step5Interaction, type Step5Live } from './replica/Step5Interaction.tsx'
-import { liveRound, useLive, type LiveMode } from './live.ts'
+import { isLocal, liveRound, useLive, type LiveMode } from './live.ts'
 import { LiveArm, LiveResult } from './LivePanel.tsx'
 import './replica/replica.css'
 
@@ -36,7 +36,7 @@ interface Props {
 
 export function EngineScreen({ futureId, step, live = null }: Props) {
   const [recorded, setRecorded] = useState<ReplicaData | null | undefined>(undefined)
-  const [mode, setMode] = useState<ViewMode>('split')
+  const [mode, setMode] = useState<ViewMode>(live === 'report' ? 'workbench' : 'split')
   const [mf, setMf] = useState(live === 'report' ? 4 : 3) // MiroFish's Step 1..5; opens on Run Simulation, where the rounds replay
   const [round, setRound] = useState(0)
   const [playing, setPlaying] = useState(true)
@@ -70,7 +70,7 @@ export function EngineScreen({ futureId, step, live = null }: Props) {
   useEffect(() => { if (!live && data) log(round === 0 ? `Replaying future ${futureId}, step ${step} (${rounds} rounds)` : `Round ${Math.min(round, rounds)}/${rounds} done`) }, [round]) // eslint-disable-line react-hooks/exhaustive-deps
   // Live: the round is wherever the runner is; when the run ends the result pane opens once.
   const shownRound = live === 'run' && data ? liveRound(data.step, phase) : live === 'report' ? rounds : round
-  useEffect(() => { if (live === 'run' && phase === 'readout') setMf(4) }, [live, phase])
+  useEffect(() => { if (live === 'run' && phase === 'readout') { setMf(4); setMode('workbench') } }, [live, phase])
 
   // Steps 1-2 show the graph as built before the simulation; Step 3 grows it round by round; Step 4-5 are final.
   // Live runs keep graph memory off, so the Step 1 graph stands as built.
@@ -81,7 +81,8 @@ export function EngineScreen({ futureId, step, live = null }: Props) {
     return graphAt(data.step.graph, cutoffAt(data.step, r))
   }, [data, live, lv.state?.graph, mf, round, rounds])
 
-  const go = (n: number) => { setMf(Math.max(1, Math.min(5, n))); log(t('log.enterStep', { step: n, name: tm('main.stepNames')[n - 1] })) }
+  // Steps 4-5 (report, interaction) read best full width; Steps 1-3 go back to the split with the graph.
+  const go = (n: number) => { setMf(Math.max(1, Math.min(5, n))); setMode(n >= 4 ? 'workbench' : 'split'); log(t('log.enterStep', { step: n, name: tm('main.stepNames')[n - 1] })) }
   const toggleMax = () => setMode((m) => (m === 'graph' ? 'split' : 'graph'))
   const startLive = () => { lv.start().then((ok) => { if (ok) setMf(3) }) }
 
@@ -94,11 +95,12 @@ export function EngineScreen({ futureId, step, live = null }: Props) {
   const tag = live === 'run' ? 'LIVE · SIMULATED' : live === 'report' ? 'SIMULATED · RECORDED · prepared epoch' : data?.spike ? 'SIMULATED · RECORDED · stand-in data' : 'SIMULATED · RECORDED'
   const canStart = !!lv.state?.armed && !lv.state.armed.usedAt && phase !== 'running' && phase !== 'readout'
 
-  // Step 5 talks to MiroFish only locally: the report agent for this sim, interviews while its environment is alive.
-  const step5: Step5Live | null = live && data ? { simulationId: data.step.simulation.simulation_id, agents: (data.step.config?.agent_configs ?? []).map((a) => ({ id: a.agent_id, name: a.entity_name })), label: live === 'report' ? 'prepared epoch' : 'live run' } : null
+  // Step 5 talks to MiroFish only locally (through the live server): the report agent for this step's own simulation,
+  // interviews while its environment is alive. Recorded steps use the ids saved in their replica file. Off localhost: null.
+  const step5: Step5Live | null = data && (live || isLocal()) ? { simulationId: data.step.simulation.simulation_id, reportId: data.step.report?.report_id || null, agents: (data.step.config?.agent_configs ?? []).map((a) => ({ id: a.agent_id, name: a.entity_name })), label: live === 'report' ? 'prepared epoch' : live === 'run' ? 'live run' : `recorded future ${futureId}, step ${step}` } : null
 
-  const left = mode === 'graph' ? { width: '100%' } : mode === 'workbench' ? { width: '0%', opacity: 0 } : { width: '50%' }
-  const right = mode === 'workbench' ? { width: '100%' } : mode === 'graph' ? { width: '0%', opacity: 0 } : { width: '50%' }
+  const left = mode === 'graph' ? { width: '100%' } : mode === 'workbench' ? { width: '0%', opacity: 0 } : { width: '40%' }
+  const right = mode === 'workbench' ? { width: '100%' } : mode === 'graph' ? { width: '0%', opacity: 0 } : { width: '60%' }
 
   return (
     <div id="engine-replica" className={`mf${live ? ' mf-live' : ''}`} role="region" aria-label="MiroFish replica">
@@ -124,7 +126,7 @@ export function EngineScreen({ futureId, step, live = null }: Props) {
 
       <main className="mf-content">
         <div className="mf-panel left" style={left}>
-          <GraphPanel graph={graph} currentPhase={mf === 3 ? 3 : 2} isSimulating={!live && simulating} recorded onToggleMaximize={toggleMax} />
+          <GraphPanel graph={graph} currentPhase={mf === 3 ? 3 : 2} isSimulating={!live && simulating} recorded legend={mode === 'graph'} onToggleMaximize={toggleMax} />
           {!live && mf === 3 && rounds > 0 && (
             <div className="mf-replay" aria-label="Round replay">
               <button className="mf-btn" onClick={() => { if (round >= rounds) setRound(0); setPlaying(!(playing && round < rounds)) }}>{playing && round < rounds ? 'Pause' : round >= rounds ? 'Replay' : 'Play'}</button>

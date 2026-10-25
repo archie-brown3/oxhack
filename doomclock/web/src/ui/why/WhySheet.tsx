@@ -10,6 +10,8 @@ import { dmy, longDate, pct } from '../format.ts'
 import { loadTrack } from '../../app/data.ts'
 import { TrackRecord } from '../track/TrackRecord.tsx'
 import { Label } from '../Label.tsx'
+import { MarketCurve } from '../chart/MarketCurve.tsx'
+import { msToYear } from '../../engine/index.ts'
 import { measuredScore } from './whyCopy.ts'
 
 export type WhyTab = 'when' | 'danger' | 'track'
@@ -34,8 +36,11 @@ export function WhySheet({ world, timeline, hand, pin, backtest, future, step, l
     when: <>
       <div className="lede"><Label kind="real" /><span className="dc-data">prices as of {dmy(world.asOf)}</span></div>
       <h3>Market prices say when</h3>
-      <p>Today's clock reads today's market prices only. The rubric adds zero at today by construction. The backtest checks those prices 30 days out{score ? ` (Brier ${score.brier} vs coin ${score.coin}). Manifold questions in that score have at least ${score.minTraders} traders.` : '.'} The clock's date is not scored.</p>
-      <p>Four Manifold play-money market prices go in. Traders do not stake real money. The catastrophe market is thin play money ({catTraders} traders){score ? `, under that ${score.minTraders}-trader line` : ''}. The clock reads {timeline.clock.date10 ? longDate(timeline.clock.date10) : 'after 2100'}.</p>
+      <MarketCurve anchors={world.anchors} at={msToYear(Date.parse(world.asOf))} lagMeanYears={world.lagMeanYears} date10={timeline.clock.date10} />
+      <p>The clock counts down to one date: the first day the chance of an AI catastrophe passes 1 in 10. Today that is {timeline.clock.date10 ? longDate(timeline.clock.date10) : 'after 2100'}.</p>
+      <p>Four prediction markets set it: superintelligence by 2030, 2040 and 2100, and an AI catastrophe by 2100. We add one assumption no market prices, an average {world.lagMeanYears}-year gap from superintelligence to catastrophe <Label kind="game-rule" />. 10,000 simulated futures turn them into the curve above.</p>
+      <p>On the face, today is pinned to the Bulletin's own setting. A later date adds seconds and the hand moves back from midnight; an earlier date moves it closer.</p>
+      <p>The backtest scores these market prices 30 days out{score ? ` (Brier ${score.brier}, a coin scores ${score.coin})` : ''}, not the clock's date. The catastrophe market is thin: {catTraders} traders, play money.</p>
       <div>
         {NODES.map((id) => { const h = world.anchorHistory[id]
           return <div className="anc" key={id}><div><a href={h.url} target="_blank" rel="noopener">{h.question}</a></div><b>{pct(world.anchors[id])}</b>
@@ -48,7 +53,7 @@ export function WhySheet({ world, timeline, hand, pin, backtest, future, step, l
     danger: <>
       <div className="lede"><Label kind="simulated" />{future && <span className="dc-data">Future {future.id}{step ? `, step ${step.step}` : ''}{future.fixture ? ' · illustrative stand-in, not a recorded run' : ''}</span>}</div>
       <h3>The simulated world says how dangerous</h3>
-      <p>MiroFish plays the world forward six months at a time. After each step a report scores it from 0 to 3. The scores move the catastrophe odds by labelled rules <Label kind="game-rule" />, not data. A scenario, not a prediction.</p>
+      <p>MiroFish plays the world forward six months at a time, as a society of accounts on a simulated X. What governments and labs do there becomes events, and a report scores how dangerous the world got. Both move this future's odds by labelled rules <Label kind="game-rule" />, never the real clock. A scenario, not a prediction.</p>
       {!future || !step ? <p className="dc-dim">Press play on a future. Its first step lands here.</p> : <>
         <p>{step.summary}</p>
         <ReportProse futureId={future.id} step={step.step} />
