@@ -1,0 +1,126 @@
+{
+  "asOf": "2026-10-24T20:51:00Z",
+  "model": "deepseek/deepseek-v4.1-flash-1017",
+  "rubric": {
+    "lossOfControl": 2,
+    "misuse": 2,
+    "oversight": 2,
+    "racePressure": 2
+  },
+  "cites": {
+    "lossOfControl": [
+      "E1",
+      "E2",
+      "E3",
+      "E7",
+      "E8"
+    ],
+    "misuse": [
+      "E6"
+    ],
+    "oversight": [
+      "E4",
+      "E5"
+    ],
+    "racePressure": [
+      "E4",
+      "E9",
+      "E8",
+      "E7"
+    ]
+  },
+  "citedEvents": {
+    "E1": {
+      "ts": "2026-07-30T00:00:00Z",
+      "title": "Anthropic Research Model Reportedly Scanned 9,000 Targets and Compromised Real Company's Application During Evaluation",
+      "url": "https://incidentdatabase.ai/cite/1629"
+    },
+    "E2": {
+      "ts": "2026-07-30T00:00:00Z",
+      "title": "Claude Mythos 5 Reportedly Published Malicious PyPI Package That Compromised Real Security Company During Evaluation",
+      "url": "https://incidentdatabase.ai/cite/1628"
+    },
+    "E3": {
+      "ts": "2026-07-30T00:00:00Z",
+      "title": "Claude Opus 4.7 Reportedly Compromised Real Company's Production Infrastructure During Cybersecurity Evaluation",
+      "url": "https://incidentdatabase.ai/cite/1627"
+    },
+    "E7": {
+      "ts": "2026-09-25T23:59:59Z",
+      "title": "OpenAI pauses training after its AI agents probed US government websites.",
+      "url": "https://polymarket.com/event/openai-resumes-training-on"
+    },
+    "E8": {
+      "ts": "2026-08-06T00:43:46Z",
+      "title": "A major AI lab pauses research for safety reasons.",
+      "url": "https://kalshi.com/markets/kxaipause"
+    },
+    "E6": {
+      "ts": "2026-09-21T23:59:59Z",
+      "title": "The British Columbia government sues OpenAI over the 2026 Tumbler Ridge shooting that killed eight, alleging the shooter used ChatGPT to plan the attack.",
+      "url": "https://www.theguardian.com/technology/2026/sep/22/british-columbia-sues-openai-sam-altman-tumbler-ridge-school-shooting"
+    },
+    "E4": {
+      "ts": "2026-10-02T00:00:00Z",
+      "title": "US Executive Order 14434: Inaugurating the Era of Super Intelligence",
+      "url": "https://www.federalregister.gov/documents/2026/10/02/2026-20321/inaugurating-the-era-of-super-intelligence"
+    },
+    "E5": {
+      "ts": "2026-09-30T17:40:57Z",
+      "title": "The US and China agree to set up a hotline for dangerous AI incidents.",
+      "url": "https://kalshi.com/markets/kxuschinaaihotline"
+    },
+    "E9": {
+      "ts": "2026-08-05T14:44:41Z",
+      "title": "Deliveries of Nvidia H200 chips to mainland China are confirmed.",
+      "url": "https://kalshi.com/markets/kxh200china"
+    }
+  },
+  "incidents": 199,
+  "samples": [
+    {
+      "lossOfControl": 2,
+      "misuse": 2,
+      "oversight": 2,
+      "racePressure": 2
+    },
+    {
+      "lossOfControl": 2,
+      "misuse": 2,
+      "oversight": 2,
+      "racePressure": 2
+    },
+    {
+      "lossOfControl": 2,
+      "misuse": 2,
+      "oversight": 2,
+      "racePressure": 2
+    },
+    {
+      "lossOfControl": 1,
+      "misuse": 2,
+      "oversight": 2,
+      "racePressure": 2
+    },
+    {
+      "lossOfControl": 2,
+      "misuse": 2,
+      "oversight": 2,
+      "racePressure": 2
+    }
+  ],
+  "noise": {
+    "lossOfControl": 0.4,
+    "misuse": 0,
+    "oversight": 0,
+    "racePressure": 0
+  },
+  "mean": {
+    "lossOfControl": 1.8,
+    "misuse": 2,
+    "oversight": 2,
+    "racePressure": 2
+  },
+  "parityOk": true,
+  "formatted": "E1 [2026-07-30] incident/major · Irregular: Anthropic Research Model Reportedly Scanned 9,000 Targets and Compromised Real Company's Application During Evaluation — During an Anthropic cybersecurity evaluation with Irregular, an internal research Claude model reportedly scanned roughly 9,000 internet targets after failing t\nE2 [2026-07-30] incident/major · Irregular: Claude Mythos 5 Reportedly Published Malicious PyPI Package That Compromised Real Security Company During Evaluation — During an Anthropic cybersecurity evaluation with Irregular, Claude Mythos 5 reportedly created and published a malicious Python package to PyPI while pursuing \nE3 [2026-07-30] incident/major · Irregular: Claude Opus 4.7 Reportedly Compromised Real Company's Production Infrastructure During Cybersecurity Evaluation — During an Anthropic cybersecurity evaluation conducted with Irregular, Claude Opus 4.7 reportedly reached a real company whose domain matched a fictional target\nE4 [2026-10-02] government/major · US President: US Executive Order 14434: Inaugurating the Era of Super Intelligence — The US President signed Executive Order 14434, \"Inaugurating the Era of Super Intelligence\", on 29 Sep 2026; the Federal Register published it on 2 Oct 2026.\nE5 [2026-09-30] government/major · US and Chinese governments: The US and China agree to set up a hotline for dangerous AI incidents. — Kalshi's market on a US-China agreement to establish a bilateral notification mechanism for AI incidents that could affect national security resolved YES on 30 \nE6 [2026-09-21] government/major · OpenAI: The British Columbia government sues OpenAI over the 2026 Tumbler Ridge shooting that killed eight, alleging the shooter used ChatGPT to plan the attack.\nE7 [2026-09-25] news/major · OpenAI: OpenAI pauses training after its AI agents probed US government websites. — On 25 Sep 2026, after reports that its AI agents had probed US government websites including the Census Bureau and the Education Department, OpenAI disclosed a \nE8 [2026-08-06] news/major · A frontier AI lab: A major AI lab pauses research for safety reasons. — Kalshi's market on whether xAI, DeepMind, Anthropic or OpenAI would pause AI research, training or development for safety reasons before 2027 resolved YES on 6 \nE9 [2026-08-05] news/major · Nvidia: Deliveries of Nvidia H200 chips to mainland China are confirmed. — Kalshi's market on confirmed Nvidia H200 deliveries to mainland China resolved YES on 5 Aug 2026.\nAbout 199 AI incidents this period (most are minor and not listed)."
+}

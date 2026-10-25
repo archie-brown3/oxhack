@@ -31,10 +31,10 @@ export const MAX_CHARS = 3000
 export const WORLD_LINES = 6
 export const WORLD_LINE = 120
 export const TIME_CONFIG = {
-  total_simulation_hours: 3, minutes_per_round: 60, agents_per_hour_min: 32, agents_per_hour_max: 32,
+  total_simulation_hours: 5, minutes_per_round: 60, agents_per_hour_min: 32, agents_per_hour_max: 32,
   peak_hours: [] as number[], peak_activity_multiplier: 1, off_peak_hours: [] as number[], off_peak_activity_multiplier: 1,
 }
-export const MAX_ROUNDS = 3
+export const MAX_ROUNDS = 5
 export const STATE_FLAGS = { enable_twitter: true, enable_reddit: false } as const
 
 const CROWD: Partial<Record<Group, string>> = { voice: 'commentators', public: 'members of the public', sock: 'members of the public' }

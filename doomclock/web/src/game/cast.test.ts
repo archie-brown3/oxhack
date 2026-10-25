@@ -141,9 +141,9 @@ test('cast.ts: every user_char is within 3,000 characters, has the roster, and l
 test('cast.ts: time_config, agent_configs and state.json match the spec', () => {
   const sim = renderSim(cast, { ...STUB, activity: { 30: 0.9 } })
   assert.deepEqual(sim.state, { enable_twitter: true, enable_reddit: false })
-  assert.equal(sim.max_rounds, 3)
+  assert.equal(sim.max_rounds, 5)
   assert.equal(sim.time_config.minutes_per_round, 60)
-  assert.equal(sim.time_config.total_simulation_hours, 3)
+  assert.equal(sim.time_config.total_simulation_hours, 5)
   assert.deepEqual([sim.time_config.agents_per_hour_min, sim.time_config.agents_per_hour_max], [32, 32])
   assert.deepEqual([sim.time_config.peak_hours, sim.time_config.off_peak_hours], [[], []])
   const ac = agentConfigs(cast, { ...STUB, activity: { 30: 0.9 } })

@@ -10,3 +10,14 @@
 {"ts":"2026-10-25T00:40:12.780Z","event":"run","label":"task 11 early 2029Q1","sim":"sim_c0d244b2642a","cost_usd":0.042583,"wall_s":34}
 {"ts":"2026-10-25T00:40:12.808Z","event":"check","label":"task 11 early 2032Q1","usage":0.433798421,"laneSpent":0.173306,"CAP_USD":10,"LANE_CAP_USD":1}
 {"ts":"2026-10-25T02:21:22.067Z","event":"run","label":"llm smoke","cost_usd":0.00000765,"wall_s":0}
+{"ts":"2026-10-25T02:25:02.175Z","event":"run","label":"llm rubric-baseline","cost_usd":0.00013984,"wall_s":0}
+{"ts":"2026-10-25T02:25:03.279Z","event":"run","label":"llm rubric-baseline-n0","cost_usd":0.000074044,"wall_s":0}
+{"ts":"2026-10-25T02:25:04.675Z","event":"run","label":"llm rubric-baseline-n1","cost_usd":0.000084544,"wall_s":0}
+{"ts":"2026-10-25T02:25:05.994Z","event":"run","label":"llm rubric-baseline-n2","cost_usd":0.000082544,"wall_s":0}
+{"ts":"2026-10-25T02:25:06.661Z","event":"run","label":"llm rubric-baseline-n3","cost_usd":0.00013384,"wall_s":0}
+{"ts":"2026-10-25T02:25:07.752Z","event":"run","label":"llm rubric-baseline-n4","cost_usd":0.000084544,"wall_s":0}
+{"ts":"2026-10-25T02:25:14.079Z","event":"check","label":"f99 s1","usage":0.570481028,"laneSpent":0.173913,"CAP_USD":10,"LANE_CAP_USD":3}
+{"ts":"2026-10-25T02:25:52.745Z","event":"run","label":"f99 s1","sim":"sim_c0d244b2642a","cost_usd":0.015679,"wall_s":32.5}
+{"ts":"2026-10-25T02:25:58.308Z","event":"run","label":"llm readout-f99-s1","cost_usd":0.0061926,"wall_s":0}
+{"ts":"2026-10-25T02:25:59.564Z","event":"run","label":"llm rubric-f99 s1","cost_usd":0.000112328,"wall_s":0}
+{"ts":"2026-10-25T02:26:03.183Z","event":"run","label":"llm summary-f99 s1","cost_usd":0.000378651,"wall_s":0}
