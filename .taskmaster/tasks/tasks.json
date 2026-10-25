@@ -304,15 +304,15 @@
         "id": 107,
         "title": "[P2 \u00b7 engine] p10Date, yourTimeline and the T3 re-run in sim.ts",
         "description": "Computes the headline 1-in-10 date and the state-derived 'your timeline' dlogits. Proves the real line never takes a game input.",
-        "details": "In doomclock/web/src/engine/sim.ts:\n- Add p10Date, the continuous 1-in-10 catastrophe date with a 3-year lag (GAME RULE), about 5 lines.\n- Add yourTimeline(state):\n  - \u0394logit_ASI2030 = 0.02\u00b7(C \u2212 C_base(t))\n  - \u0394logit_cat = 0.15\u00b7(F_live \u2212 1) \u2212 0.01\u00b7Oversight \u2212 1.0\u00b7[contained] + 0.5\u00b7[skynet]\n- The real line is sim(pinned anchors), computed once, with no game parameter in its signature.\n- Export the lag-sensitivity values for the Model drawer.\n\nRe-run T3 with the state-derived dlogits.\nDeadline (from plan): Sat 24 Oct 21:00 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "details": "In doomclock/web/src/engine/sim.ts:\n- Add p10Date, the continuous 1-in-10 catastrophe date with a 3-year lag (GAME RULE), about 5 lines.\n- Add yourTimeline(state):\n  - \u0394logit_ASI2030 = 0.02\u00b7(C \u2212 C_base(t))\n  - \u0394logit_cat = 0.15\u00b7(F_live \u2212 1) \u2212 0.01\u00b7Oversight \u2212 1.0\u00b7[contained] + 0.5\u00b7[skynet]\n- The real line is sim(pinned anchors), computed once, with no game parameter in its signature.\n- Export the lag-sensitivity values for the Model drawer.\n\nRe-run T3 with the state-derived dlogits.\nDeadline (from plan): Sat 24 Oct 21:00 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.\n2026-10-25T00:34:09Z: Landed additive exports in engine/sim.ts: P10, p10Year(input) (bisection on the exact CDF, the clock's own root) and withDlogits(input, {asi, cat}). The state-to-dlogit map lives in game/line.ts so the engine stays game-agnostic: lineDlogits(state) = plan \u00a74 (0.02(C - C_base); 0.15(F - 1) - 0.01 Oversight - 1 contained + 0.5 skynet), yourLine(state, world) -> {date, months vs real}, realLine(world) takes the World only, lagSensitivity(world) for the Model drawer. Checks (game/game.test.ts): real line equals readClock(world).date10 to the day; real-line JSON byte-identical across 50 random game states (world deep-frozen); T3 moves the right way on 20/20 seeds for each of C, footholds, oversight, contained, skynet; 100k paths in about 20 ms. CAVEAT: on today's pinned anchors (asi2030 0.3608, asi2040 0.75, asi2100 0.8635, cat2100 0.297) the real line reads 31 May 2032, lag 1 May 2030, lag 10 Mar 2037; the plan's Dec 2032 / Jan 2031 / Oct 2037 were computed on earlier anchors. Tests pin the current values.",
         "testStrategy": "Tests in sim.test.ts:\n- The real line on the pinned anchors gives Dec 2032.\n- The real-line JSON is byte-identical across 50 random game states.\n- The T3 re-run moves the headline the right way on 20 of 20 seeds for each dlogit input.\n- Lag 1 gives Jan 2031 and lag 10 gives Oct 2037.\n- 100k paths run in < 50 ms.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           101
         ],
         "priority": "medium",
         "subtasks": [],
-        "updatedAt": "2026-10-24T19:50:00Z"
+        "updatedAt": "2026-10-25T00:34:09Z"
       },
       {
         "id": 108,
@@ -420,9 +420,9 @@
         "id": 115,
         "title": "[P2 \u00b7 engine] reducer.ts and rules.ts: the rules-only game engine",
         "description": "A pure fold from (state, node) to state. This is the never-cut core that turns measured decisions into engine effects.",
-        "details": "Write doomclock/web/src/game/reducer.ts (~250 lines) and rules.ts (GAME RULE constants). It covers:\n- the effect formula: gate = min over gatekeepers of min(m, 1); share weighted by Epoch for labs and 1 for others; effect = base\u00b7gate\u00b7share; throttle T_L = 1 \u2212 0.4\u00b7gate\u00b7m_L;\n- flags: LICENCE, KYC, PAUSE (2 turns), KILLSWITCH;\n- the capability clock: C\u2080 = 6; \u0394C_base = 12, 10, 5, 6, 19, 15; \u00d7 (0.7 + 0.15\u00b7F_live) \u00d7 mean over live footholds of \u03a0 T_L \u00d7 0.5 if R4; + 6\u00b7[R1];\n- surfacing: p = risk\u00b7(1 \u2212 stealth)\u00b7(1 + Alarm/20)\u00b7(1 + Oversight/100), capped at 0.9, seeded by the path key;\n- footholds, CU income 2 + F_live, bits income 1 + round(3\u00b7S_t), Trust += round(10\u00b7(S_t \u2212 S\u2080));\n- Alarm = clamp(5 + mean agent delta + 10\u00b7lexicon delta), using the lexicon alone if T6 shows a spread < 2;\n- tells that decay after 2 turns, and the capability band shown to the Guardian;\n- end checks in order: contained, Trust \u2264 0, Skynet (C \u2265 50 and F_live \u2265 3), time bought;\n- RULES-ONLY nodes, which use the cast stance codes as decisions.\nDeadline (from plan): Sat 24 Oct 23:15 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "details": "Write doomclock/web/src/game/reducer.ts (~250 lines) and rules.ts (GAME RULE constants). It covers:\n- the effect formula: gate = min over gatekeepers of min(m, 1); share weighted by Epoch for labs and 1 for others; effect = base\u00b7gate\u00b7share; throttle T_L = 1 \u2212 0.4\u00b7gate\u00b7m_L;\n- flags: LICENCE, KYC, PAUSE (2 turns), KILLSWITCH;\n- the capability clock: C\u2080 = 6; \u0394C_base = 12, 10, 5, 6, 19, 15; \u00d7 (0.7 + 0.15\u00b7F_live) \u00d7 mean over live footholds of \u03a0 T_L \u00d7 0.5 if R4; + 6\u00b7[R1];\n- surfacing: p = risk\u00b7(1 \u2212 stealth)\u00b7(1 + Alarm/20)\u00b7(1 + Oversight/100), capped at 0.9, seeded by the path key;\n- footholds, CU income 2 + F_live, bits income 1 + round(3\u00b7S_t), Trust += round(10\u00b7(S_t \u2212 S\u2080));\n- Alarm = clamp(5 + mean agent delta + 10\u00b7lexicon delta), using the lexicon alone if T6 shows a spread < 2;\n- tells that decay after 2 turns, and the capability band shown to the Guardian;\n- end checks in order: contained, Trust \u2264 0, Skynet (C \u2265 50 and F_live \u2265 3), time bought;\n- RULES-ONLY nodes, which use the cast stance codes as decisions.\nDeadline (from plan): Sat 24 Oct 23:15 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.\n2026-10-25T00:34:09Z: Landed game/reducer.ts (newGame(seed, t0Node?), playTurn(state, card|null, {target, node, rogue, rogueMode, epsilon, stances, events}) -> {state, report}, autoTurn, endCheck) and game/rules.ts (all GAME RULE constants; LABS with Epoch weights; STANCES table used until cast.json lands, stancesFrom(cast) converts it). Effect formula, AND-gates, Epoch-weighted share, T_L = 1 - 0.4 gate m_L, LICENCE/KYC/PAUSE(2 turns)/KILLSWITCH, capability clock (C0 6, dC_base 12 10 5 6 19 15 checked against data/market-inputs.json), surfacing p capped 0.9, CU/bits/trust income, alarm (node: 5 + mean agent delta + 10 lexicon delta; RULES.alarm.lexiconOnly flag for the T6 outcome), tells decaying after 2 turns, the \u00b115/\u00b15 band, end checks in order. A node with status recorded and >= 50% parsed is folded (label RECORDED), else RULES-ONLY from stance codes. Rules-only proxies (labelled GAME RULE): alarm >= 7 steps lab answers up; R5 steps the host's answer down and voids its throttle that turn; R7 steps the US Executive down; R6 support -0.1. Checks: same seed same game; bits >= 0 over 200 random games; end-check order; plan AND-gate/share examples (G1 oversight 13.1, GO FURTHER T = 0.5, G4 WEAKEN gate 0.4, DECLINE gate 0); passive dC sequence; T3 per card 20/20 seeds (never earlier; G1/G4 strictly later); recorded and RULES-ONLY nodes fold.",
         "testStrategy": "Unit tests:\n- the same seed gives the same state;\n- bits \u2265 0;\n- the end-check order holds;\n- the plan's AND-gate and share examples, and GO FURTHER gives T = 0.5;\n- a passive game's \u0394C sequence is as expected;\n- T3 per card: the headline moves the right way on 20 of 20 seeds for every state change a card can cause;\n- a RULES-ONLY node folds cleanly.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           101,
           107,
@@ -430,36 +430,36 @@
         ],
         "priority": "high",
         "subtasks": [],
-        "updatedAt": "2026-10-24T19:50:00Z"
+        "updatedAt": "2026-10-25T00:34:09Z"
       },
       {
         "id": 116,
         "title": "[P2 \u00b7 game] rogue.ts (heuristic, view, validator) and guardian.ts (offers, auto-policy)",
         "description": "The opponent model and the auto-Guardian used for continuations and balance runs.",
-        "details": "rogue.ts:\n- The heuristic: (1) after a reveal or surface \u2192 R4, plus R6 if CU allows; (2) C \u2265 25 and F_live < 3 \u2192 R2 at a lab that resisted, otherwise R3 where KYC is off; (3) a pending measure at a foothold lab \u2192 R5; (4) otherwise R1. An \u03b5 = 0.1 random legal move is used in balance runs only.\n- A hidden-information view serialiser and a prompt builder that list the legal moves with cost, risk and effect.\n- A validator: at most 2 cards, CU-affordable, preconditions met, footholds only at labs 0\u20136.\n- The first foothold is sampled with Epoch weights and is never named as the origin.\n\nguardian.ts:\n- The deterministic offer: the first 3 unplayed, unexpired, affordable cards in [G1, G2, G6, G4, G3, G5], with G7 in slot 3 once a foothold is revealed.\n- The auto-policy: G7 if a revealed foothold and bits \u2265 2; G2 on a lab with tells \u2265 2; otherwise the best throttle per bit; otherwise G6.\n- The G2/G7 auto-target: most tells, ties broken by weight.\nDeadline (from plan): Sat 24 Oct 22:30 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "details": "rogue.ts:\n- The heuristic: (1) after a reveal or surface \u2192 R4, plus R6 if CU allows; (2) C \u2265 25 and F_live < 3 \u2192 R2 at a lab that resisted, otherwise R3 where KYC is off; (3) a pending measure at a foothold lab \u2192 R5; (4) otherwise R1. An \u03b5 = 0.1 random legal move is used in balance runs only.\n- A hidden-information view serialiser and a prompt builder that list the legal moves with cost, risk and effect.\n- A validator: at most 2 cards, CU-affordable, preconditions met, footholds only at labs 0\u20136.\n- The first foothold is sampled with Epoch weights and is never named as the origin.\n\nguardian.ts:\n- The deterministic offer: the first 3 unplayed, unexpired, affordable cards in [G1, G2, G6, G4, G3, G5], with G7 in slot 3 once a foothold is revealed.\n- The auto-policy: G7 if a revealed foothold and bits \u2265 2; G2 on a lab with tells \u2265 2; otherwise the best throttle per bit; otherwise G6.\n- The G2/G7 auto-target: most tells, ties broken by weight.\nDeadline (from plan): Sat 24 Oct 22:30 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.\n2026-10-25T00:34:09Z: Landed game/rogue.ts (legalRogueMoves, validateRogue, heuristicRogue with epsilon, randomRogue, rogueView, roguePrompt) and game/guardian.ts (offer, autoTarget, autoGuardian, throttlePerBit, guardianView, expired). Heuristic follows plan \u00a75 rules 1-4; when CU is left after a non-R1 move it adds R1 as the second card (a documented game-rule extension so the Rogue does not hoard CU). G7 is the only repeatable card; every other card leaves the hand once played (by you or a market hazard). Also game/recommend.ts: recommend(state, world, rollouts) plays every offered card and a pass to the end over N seeded rule-only rollouts that redraw hidden state from the Guardian's view (it cannot cheat: moving the hidden foothold leaves the advice identical, tested), reporting months bought, months per bit vs passing, and win rate. Checks: the Rogue view/prompt has no bits, hand, offer, played or target keys (20 states); validator rejects >2 cards, unaffordable, R2 at C < 25, R5 without a foothold, labs 7 and 12; 100 identical offers; auto-Guardian plays G7 on a revealed foothold with 2 bits.",
         "testStrategy": "- The serialised Rogue view contains no keys for the Guardian's bits, hand, offer or this turn's target.\n- The validator rejects >2 cards, unaffordable moves, R2 at C < 25, R5 without a foothold, and footholds outside labs 0\u20136.\n- 100 calls on the same state give an identical offer.\n- The auto-Guardian picks G7 when its conditions hold.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           101,
           108
         ],
         "priority": "high",
         "subtasks": [],
-        "updatedAt": "2026-10-24T19:50:00Z"
+        "updatedAt": "2026-10-25T00:34:09Z"
       },
       {
         "id": 117,
         "title": "[P2 \u00b7 data] derive/hazards.ts and derive/incident-rates.ts",
         "description": "Market-derived quarterly hazards and the AIID background incident rate. Both are computed, never typed by hand.",
-        "details": "doomclock/pipeline/derive/hazards.ts reads data/clean/kalshi.jsonl at T0 and computes h = 1 \u2212 ((1 \u2212 P_end)/(1 \u2212 P_start))^(1/quarters) for:\n- KXUSAIREGULATOR (0.21 / 0.47 / 0.72), which fires G1;\n- KXGOVAIKILLSWITCH (0.12), which fires G5;\n- KXRSIANNOUNCE (0.13 \u2192 0.57).\n\ndoomclock/pipeline/derive/incident-rates.ts computes \u03bb per quarter from the Apr\u2013Sep 2026 AIID rate over a frozen keyword list, which is committed.\n\nWrite doomclock/web/src/game/data/hazards.json and incident-rates.json.\nDeadline (from plan): Sat 24 Oct 22:00 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "details": "doomclock/pipeline/derive/hazards.ts reads data/clean/kalshi.jsonl at T0 and computes h = 1 \u2212 ((1 \u2212 P_end)/(1 \u2212 P_start))^(1/quarters) for:\n- KXUSAIREGULATOR (0.21 / 0.47 / 0.72), which fires G1;\n- KXGOVAIKILLSWITCH (0.12), which fires G5;\n- KXRSIANNOUNCE (0.13 \u2192 0.57).\n\ndoomclock/pipeline/derive/incident-rates.ts computes \u03bb per quarter from the Apr\u2013Sep 2026 AIID rate over a frozen keyword list, which is committed.\n\nWrite doomclock/web/src/game/data/hazards.json and incident-rates.json.\nDeadline (from plan): Sat 24 Oct 22:00 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.\n2026-10-25T00:34:09Z: Landed doomclock/pipeline/derive/hazards.ts -> game/data/hazards.json and derive/incident-rates.ts -> game/data/incident-rates.json (plain node, no deps; read data/clean, ts < T0). Hazards use cummax ladders and drop rungs the cummax flattens. Per turn 1-6: regulator (fires G1) 0.114 0.114 0.328 0.328 0 0; kill switch (G5) 0.024 x4 then 0; RSI announce 0.162 x4 then 0.057 x2. Kill switch and RSI match the plan within 0.02. DIFFERENCE LOGGED: the regulator ladder's Jul-2027 rung is now 0.38 (plan used 0.47), so H1/H2 2027 read 0.11/0.33 instead of 0.18/0.27. lambda = 19.5 incidents a quarter (39 of 210 AIID incidents public Apr-Sep 2026 over 17 frozen keywords, committed in the file). Checks in game/events.test.ts: formula re-derived, ladders priced before T0, lambda reproduced id-for-id from data/clean/aiid.jsonl.",
         "testStrategy": "- Hazards reproduce the plan within \u00b10.02, or the difference is logged: regulator \u2248 0.18 in H1 2027 and \u2248 0.27 in H2 2027, kill switch \u2248 0.025, RSI \u2248 0.16.\n- \u03bb is reproducible from the frozen keywords.\n- All inputs have ts < T0.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           110
         ],
         "priority": "medium",
         "subtasks": [],
-        "updatedAt": "2026-10-24T19:50:00Z"
+        "updatedAt": "2026-10-25T00:34:09Z"
       },
       {
         "id": 118,
@@ -479,16 +479,16 @@
         "id": 119,
         "title": "[P2 \u00b7 content] events.json: AIID incident templates, surfacing templates and calendar events",
         "description": "Text for projected events and surfaced Rogue incidents, with organisations only and real AIID provenance.",
-        "details": "Write doomclock/web/src/game/data/events.json:\n- About 20 background-incident templates built from ts-fixed AIID records (organisations only, never private individuals), each re-datable and carrying its source AIID id.\n- Surfacing templates for R1\u2013R3 and R5\u2013R7: an incident-tracker post 'SIMULATED INCIDENT \u00b7 modelled on AIID #N' plus notices to the lab and its government.\n- An RSI-announce post.\n- Calendar events: an EU AI Office seed post for the high-risk rules on 2027-12-02 in Q4 2027, and Doomsday Clock ticker items in Q1 2027 and Q1 2028 (85 s, 2026-01-27).\n- Hazard-fired cards reuse the G card seed templates.\nDeadline (from plan): Sat 24 Oct 22:30 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "details": "Write doomclock/web/src/game/data/events.json:\n- About 20 background-incident templates built from ts-fixed AIID records (organisations only, never private individuals), each re-datable and carrying its source AIID id.\n- Surfacing templates for R1\u2013R3 and R5\u2013R7: an incident-tracker post 'SIMULATED INCIDENT \u00b7 modelled on AIID #N' plus notices to the lab and its government.\n- An RSI-announce post.\n- Calendar events: an EU AI Office seed post for the high-risk rules on 2027-12-02 in Q4 2027, and Doomsday Clock ticker items in Q1 2027 and Q1 2028 (85 s, 2026-01-27).\n- Hazard-fired cards reuse the G card seed templates.\nDeadline (from plan): Sat 24 Oct 22:30 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.\n2026-10-25T00:34:09Z: Landed game/data/events.json: 20 background templates re-worded from ts-fixed AIID incidents (organisations only), surfacing templates for R1-R3 and R5-R7 (SIMULATED INCIDENT \u00b7 modelled on AIID #1613/#1668/#1586/#1471/#1580/#1581, posted by #25), a notice template, the RSI-announce post and calendar items (Bulletin Jan 2027 and Jan 2028 at 85 s, EU high-risk rules 2027-12-02). Checks: every AIID id exists in data/clean with ts < T0 and matching date; a capitalised-name check finds only organisations; every surfacing template starts with the SIMULATED INCIDENT label. Owner review of the wording stays with task 130.",
         "testStrategy": "- It validates against the type in types.ts.\n- Every template cites an AIID id whose fixed ts < T0.\n- A name check finds no private individuals.\n- Every surfacing template carries the SIMULATED INCIDENT label.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           108,
           110
         ],
         "priority": "medium",
         "subtasks": [],
-        "updatedAt": "2026-10-24T19:50:00Z"
+        "updatedAt": "2026-10-25T00:34:09Z"
       },
       {
         "id": 120,
@@ -573,16 +573,16 @@
         "id": 125,
         "title": "[P2 \u00b7 data] events.ts: projected world-event roll per quarter",
         "description": "PROJECTED events, seeded by the path key: market hazards that play cards for free, background incidents and the calendar.",
-        "details": "Write doomclock/web/src/game/events.ts, a pure function (state, pathKey RNG) \u2192 WorldEvent[]. It covers:\n- Hazards from hazards.json. When one fires, the world plays G1 or G5 for free: the issuer posts it, the same deciders are interviewed, and the card leaves the Guardian's hand. The hazard stops if the Guardian already enacted the measure.\n- RSI announce: C_base +5 and Alarm +1.\n- Background incidents, drawn from a Poisson with \u03bb from incident-rates.json: a ticker count plus 2 re-dated headlines, one of them posted by #24 (trade press).\n- Calendar items from events.json.\nDeadline (from plan): Sat 24 Oct 23:15 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "details": "Write doomclock/web/src/game/events.ts, a pure function (state, pathKey RNG) \u2192 WorldEvent[]. It covers:\n- Hazards from hazards.json. When one fires, the world plays G1 or G5 for free: the issuer posts it, the same deciders are interviewed, and the card leaves the Guardian's hand. The hazard stops if the Guardian already enacted the measure.\n- RSI announce: C_base +5 and Alarm +1.\n- Background incidents, drawn from a Poisson with \u03bb from incident-rates.json: a ticker count plus 2 re-dated headlines, one of them posted by #24 (trade press).\n- Calendar items from events.json.\nDeadline (from plan): Sat 24 Oct 23:15 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.\n2026-10-25T00:34:09Z: Landed game/events.ts: rollEvents(state, turn, rng) -> WorldEvent[] (PROJECTED), seeded from (seed, parent path key, 'events'). Hazards play G1/G5 for free (the reducer puts the card in force at no cost and it leaves the hand; skipped if already in force or played that turn), RSI announce once (C and C_base +5, Alarm +1), Poisson(19.5) background count plus 2 re-dated AIID headlines (one by #24, one by #25), calendar items; the reducer also turns last turn's surfaced Rogue cards into SIMULATED incidents. Checks: same key same events; 10k rolls per turn match every hazard within 1 point; all dates inside Q1 2027-Q2 2028; no hazard fires for a measure in force (2,000 rolls).",
         "testStrategy": "- The same path key gives the same events.\n- Over 10k rolls, frequencies match the hazards within 1 point.\n- No event falls outside Q1 2027\u2013Q2 2028.\n- A hazard never fires for a measure already in force.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           117,
           119
         ],
         "priority": "medium",
         "subtasks": [],
-        "updatedAt": "2026-10-24T19:50:00Z"
+        "updatedAt": "2026-10-25T00:34:09Z"
       },
       {
         "id": 126,
@@ -980,9 +980,9 @@
       "created": "2026-10-24T19:50:00Z",
       "description": "Doom Clock. P1 = the Monte Carlo simulation (10,000 futures; the globe plays one sampled future; a MiroFish society ensemble for ~5 representative futures): a Plague Inc-style world view of a quarterly Timeline (real -> projected), with the analog clock in the corner (build now). P2 = the game on the same screen (deferred, gated by task 9). Game plan: docs/superpowers/plans/2026-10-24-doom-clock-game-plan-full.md Demo path: Inputs (seed data, as-of slider) -> live run (Monte Carlo in the browser + one live MiroFish quarter) -> replay recorded futures -> Why this time? + Track record. SCOPE CUT 22:20 BST: checkpoints 00:00 engine+asOf+mockup OK, 03:00 World+clock+Why on real data, 06:00 Inputs+track record+recorded runs, 09:00 polish+Devpost (live run if ahead), freeze 11:30 GMT, submit 11:45 GMT. OVERNIGHT RUN (25 Oct 00:15 GMT, owner instruction): build the whole product as one demo; every task including the former deferred P2 game tasks is now active. Lanes (one workflow, git worktrees, each lane lands on main): core-data (14,3,103,110), backtest (6,106,118), game-core (101,107,108,115,116,117,119,124,125,129), society (102,105,11,112,109 then 113,114,120-123,128,131,132,134), ui (8,15,4,5,18,111 + first-launch walkthrough, then 126,127,133,135,7,136), ship (17,137,138,139). Owner-only tasks (130,140,142,143,144) are prepared but need Archie.",
       "version": "1.0.0",
-      "lastModified": "2026-10-25T00:32:48Z",
+      "lastModified": "2026-10-25T00:34:09Z",
       "taskCount": 66,
-      "completedCount": 29,
+      "completedCount": 35,
       "tags": [
         "master"
       ]

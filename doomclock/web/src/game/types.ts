@@ -26,6 +26,8 @@ export interface Foothold {
   revealed: boolean
   /** Turn it was planted (0 for the first, which is never named as the origin). */
   since: number
+  /** Turn it was revealed (by an audit or a surfaced R2/R3). */
+  revealedAt?: number
 }
 
 export interface Tell {
@@ -181,4 +183,32 @@ export interface RogueView {
   tells: Tell[]
   guardianHistory: (GuardianCardId | null)[]
   lastRationales: { turn: number; rationale: string; detected: boolean }[]
+}
+
+/** A recorded MiroFish node, doomclock.node/1 (data/schemas/node.schema.json): society inputs and
+ *  outputs only. The reducer folds it; game state is never stored in it. */
+export interface NodeFile {
+  schema: 'doomclock.node/1'
+  pathKey: string
+  turn: number
+  quarter: string
+  date?: string
+  status: 'recorded' | 'rules-only' | 'failed'
+  inputs: {
+    guardian: { card: GuardianCardId | null; target?: AgentId | null } | null
+    rogue: (RogueMove & { sock_text?: string })[]
+    events: { kind: string; text: string }[]
+    seeds: { author: AgentId; content: string }[]
+    userCharHash?: Record<string, string>
+    activity?: Record<string, number>
+  }
+  outputs: {
+    posts: { id: number; author: AgentId; round: number; quote_of?: number | null; likes?: number; content: string }[]
+    interviews: Interview[]
+    reach?: { seen: number; active: number }
+    rounds?: { round: number; actions: number }[]
+    costUsd?: number
+    wallS?: number
+    recordedAt?: string
+  }
 }
