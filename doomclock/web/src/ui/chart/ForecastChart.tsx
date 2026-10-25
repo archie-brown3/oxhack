@@ -1,6 +1,6 @@
-// The two-line chart: the real forecast (engine A, solid ink, REAL) and "your timeline" (dashed,
-// GAME RULE), each as the chance of AI catastrophe by each date. No move ever touches the real
-// line; the game feeds `yours`. Inline SVG, no dependencies. Works on Stage and Paper.
+// The forecast chart: the real forecast (engine A, solid ink, REAL) as the chance of AI
+// catastrophe by each date, with the 1-in-10 line the clock reads. Inline SVG, no dependencies.
+// Works on Stage and Paper.
 import type { IsoTime, Timeline } from '../../contracts.ts'
 import { monthYear } from '../format.ts'
 import { Label } from '../Label.tsx'
@@ -25,8 +25,6 @@ export function crossing(line: LinePoint[], p: number): number | null {
 
 interface Props {
   real: LinePoint[]
-  /** Your timeline. Null or empty draws the slot only: "appears when you play". */
-  yours?: LinePoint[] | null
   /** The chance the date is read at (default 1 in 10). */
   threshold?: number
   /** Drawing width in viewBox units; the SVG scales to its container. */
@@ -36,44 +34,34 @@ interface Props {
   years?: number
 }
 
-export function TwoLine({ real, yours, threshold = 0.1, width = 360, height = 150, years = 12 }: Props) {
+export function ForecastChart({ real, threshold = 0.1, width = 360, height = 150, years = 12 }: Props) {
   const L = 34, R = 8, T = 10, B = 22
   const x0 = Date.parse(real[0]?.t ?? new Date().toISOString())
   const x1 = Math.min(Date.parse(real.at(-1)?.t ?? '2100-01-01'), x0 + years * 365.25 * 864e5)
-  const clip = (l: LinePoint[]) => l.filter((d) => Date.parse(d.t) <= x1)
-  const r = clip(real), y = yours?.length ? clip(yours) : null
-  const maxP = Math.max(threshold * 1.6, ...r.map((d) => d.p), ...(y ?? []).map((d) => d.p))
+  const r = real.filter((d) => Date.parse(d.t) <= x1)
+  const maxP = Math.max(threshold * 1.6, ...r.map((d) => d.p))
   const top = Math.ceil(maxP * 20) / 20
   const sx = (t: number) => L + ((t - x0) / (x1 - x0 || 1)) * (width - L - R)
   const sy = (p: number) => T + (1 - p / top) * (height - T - B)
   const path = (l: LinePoint[]) => l.map((d, i) => `${i ? 'L' : 'M'}${sx(Date.parse(d.t)).toFixed(1)},${sy(d.p).toFixed(1)}`).join('')
-  const cr = crossing(r, threshold), cy = y ? crossing(y, threshold) : null
-  // Your timeline is red where it reaches 1 in 10 sooner (toward midnight), blue where later.
-  const dir = cr != null && cy != null ? (cy < cr ? 'toward' : cy > cr ? 'away' : null) : null
-  const yourColour = dir === 'toward' ? 'var(--alarm)' : dir === 'away' ? 'var(--ward)' : 'var(--ink-2)'
+  const cr = crossing(r, threshold)
   const txt = { fill: 'var(--ink-3)', font: '400 12px var(--font-sans)' }
   const ticks: number[] = []
   const y0 = new Date(x0).getUTCFullYear() + 1, step = years > 8 ? 2 : 1
   for (let yr = y0; Date.UTC(yr, 0, 1) <= x1; yr += step) ticks.push(yr)
-  const shift = cr != null && cy != null ? Math.round((cy - cr) / (30.44 * 864e5)) : null
   return (
-    <figure className="twoline" style={{ margin: 0 }}>
-      <figcaption className="twoline-key">
+    <figure className="forecast-chart" style={{ margin: 0 }}>
+      <figcaption className="chart-key">
         <span><svg width="22" height="8" aria-hidden="true"><line x1="0" x2="22" y1="4" y2="4" style={{ stroke: 'var(--ink)', strokeWidth: 2 }} /></svg> <Label kind="real">Real forecast</Label></span>
-        <span><svg width="22" height="8" aria-hidden="true"><line x1="0" x2="22" y1="4" y2="4" strokeDasharray="4 3" style={{ stroke: yourColour, strokeWidth: 2 }} /></svg> <Label kind="game-rule">Your timeline</Label>
-          {!y && <span className="dc-faint"> appears when you play</span>}
-          {shift != null && shift !== 0 && <b className={dir ?? undefined}> {Math.abs(shift)} months {shift < 0 ? 'sooner' : 'later'}</b>}</span>
       </figcaption>
       <svg viewBox={`0 0 ${width} ${height}`} style={{ width: '100%', height: 'auto', display: 'block' }} role="img"
-        aria-label={`Chance of AI catastrophe by date. Real forecast reaches 1 in 10 ${cr ? monthYear(new Date(cr).toISOString()) : 'after the chart'}${cy ? `; your timeline ${monthYear(new Date(cy).toISOString())}` : ''}.`}>
+        aria-label={`Chance of AI catastrophe by date. The real forecast reaches 1 in 10 ${cr ? monthYear(new Date(cr).toISOString()) : 'after the chart'}.`}>
         {[0, threshold, top].map((p) => <g key={p}>
           <line x1={L} x2={width - R} y1={sy(p)} y2={sy(p)} style={{ stroke: p === threshold ? 'var(--ink-3)' : 'var(--rule)' }} strokeDasharray={p === threshold ? '3 3' : undefined} />
           <text x={L - 6} y={sy(p) + 4} textAnchor="end" style={txt}>{Math.round(p * 100)}%</text></g>)}
         {ticks.map((yr) => <text key={yr} x={sx(Date.UTC(yr, 0, 1))} y={height - 6} textAnchor="middle" style={txt}>{yr}</text>)}
         <path d={path(r)} style={{ stroke: 'var(--ink)', strokeWidth: 2, fill: 'none' }} />
-        {y && <path d={path(y)} strokeDasharray="5 4" style={{ stroke: yourColour, strokeWidth: 2, fill: 'none' }} />}
         {cr != null && cr <= x1 && <circle cx={sx(cr)} cy={sy(threshold)} r={3.5} style={{ fill: 'var(--ink)' }} />}
-        {cy != null && cy <= x1 && <circle cx={sx(cy)} cy={sy(threshold)} r={3.5} style={{ fill: 'none', stroke: yourColour, strokeWidth: 1.5 }} />}
       </svg>
     </figure>
   )

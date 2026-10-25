@@ -18,8 +18,6 @@ export interface FaceOptions {
   range?: [number, number]
   /** The Bulletin's seconds ÷ 60. */
   ghost?: number
-  /** Phase 2: your timeline's hand. */
-  yours?: number
   labels?: boolean
   label?: string
   /** Face-minute positions and their labels. Default: the design system's 5 y, 10 y, 15 y. */
@@ -51,7 +49,6 @@ export function face(o: FaceOptions): string {
   }
   const mid = pt(0, R)
   s += `<circle class="midnight" cx="${mid[0]}" cy="${mid[1]}" r="3"/>`
-  if (o.yours != null) s += line('yours', [CX, CY], pt(o.yours, R - 12))
   // Tapered hand: wide at the hub, narrow at the tip.
   const tip = pt(m, R - 8)
   const dx = tip[0] - CX

@@ -16,9 +16,9 @@ export type IsoTime = string
 export type Prob = number
 /** A log-odds delta. */
 export type Dlogit = number
-/** A game quarter label, e.g. "2027Q1". */
+/** A quarter label, e.g. "2027Q1". */
 export type QuarterLabel = `${number}Q${1 | 2 | 3 | 4}`
-/** Rogue origin regions. Epoch-derived weights; see SignalInputs.regions. */
+/** Origin regions. Epoch-derived weights; see SignalInputs.regions. */
 export type Region = 'US' | 'China' | 'rest'
 
 /**
@@ -32,12 +32,6 @@ export interface NewsItem {
   url: string
   ts: IsoTime
   source: string
-}
-
-/** The two panel dimensions a card moves, and what a card effect applies to. Owner: engine / game-design. */
-export interface AsiCatDlogit {
-  asi: Dlogit
-  cat: Dlogit
 }
 
 // ---------- markets.json ----------
@@ -210,7 +204,7 @@ export interface EventsFile {
 
 // ---------- data/market-inputs.json ----------
 
-/** `data/market-inputs.json`. Owner: data-markets. Feeds the game, never the real line. */
+/** `data/market-inputs.json`. Owner: data-markets. Never feeds the real line. */
 export interface MarketInputs {
   /** ASSUMPTION: plan §5 lists no `schema` here; added to match "every file has a schema". */
   schema: 'doomclock.market-inputs/1'
@@ -226,7 +220,7 @@ export interface CapabilityCurve {
   rule: string
   /** True once cummax has been applied. */
   monotonised: true
-  /** Non-decreasing in `p`, one per game quarter. */
+  /** Non-decreasing in `p`, one per quarter. */
   quarters: { q: QuarterLabel; p: Prob }[]
 }
 
@@ -284,178 +278,6 @@ export interface Datacentre {
   /** True for the "hotel" sites (Ashburn, Abu Dhabi). */
   hotel: boolean
   source: string
-}
-
-// ---------- data/cards.json ----------
-
-export type Side = 'guardian' | 'rogue'
-export type MeterName = 'capability' | 'oversight' | 'trust' | 'alarm'
-/** Meter deltas. All four are "game rule", never forecasts. */
-export type MeterDeltas = Record<MeterName, number>
-
-/**
- * `data/cards.json`, schema `doomclock.cards/1`. Owner: game-design.
- * ASSUMPTION: plan §5 lists the per-card entry only. The `{schema, cards}` wrapper is assumed.
- */
-export interface CardsFile {
-  schema: 'doomclock.cards/1'
-  cards: Card[]
-}
-
-export interface Card {
-  id: string
-  side: Side
-  title: string
-  blurb: string
-  market: CardMarket
-  /** From `cardPrices`, clamped to [0.02, 0.98] so priceBits ≤ 5.64. */
-  p: Prob
-  /** −log₂(p). */
-  priceBits: number
-  /** The market deadline. A card can't be played in a quarter that starts after it. */
-  expiresAt: IsoTime
-  /** True for every Rogue card. */
-  faceDown: boolean
-  detection: { meter: MeterName; threshold: number }
-  effect: CardEffect
-  /** From S5: does the market resolve on firm criteria? */
-  firmCriteria: boolean
-  criteriaNote: string
-}
-
-export interface CardMarket {
-  source: 'manifold' | 'kalshi'
-  /** Manifold id or Kalshi ticker. */
-  id: string
-  url: string
-  question: string
-  deadline: IsoTime
-}
-
-export interface CardEffect {
-  /** `panel`: dlogit comes from card-reactions.json (w > 0). `game_rule`: fixed numbers here (w = 0). */
-  source: 'panel' | 'game_rule'
-  meters: MeterDeltas
-  /** ASSUMPTION: shifts to the region weights, keyed by region. */
-  regionWeights?: Partial<Record<Region, number>>
-  /** Applies to YOUR timeline only. Never to the real line. */
-  dlogit?: AsiCatDlogit
-}
-
-// ---------- data/card-reactions.json ----------
-
-/**
- * `data/card-reactions.json`. Owner: engine. Used only when `w > 0`.
- * ASSUMPTION: plan lists `{model, asOf, cards}`; `schema` added. `meanDlogit` is `{asi, cat}`.
- */
-export interface CardReactions {
-  schema: 'doomclock.card-reactions/1'
-  model: string
-  asOf: IsoTime
-  cards: CardReaction[]
-}
-
-export interface CardReaction {
-  cardId: string
-  /** Synthetic headline: "<market question> — happened, <quarter>". */
-  headline: string
-  personas: { name: PersonaName; status: PersonaStatus; dlogit: AsiCatDlogit }[]
-  meanDlogit: AsiCatDlogit
-}
-
-// ---------- game state ----------
-
-/**
- * Phase 2 (task 101): the game layer's types live in `src/game/types.ts` and its file formats in
- * `src/game/data/schemas/` (doomclock.cast/1, doomclock.cards/1, doomclock.node/1). The game's own
- * cards are `src/game/data/cards.json`. `GameState` below and `CardsFile` above are the phase-1
- * drafts that only the fixtures still use; new code imports from `src/game/`.
- */
-export type { GameState as GameLayerState, GuardianView, Label, RogueView } from './game/types.ts'
-
-/**
- * Game state, schema `doomclock.game/2`. Owner: game-design (`src/game/**`).
- * ASSUMPTION: the game-layer spec isn't written yet ("defined in the spec"). Fields below come from
- * plan §5's list only; element types are placeholders for game-design to replace.
- * Missing and needed, but unnamed in the plan: whether this is the demo (4 turns) or the full game,
- * and which side the player plays.
- */
-export interface GameState {
-  schema: 'doomclock.game/2'
-  /** 0–11, or 0–3 in the demo. */
-  quarter: number
-  /** Game year, e.g. 2027. */
-  year: number
-  bits: { guardian: number; rogue: number }
-  /** All four are "game rule". */
-  meters: MeterDeltas
-  /** Ids of cards the player can play. */
-  hand: string[]
-  /** Rogue cards played face-down and not yet revealed. */
-  faceDownPlayed: FaceDownPlay[]
-  /** Card ids revealed by detection. */
-  detected: string[]
-  /** AIID-rate warning events drawn so far. */
-  events: GameEvent[]
-  /** Sampled from the Polymarket odds. */
-  originLab: { lab: string; region: Region }
-  history: TurnRecord[]
-  seed: number
-}
-
-export interface FaceDownPlay {
-  cardId: string
-  playedQuarter: number
-}
-
-export interface GameEvent {
-  quarter: number
-  /** ASSUMPTION: free text. */
-  label: string
-}
-
-export interface TurnRecord {
-  quarter: number
-  played: { side: Side; cardId: string; bits: number; faceDown: boolean }[]
-  meterDeltas: MeterDeltas
-  /** The dlogit applied to your timeline this turn. */
-  dlogit: AsiCatDlogit
-  /** ASSUMPTION: ticker lines are plain strings (they come from MiroFish posts, which have no URL). */
-  ticker: string[]
-}
-
-// ---------- data/rounds/year-N[-storyline].json ----------
-
-export type WorldSource = 'live' | 'cached' | 'llm-fallback'
-export type Storyline = 'guardian_ahead' | 'rogue_ahead'
-
-/**
- * `data/rounds/year-N[-storyline].json`, schema `doomclock.world/2`. Owner: mirofish.
- * ASSUMPTION: plan §5 defers the shape to "pass 3, §4.4", which isn't in the repo. This draft uses
- * only what plan §4 M2 / §5 say: `year`, `source`, "ticker + alarm meter only". The alarm feeds only
- * the `alarm` meter; it never touches the real line. Government responses are not modelled here.
- */
-export interface WorldRound {
-  schema: 'doomclock.world/2'
-  year: number
-  /** Present on years 2–3: the pre-baked storyline. Year 1 is shared. */
-  storyline?: Storyline
-  source: WorldSource
-  generatedAt: IsoTime
-  /** Non-seed posts. */
-  ticker: WorldPost[]
-  alarm: {
-    /** Parsed from the interview answers. ASSUMPTION: 0–1. */
-    value: number
-    /** Number of answers parsed (M2 wants ≥ 8). */
-    answers: number
-  }
-}
-
-export interface WorldPost {
-  text: string
-  /** ASSUMPTION: the archetype that posted. */
-  author?: string
 }
 
 // ---------- data/backtest.json ----------
@@ -540,14 +362,12 @@ export interface T7File {
 }
 
 // ---------------------------------------------------------------------------
-// Timeline [engine produces, ui renders] — phase 1 foundation, extended by the game.
-// Phase 1: one timeline, the real forecast replayed and projected quarter by quarter.
-// Phase 2: the game applies actions between frames and recomputes a second timeline
-// ("yours"); the real one is never modified. So every view renders Timeline, never game state.
+// Timeline [engine produces, ui renders]: the real forecast replayed and projected quarter by
+// quarter. Every view renders a Timeline. (The game layer was dropped on 25 Oct.)
 // ---------------------------------------------------------------------------
 
 /** Where a frame's content comes from. Shown as a label in the UI. */
-export type Provenance = 'real' | 'projected' | 'simulated' | 'player'
+export type Provenance = 'real' | 'projected' | 'simulated'
 
 /**
  * One dated thing that happened in a quarter (incident, government event, news, X post).
@@ -559,7 +379,7 @@ export interface WorldEvent {
   kind: 'incident' | 'government' | 'news' | 'post'
   title: string
   url?: string
-  /** 'aiid', 'federal-register', 'gov.uk', 'eur-lex', 'wikipedia', 'bulletin', 'mirofish', 'game', or
+  /** 'aiid', 'federal-register', 'gov.uk', 'eur-lex', 'wikipedia', 'bulletin', 'mirofish', or
    *  'engine' for a projected incident the engine resampled from a real AIID one. */
   source: string
   region?: Region
@@ -670,8 +490,6 @@ export interface Timeline {
   frames: WorldFrame[]
   /** Today's clock (anchors at asOf). The same for every future. */
   clock: ClockReading
-  /** Which side produced it: 'real' now; the game adds 'yours'. */
-  line: 'real' | 'yours'
   future: SampledFuture
 }
 

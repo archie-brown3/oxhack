@@ -1,5 +1,5 @@
 // Why this time? as a Paper sheet over the dimmed globe: Anchors → the Monte Carlo fan → the date
-// → the hand, then the Track record tab. It explains the real forecast only, never game state.
+// → the hand, then the Track record tab. It explains the real forecast only.
 import { useState } from 'react'
 import type { BacktestFile, NodeId, Timeline, World } from '../../contracts.ts'
 import { clockFace, readingLine } from '../clock/Clock.tsx'

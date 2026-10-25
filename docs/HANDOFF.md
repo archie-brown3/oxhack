@@ -17,7 +17,7 @@ The demo has four main views:
 - **Engine:** See simulated posts on X, government events and news from MiroFish.
 - **Why this time?:** Check the model's inputs, assumptions and past prediction scores.
 
-The hackathon build is a simulation. The Guardian versus Rogue AI game is for later. Do not build the game now.
+The hackathon build is a simulation. The game layer (Guardian, Rogue AI, cards, "your timeline") was dropped on 25 Oct; MiroFish plays 5 representative futures.
 
 ### Start work with the task board
 
@@ -46,7 +46,7 @@ This is a snapshot. Check the board and ask the Lead for changes before you star
 - Tasks **6 and 7** cover past prediction scores and their display. A sample display is not proof that the backtest works.
 - Task **11** covers recorded MiroFish runs: three futures, four quarters each.
 - Tasks **8, 9, 13 and 17** cover integration, offline use, review, deployment and submission.
-- Task **16**, live MiroFish, is optional. Tasks **101–144**, the game, are deferred.
+- Task **16**, live MiroFish, is optional. Tasks 101–144 were the game, which was dropped on 25 Oct.
 
 Known issues to check first:
 
@@ -79,7 +79,7 @@ Start with the board. Then use this guide. The repo is <https://github.com/archi
 | [Plans](superpowers/plans/), [specs](superpowers/specs/) and [research](research/) | Other agent documents and design background. Check their date and scope. |
 | [Judging review skill](../.claude/skills/judging-criteria-review/) | Check the demo against the judging criteria. |
 
-**Some older docs conflict with current decisions.** The latest task notes record the clock change to 85 seconds. Older docs say one minute equals one year. Hacker News and the LLM panel are out of the current build. MiroFish uses X only, in English. The game is deferred. If documents disagree, check the latest owner decision with the Lead and correct the board.
+**Some older docs conflict with current decisions.** The latest task notes record the clock change to 85 seconds. Older docs say one minute equals one year. Hacker News and the LLM panel are out of the current build. MiroFish uses X only, in English. The game was dropped on 25 Oct. If documents disagree, check the latest owner decision with the Lead and correct the board.
 
 ### Keep these rules
 
@@ -124,7 +124,7 @@ CRITICAL: Read .taskmaster/tasks/tasks.json before any coding. This is the share
 
 Read AGENTS.md (CLAUDE.md links to it). Read docs/briefs/ui.md and context/README.md. For UI work, also read context/design-system/README.md and the relevant component guides. Use docs/data/ for source schemas and date rules. Use the handoff's document guide to find the other plans, specs, research and MiroFish docs. Older documents contain superseded scope; do not blindly follow them.
 
-The current build is a simulation, not the Guardian versus Rogue AI game. It uses real market data, a model risk curve and 10,000 sampled futures. The latest owner notes in tasks 1 and 5 set today's clock display to the Bulletin's 85 seconds; the forecast sets its pace. Hacker News and the LLM panel are out of this phase. MiroFish uses X only, in English. Clearly label simulations and disclose limits in the data.
+The current build is a simulation; the game layer was dropped on 25 Oct. It uses real market data, a model risk curve and 10,000 sampled futures. The latest owner notes in tasks 1 and 5 set today's clock display to the Bulletin's 85 seconds; the forecast sets its pace. Hacker News and the LLM panel are out of this phase. MiroFish uses X only, in English. Clearly label simulations and disclose limits in the data.
 
 Before editing, inspect git status and the running agents. If Herdr is available, use herdr agent list and herdr tab list to find the Lead. Ask the Lead for current ownership, work in progress, blockers and recent check results. Do not overwrite another agent's work. The Lead continues to assign work, review changes, commit and push. Coordinate the task and file scope with it. Do not stage unrelated files.
 

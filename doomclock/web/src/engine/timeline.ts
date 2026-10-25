@@ -94,7 +94,7 @@ export function buildTimeline(world: World, pick: Pick): Timeline {
     };
   });
 
-  return { schema: "doomclock.timeline/1", asOf: world.asOf, frames, clock: withSeconds(today.clock, perYear), line: "real", future };
+  return { schema: "doomclock.timeline/1", asOf: world.asOf, frames, clock: withSeconds(today.clock, perYear), future };
 }
 
 // ---------- the clock ----------

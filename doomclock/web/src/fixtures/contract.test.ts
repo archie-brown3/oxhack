@@ -14,10 +14,7 @@ const files: [string, object, URL][] = [
   ['state', fx.state, new URL('state.json', dataDir)],
   ['market-inputs', fx.marketInputs, new URL('market-inputs.json', dataDir)],
   ['signal-inputs', fx.signalInputs, new URL('signal-inputs.json', dataDir)],
-  ['cards', fx.cards, new URL('cards.json', dataDir)],
-  ['card-reactions', fx.cardReactions, new URL('card-reactions.json', dataDir)],
   ['backtest', fx.backtest, new URL('backtest.json', dataDir)],
-  ['world', fx.world, new URL('rounds/year-1.json', dataDir)],
 ]
 
 for (const [name, fixture, url] of files) {
@@ -42,8 +39,7 @@ test('state nodes are the four anchors, in sim order', () => {
   )
 })
 
-test('card price is −log₂(p) and nudges stay clamped', () => {
-  for (const c of fx.cards.cards) assert.ok(Math.abs(c.priceBits + Math.log2(c.p)) < 0.01, c.id)
+test('panel nudges stay clamped', () => {
   for (const p of fx.state.panel.personas)
     for (const n of Object.values(p.nudges)) assert.ok(Math.abs(n.dlogit) <= 0.5)
 })

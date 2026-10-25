@@ -1,6 +1,5 @@
-// The walkthrough's steps, as data. Each asks for one thing in ordinary words. The game lane
-// replaces the 'game' step (same id) once the Guardian's moves exist.
-import { TwoLine, type LinePoint } from '../ui/chart/TwoLine.tsx'
+// The walkthrough's steps, as data. Each asks for one thing in ordinary words.
+import { ForecastChart, type LinePoint } from '../ui/chart/ForecastChart.tsx'
 import { dmy } from '../ui/format.ts'
 import type { TourStep } from './Tour.tsx'
 
@@ -40,13 +39,13 @@ export function tourSteps(c: TourContext): TourStep[] {
       on: { event: 'click', selector: '.dc-play', key: ' ' },
     },
     {
-      id: 'game',
-      title: 'Your move',
+      id: 'chart',
+      title: 'Why this date',
       body: <>
-        <p>In the game you play the Guardian against a Rogue AI. Your moves bend <b>your timeline</b>. The real forecast never moves, so you always see what you changed.</p>
-        <TwoLine real={c.real} yours={null} width={320} height={130} years={10} />
+        <p>The line is the chance of an AI catastrophe by each date. The clock shows the day it passes 1 in 10. It is an estimate from the data on this page, not a prediction we are sure of.</p>
+        <ForecastChart real={c.real} width={320} height={130} years={10} />
       </>,
-      ask: 'Find the 1-in-10 line on the chart.',
+      ask: 'Find where the line crosses 1 in 10.',
     },
     {
       id: 'track', target: '#clock',

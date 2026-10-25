@@ -1,11 +1,7 @@
 // One typed fixture per contract. The type annotations make `tsc` fail on drift.
 export { backtest } from './backtest.ts'
-export { cardReactions } from './card-reactions.ts'
-export { cards } from './cards.ts'
-export { game } from './game.ts'
 export { marketInputs } from './market-inputs.ts'
 export { markets } from './markets.ts'
 export { signalInputs } from './signal-inputs.ts'
 export { simResult } from './sim.ts'
 export { state } from './state.ts'
-export { world } from './world.ts'

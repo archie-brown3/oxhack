@@ -9,7 +9,7 @@ A **Monte Carlo simulation**, not a game.
 - A Plague Inc-style **World** view plays **one sampled future at a time**.
 - An **analog Doomsday Clock** reads the forecast.
 - The MiroFish society is visible in a separate **Engine** screen.
-- The game (Guardian vs Rogue AI) is phase 2, on the same screen. Keep its slots empty: the left edge, the top-centre strip, and a red/blue "your timeline" hand.
+- The game layer (Guardian, Rogue AI, cards, "your timeline") was dropped on 25 Oct; MiroFish plays 5 representative futures.
 
 ## Design system (binding)
 
@@ -94,6 +94,6 @@ Inputs (with the as-of slider) → **Run live** (the Monte Carlo in the browser,
 
 - **Mockup:** `.lavish/prototype/**` only, reviewed in Lavish.
 - **Build** (after approval): `doomclock/web/src/ui/{world,clock,why,track,inputs,engine}/**`.
-- Render a `Timeline` and `ClockReading` (`contracts.ts`), never game state. Import the engine; never port `sim.ts` into the UI again.
+- Render a `Timeline` and `ClockReading` (`contracts.ts`), nothing else. Import the engine; never port `sim.ts` into the UI again.
 - Check your own work with headless screenshots, and don't open windows on Archie's screen repeatedly.
 - No paid calls, no MiroFish POSTs and no commits (the Lead commits).

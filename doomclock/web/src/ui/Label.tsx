@@ -15,8 +15,8 @@ const STYLE: Record<LabelKind, 'real' | 'sim' | 'rule'> = {
   'rules-only': 'rule', 'game-rule': 'rule', heuristic: 'rule',
 }
 
-/** The label for an event or frame's provenance. A player's move is a game rule. */
-export const labelOf = (p: Provenance): LabelKind => (p === 'player' ? 'game-rule' : p)
+/** The label for an event or frame's provenance. */
+export const labelOf = (p: Provenance): LabelKind => p
 
 /** One label. `children` may reword it ("Real forecast"); the kind stays one of the seven. */
 export function Label({ kind, children, title }: { kind: LabelKind; children?: ReactNode; title?: string }) {

@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "publish:cache": "node scripts/publish-cache.ts",
-    "test": "tsc --noEmit -p tsconfig.app.json && node --test src/engine/ src/game/ src/ui/ src/fixtures/contract.test.ts ../pipeline/asof/",
+    "test": "tsc --noEmit -p tsconfig.app.json && node --test src/engine/ src/game/cast.test.ts src/ui/ src/fixtures/contract.test.ts ../pipeline/asof/",
     "tokens": "node ../../.lavish/prototype/gen-tokens.mjs src/styles/tokens.css && grep -v fonts.googleapis ../../context/design-system/components/bundle.css > src/styles/ds.css"
   },
   "dependencies": {

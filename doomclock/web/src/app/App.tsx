@@ -1,5 +1,5 @@
-// Phase 1: the World screen with the clock, Inputs and Why this time? (with Track record).
-// Renders the engine's Timeline and ClockReading (contracts.ts); never game state.
+// The World screen with the clock, Inputs and Why this time? (with Track record).
+// Renders the engine's Timeline and ClockReading (contracts.ts).
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { WorldEvent, WorldFrame } from '../contracts.ts'
 import { buildTimeline, PICKS, type Pick } from '../engine/timeline.ts'
@@ -15,7 +15,7 @@ import { backtest } from '../fixtures/backtest.ts'
 import { countryAt, countryName, load, loadTrack, type Data } from './data.ts'
 import { Tour, tourDone } from './Tour.tsx'
 import { tourSteps } from './tourSteps.tsx'
-import { forecastLine } from '../ui/chart/TwoLine.tsx'
+import { forecastLine } from '../ui/chart/ForecastChart.tsx'
 
 // The globe (three.js) and the Engine screen load in their own chunks, so the clock paints first.
 // The globe chunk starts downloading at once, alongside the data.
