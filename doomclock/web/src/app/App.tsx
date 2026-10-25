@@ -63,7 +63,6 @@ function World({ data }: { data: Data }) {
   const [pop, setPop] = useState<{ e: Located; anchor: HTMLElement } | null>(null)
   const [view, setView] = useState<'world' | 'engine'>(params.get('view') === 'engine' || liveDemo ? 'engine' : 'world')
   const [feedOpen, setFeedOpen] = useState(false)
-  const [maxed, setMaxed] = useState<'graph' | 'cast' | null>(null)
   // The Engine screen (owner redesign in progress) still takes its old props.
 
   const frame = frames[cur]
@@ -140,13 +139,12 @@ function World({ data }: { data: Data }) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.metaKey || e.ctrlKey || e.altKey || (e.target as HTMLElement).closest('input,textarea')) return
-      if (e.key === 'Escape') { if (feedOpen) return setFeedOpen(false); if (maxed) return setMaxed(null); setSheet(null); setPop(null); return }
+      if (e.key === 'Escape') { if (feedOpen) return setFeedOpen(false); setSheet(null); setPop(null); return }
       if (sheet) return
       const k = e.key.toLowerCase()
       if (k === 'e') setView(view === 'engine' ? 'world' : 'engine')
-      else if (k === 'f' && view === 'engine') setMaxed(maxed ? null : 'graph')
       else if (e.key === '?') setTouring(true)
-      else if (e.key === ' ' && !(e.target as HTMLElement).closest('button,[role=button],[role=slider]')) { e.preventDefault(); if (playing) setPlaying(false); else play() }
+      else if (e.key === ' ' && !(e.target as HTMLElement).closest('[role=slider],.mf')) { e.preventDefault(); if (playing) setPlaying(false); else play() } // also after a click left focus on a tab button
       else if (e.key === 'ArrowRight' && !(e.target as HTMLElement).closest('[role=slider]')) { setPlaying(false); go(cur + 1, true) }
       else if (e.key === 'ArrowLeft' && !(e.target as HTMLElement).closest('[role=slider]')) { setPlaying(false); go(cur - 1, false) }
     }
