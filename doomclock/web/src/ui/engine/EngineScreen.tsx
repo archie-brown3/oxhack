@@ -60,15 +60,16 @@ export function EngineScreen({ futureId, step }: Props) {
     return graphAt(data.step.graph, cutoffAt(data.step, r))
   }, [data, mf, round, rounds])
 
-  const go = (n: number) => { setMf(Math.max(1, Math.min(5, n))); log(t('log.enterStep', { step: n, name: tm('main.stepNames')[n - 1] })) }
+  // Steps 4-5 (report, interaction) read best full width; Steps 1-3 go back to the split with the graph.
+  const go = (n: number) => { setMf(Math.max(1, Math.min(5, n))); setMode(n >= 4 ? 'workbench' : 'split'); log(t('log.enterStep', { step: n, name: tm('main.stepNames')[n - 1] })) }
   const toggleMax = () => setMode((m) => (m === 'graph' ? 'split' : 'graph'))
 
   const phase = mf === 3 ? 3 : 2
   const simulating = mf === 3 && playing && round < rounds
   const status = !data ? ['processing', 'Loading'] : simulating ? ['processing', 'Running'] : mf === 3 ? ['completed', 'Completed'] : mf === 4 ? ['completed', 'Completed'] : ['completed', 'Ready']
 
-  const left = mode === 'graph' ? { width: '100%' } : mode === 'workbench' ? { width: '0%', opacity: 0 } : { width: '50%' }
-  const right = mode === 'workbench' ? { width: '100%' } : mode === 'graph' ? { width: '0%', opacity: 0 } : { width: '50%' }
+  const left = mode === 'graph' ? { width: '100%' } : mode === 'workbench' ? { width: '0%', opacity: 0 } : { width: '40%' }
+  const right = mode === 'workbench' ? { width: '100%' } : mode === 'graph' ? { width: '0%', opacity: 0 } : { width: '60%' }
 
   return (
     <div id="engine-replica" className="mf" role="region" aria-label="MiroFish replica">
@@ -93,7 +94,7 @@ export function EngineScreen({ futureId, step }: Props) {
 
       <main className="mf-content">
         <div className="mf-panel left" style={left}>
-          <GraphPanel graph={graph} currentPhase={phase} isSimulating={simulating} recorded onToggleMaximize={toggleMax} />
+          <GraphPanel graph={graph} currentPhase={phase} isSimulating={simulating} recorded legend={mode === 'graph'} onToggleMaximize={toggleMax} />
           {mf === 3 && rounds > 0 && (
             <div className="mf-replay" aria-label="Round replay">
               <button className="mf-btn" onClick={() => { if (round >= rounds) setRound(0); setPlaying(!(playing && round < rounds)) }}>{playing && round < rounds ? 'Pause' : round >= rounds ? 'Replay' : 'Play'}</button>

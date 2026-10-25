@@ -13,6 +13,8 @@ export interface GraphPanelProps {
   loading?: boolean
   /** A saved recording. Refresh only rearranges the drawing, and the live "still processing" toast stays off. */
   recorded?: boolean
+  /** Show the Entity Types legend (off in the half-width Split view, where it covered the graph). */
+  legend?: boolean
   onToggleMaximize: () => void
 }
 export interface Step1Props { project: ReplicaProject; graph: GraphData | null; logs: LogLine[]; onNext: () => void }
