@@ -24,10 +24,11 @@
 .mf-live-log .mono { opacity: 0.6; margin-right: 8px; }
 .mf-live .mf-tag.live { font-weight: 700; }
 /* Step 5, live: the report-agent chat and the interview side by side. */
-.mf-live-step5 { display: flex; flex-direction: column; height: 100%; padding: 16px 20px; box-sizing: border-box; gap: 12px; }
+/* replica.css centres .mf-step5 as a grid and caps .mf-step5-card at 420px; the live pane fills its panel instead. */
+.mf-step5.mf-live-step5 { display: flex; flex-direction: column; place-items: initial; height: 100%; width: 100%; min-width: 0; padding: 16px 20px; box-sizing: border-box; gap: 12px; overflow: auto; }
 .mf-live-step5 h2 small { font-size: 12px; font-weight: normal; opacity: 0.65; margin-left: 8px; }
-.mf-live-chat { display: flex; gap: 14px; flex: 1; min-height: 0; }
-.mf-live-card { flex: 1; display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+.mf-live-chat { display: flex; flex-wrap: wrap; gap: 14px; flex: 1; min-height: 0; align-content: flex-start; }
+.mf-step5-card.mf-live-card { flex: 1 1 340px; max-width: none; display: flex; flex-direction: column; gap: 6px; min-width: 0; min-height: 320px; }
 .mf-live-msgs { flex: 1; overflow: auto; min-height: 120px; margin: 8px 0; }
 .mf-live-msg { padding: 8px 10px; margin: 6px 0; border: 1px solid rgba(127,127,127,0.3); white-space: pre-wrap; font-size: 13px; line-height: 1.45; max-width: 92%; }
 .mf-live-msg.user { margin-left: auto; font-weight: 600; }
