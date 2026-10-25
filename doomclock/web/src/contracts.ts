@@ -460,35 +460,48 @@ export interface WorldPost {
 
 // ---------- data/backtest.json ----------
 
-export type BaselineName = 'coin' | 'baseRate' | 'market' | 'blindLlm' | 'panel'
+export type BaselineName = 'coin' | 'baseRate' | 'market' | 'blindLlm' | 'blend' | 'panel'
 
 /**
- * `data/backtest.json`. Owner: backtest. The full shape is in the backtest spec (not written yet).
- * This draft has only the minimum the UI needs, per plan §5.
- * ASSUMPTIONS:
- * - `schema` is `doomclock.backtest/1` (the plan gives none).
- * - `panel` can be null for "panel not run" (plan cut C4).
- * - Paired-diff and reliability field names are guesses.
+ * `data/backtest.json`, written by doomclock/pipeline/backtest/run.ts. Owner: backtest.
+ * Design: docs/data/backtest.md. Resolved YES/NO AI questions (Manifold, Polymarket, Kalshi),
+ * forecast at T = resolution − 30 days; split by date (train resolved before the cut, test
+ * forecast after it). `panel` is null: the news panel is not backtested; `blend` is the market
+ * nudged by the blind model with the w picked on train.
  */
 export interface BacktestFile {
   schema: 'doomclock.backtest/1'
-  model: { id: string; trainingCutoff: string }
-  /** Date split, "2026-01-01". Earlier half picks `w`, later half reports the score. */
-  split: string
-  n: { train: number; test: number }
-  scores: { test: Record<Exclude<BaselineName, 'panel'>, Score> & { panel: Score | null } }
-  /** Paired Brier deltas (block bootstrap). */
+  /** 'pilot' when the blind model was asked only a sample of the pool. */
+  label: 'full' | 'pilot'
+  generatedAt: IsoTime
+  model: { id: string; trainingCutoff: string; earliestT: IsoTime; promptVersion: number }
+  design: { horizonDays: number; minTradersManifold: number; wGrid: number[]; bootstrap: string; baseRate: Record<string, Prob> }
+  /** The cut date. Test questions were forecast on or after it. */
+  split: IsoTime
+  n: { pool: number; scored: number; train: number; test: number; gap: number; events: number; bySource: Record<string, { pool: number; test: number }>; dropped: Record<string, Record<string, number>> }
+  llm: { asked: number; parsed: number; parseRate: number }
+  scores: {
+    test: Record<Exclude<BaselineName, 'panel'>, Score> & { panel: Score | null }
+    bySource: Record<string, { n: number; yesShare: Prob; market: Score; coin: Score; baseRate: Score; blindLlm: Score | null }>
+  }
+  /** Paired Brier deltas on the test half (event-clustered bootstrap). */
   pairedDiffs: PairedDiff[]
   /** The weight the data chose, on the train half. */
   wChosen: number
+  w: { chosen: number; trainScores: { w: number; brier: number }[]; trainN: number; test: { blend: Score; market: Score; diff: PairedDiff }; text: string }
+  /** Market price reliability on the test half, 10 equal bins, empty ones left out. */
   reliability: ReliabilityBin[]
+  reliabilityLlm: ReliabilityBin[]
   headline: { text: string }
-  leakage: { canary: { passed: boolean; note: string } }
+  leakage: { canary: { passed: boolean; note: string }; checks: { name: string; passed: boolean; detail: string }[] }
+  cost: { usd: number; calls: number; note: string }
+  caveats: string[]
 }
 
 export interface Score {
   brier: number
   ci95: [number, number]
+  n?: number
 }
 
 export interface PairedDiff {
@@ -497,6 +510,7 @@ export interface PairedDiff {
   b: BaselineName
   delta: number
   ci95: [number, number]
+  n?: number
 }
 
 export interface ReliabilityBin {
@@ -507,6 +521,22 @@ export interface ReliabilityBin {
   meanForecast: Prob
   /** Share of YES outcomes in the bin. */
   observed: Prob
+}
+
+/**
+ * `data/tests/t7.json` (task 122, owner: mirofish-world). Only the fields Track record reads;
+ * ASSUMPTION: these names, since the producer is not written yet. Shown whatever the result.
+ */
+export interface T7File {
+  /** True if p ≤ 0.05 and the mean difference ≥ 0.15. */
+  pass?: boolean
+  /** Exact one-sided Wilcoxon signed-rank p. */
+  p?: number
+  /** Mean treatment − control decision score over the 13 institutions. */
+  meanDiff?: number
+  /** The claim wording the result supports, as a plain sentence. */
+  claim?: string
+  [k: string]: unknown
 }
 
 // ---------------------------------------------------------------------------

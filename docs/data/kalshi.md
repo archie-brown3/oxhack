@@ -12,17 +12,17 @@
 Common: `ts, source:"kalshi", kind, id:"kalshi:<ticker>", url` (series page; per-market URLs are not stable), `series, event`.
 All times are ISO UTC to the second (no ms); sub-second source times are rounded up.
 - `kind=market`: `ts` = `open_time` (when it became tradable). `core` (true for KXAGICO/KXUSTAKEOVER), `title, subtitle, close_time, volume, rules_primary, rules_secondary`.
-- `kind=price`: `ts` = end of the daily candle (UTC). That can be up to a day after the last trade, which is conservative for `ts < T`, so it is left unchanged. `p` = yes price in dollars/probability: last trade close, else previous trade, else bid/ask mid. Also `bid, ask, volume, open_interest`. Days with no price information are dropped.
+- `kind=price`: `ts` = end of the daily candle (UTC). That can be up to a day after the last trade, which is conservative for `ts < T`, so it is left unchanged. `p` = yes price in dollars/probability: last trade close, else previous trade, else bid/ask mid. Also `bid, ask, volume, open_interest`. Days with no price information are dropped. Live candles name fields `close_dollars`, `volume_fp`; historical (settled) candles use bare `close`, `volume`, also in dollars. Both are read (before 25 Oct 2026 the bare form was skipped, so 1,265 settled markets had no prices).
 - `kind=resolution`: `ts` = `settlement_ts`, `result` YES|NO. Void/scalar results are dropped.
-- Backtest pool: resolution records with >= 2 price points (the `id` joins market/price/resolution): 1,980 questions. Point-in-time use: filter `ts < T`; a market's resolution only counts when its resolution `ts < T`.
+- Backtest pool: resolution records with >= 2 price points (the `id` joins market/price/resolution): 3,244 questions. Point-in-time use: filter `ts < T`; a market's resolution only counts when its resolution `ts < T`.
 
 ## Quirks and caveats
 - Window 24 Oct 2024 → 24 Oct 2026, but almost nothing before Jan 2026: the AI series are new (KXAGICO created Mar 2026). There is no 2024-25 Kalshi history.
 - Thin at long dates: KXAGICO 2031 is priced below 2030. Many series are noisy strike ladders (Vercel/token share, `KXTOPMODEL`); filter by `series` before use.
 - **Rules caveat:** KXAGICO resolves on a company *officially announcing it achieved AGI* ("AGI-like/near-AGI" statements do not count) — a much lower bar than Manifold's ASI. Read `rules_primary/secondary` per market; resolution wording differs between series.
-- Candle `price` fields are empty on days without trades; `p` then falls back to bid/ask mid or the previous price, so it is a quote, not a trade.
+- Candle `price` fields are empty on days without trades; `p` then falls back to bid/ask mid or the previous price, so it is a quote, not a trade. On thin days the spread can be 0 to 1, so the mid (0.5) carries no information.
 
-52513 records (market 3648, price 45594, resolution 3271), clean file 16.2 MB, raw cache 67 MB.
+90258 records (market 3648, price 83339, resolution 3271), clean file 25.9 MB, raw cache 67 MB.
 
 ## Records per month (by ts)
 

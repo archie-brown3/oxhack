@@ -1,0 +1,26 @@
+{
+ "schema": "doomclock.t8-pilot/1",
+ "model": "google/gemini-2.5-flash",
+ "trainingCutoff": "2025-01-31",
+ "earliestT": "2025-03-01T00:00:00Z",
+ "eligible": 2371,
+ "runs": [
+  {
+   "promptVersion": 1,
+   "n": 40,
+   "parsed": 35,
+   "parseRate": 0.875,
+   "costUsd": 0.0232
+  },
+  {
+   "promptVersion": 2,
+   "n": 40,
+   "parsed": 40,
+   "parseRate": 1,
+   "costUsd": 0.0019
+  }
+ ],
+ "extrapolatedFullCostUsd": 0.1144,
+ "leakageChecksPassed": true,
+ "note": "v1 let the model refuse (5 of 40 gave no number); v2 forces the JSON shape and is the version scored. Prompt changes were judged on parse rate only, never on accuracy."
+}

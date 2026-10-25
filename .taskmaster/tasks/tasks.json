@@ -160,15 +160,15 @@
         "id": 6,
         "title": "[P1 \u00b7 backtest] Track record: are the inputs calibrated?",
         "description": "On resolved AI binary questions in data/clean (Manifold, Polymarket), score the market price at T (resolution - 30 d, outcome-blind) against a 50% coin and the base rate: Brier with a bootstrap CI and a 10-bin reliability curve. Writes data/backtest.json.",
-        "details": "Lane backtest. Scope: doomclock/pipeline/backtest/**, data/backtest.json, docs/data/backtest.md. No LLM in phase 1. Disclose survivorship and the \u226520-trader filter.\nSCOPE CUT 24 Oct 22:20: Reduced: market Brier vs coin vs base rate + reliability, out of sample. Checkpoint 06:00.\nBLOCKER from the data sign-off: clean-kalshi.ts skips unsuffixed candle fields, so 1,265 of 3,271 resolved Kalshi markets have no prices. Fix it before the backtest (or score Manifold + Polymarket only, disclosed).",
+        "details": "Lane backtest. Scope: doomclock/pipeline/backtest/**, data/backtest.json, docs/data/backtest.md. No LLM in phase 1. Disclose survivorship and the \u226520-trader filter.\nSCOPE CUT 24 Oct 22:20: Reduced: market Brier vs coin vs base rate + reliability, out of sample. Checkpoint 06:00.\nBLOCKER from the data sign-off: clean-kalshi.ts skips unsuffixed candle fields, so 1,265 of 3,271 resolved Kalshi markets have no prices. Fix it before the backtest (or score Manifold + Polymarket only, disclosed).\n2026-10-25T00:14:44Z: Backtest lane started: fixing clean-kalshi.ts candle fields first.\n2026-10-25T00:23:47Z: Landed. clean-kalshi.ts now reads both candle field forms (live _dollars/_fp and historical bare names); Kalshi resolved markets with prices went from 2,006 to 3,271 (3,244 with 2+ points). Backtest in doomclock/pipeline/backtest/ (pool.ts, score.ts, run.ts) writes data/backtest.json: 2,371 resolved AI questions (Manifold 801, Polymarket 1,223, Kalshi 347), T = resolution - 30 d, price = last row with ts < T, T >= 2025-03-01 for every method. Split at the median T (2026-03-01): train = resolved before the cut (1,132), test = forecast after it (1,186), 53 in the gap. Test Brier: market 0.085 (95% CI 0.071-0.101), base rate 0.183 (0.162-0.210), coin 0.250. CIs resample whole events (378 test events). 10-bin reliability for market and model. Five computed leakage checks pass. Tests: node --test doomclock/pipeline/backtest/ doomclock/pipeline/lib/ 13 of 13 pass (Brier maths, bootstrap, bins, w pick, purged date split, price-at-T fixture with poison rows). Docs: docs/data/backtest.md.",
         "testStrategy": "A fixture test of the Brier maths and priceAt. backtest.json has n, brier per method with CI, and reliability bins.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           2
         ],
         "priority": "high",
         "subtasks": [],
-        "updatedAt": "2026-10-24T21:50:00Z"
+        "updatedAt": "2026-10-25T00:23:47Z"
       },
       {
         "id": 7,
@@ -290,15 +290,15 @@
         "id": 106,
         "title": "[P2 \u00b7 backtest] Backtest harness and T8 pilot",
         "description": "Builds the leakage-safe backtest and runs the T8 pre-build test on a pilot sample.",
-        "details": "There is no backtest code yet; src/fixtures/backtest.ts is only a fixture. Build doomclock/pipeline/backtest/:\n- T = 2026-01-01.\n- Pool: Manifold questions open at T (429, of which 106 resolved YES), from data/clean/manifold.jsonl.\n- priceAt(q, T) asserts every price ts < T.\n- Blind baseline: a Gemini model on OpenRouter whose training cutoff + 1 month \u2264 T.\n\nRun a pilot of about 40 questions. Spend goes through the shared key under CAP_USD=10, with a pilot budget of \u2264 $1.50.\nDeadline (from plan): Sat 24 Oct 21:15 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "details": "There is no backtest code yet; src/fixtures/backtest.ts is only a fixture. Build doomclock/pipeline/backtest/:\n- T = 2026-01-01.\n- Pool: Manifold questions open at T (429, of which 106 resolved YES), from data/clean/manifold.jsonl.\n- priceAt(q, T) asserts every price ts < T.\n- Blind baseline: a Gemini model on OpenRouter whose training cutoff + 1 month \u2264 T.\n\nRun a pilot of about 40 questions. Spend goes through the shared key under CAP_USD=10, with a pilot budget of \u2264 $1.50.\nDeadline (from plan): Sat 24 Oct 21:15 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.\n2026-10-25T00:23:47Z: Landed with T = resolution - 30 d per the lane design (not the single T = 2026-01-01 in the older note), so market, model and blend share one pool. 2,371 eligible questions (>= 300). Pilot of 40 (seeded sample): prompt v1 parsed 35/40 (/bin/zsh.023), so v2 adds a JSON schema and 'never refuse': 40/40 parsed (/bin/zsh.0019); changes judged on parse rate only. Extrapolated full cost /bin/zsh.11 (<= ). The model sees only question text and the date; a computed check compares every saved request with prompt(question, T). data/tests/t8-pilot.json has model id, cutoff, n, parse rate and cost. Every API body saved under data/raw/backtest/ before parsing.",
         "testStrategy": "- The leakage asserts pass.\n- At least 300 eligible questions are printed.\n- Pilot parse rate \u2265 95%.\n- Extrapolated full-run cost \u2264 $3.\n- data/tests/t8-pilot.json records the model id, cutoff, n, parse rate and cost.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           102
         ],
         "priority": "medium",
         "subtasks": [],
-        "updatedAt": "2026-10-24T19:50:00Z"
+        "updatedAt": "2026-10-25T00:23:47Z"
       },
       {
         "id": 107,
@@ -465,15 +465,15 @@
         "id": 118,
         "title": "[P2 \u00b7 backtest] Full backtest run and backtest.json",
         "description": "The REAL Track record result. It mostly runs in the background, and it pauses while the society is being recorded.",
-        "details": "Once the T8 pilot passes, run the full eligible pool (n \u2265 300) with the doomclock/pipeline/backtest harness. Budget \u2264 $3 on the shared key under CAP_USD=10.\n\nPause the run 00:30\u201302:00 UTC so the recording has budget priority and the guard can't kill the backend. Write doomclock/web/src/game/data/backtest.json.\n\nCut-line 7: at 05:00, if the full run is not done, ship the pilot result labelled 'pilot'. The agent's effort is about 2 h; the rest is wall-clock run time.\nDeadline (from plan): Sun 25 Oct 05:00 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.",
+        "details": "Once the T8 pilot passes, run the full eligible pool (n \u2265 300) with the doomclock/pipeline/backtest harness. Budget \u2264 $3 on the shared key under CAP_USD=10.\n\nPause the run 00:30\u201302:00 UTC so the recording has budget priority and the guard can't kill the backend. Write doomclock/web/src/game/data/backtest.json.\n\nCut-line 7: at 05:00, if the full run is not done, ship the pilot result labelled 'pilot'. The agent's effort is about 2 h; the rest is wall-clock run time.\nDeadline (from plan): Sun 25 Oct 05:00 UTC.\nOut of scope for the hackathon (24 Oct scope cut): roadmap line in the pitch only.\n2026-10-25T00:23:48Z: Full run finished 00:21 UTC, before the 00:30-02:00 pause: 2,371 asked, 2,351 parsed (99.2%), total lane spend /bin/zsh.138 from OpenRouter usage.cost (cap ). w picked on the earlier half from 0..1 in 0.1 steps: w = 0 wins (train Brier 0.075 at w=0 vs 0.178 at w=1), so the blend equals the market on test; reported honestly. Blind model alone on test: 0.185 (0.166-0.208), worse than the market by 0.100 (CI 0.084-0.118), about level with the base rate. Written to data/backtest.json (label 'full'), not src/game/data/, and copied to doomclock/web/public/cache/backtest.json for the browser. Forecasts committed in doomclock/pipeline/backtest/forecasts.jsonl so run.ts reruns without the raw cache.",
         "testStrategy": "backtest.json has n \u2265 300, the leakage asserts pass, parse \u2265 95%, and the total cost (\u2264 $3) is logged. Otherwise, by 05:00, the pilot result ships with label 'pilot'.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           106
         ],
         "priority": "low",
         "subtasks": [],
-        "updatedAt": "2026-10-24T19:50:00Z"
+        "updatedAt": "2026-10-25T00:23:48Z"
       },
       {
         "id": 119,
@@ -982,7 +982,7 @@
       "version": "1.0.0",
       "lastModified": "2026-10-25T00:23:52Z",
       "taskCount": 66,
-      "completedCount": 15,
+      "completedCount": 18,
       "tags": [
         "master"
       ]

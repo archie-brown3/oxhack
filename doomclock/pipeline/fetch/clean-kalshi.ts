@@ -27,10 +27,12 @@ for (const series of await readdir(join(dir, "markets"))) {
       if ((result === "YES" || result === "NO") && settled) recs.push({ ...common, ts: settled, kind: "resolution", result });
       for (const c of JSON.parse(await readFile(cf, "utf8")).candlesticks ?? []) {
         if (c.end_period_ts * 1000 < CUT) continue;
-        const bid = Number(c.yes_bid?.close_dollars), ask = Number(c.yes_ask?.close_dollars);
-        const p = c.price?.close_dollars ?? c.price?.previous_dollars ?? (bid >= 0 && ask >= 0 ? (bid + ask) / 2 : null);
+        // Live candles suffix fields with _dollars/_fp; historical candles use bare names (also dollars).
+        const px = (o: Record<string, string> | undefined, k: string) => o?.[`${k}_dollars`] ?? o?.[k];
+        const bid = Number(px(c.yes_bid, "close")), ask = Number(px(c.yes_ask, "close"));
+        const p = px(c.price, "close") ?? px(c.price, "previous") ?? (bid >= 0 && ask >= 0 ? (bid + ask) / 2 : null);
         if (p == null) continue;
-        recs.push({ ...common, ts: iso(c.end_period_ts * 1000)!, kind: "price", p: Number(p), bid: bid || null, ask: ask || null, volume: Number(c.volume_fp), open_interest: Number(c.open_interest_fp) });
+        recs.push({ ...common, ts: iso(c.end_period_ts * 1000)!, kind: "price", p: Number(p), bid: bid || null, ask: ask || null, volume: Number(c.volume_fp ?? c.volume), open_interest: Number(c.open_interest_fp ?? c.open_interest) });
       }
     }
   }

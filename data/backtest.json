@@ -1,0 +1,550 @@
+{
+ "schema": "doomclock.backtest/1",
+ "label": "full",
+ "generatedAt": "2026-10-25T00:21:49Z",
+ "model": {
+  "id": "google/gemini-2.5-flash",
+  "trainingCutoff": "2025-01-31",
+  "earliestT": "2025-03-01T00:00:00Z",
+  "promptVersion": 2
+ },
+ "design": {
+  "horizonDays": 30,
+  "minTradersManifold": 20,
+  "wGrid": [
+   0,
+   0.1,
+   0.2,
+   0.3,
+   0.4,
+   0.5,
+   0.6,
+   0.7,
+   0.8,
+   0.9,
+   1
+  ],
+  "bootstrap": "2,000 resamples of whole events (a Polymarket event or Kalshi ladder is one cluster)",
+  "baseRate": {
+   "manifold": 0.304,
+   "polymarket": 0.122,
+   "kalshi": 0.169
+  }
+ },
+ "split": "2026-03-01T20:05:59Z",
+ "n": {
+  "pool": 2371,
+  "scored": 2371,
+  "train": 1132,
+  "test": 1186,
+  "gap": 53,
+  "events": 378,
+  "bySource": {
+   "manifold": {
+    "pool": 801,
+    "test": 194
+   },
+   "polymarket": {
+    "pool": 1223,
+    "test": 804
+   },
+   "kalshi": {
+    "pool": 347,
+    "test": 188
+   }
+  },
+  "dropped": {
+   "manifold": {
+    "T before model cutoff + 1 month": 516,
+    "not YES/NO": 70,
+    "opened after T": 178,
+    "no price before T": 1
+   },
+   "polymarket": {
+    "T before model cutoff + 1 month": 39,
+    "opened after T": 818,
+    "no price before T": 15
+   },
+   "kalshi": {
+    "T before model cutoff + 1 month": 64,
+    "opened after T": 2799,
+    "no price before T": 61
+   }
+  }
+ },
+ "llm": {
+  "asked": 2371,
+  "parsed": 2351,
+  "parseRate": 0.9916
+ },
+ "scores": {
+  "test": {
+   "market": {
+    "brier": 0.0848,
+    "ci95": [
+     0.0711,
+     0.1006
+    ],
+    "n": 1186
+   },
+   "coin": {
+    "brier": 0.25,
+    "ci95": [
+     0.25,
+     0.25
+    ],
+    "n": 1186
+   },
+   "baseRate": {
+    "brier": 0.1833,
+    "ci95": [
+     0.1621,
+     0.2098
+    ],
+    "n": 1186
+   },
+   "blindLlm": {
+    "brier": 0.1853,
+    "ci95": [
+     0.1655,
+     0.2083
+    ],
+    "n": 1170
+   },
+   "blend": {
+    "brier": 0.0848,
+    "ci95": [
+     0.0711,
+     0.1006
+    ],
+    "n": 1186
+   },
+   "panel": null
+  },
+  "bySource": {
+   "manifold": {
+    "n": 194,
+    "yesShare": 0.407,
+    "market": {
+     "brier": 0.1239,
+     "ci95": [
+      0.0964,
+      0.1535
+     ],
+     "n": 194
+    },
+    "coin": {
+     "brier": 0.25,
+     "ci95": [
+      0.25,
+      0.25
+     ],
+     "n": 194
+    },
+    "baseRate": {
+     "brier": 0.252,
+     "ci95": [
+      0.2258,
+      0.2802
+     ],
+     "n": 194
+    },
+    "blindLlm": {
+     "brier": 0.2885,
+     "ci95": [
+      0.2403,
+      0.3359
+     ],
+     "n": 189
+    }
+   },
+   "polymarket": {
+    "n": 804,
+    "yesShare": 0.187,
+    "market": {
+     "brier": 0.0713,
+     "ci95": [
+      0.0553,
+      0.0902
+     ],
+     "n": 804
+    },
+    "coin": {
+     "brier": 0.25,
+     "ci95": [
+      0.25,
+      0.25
+     ],
+     "n": 804
+    },
+    "baseRate": {
+     "brier": 0.1559,
+     "ci95": [
+      0.1343,
+      0.1817
+     ],
+     "n": 804
+    },
+    "blindLlm": {
+     "brier": 0.147,
+     "ci95": [
+      0.1284,
+      0.1704
+     ],
+     "n": 793
+    }
+   },
+   "kalshi": {
+    "n": 188,
+    "yesShare": 0.303,
+    "market": {
+     "brier": 0.1024,
+     "ci95": [
+      0.061,
+      0.1491
+     ],
+     "n": 188
+    },
+    "coin": {
+     "brier": 0.25,
+     "ci95": [
+      0.25,
+      0.25
+     ],
+     "n": 188
+    },
+    "baseRate": {
+     "brier": 0.2293,
+     "ci95": [
+      0.1492,
+      0.3222
+     ],
+     "n": 188
+    },
+    "blindLlm": {
+     "brier": 0.2428,
+     "ci95": [
+      0.1956,
+      0.2936
+     ],
+     "n": 188
+    }
+   }
+  }
+ },
+ "pairedDiffs": [
+  {
+   "a": "market",
+   "b": "coin",
+   "delta": -0.1652,
+   "ci95": [
+    -0.1796,
+    -0.1486
+   ],
+   "n": 1186
+  },
+  {
+   "a": "market",
+   "b": "baseRate",
+   "delta": -0.0984,
+   "ci95": [
+    -0.1212,
+    -0.0765
+   ],
+   "n": 1186
+  },
+  {
+   "a": "blindLlm",
+   "b": "market",
+   "delta": 0.1003,
+   "ci95": [
+    0.0839,
+    0.1175
+   ],
+   "n": 1170
+  },
+  {
+   "a": "blend",
+   "b": "market",
+   "delta": 0,
+   "ci95": [
+    0,
+    0
+   ],
+   "n": 1186
+  }
+ ],
+ "wChosen": 0,
+ "w": {
+  "chosen": 0,
+  "trainScores": [
+   {
+    "w": 0,
+    "brier": 0.0753
+   },
+   {
+    "w": 0.1,
+    "brier": 0.0764
+   },
+   {
+    "w": 0.2,
+    "brier": 0.0795
+   },
+   {
+    "w": 0.3,
+    "brier": 0.0847
+   },
+   {
+    "w": 0.4,
+    "brier": 0.0919
+   },
+   {
+    "w": 0.5,
+    "brier": 0.1011
+   },
+   {
+    "w": 0.6,
+    "brier": 0.1124
+   },
+   {
+    "w": 0.7,
+    "brier": 0.1257
+   },
+   {
+    "w": 0.8,
+    "brier": 0.1411
+   },
+   {
+    "w": 0.9,
+    "brier": 0.1585
+   },
+   {
+    "w": 1,
+    "brier": 0.1779
+   }
+  ],
+  "trainN": 1128,
+  "test": {
+   "blend": {
+    "brier": 0.0848,
+    "ci95": [
+     0.0711,
+     0.1006
+    ],
+    "n": 1186
+   },
+   "market": {
+    "brier": 0.0848,
+    "ci95": [
+     0.0711,
+     0.1006
+    ],
+    "n": 1186
+   },
+   "diff": {
+    "a": "blend",
+    "b": "market",
+    "delta": 0,
+    "ci95": [
+     0,
+     0
+    ],
+    "n": 1186
+   }
+  },
+  "text": "Mixing in a blind AI model's guess did not help on the earlier questions, so the weight is 0 and the clock uses market prices alone."
+ },
+ "reliability": [
+  {
+   "lo": 0,
+   "hi": 0.1,
+   "n": 637,
+   "meanForecast": 0.025,
+   "observed": 0.017
+  },
+  {
+   "lo": 0.1,
+   "hi": 0.2,
+   "n": 107,
+   "meanForecast": 0.144,
+   "observed": 0.112
+  },
+  {
+   "lo": 0.2,
+   "hi": 0.3,
+   "n": 76,
+   "meanForecast": 0.248,
+   "observed": 0.224
+  },
+  {
+   "lo": 0.3,
+   "hi": 0.4,
+   "n": 49,
+   "meanForecast": 0.352,
+   "observed": 0.347
+  },
+  {
+   "lo": 0.4,
+   "hi": 0.5,
+   "n": 43,
+   "meanForecast": 0.449,
+   "observed": 0.419
+  },
+  {
+   "lo": 0.5,
+   "hi": 0.6,
+   "n": 47,
+   "meanForecast": 0.54,
+   "observed": 0.511
+  },
+  {
+   "lo": 0.6,
+   "hi": 0.7,
+   "n": 38,
+   "meanForecast": 0.648,
+   "observed": 0.816
+  },
+  {
+   "lo": 0.7,
+   "hi": 0.8,
+   "n": 49,
+   "meanForecast": 0.755,
+   "observed": 0.694
+  },
+  {
+   "lo": 0.8,
+   "hi": 0.9,
+   "n": 83,
+   "meanForecast": 0.85,
+   "observed": 0.831
+  },
+  {
+   "lo": 0.9,
+   "hi": 1,
+   "n": 57,
+   "meanForecast": 0.944,
+   "observed": 0.93
+  }
+ ],
+ "reliabilityLlm": [
+  {
+   "lo": 0,
+   "hi": 0.1,
+   "n": 466,
+   "meanForecast": 0.042,
+   "observed": 0.092
+  },
+  {
+   "lo": 0.1,
+   "hi": 0.2,
+   "n": 241,
+   "meanForecast": 0.122,
+   "observed": 0.303
+  },
+  {
+   "lo": 0.2,
+   "hi": 0.3,
+   "n": 150,
+   "meanForecast": 0.225,
+   "observed": 0.36
+  },
+  {
+   "lo": 0.3,
+   "hi": 0.4,
+   "n": 145,
+   "meanForecast": 0.314,
+   "observed": 0.338
+  },
+  {
+   "lo": 0.4,
+   "hi": 0.5,
+   "n": 25,
+   "meanForecast": 0.41,
+   "observed": 0.32
+  },
+  {
+   "lo": 0.5,
+   "hi": 0.6,
+   "n": 43,
+   "meanForecast": 0.541,
+   "observed": 0.163
+  },
+  {
+   "lo": 0.6,
+   "hi": 0.7,
+   "n": 54,
+   "meanForecast": 0.602,
+   "observed": 0.463
+  },
+  {
+   "lo": 0.7,
+   "hi": 0.8,
+   "n": 31,
+   "meanForecast": 0.702,
+   "observed": 0.387
+  },
+  {
+   "lo": 0.8,
+   "hi": 0.9,
+   "n": 5,
+   "meanForecast": 0.85,
+   "observed": 0.6
+  },
+  {
+   "lo": 0.9,
+   "hi": 1,
+   "n": 10,
+   "meanForecast": 0.905,
+   "observed": 0.7
+  }
+ ],
+ "headline": {
+  "text": "30 days before they resolved, market prices scored 0.085 on 1,186 later AI questions. A 50% coin scores 0.250 and the base rate 0.183. Lower is better."
+ },
+ "leakage": {
+  "canary": {
+   "passed": true,
+   "note": "5 of 5 leakage checks passed"
+  },
+  "checks": [
+   {
+    "name": "Every market price used is from before its forecast date",
+    "passed": true,
+    "detail": "2371 prices checked"
+   },
+   {
+    "name": "Every forecast date is 30 days before the question resolved",
+    "passed": true,
+    "detail": "T = resolution − 30 days, the same rule for every question"
+   },
+   {
+    "name": "Every forecast date is at least a month after the model's training cutoff",
+    "passed": true,
+    "detail": "cutoff 2025-01-31, earliest T 2025-03-01"
+   },
+   {
+    "name": "Every training question resolved before the first test forecast",
+    "passed": true,
+    "detail": "cut 2026-03-01; 53 questions in between are used by neither half"
+   },
+   {
+    "name": "The model saw only the question text and the date",
+    "passed": true,
+    "detail": "2371 saved requests compared with the prompt builder, 0 differ"
+   }
+  ]
+ },
+ "cost": {
+  "usd": 0.1377,
+  "calls": 2411,
+  "note": "OpenRouter usage.cost summed over every call, including the 40-call v1 pilot"
+ },
+ "caveats": [
+  "Only questions that have resolved YES or NO are scored. Open, cancelled and N/A questions are left out, so the pool is not every AI question that was asked.",
+  "T is set from each question's resolution date. A question that resolved early (often a YES) is forecast 30 days before that early date, so this measures accuracy 30 days out.",
+  "Manifold uses play money, so its prices are noisier. We keep only Manifold questions with at least 20 traders. Kalshi and Polymarket are real money but some markets are thin.",
+  "Many Polymarket and Kalshi questions are rungs of one ladder or candidates in one event. The confidence intervals resample whole events, so they are wider than a naive count suggests.",
+  "The blind model is google/gemini-2.5-flash with a training cutoff of 31 Jan 2025. It is not deterministic even at temperature 0.",
+  "This scores market prices and the model's nudges on resolved questions. The countdown date itself cannot be scored, and is not."
+ ]
+}
